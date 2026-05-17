@@ -3,7 +3,7 @@
 ## 1. Group Information
 
 - Class: SE1930 
-- Group: Group 7     
+- Group: Group 4     
 - Leader: Ngo Dinh Gia Bao
 - Members: Doan Quoc Thang , Nguyen Minh Triet
 
