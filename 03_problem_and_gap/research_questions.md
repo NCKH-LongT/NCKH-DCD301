@@ -1,10 +1,14 @@
 # Giải thích RQ cho Smart Greenhouse và Research Theme Mạch Multiplexer
 
 - RQ1: Làm thế nào dữ liệu cảm biến IoT thời gian thực có thể tích hợp với kiến thức chuyên môn nông nghiệp để hỗ trợ ra quyết định có thể giải thích được trong nông nghiệp thông minh?
-  - Giải thích: Với domain Smart Greenhouse, nghiên cứu này sẽ thiết kế cách tích hợp dữ liệu real-time từ các sensor nhiệt độ, độ ẩm, độ ẩm đất và ánh sáng với tài liệu kỹ thuật nông nghiệp. Hệ thống sẽ dùng pipeline RAG để truy xuất kiến thức phù hợp và tạo output khuyến nghị có lời giải thích và bằng chứng.
+  - Giải thích: LLM được tích hợp không chỉ trả lời, mà còn phải hiểu dữ liệu sensor trong thời gian thực + truy suất dữ liệu tài liệu nông nghiệp + giải thích được quyết định bằng các evidence thu thập được. Bằng cách thiết kết 1 framework cụ thể: 
+  1. Thu thập dữ liệu từ sensor (nhiệt độ, độ ẩm, độ ẩm đất, ánh sáng)
+  2. Tích hợp kiến thức công nghiệp ( crop manuals, irrigation guides, disease documents thành vector database)
+  3. RAG pipeline( Dùng embendding + vector search để truy xuất tài liệu phù hợp, dựa trên sensor context realtim)
+  4. LLM tạo recommend gửi tín hiệu tới mạch tổng hợp thực hiện actions.
 
 - RQ2: Chất lượng dữ liệu cảm biến ảnh hưởng như thế nào đến độ tin cậy của khuyến nghị AIoT trong nông nghiệp?
-  - Giải thích: RQ này tập trung vào đánh giá dữ liệu cảm biến về missing data, nhiễu, lỗi sensor và dữ liệu mâu thuẫn. Nhóm sẽ xây module đánh giá chất lượng dữ liệu, tính điểm tin cậy và phân tích mức độ lỗi ảnh hưởng đến kết quả khuyến nghị bật quạt, tưới nước, bật đèn, hoặc cảnh báo.
+  - Giải thích: RQ này tập trung vào đánh giá dữ liệu cảm biến về missing data( temp = null) nhiễu, lỗi sensor ( temp=150°C) và dữ liệu đáng nghi (25°C → 60°C → 24°C), dữ liệu mâu thuẫn ( Đất khô nhưng độ ẩm thu được lại trên mức báo động). Nhóm sẽ xây module đánh giá chất lượng dữ liệu, tính điểm tin cậy bao gồm 4 thành phần chính : độ chính xác , độ đầy đủ, tính nhất quán và độ ổn định theo thời gian với trọng (0.4,0.2,0.2,0.2) và phân tích mức độ lỗi ảnh hưởng đến kết quả khuyến nghị bật quạt, tưới nước, bật đèn, hoặc cảnh báo trước khi thực hiện hành động.
 
 - RQ3: Liệu khung Agentic RAG có cải thiện tính liên quan ngữ cảnh và khả năng giải thích của hệ hỗ trợ quyết định nông nghiệp so với phương pháp rule-based hoặc LLM-only không?
   - Giải thích: Nghiên cứu sẽ xây dựng hệ thống Agentic RAG và các baseline so sánh. Mục tiêu là kiểm tra xem Agentic RAG có mang lại đề xuất chính xác hơn, phù hợp ngữ cảnh hơn và giải thích tốt hơn so với rule-based hay chỉ dùng LLM.

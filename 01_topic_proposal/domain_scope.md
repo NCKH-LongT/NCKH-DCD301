@@ -15,7 +15,7 @@ This scope is proposed for a 3-person team to complete in 60 days. The project f
 - Four sensors: temperature, humidity, soil moisture, light
 - Real-time environment monitoring
 - Real-time data analysis
-- Recommendations: turn on fan, turn on irrigation, turn on lights, send alert
+- Recommendations and automated actions: turn on fan, turn on irrigation, turn on lights, send alert
 
 ## Multiplexer Research Theme
 To fit the research theme of combinational circuits, the group will integrate a Multiplexer (MUX) into the Smart Greenhouse system to:
@@ -29,14 +29,14 @@ Example:
 
 ## Why this scope is reasonable
 The scope includes:
-- IoT realtime ✅
-- Data quality ✅
-- RAG ✅
-- Agent workflow ✅
-- Evaluation ✅
-- Multiplexer combinational circuit ✅
-- Baseline comparison ✅
-- Explainable AI ✅
+- IoT realtime 
+- Data quality 
+- RAG 
+- Agent workflow 
+- Evaluation 
+- Multiplexer combinational circuit 
+- Baseline comparison 
+- Explainable AI 
 
 ## Technical Scope
 ### Hardware Layer
@@ -76,10 +76,10 @@ Actions:
 - send alert
 
 Data quality module covers:
-- missing data ✅
-- outliers ✅
-- sensor stuck ✅
-- conflict detection ✅
+- missing data 
+- outliers 
+- sensor stuck 
+- conflict detection 
 
 RAG:
 - 5–10 PDF documents
@@ -98,13 +98,13 @@ No need for:
 - Evaluate missing data, faulty sensors, and conflicting sensor scenarios.
 
 ## Feasibility in 60 days
-- Prototype ✅
-- Multiplexer integration ✅
-- RAG pipeline ✅
-- Agent workflow ✅
-- Evaluation ✅
-- Paper draft ✅
-- Demo ✅
+- Prototype 
+- Multiplexer integration 
+- RAG pipeline 
+- Agent workflow 
+- Evaluation 
+- Paper draft 
+- Demo 
 
 ## Why this is ideal for student research
 This scope balances AI, IoT, digital circuits, RAG, explainability, evaluation, baseline comparison, and contribution, while staying small enough for completion in 60 days with a team of 3 people.

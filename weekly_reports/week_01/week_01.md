@@ -23,8 +23,8 @@ Members: `Doan Quoc Thang , Nguyen Minh Triet`
 
 ## Current Problems
 
-- Chưa hiểu rõ được tính liên quan giữa topic domain và research theme.
-- Chưa xác định được rõ Domain_Scope 
+- Chưa hiểu được cách RAG Agent Framework hoạt động trong sản phẩm.
+- Chưa xác định được rõ Domain_Scope.
 
 ## Plan for Next Week
 
@@ -35,5 +35,5 @@ Members: `Doan Quoc Thang , Nguyen Minh Triet`
 ## Questions for Instructor
 
 - Dataset giả lập có được chấp nhận không?
-- Có thể dùng Gemini API thay cho local model không?
 - Khi demo nghiên cứu khoa học có cần phải có phần cứng thực tế với các thông số điều kiện thực tế không? 
+- Về phần hardware IOT có thể dùng Python để giả lập hay không?

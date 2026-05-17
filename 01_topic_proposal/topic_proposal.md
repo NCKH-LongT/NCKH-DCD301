@@ -10,10 +10,10 @@
 ## 2. Proposed Title
 
 English title:
-“A Data Quality-Aware Agentic RAG Framework for Real-Time Smart Greenhouse Decision Support Using Multiplexer-Based Combinational Circuits”
+““An Agentic LLM-RAG Architecture for Real-Time Smart Agriculture Monitoring and Recommendation””
 
 Vietnamese title:
-"Nghiên cứu khoa học về đề tài Nhà Kính thông minh ứng dụng Agentic RAG phân tích dữ liệu để đưa ra giải pháp hỗ trợ theo thời gian thực với Mạch Tổ Hợp Multiplexer"
+"Nghiên cứu khoa học về đề tài Nhà Kính thông minh ứng dụng Agentic RAG phân tích dữ liệu để đưa ra giải pháp hỗ trợ theo thời gian thực"
 
 ## 3. Application Domain
 
