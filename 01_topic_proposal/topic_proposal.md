@@ -27,7 +27,7 @@ The group focuses on the **Smart Greenhouse Control System** domain, encompassin
 - **Actuators:** Water pumps, ventilation fans, heating lamps, shading screens.
 - **Data Quality:** Filtering noise, handling missing packets, and detecting conflicting sensor anomalies using cross-channel sensor fusion.
 
-*For more details, see:* [domain_scope.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/domain_scope.md)
+*For more details, see:* **domain_scope.md**
 
 ---
 
@@ -39,11 +39,11 @@ The project aims to answer and implement the following foundational sequential c
 3. **RQ9.2:** How does the output of a Sequential Circuit depend on both the current input and the previous state?
 4. **RQ9.3:** What roles do Latch and Flip-Flop play in storing the state of a Sequential Circuit?
 
-*For theoretical solutions, see:* [rq_explanation.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/rq_explanation.md)
+*For theoretical solutions, see:* **rq_explanation.md**
 
 ---
 
 ## 4. Standardized Output Model (JSON Schema)
 The decision support system outputs telemetry diagnostic data and actuator actions using a strict JSON schema conforming 100% to the course guidelines, explicitly containing the mandatory keys: `status`, `action`, `confidence`, and `evidence`.
 
-*For the schema design, see:* [system_output_schema.json](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/system_output_schema.json)
+*For the schema design, see:* **system_output_schema.json**

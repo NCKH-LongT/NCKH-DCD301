@@ -17,12 +17,12 @@ During the first week of the DCD course, the group established the theoretical a
 
 ## 2. What are the specific outputs (files, code, tables)?
 The following deliverables have been successfully pushed to our Git branch:
-1. **[topic_proposal.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/topic_proposal.md):** Project abstract, problem definition, and research goals.
-2. **[domain_scope.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/domain_scope.md):** Detailed agricultural application domain and sequential circuit logic.
-3. **[sensor_action_table.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/sensor_action_table.md):** Tabular mapping of sensors to control states, incorporating data quality fault scenarios (Data Conflict and Fault/Missing).
-4. **[rq_explanation.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/rq_explanation.md):** Detailed academic explanations for **RQ-09, RQ9.1, RQ9.2, and RQ9.3**.
-5. **[system_output_schema.json](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/system_output_schema.json):** Standardized decision-output schema conforming to course specifications.
-6. **[paper_list.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/02_related_work/paper_list.md):** The seed references for our literature review database.
+1. **topic_proposal.md**: Project abstract, problem definition, and research goals.
+2. **domain_scope.md**: Detailed agricultural application domain and sequential circuit logic.
+3. **sensor_action_table.md**: Tabular mapping of sensors to control states, incorporating data quality fault scenarios (Data Conflict and Fault/Missing).
+4. **rq_explanation.md**: Detailed academic explanations for **RQ-09, RQ9.1, RQ9.2, and RQ9.3**.
+5. **system_output_schema.json**: Standardized decision-output schema conforming to course specifications.
+6. **paper_list.md**: The seed references for our literature review database.
 
 ---
 
