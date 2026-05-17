@@ -1,16 +1,16 @@
-# Bảng Sensor - Action (Nhà kính thông minh)
+# Sensor-Action Mapping Table (Smart Greenhouse)
 
-Bảng dưới đây mô tả các đầu vào (Sensor/Input), ý nghĩa của chúng, và các hành động (Action) tương ứng mà hệ thống điều khiển nhà kính (FSM) sẽ thực hiện.
+This table defines the system inputs (sensors), their physical meanings, and the corresponding control signals or next states executed by the Finite State Machine (FSM).
 
-| Sensor/Input | Ý nghĩa (Đo lường) | Tín hiệu bất thường | Hành động (Action / Next State) |
+| Sensor / Input | Physical Meaning | Anomalous Condition | Target Control Action / Next State |
 |---|---|---|---|
-| **Nhiệt độ (Temperature)** | Đo độ C môi trường | Quá nóng / Quá lạnh | Chuyển sang State `COOLING` (Bật quạt/phun sương) hoặc `HEATING` (Bật đèn sưởi). |
-| **Độ ẩm không khí (Humidity)** | Đo % hơi nước trong không khí | Quá khô / Quá ẩm | Kết hợp với nhiệt độ để điều chỉnh máy phun sương hoặc tăng cường thông gió. |
-| **Độ ẩm đất (Soil Moisture)** | Đo % nước trong đất | Đất khô hạn (< ngưỡng) | Chuyển sang State `WATERING` (Bật máy bơm tưới nhỏ giọt). |
-| **Ánh sáng (Light)** | Đo cường độ sáng (Lux) | Thiếu nắng / Nắng gắt | Bật hệ thống đèn quang hợp nhân tạo hoặc Kéo rèm che nắng. |
-| **Bộ đếm (Timer Clock)** | Xung nhịp thời gian mạch tuần tự | (Hỗ trợ chống nhiễu) | Không cho phép đổi trạng thái liên tục. Giữ nguyên State hiện tại cho đến khi Timer đếm xong chu kỳ an toàn. |
+| **Temperature** | Measures ambient Celsius temperature | Extreme Heat / Cold | Transition to `COOLING` (fans/misters ON) or `HEATING` (heating lamp ON). |
+| **Air Humidity** | Measures ambient water vapor percentage | Extremely dry / humid | Coupled with temperature to adjust misters or boost ventilation. |
+| **Soil Moisture** | Measures soil water percentage | Severe drought (< threshold) | Transition to `WATERING` state (activate drip-irrigation pump). |
+| **Light (Lux)** | Measures ambient light intensity (Lux) | Dark during daytime / Scorching sun | Turn on supplemental grow lights or lower shading screens. |
+| **Timer Clock** | FSM synchronization and debounce clock | (Anti-chattering support) | Lock current state and ignore sensor fluctuations until the timer finishes its cycle. |
 
-## Mối liên hệ với Data Quality Module
-Hệ thống sẽ đối chiếu chéo các sensor (Sensor Fusion) để phát hiện lỗi trước khi ra quyết định:
-- **Conflict Data (Mâu thuẫn):** Cảm biến độ ẩm đất báo 0% (khô nứt nẻ) nhưng cảm biến nhiệt độ báo 20°C và độ ẩm không khí 95% (đang mưa lạnh). -> *Agent nghi ngờ lỗi cảm biến đất.*
-- **Fault/Missing:** Cảm biến ánh sáng luôn trả về 0 Lux vào giữa trưa (lỗi đứt cáp). -> *Bỏ qua dữ liệu ánh sáng, giữ nguyên rèm che.*
+## Sensor Data Quality Module (SDQM) Integration
+The system performs cross-sensor comparison (Sensor Fusion) to catch hardware faults before changing control states:
+- **Data Conflict:** Soil moisture reads 0% (indicating desert-dry soil) while temperature is 20°C and air humidity is 95% (indicating wet, cool rainy conditions). -> *AgriAgent detects soil sensor fault.*
+- **Data Fault/Missing:** Light sensor stays at 0 Lux at noon (indicative of disconnected cabling). -> *Agent discards light reading and keeps shading screens open.*

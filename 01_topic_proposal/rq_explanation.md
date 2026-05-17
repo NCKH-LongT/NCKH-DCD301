@@ -1,61 +1,61 @@
-# RQ-09: Phân biệt mạch tổ hợp và mạch tuần tự. Vì sao mạch tuần tự cần phần tử nhớ như latch hoặc flip-flop?
+# RQ-09: Distinction between Combinational and Sequential Circuits. Why do Sequential Circuits require memory elements such as Latch or Flip-Flop?
 
-## Phân biệt mạch tổ hợp và mạch tuần tự
+## Comparison between Combinational and Sequential Circuits
 
-| Đặc điểm | Mạch tổ hợp (Combinational Circuit) | Mạch tuần tự (Sequential Circuit) |
+| Attribute | Combinational Circuit | Sequential Circuit |
 |---|---|---|
-| **Định nghĩa** | Đầu ra chỉ phụ thuộc vào các giá trị đầu vào ở thời điểm hiện tại. | Đầu ra phụ thuộc vào cả đầu vào hiện tại và trạng thái trước đó (lịch sử hoạt động) của mạch. |
-| **Bộ nhớ / Khả năng lưu trữ** | Không có bộ nhớ. | Có bộ nhớ để ghi nhớ trạng thái hiện tại. |
-| **Phần tử phản hồi (Feedback)** | Không có đường phản hồi tín hiệu từ đầu ra về đầu vào. | Có đường phản hồi tín hiệu từ đầu ra của phần tử nhớ quay lại đầu vào của mạch tổ hợp. |
-| **Xung nhịp (Clock)** | Không sử dụng xung clock (bất đồng bộ hoàn toàn). | Thường sử dụng xung clock để đồng bộ hóa hoạt động (hoặc hoạt động bất đồng bộ có điều kiện). |
-| **Phần tử nhớ tích hợp** | Không sử dụng. | Sử dụng Latch hoặc Flip-Flop để lưu trạng thái. |
-| **Ứng dụng thực tế** | Bộ cộng (Adder), bộ chọn kênh (Multiplexer), bộ giải mã (Decoder). | Bộ đếm (Counter), thanh ghi (Register), bộ nhớ (RAM/ROM), Máy trạng thái (FSM). |
+| **Definition** | The output depends strictly on the current values of inputs at that exact moment. | The output depends on both the current inputs and the previous states (operation history) of the circuit. |
+| **Memory / Storage** | No memory elements integrated. | Built-in memory elements to store the current state. |
+| **Feedback Loop** | No feedback path from outputs to inputs. | Features a feedback path returning signal from the memory elements' output to the combinational input logic. |
+| **Clock Synchronization** | Completely asynchronous (no clock required). | Typically synchronous, utilizing a clock signal for unified state transitions (or controlled asynchronous). |
+| **Storage Element** | None. | Uses Latches or Flip-Flops to preserve logic states. |
+| **Applications** | Adders, Multiplexers, Decoders, encoders. | Counters, Registers, Memory Units (RAM/ROM), Finite State Machines (FSM). |
 
-### Vì sao mạch tuần tự cần phần tử nhớ như Latch hoặc Flip-Flop?
-Mạch tuần tự cần phần tử nhớ vì hoạt động của nó mang tính chất **trình tự thời gian**. Nếu không có phần tử nhớ để lưu lại "trạng thái hiện tại" (State) của hệ thống, mạch sẽ bị mất đi khái niệm về lịch sử/quá khứ và lập tức hoạt động giống như một mạch tổ hợp bình thường (chỉ phản ứng tức thời với đầu vào tại đúng thời điểm đó). 
-
----
-
-## RQ9.1: Output của mạch tổ hợp phụ thuộc vào những yếu tố nào?
-
-Đầu ra của mạch tổ hợp chỉ phụ thuộc duy nhất vào:
-- **Các giá trị đầu vào vật lý hiện tại (Current Inputs)** đang được cấp trực tiếp cho các cổng logic của mạch.
-
-Mạch tổ hợp hoàn toàn **không phụ thuộc** vào:
-- Trạng thái hoạt động trước đó của hệ thống (vì không có phần tử lưu trữ).
-- Xung clock đồng bộ thời gian (hoạt động tức thời sau khi tín hiệu truyền qua các cổng logic bị trễ - propagation delay).
+### Why do Sequential Circuits require Latch or Flip-Flop memory elements?
+Sequential circuits operate chronologically across time cycles. Without memory elements to store the "current state", the circuit would lose its historical context and immediately act as a combinational circuit, reacting only to instantaneous input transitions. Storing state parameters is vital to execute multi-step operations and timed workflows.
 
 ---
 
-## RQ9.2: Output của mạch tuần tự phụ thuộc vào input hiện tại và trạng thái trước đó như thế nào?
+## RQ9.1: What factors determine the output of a Combinational Circuit?
 
-Trong mạch tuần tự, mối quan hệ giữa Đầu ra (Output), Đầu vào (Input) và Trạng thái (State) được phân thành 2 mô hình toán học / kiến trúc máy trạng thái (FSM) kinh điển:
+The outputs of a combinational logic circuit depend solely on:
+- **The current physical input values (Current Inputs)** active at the logic gate terminals at that exact moment.
 
-1. **Mô hình Mealy (Mealy Machine):**
-   - Đầu ra ở thời điểm hiện tại $Y(t)$ phụ thuộc vào cả **Đầu vào hiện tại $X(t)$** và **Trạng thái hiện tại $S(t)$** (trạng thái được lưu từ chu kỳ trước).
-   - Công thức: $Y(t) = f(X(t), S(t))$
-   - *Đặc điểm:* Đầu ra có thể thay đổi ngay lập tức khi đầu vào thay đổi, bất kể có xung clock hay không.
-
-2. **Mô hình Moore (Moore Machine):**
-   - Đầu ra ở thời điểm hiện tại $Y(t)$ chỉ phụ thuộc duy nhất vào **Trạng thái hiện tại $S(t)$** của mạch.
-   - Công thức: $Y(t) = g(S(t))$
-   - *Đặc điểm:* Đầu ra cực kỳ ổn định vì nó chỉ thay đổi đồng bộ theo xung nhịp clock (khi trạng thái của Flip-Flop chuyển tiếp).
-
-### Ý nghĩa thực tế (Ví dụ Nhà kính)
-Khi độ ẩm giảm xuống thấp (Input hiện tại), hệ thống không chỉ bật máy bơm ngay lập tức (mạch tổ hợp). Nó sẽ đối chiếu với trạng thái hiện tại (Ví dụ: trạng thái `WATERING` đã được kích hoạt cách đây 2 phút). Nhờ bộ nhớ lưu giữ trạng thái trước đó, hệ thống biết rằng máy bơm đang chạy và sẽ tiếp tục giữ nguyên trạng thái tưới mà không kích hoạt lại từ đầu, tránh làm hỏng thiết bị.
+The combinational circuit **is completely independent of**:
+- The prior operational states of the system (due to the lack of storage mechanisms).
+- Synchronization clock pulses (outputs change immediately following the propagation delay of the physical logic gates).
 
 ---
 
-## RQ9.3: Latch và Flip-Flop đóng vai trò gì trong việc lưu trữ trạng thái của mạch tuần tự?
+## RQ9.2: How does the output of a Sequential Circuit depend on both the current input and the previous state?
 
-Latch và Flip-Flop là các **phần tử nhớ cơ bản nhất (1-bit memory elements)** trong kỹ thuật số. Chúng đóng vai trò cốt lõi trong mạch tuần tự thông qua cơ chế sau:
+In sequential logic design, the relationship governing the Output $Y(t)$, Input $X(t)$, and State $S(t)$ is categorized into two classic Finite State Machine (FSM) architectural models:
 
-1. **Lưu trữ trạng thái vật lý (State Storage):**
-   - Mỗi Latch hoặc Flip-Flop có khả năng lưu giữ 1 bit thông tin nhị phân (`0` hoặc `1`). Bằng cách kết hợp nhiều Flip-Flops (tạo thành thanh ghi trạng thái - State Register), ta có thể biểu diễn nhiều trạng thái phức tạp khác nhau của hệ thống FSM.
+1. **Mealy FSM Model (Mealy Machine):**
+   - The current output $Y(t)$ is a function of both the **current inputs $X(t)$** and the **current state $S(t)$** (which represents the accumulated history from previous cycles).
+   - Formally: $Y(t) = f(X(t), S(t))$
+   - *Characteristic:* The output can change immediately when inputs change, regardless of clock edge timing.
 
-2. **Tạo đường phản hồi (Feedback Loop):**
-   - Chúng nhận tín hiệu "Trạng thái tiếp theo" (Next State) từ đầu ra của mạch logic tổ hợp, giữ lại giá trị đó, và phản hồi ngược lại đầu vào của mạch logic tổ hợp ở chu kỳ tiếp theo dưới dạng "Trạng thái hiện tại" (Present State).
+2. **Moore FSM Model (Moore Machine):**
+   - The current output $Y(t)$ depends strictly and solely on the **current state $S(t)$**.
+   - Formally: $Y(t) = g(S(t))$
+   - *Characteristic:* The output is highly stable as it changes in perfect synchronization with clock edges (when flip-flop states transition).
 
-3. **Cơ chế hoạt động và Phân biệt Vai trò:**
-   - **Latch (Chốt):** Nhạy theo **mức tín hiệu (Level-sensitive)**. Latch thay đổi trạng thái bất cứ khi nào tín hiệu cho phép (Enable) ở mức tích cực. Latch hoạt động không đồng bộ, dễ gây ra hiện tượng chạy đua tín hiệu (race conditions) nếu không thiết kế cẩn thận.
-   - **Flip-Flop (Dép lê):** Nhạy theo **cạnh xung nhịp (Edge-triggered)** (chỉ thay đổi khi có cạnh lên hoặc cạnh xuống của xung Clock). Flip-Flop là nền tảng của **Mạch tuần tự đồng bộ (Synchronous Sequential Circuits)**, đảm bảo toàn bộ hệ thống chuyển trạng thái cực kỳ ổn định và đồng đều theo nhịp clock.
+### Real-world Greenhouse Context
+When soil moisture drops below the threshold (current input), the system does not simply turn on the pump instantly. It references the current state (e.g., state is `WATERING` and has been active for 2 minutes). Guided by the state memory, the AgriAgent maintains the irrigation state instead of re-triggering, preventing component degradation.
+
+---
+
+## RQ9.3: What roles do Latch and Flip-Flop play in storing the state of a Sequential Circuit?
+
+Latches and Flip-Flops act as **fundamental 1-bit memory elements** in digital logic. They support sequential operations via two primary roles:
+
+1. **State Parameter Storage:**
+   - Each Latch or Flip-Flop holds a single binary digit (`0` or `1`). By grouping multiple Flip-Flops together (forming a State Register), we can represent complex operational states for FSM-based controllers.
+
+2. **Creating the Feedback Path:**
+   - They capture the "Next State" signal computed by the combinational input logic, hold it, and feed it back to the input block as the "Present State" in the next clock cycle.
+
+3. **Distinction in Synchronization Roles:**
+   - **Latch:** **Level-sensitive**. It updates its stored state whenever the Enable signal is active. It operates asynchronously, making it susceptible to race conditions if not carefully controlled.
+   - **Flip-Flop:** **Edge-triggered** (only updates on the rising or falling edge of the clock signal). Flip-flops are the building blocks of **Synchronous Sequential Circuits**, ensuring highly stable, unified state transitions across the entire system.

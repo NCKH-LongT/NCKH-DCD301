@@ -1,50 +1,50 @@
-# Báo cáo Tiến độ Tuần 01
+# Week 1 Progress Report - Research Theme 9
 
-- **Lớp:** SE1930
-- **Nhóm:** G07
-- **Đề tài:** A Data Quality-Aware Agentic RAG Framework for Real-Time AIoT Decision Support in Smart Greenhouse
-
----
-
-## 1. Tuần này nhóm đã làm gì?
-Trong tuần đầu tiên của dự án DCD, nhóm đã thực hiện các công việc nền tảng sau:
-- **Thảo luận và Chốt đề tài:** Lựa chọn tên đề tài tập trung vào lĩnh vực **Smart Greenhouse Control System** và đăng ký thành công nhánh Git **`SE1930_G07`** để quản lý mã nguồn độc lập.
-- **Xác lập Cấu trúc Thư mục chuẩn:** Thiết lập thành công cấu trúc thư mục nghiên cứu 16 tuần từ `01_topic_proposal` đến `weekly_reports` và đẩy thành công lên nhánh Git nhóm.
-- **Nghiên cứu & Giải quyết 4 RQ lý thuyết:** Tìm hiểu, phân biệt sự khác nhau giữa mạch tổ hợp và mạch tuần tự, giải thích sâu sắc về vai trò của Latch/Flip-Flop trong việc quản lý trạng thái của mô hình nông nghiệp thông minh.
-- **Xây dựng Bảng Sensor-Action & JSON Schema:** Thiết kế sơ bộ các sensor đo đạc, actuator điều khiển và thiết kế cấu trúc dữ liệu JSON Output tuân thủ 100% hướng dẫn môn học (có đủ `status`, `action`, `confidence`, `evidence`).
+- **Class:** SE1930
+- **Group:** G07
+- **Project Title:** A Data Quality-Aware Agentic RAG Framework for Real-Time AIoT Decision Support in Smart Greenhouse
 
 ---
 
-## 2. Output cụ thể là file/code/bảng nào?
-Các kết quả của nhóm đã được sắp xếp khoa học và push lên nhánh `SE1930_G07`:
-1. **[topic_proposal.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/topic_proposal.md):** Đề xuất đề tài nghiên cứu chi tiết, mục tiêu và đặt vấn đề.
-2. **[domain_scope.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/domain_scope.md):** Phạm vi lĩnh vực nghiên cứu (Greenhouse), các trạng thái FSM và đầu vào đầu ra.
-3. **[sensor_action_table.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/sensor_action_table.md):** Bảng sensor - action chi tiết kèm theo phân tích các kịch bản lỗi Data Quality (Conflict/Fault).
-4. **[rq_explanation.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/rq_explanation.md):** Báo cáo giải đáp chi tiết 4 Research Questions lý thuyết về mạch tuần tự (RQ-09, RQ9.1, RQ9.2, RQ9.3).
-5. **[system_output_schema.json](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/system_output_schema.json):** File JSON Schema chuẩn hóa cho dữ liệu xuất ra của AgriAgent.
-6. **[paper_list.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/02_related_work/paper_list.md):** Khởi tạo danh mục tài liệu tham khảo chính phục vụ cho RAG Pipeline và Literature Review.
+## 1. What did the group accomplish this week?
+During the first week of the DCD course, the group established the theoretical and structural foundation of the project:
+- **Project Registration & Domain Selection:** Selected the **Smart Greenhouse Control System** as our practical domain and successfully registered our Git branch **`SE1930_G07`** for collaborative work.
+- **Directory Structure Initialization:** Created and committed the standard 16-week folder structure (from `01_topic_proposal` to `weekly_reports`) on the group branch.
+- **Academic Research & RQ Solutions:** Deeply researched basic sequential circuits, distinguishing them from combinational circuits and formulating comprehensive academic answers for the four research questions (**RQ-09, RQ9.1, RQ9.2, RQ9.3**).
+- **Sensor-Action Mapping & JSON Output Schema Design:** Drafted the mapping rules for greenhouse sensors and actuators, and structured the JSON schema conforming 100% to the guidelines with the required keys (`status`, `action`, `confidence`, `evidence`).
 
 ---
 
-## 3. Output đó trả lời RQ nào?
-- File **`rq_explanation.md`** trực tiếp giải quyết và trả lời đầy đủ các câu hỏi lý thuyết: **RQ-09**, **RQ9.1**, **RQ9.2**, và **RQ9.3** về Mạch tuần tự cơ bản.
-- Các file **`domain_scope.md`**, **`sensor_action_table.md`**, và **`system_output_schema.json`** tạo tiền đề giải quyết **RQ1** (Tích hợp sensor và giải thích quyết định) và **RQ2** (Ảnh hưởng của chất lượng dữ liệu sensor).
+## 2. What are the specific outputs (files, code, tables)?
+The following deliverables have been successfully pushed to our Git branch:
+1. **[topic_proposal.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/topic_proposal.md):** Project abstract, problem definition, and research goals.
+2. **[domain_scope.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/domain_scope.md):** Detailed agricultural application domain and sequential circuit logic.
+3. **[sensor_action_table.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/sensor_action_table.md):** Tabular mapping of sensors to control states, incorporating data quality fault scenarios (Data Conflict and Fault/Missing).
+4. **[rq_explanation.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/rq_explanation.md):** Detailed academic explanations for **RQ-09, RQ9.1, RQ9.2, and RQ9.3**.
+5. **[system_output_schema.json](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/system_output_schema.json):** Standardized decision-output schema conforming to course specifications.
+6. **[paper_list.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/02_related_work/paper_list.md):** The seed references for our literature review database.
 
 ---
 
-## 4. Kết quả hiện tại có vấn đề gì?
-- Về mặt lý thuyết và cấu trúc dữ liệu: Nhóm đã chốt rất vững vàng và không gặp vướng mắc lớn.
-- Về mặt kỹ thuật: Cần chuẩn bị cài đặt thư viện cho RAG và Data Ingestion (FastAPI, ChromaDB, Docling) cho các tuần tiếp theo.
+## 3. Which RQs do these outputs address?
+- The file **`rq_explanation.md`** directly addresses and answers all theoretical sequential circuit questions: **RQ-09, RQ9.1, RQ9.2, and RQ9.3**.
+- The files **`domain_scope.md`**, **`sensor_action_table.md`**, and **`system_output_schema.json`** lay the groundwork for addressing **RQ1** (Knowledge integration with telemetry for explainable decisions) and **RQ2** (Effect of sensor data quality on agricultural recommendations).
 
 ---
 
-## 5. Tuần sau nhóm sẽ làm gì?
-Trong tuần tiếp theo (Tuần 2), nhóm sẽ tập trung vào **Literature Review** (Tổng quan tài liệu học thuật):
-- Thu thập thêm ít nhất 5-10 tài liệu/bài báo uy tín về Smart Agriculture và Data Quality.
-- Hoàn thiện bảng ma trận tổng quan tài liệu (`literature_review_matrix.md`).
-- Xác định rõ khoảng trống nghiên cứu (`research_gap.md`) và đóng góp đóng khung của nhóm.
+## 4. Are there any current issues with the deliverables?
+- The theoretical foundation, FSM states, and output structure are successfully finalized.
+- There are no outstanding conceptual issues. For the upcoming weeks, the main challenge is setting up the Python workspace and initializing agronomical document ingestion (using ChromaDB and Docling).
 
 ---
 
-## 6. Nhóm cần giảng viên hỗ trợ gì?
-- Mong thầy xem xét và góp ý sơ bộ về **Đề tài đề xuất** và **JSON Output Schema** xem đã tối ưu và đúng hướng nghiên cứu mà thầy kỳ vọng chưa để nhóm an tâm triển khai code trong các tuần tiếp theo.
+## 5. What will the group do next week?
+For Week 2, the group will focus on the **Literature Review** stage:
+- Collect at least 5-10 high-quality academic papers regarding smart agriculture and sensor anomaly detection.
+- Construct the literature review matrix (`literature_review_matrix.md`).
+- Identify the research gap (`research_gap.md`) and define the unique contributions of our system.
+
+---
+
+## 6. What assistance does the group need from the instructor?
+- We kindly request the instructor to review our **Topic Proposal** and **JSON Output Schema** to ensure they align perfectly with the research expectations before we begin coding.

@@ -1,22 +1,22 @@
-# 1. Tên Domain
-**Smart Greenhouse Control System** (Hệ thống điều khiển nhà kính thông minh).
+# 1. Selected Domain Name
+**Smart Greenhouse Control System**
 
-# 2. Lý do chọn Domain
-Domain này được lựa chọn dựa trên 3 tiêu chí cốt lõi của dự án:
-- **Tuân thủ Guideline "Smart Agriculture":** Đây là lĩnh vực nông nghiệp thông minh điển hình, bám sát yêu cầu của môn học.
-- **Tính ứng dụng của Mạch tuần tự (FSM):** Hoạt động của nhà kính (tưới tiêu, sưởi ấm) không diễn ra tức thời mà cần có bộ nhớ trạng thái và độ trễ thời gian (Timers), là minh chứng sống động cho Mạch tuần tự.
-- **Tiềm năng khai thác Data Quality:** Rất dễ xảy ra lỗi cảm biến trong môi trường nông nghiệp (bụi bẩn, độ ẩm cao làm hỏng mạch), tạo ra nhiều test case hấp dẫn (nhiễu, mâu thuẫn dữ liệu).
+# 2. Rationale for Selecting the Domain
+This domain is selected based on three core evaluation criteria of the project:
+- **Compliance with the "Smart Agriculture" Guideline:** It represents a quintessential smart agriculture application, strictly aligning with the course requirements.
+- **Application of Sequential Logic (FSM):** Greenhouse management operations (such as irrigation and heating control) do not occur instantaneously but instead require state memory and time delays (counters/timers). This serves as a practical demonstration of sequential circuits.
+- **Data Quality (SDQM) Potential:** In agricultural environments, sensors are highly prone to faults (e.g., due to dust, extreme humidity, or degradation), generating rich test cases (data noise, loss, and contradiction) for analysis.
 
-# 3. Phân tích Mạch tuần tự trong Nhà kính (Liên hệ RQ9)
-Hệ thống điều khiển nhà kính không thể chỉ dùng **mạch tổ hợp (Combinational Logic)**. 
-*Ví dụ:* Nếu cấu hình "Độ ẩm < 40% thì bật bơm, >= 40% thì tắt", máy bơm sẽ bị bật/tắt liên tục từng giây khi độ ẩm dao động quanh mức 40% (hiện tượng chattering), dẫn đến cháy bơm.
+# 3. Sequential Circuit Analysis in Smart Greenhouse (Connecting to RQ9)
+A greenhouse control system cannot rely solely on **combinational logic**.
+*Example:* If a simple threshold rule is used: "If soil moisture < 40% turn ON the pump, else turn OFF", the pump would repeatedly switch ON and OFF every second when moisture oscillates near 40% (a phenomenon called chattering), rapidly damaging the pump.
 
-Do đó, hệ thống bắt buộc phải dùng **mạch tuần tự (Sequential Circuit)** có khả năng lưu trữ trạng thái (State):
-- **Trạng thái (States):** `IDLE` (Bình thường), `HEATING` (Sưởi ấm), `COOLING` (Làm mát), `WATERING` (Tưới tiêu).
-- **Phần tử nhớ (Memory/Flip-Flops):** Khi hệ thống chuyển sang state `WATERING`, một bộ đếm (Timer) cấu tạo từ Flip-flops sẽ được kích hoạt. Bơm sẽ tiếp tục chạy trong đủ 10 phút (Output phụ thuộc vào State hiện hành) bất chấp việc cảm biến có thể báo độ ẩm đã vượt 40% ngay phút thứ 2.
+Thus, the system must be designed as a **sequential circuit** with state memory:
+- **States:** `IDLE` (Normal operation), `HEATING` (Heating active), `COOLING` (Ventilation/misting active), `WATERING` (Drip irrigation active).
+- **Memory Elements (Flip-Flops):** When transitioning to the `WATERING` state, a hardware timer built from flip-flops is activated. The pump runs continuously for exactly 10 minutes (Output depends on the active state) even if sensors report moisture rising above 40% during the second minute.
 
-# 4. Input & Output Hệ thống
-**Input (Dữ liệu vào từ Sensor):**
+# 4. System Inputs and Outputs
+**Inputs (Real-Time Sensor Telemetry):**
 ```json
 {
   "temperature": 35.5,
@@ -26,8 +26,8 @@ Do đó, hệ thống bắt buộc phải dùng **mạch tuần tự (Sequential
 }
 ```
 
-**Output (Dữ liệu xuất từ Agentic RAG):**
-- `current_state`: Trạng thái hệ thống (VD: IDLE).
-- `next_state`: Trạng thái cần chuyển tiếp (VD: WATERING).
-- `confidence`: Độ tin cậy của cảm biến.
-- `explanation`: Giải thích lý do ra quyết định dựa trên FSM và tài liệu nông nghiệp.
+**Outputs (Agentic RAG Recommendation Output):**
+- `current_state`: Active system state (e.g., `IDLE`).
+- `next_state`: Target state transition (e.g., `WATERING`).
+- `confidence`: Telemetry confidence rating.
+- `explanation`: Contextual justification linking the decision to the agronomical guidelines.

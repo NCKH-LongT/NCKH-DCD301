@@ -1,49 +1,49 @@
-# Đề xuất Đề tài Nghiên cứu (Research Topic Proposal)
+# Research Topic Proposal
 
-- **Tên lớp:** SE1930
-- **Nhóm:** G07
-- **Tên Đề tài Đề xuất:** *A Data Quality-Aware Agentic RAG Framework for Real-Time AIoT Decision Support in Smart Greenhouse*
-- **Research Theme:** Research Theme 9 - Mạch tuần tự cơ bản
-
----
-
-## 1. Đặt vấn đề & Mục tiêu Nghiên cứu (Introduction & Motivation)
-
-Trong canh tác nông nghiệp công nghệ cao, đặc biệt là mô hình **Nhà kính thông minh (Smart Greenhouse)**, việc ra quyết định điều khiển (tưới tiêu, thông gió, sưởi ấm) dựa trên dữ liệu cảm biến IoT thời gian thực đóng vai trò sống còn. 
-
-Tuy nhiên, hệ thống điều khiển thực tế đối mặt với 2 thách thức lớn:
-1. **Lỗi chất lượng dữ liệu cảm biến (Data Quality Issues):** Các cảm biến hoạt động trong môi trường khắc nghiệt (nhiệt độ cao, bụi bẩn, nước) dễ bị hỏng, báo sai số, mất kết nối hoặc trả về dữ liệu mâu thuẫn (ví dụ cảm biến độ ẩm đất báo 0% nhưng nhiệt độ mát mẻ và độ ẩm không khí rất cao).
-2. **Hạn chế của điều khiển tức thời (Combinational Logic):** Nếu hệ thống chỉ bật/tắt thiết bị dựa trên ngưỡng tức thời (ví dụ: Độ ẩm < 40% bật bơm, >= 40% tắt bơm), rơ-le điều khiển sẽ bị dao động liên tục (chattering) gây cháy hỏng thiết bị.
-
-**Mục tiêu nghiên cứu:**
-Xây dựng một hệ thống **AgriAgent** tích hợp mô hình **Mạch tuần tự (FSM)** có khả năng lưu trữ trạng thái lịch sử kết hợp với **Agentic RAG** (được cung cấp tri thức nông nghiệp chuẩn từ tài liệu quốc gia) và **SDQM (Sensor Data Quality Module)** để đưa ra các quyết định điều khiển tối ưu, tự động phát hiện/xử lý lỗi cảm biến, và giải thích được lý do ra quyết định.
+- **Class:** SE1930
+- **Group:** G07
+- **Proposed Project Title:** *A Data Quality-Aware Agentic RAG Framework for Real-Time AIoT Decision Support in Smart Greenhouse*
+- **Research Theme:** Research Theme 9 - Basic Sequential Circuits
 
 ---
 
-## 2. Phạm vi Lĩnh vực Nghiên cứu (Domain & Scope)
-Nhóm lựa chọn lĩnh vực **Smart Greenhouse Control System** (Hệ thống điều khiển nhà kính thông minh) tập trung vào các khía cạnh:
-- **Đầu vào (Telemetry Input):** Nhiệt độ, độ ẩm không khí, độ ẩm đất, cường độ ánh sáng.
-- **Trạng thái hệ thống (Sequential States):** `IDLE`, `COOLING`, `HEATING`, `WATERING`.
-- **Hành động điều khiển (Actuator Control):** Máy bơm nước tưới nhỏ giọt, quạt thông gió, đèn sưởi ấm, rèm che nắng.
-- **Data Quality:** Khử nhiễu, xử lý dữ liệu khuyết thiếu, phát hiện mâu thuẫn cảm biến bằng phương pháp đối chiếu chéo (Sensor Fusion).
+## 1. Problem Statement and Research Motivation
 
-*Chi tiết xem tại:* [domain_scope.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/domain_scope.md)
+In modern high-tech agriculture, particularly within **Smart Greenhouse** environments, real-time control decisions (irrigation, ventilation, heating, shading) are crucial for crop yield and resource conservation.
 
----
+However, practical AIoT control systems face two severe challenges:
+1. **Sensor Data Quality Issues:** IoT sensors deployed in harsh greenhouse environments (high heat, humidity, dust) are highly susceptible to physical degradation, causing data drift, missing values, noise, or severe contradictions (e.g., soil moisture reading 0% while humidity is 95% and temperature is moderate).
+2. **Limitations of Instantaneous Logic:** Relying solely on combinational logic thresholds (e.g., turning on the pump immediately when soil moisture is under 40% and off when above) causes severe control oscillation (chattering) which damages electrical actuators.
 
-## 3. Câu hỏi Nghiên cứu (Research Questions)
-Nhóm tập trung giải quyết các câu hỏi nghiên cứu nền tảng về mạch số tuần tự và tính ứng dụng thực tiễn của nó trong mô hình AIoT:
-
-1. **RQ-09:** Phân biệt mạch tổ hợp và mạch tuần tự. Vì sao mạch tuần tự cần phần tử nhớ như latch hoặc flip-flop?
-2. **RQ9.1:** Output của mạch tổ hợp phụ thuộc vào những yếu tố nào?
-3. **RQ9.2:** Output của mạch tuần tự phụ thuộc vào input hiện tại và trạng thái trước đó như thế nào?
-4. **RQ9.3:** Latch và Flip-Flop đóng vai trò gì trong việc lưu trữ trạng thái của mạch tuần tự?
-
-*Chi tiết lời giải đáp xem tại:* [rq_explanation.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/rq_explanation.md)
+**Research Objective:**
+To construct a state-aware **AgriAgent** that incorporates a **Finite State Machine (FSM)** based on sequential circuit design principles, integrated with an **Agentic RAG** framework (anchored on agronomical textbooks) and a **Sensor Data Quality Module (SDQM)**. This system will execute optimal control recommendations, autonomously resolve sensor quality faults, and provide zero-hallucination explainable justifications.
 
 ---
 
-## 4. Mô hình Đầu ra của Hệ thống (JSON Output Design)
-Hệ thống cung cấp kết quả đầu ra chuẩn hóa dưới dạng JSON, bảo đảm tuân thủ 100% yêu cầu về mặt dữ liệu của giảng viên bao gồm 4 thuộc tính bắt buộc: `status`, `action`, `confidence`, và `evidence`.
+## 2. Research Domain & Scope
+The group focuses on the **Smart Greenhouse Control System** domain, encompassing:
+- **Telemetry Inputs:** Temperature, air humidity, soil moisture, light intensity (Lux).
+- **Sequential FSM States:** `IDLE`, `COOLING`, `HEATING`, `WATERING`.
+- **Actuators:** Water pumps, ventilation fans, heating lamps, shading screens.
+- **Data Quality:** Filtering noise, handling missing packets, and detecting conflicting sensor anomalies using cross-channel sensor fusion.
 
-*Chi tiết thiết kế cấu trúc Schema xem tại:* [system_output_schema.json](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/system_output_schema.json)
+*For more details, see:* [domain_scope.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/domain_scope.md)
+
+---
+
+## 3. Targeted Research Questions (RQs)
+The project aims to answer and implement the following foundational sequential circuit and AIoT questions:
+
+1. **RQ-09:** Distinction between Combinational and Sequential Circuits. Why do Sequential Circuits require memory elements such as Latch or Flip-Flop?
+2. **RQ9.1:** What factors determine the output of a Combinational Circuit?
+3. **RQ9.2:** How does the output of a Sequential Circuit depend on both the current input and the previous state?
+4. **RQ9.3:** What roles do Latch and Flip-Flop play in storing the state of a Sequential Circuit?
+
+*For theoretical solutions, see:* [rq_explanation.md](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/rq_explanation.md)
+
+---
+
+## 4. Standardized Output Model (JSON Schema)
+The decision support system outputs telemetry diagnostic data and actuator actions using a strict JSON schema conforming 100% to the course guidelines, explicitly containing the mandatory keys: `status`, `action`, `confidence`, and `evidence`.
+
+*For the schema design, see:* [system_output_schema.json](file:///d:/STUDY/KY7/DCD/repo%20cua%20thay/01_topic_proposal/system_output_schema.json)
