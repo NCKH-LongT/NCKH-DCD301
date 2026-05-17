@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "rq_explanation": {
+      "type": "string"
+    },
+    "domain_scope": {
+      "type": "string"
+    },
+    "sensor_action_table": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sensor": { "type": "string" },
+          "meaning": { "type": "string" },
+          "action": { "type": "string" }
+        },
+        "required": ["sensor", "meaning", "action"]
+      }
+    }
+  },
+  "required": ["rq_explanation", "domain_scope", "sensor_action_table"]
+}
