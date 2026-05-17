@@ -12,19 +12,19 @@ Members: `Doan Quoc Thang , Nguyen Minh Triet`
 | Member | Task | Result |
 |---|---|---|
 | Ngô Đình Gia Bảo | Domain and Research Theme | Completed  |
-| Đoàn Quốc Thắng | Summarize paper 1-2 | Completed |
-| Nguyễn Minh Triết | RQ answering | Completed |
+| Đoàn Quốc Thắng | Research questions Answering  | Completed |
+| Nguyễn Minh Triết | Sumerize Related Papers for topic Proposals| Completed |
 
 ## Git Commits
 
 | Commit ID | Message | Author |
 |---|---|---|
-| giabaone281005 | docs: add paper list | Ngo Dinh Gia Bao |
+| giabaone281005 | Result: Update output for Week 1 | Ngo Dinh Gia Bao |
 
 ## Current Problems
 
 - Chưa hiểu rõ được tính liên quan giữa topic domain và research theme.
-- Chưa xác định được rõ Domain_Scope c
+- Chưa xác định được rõ Domain_Scope 
 
 ## Plan for Next Week
 
