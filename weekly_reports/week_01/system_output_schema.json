@@ -1,0 +1,33 @@
+{
+  "system_name": "Password_Door_Lock_FSM",
+
+  "input": {
+    "keypad_input": "1234",
+    "clock": 1,
+    "reset": false
+  },
+
+  "state": {
+    "current_state": "S4_UNLOCK",
+    "previous_state": "S3"
+  },
+
+  "output": {
+    "door_unlock": true,
+    "door_lock": false,
+    "alarm": false,
+    "error_signal": false,
+    "status_display": "UNLOCKED"
+  },
+
+  "security": {
+    "wrong_attempt_count": 0,
+    "glitch_detected": false,
+    "false_unlock_detected": false
+  },
+
+  "timing": {
+    "timestamp": 120,
+    "timeout": false
+  }
+}
