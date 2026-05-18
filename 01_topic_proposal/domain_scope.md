@@ -1,106 +1,118 @@
-# Selected Domain and Rationale
+# Domain Selection and Rationale
 
-> System: **Agentic RAG in Smart Agriculture (SmartAgri)**
+> System: **Agentic RAG Framework for Smart Agriculture (SmartAgri)**
 
 ---
 
 ## 1. Selected Domain
 
-**Domain name:** Smart Agriculture with IoT in Vietnam  
-**English title:** Smart Agriculture with IoT — Vietnamese Rice and Vegetable Cultivation
+**Domain name:** Smart Agriculture with IoT Sensor Networks — Vietnamese Rice and Vegetable Cultivation
 
 **Specific scope:**
-- **Rice cultivation** in the Mekong Delta region
-- **Short-cycle vegetable cultivation** such as mustard greens, cucumber, and tomato
-- Use of **outdoor IoT sensor networks** including temperature, soil moisture, pH, light intensity, and rainfall sensors
-- Decision support for **irrigation, fertilization, and pest/disease warning**
+- **Paddy rice** cultivation in the Mekong River Delta (MRD), Vietnam
+- **Short-cycle vegetables** (mustard greens, cucumber, tomato)
+- **IoT sensor networks** deployed in the field (air temperature, soil moisture, soil pH, light intensity, rainfall, EC, water level)
+- Decision support for **irrigation, fertilisation, and pest/disease alerts**
 
 ---
 
-## 2. Rationale for Selecting This Domain
+## 2. Rationale for Domain Selection
 
-### 2.1. High urgency and strong social impact
+### 2.1. High Societal Impact and Urgency
 
-Agriculture accounts for approximately **14.3% of Vietnam’s GDP** and supports the livelihood of more than **40% of the national workforce**. The Mekong Delta produces more than **50% of Vietnam’s rice output**, but it is currently facing several major challenges:
+Agriculture accounts for approximately **14.3% of Vietnam's GDP** and is the primary livelihood of over **40% of the workforce**. The Mekong River Delta alone produces more than **50% of the country's rice output**, yet faces escalating pressures:
+- Climate change: irregular saltwater intrusion, unpredictable flooding, rising temperatures
+- Rural labour shortage driven by rapid urbanisation
+- Limited access by smallholder farmers to timely, expert agronomic advice
 
-- Climate change, including drought, salinity intrusion, abnormal flooding, and rising temperatures
-- Rural labor shortages due to urbanization
-- Limited access for farmers to timely and specialized technical knowledge
+→ **An intelligent, real-time decision-support system addresses a genuine and urgent need**, not a purely theoretical research problem.
 
-Therefore, an intelligent decision support system is a practical need rather than a purely theoretical research topic.
+### 2.2. Direct Alignment with All Four Research Questions
 
-### 2.2. Strong alignment with the four Research Questions
-
-| RQ | Reason why the domain is suitable |
+| RQ | Why This Domain Fits |
 |---|---|
-| RQ1 | Smart agriculture provides diverse IoT sensors and rich real-time data for integration. |
-| RQ2 | Harsh field conditions often cause missing, noisy, faulty, or conflicting sensor data, making data quality evaluation highly practical. |
-| RQ3 | Existing agricultural advisory systems are often rule-based, which provides a realistic baseline for comparison. |
-| RQ4 | Field conditions such as rain, heat, power loss, and unstable connectivity create realistic fault scenarios for robustness testing. |
+| RQ1 | AgriIoT deployments generate diverse, high-frequency sensor streams — ideal for testing real-time data integration with domain knowledge |
+| RQ2 | Harsh field environments (rain, heat, flooding, dust) cause frequent sensor failures and data gaps — providing a realistic and challenging data-quality testbed |
+| RQ3 | Existing government extension rule systems serve as ready-made, comparable baselines for the Agentic RAG evaluation |
+| RQ4 | Highly variable field conditions (weather events, power outages, sensor aging) make fault and conflict scenarios easy to reproduce and verify |
 
-### 2.3. Availability of rich domain-specific knowledge sources
+### 2.3. Rich, Verifiable Domain Knowledge Sources
 
-Vietnam has many high-quality agricultural technical documents, including:
+Vietnam possesses a well-developed corpus of agricultural technical knowledge suitable for populating the RAG knowledge base:
+- **Rice Cultivation Technical Guidelines** — Ministry of Agriculture and Rural Development (MARD), updated 2022
+- **VietGAP standards** for vegetable production
+- **National Agricultural Extension System** — thousands of field-tested technical documents
+- **IRRI and Can Tho University** research on sustainable rice cultivation in the MRD
+- **FAO** guidelines on climate-adaptive irrigation management
 
-- **Technical guidelines for rice cultivation** issued by the Ministry of Agriculture and Rural Development (MARD), updated in 2022
-- **VietGAP standards** for vegetable cultivation
-- Documents from the **National Agricultural Extension System**
-- Research from **IRRI and Can Tho University** on sustainable rice cultivation
+→ The Vector Database can be built on **real, citable, and expert-validated sources** — not synthetic content.
 
-These sources make it possible to build a Vector Database using real and verifiable domain knowledge.
+### 2.4. Clear Research Gap
 
-### 2.4. Clear research gap
+Existing AI applications in Vietnamese agriculture primarily focus on:
+- Standalone ML models (Random Forest, CNN for pest image recognition) — no explainability, no knowledge integration
+- Hard-coded rule-based extension systems — cannot adapt to novel contexts or be updated incrementally
+- No published system combines **Agentic RAG + IoT streaming data + domain knowledge retrieval** in a Vietnamese agricultural context
 
-Current studies on AI in Vietnamese agriculture mainly focus on:
+→ This study fills a genuine gap at the intersection of Agentic AI, Retrieval-Augmented Generation, and precision agriculture.
 
-- Basic machine learning models such as Random Forest or CNN for pest/disease detection, often with limited explainability
-- Rigid rule-based agricultural advisory systems that cannot adapt well to changing contexts
-- A lack of systems that combine **Agentic RAG, IoT, and domain-specific agricultural knowledge** in the Vietnamese context
+### 2.5. Practical Data Accessibility
 
-### 2.5. Feasibility of real-world data collection
-
-- Several smart agriculture and IoT-based farming projects are already active in the Mekong Delta, such as VinFarm, FPT Smart Agri, and Mimosa Technology
-- Sensor data can be simulated based on real Vietnamese climate and farming conditions
-- Agricultural experts can participate in evaluation by providing gold-standard labels for experimental scenarios
-
----
-
-## 3. Research Scope
-
-### In-scope
-
-- ✅ IoT sensors measuring five parameters: air temperature, soil moisture, soil pH, light intensity, and rainfall
-- ✅ Two main crop groups: rice and short-cycle vegetables
-- ✅ Three decision groups: irrigation, fertilization, and pest/disease warning
-- ✅ Handling four types of data quality issues: missing, noisy, faulty, and conflicting data
-- ✅ Knowledge sources in both Vietnamese and English, including agricultural extension documents and international research papers
-
-### Out-of-scope
-
-- ❌ Pest/disease recognition using image-based computer vision
-- ❌ Agricultural price forecasting and business decision-making
-- ❌ Automatic actuation or direct control of irrigation devices; the system only provides recommendations
-- ❌ Long-term industrial crops such as coffee, rubber, and pepper
-- ❌ Aquaculture
+- Multiple IoT AgriTech deployments are active in the MRD (VinFarm, FPT Smart Agri, Mimosa Technology)
+- Sensor data can be accurately simulated using real historical climate records from the Vietnamese Meteorological and Hydrological Administration (VNMHA)
+- Agricultural domain experts are available for collaborative gold-standard labelling of evaluation scenarios
 
 ---
 
-## 4. Geographical Context
+## 3. Research Scope Definition
 
-**Primary research area:** Mekong Delta, Vietnam
+### In-Scope
+- ✅ Five core sensor modalities: air temperature, soil moisture, soil pH, light intensity, rainfall
+- ✅ Two primary crop types: paddy rice and short-cycle vegetables
+- ✅ Three decision categories: irrigation scheduling, fertilisation advice, pest/disease alerts
+- ✅ Four data quality failure modes: missing, noisy, faulty, conflicting
+- ✅ Bilingual knowledge base: Vietnamese (extension documents) and English (international research)
 
-Representative provinces include:
+### Out-of-Scope
+- ❌ Image-based pest and disease recognition (computer vision)
+- ❌ Commodity price forecasting and farm business decisions
+- ❌ Automated actuator control (the system recommends actions; it does not execute them)
+- ❌ Long-cycle industrial crops (coffee, rubber, pepper)
+- ❌ Aquaculture and fishery management
 
-- An Giang
-- Can Tho
-- Kien Giang
-- Tien Giang
+---
 
-**Climate characteristics:**
+## 4. Geographic Context
 
-- Tropical monsoon climate with two distinct seasons:
-  - Rainy season: May to November
-  - Dry season: December to April
-- Average temperature: 26–28°C
-- Peak temperature: up to 38–40°C in April
-- Average annual rainfall: 1,400–2,000 mm
+**Primary study region:** Mekong River Delta (MRD), Vietnam
+- Representative provinces: An Giang, Can Tho, Kien Giang, Tien Giang
+- Climate: Tropical monsoon — two distinct seasons (wet: May–November; dry: December–April)
+- Mean annual temperature: 26–28°C; peak temperatures 38–40°C in April
+- Mean annual rainfall: 1,400–2,000 mm
+
+---
+
+## 5. System Architecture Overview
+
+```
+[IoT Sensors]
+     │  Raw numeric readings (every 5–30 min)
+     ▼
+[Layer 1: Edge Processing]
+     │  Noise filtering · Hamming error correction · Overflow detection
+     ▼
+[Layer 2: Semantic Mapping]
+     │  Numeric values → contextualised natural-language descriptions
+     ▼
+[Layer 3: RAG Retrieval — Vector Database]
+     │  Embed query → cosine similarity search → top-5 chunks → rerank
+     ▼
+[Layer 4: Planning Agent + LLM]
+     │  Multi-hop reasoning · Self-verification · R_score evaluation
+     ▼
+[Output: Recommendation + Evidence + Reasoning Chain + Confidence Score]
+```
+
+---
+
+*Report date: 16 May 2026*
