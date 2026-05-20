@@ -1,35 +1,32 @@
-1. Project Title
-Research and Design of a Password Door Lock System using Finite State Machine (FSM)
+BÁO CÁO ĐỀ XUẤT DỰ ÁN (PROJECT PROPOSAL)
+1. Tên Domain & Tóm tắt dự án (Overview)
+Tên Domain: Hệ thống Quản lý và Kiểm soát Ra Vào Phòng Lab Thiết bị Thông minh (Lab Access Control System).
 
-2. Application Domain
-Digital Logic Design, Sequential Circuits, Security Hardware.
+Tóm tắt (Elevator Pitch): Hệ thống tích hợp giữa Website quản lý và Thiết bị Phần cứng (IoT) đặt tại cửa nhằm tự động hóa quy trình cấp quyền và kiểm soát ra vào phòng Lab. Dự án phục vụ cho Ban quản lý và thành viên phòng Lab, mang lại giá trị cốt lõi là bảo mật tối đa bằng cơ chế Token thời hạn/OTP một lần, đồng thời tối ưu hóa tài nguyên phần cứng thông qua việc áp dụng lý thuyết Máy trạng thái (FSM).
 
-3. Problem Statement
-Traditional combinational logic systems cannot meet the requirements of a password door lock system because they only respond based on the current input. A door lock system requires the ability to remember the user's past actions to verify the correctness of a specific password sequence (e.g., the sequence 1 -> 0 -> 1 -> 1).
+2. Bối cảnh & Vấn đề hiện tại (Problem Statement)
+Thực trạng: Hiện nay, việc quản lý ra vào các phòng Lab, phòng nghiên cứu tại các trường học hoặc tổ chức phần lớn vẫn phụ thuộc vào việc điểm danh thủ công, ký sổ, giữ chìa khóa cơ truyền thống, hoặc sử dụng các hệ thống quét thẻ offline cũ kỹ thiếu đồng bộ với cơ sở dữ liệu trực tuyến.
 
-The challenge is to build a system capable of:
+Nỗi đau (Pain points):
 
-Processing data step-by-step.
+Quản lý thời hạn kém: Không thể giới hạn thời gian vào phòng Lab của từng thành viên theo lịch đăng ký trước (ví dụ: chỉ cho vào từ 8h - 11h).
 
-Storing and tracking the user's correct password entry progress.
+Bất tiện cho khách tạm thời: Khi có chuyên gia hoặc sinh viên mượn phòng ngắn hạn, ban quản lý phải có mặt trực tiếp để mở cửa hoặc bàn giao chìa khóa, tốn thời gian và dễ thất lạc.
 
-Making decisions to unlock or reject based on the input sequence.
+Thiếu dữ liệu thời gian thực (Real-time): Không có dữ liệu chính xác ai đang ở trong phòng Lab tại thời điểm thực tế, gây khó khăn khi xảy ra sự cố mất mát thiết bị.
 
-Handling real-world hardware circuit issues such as timing behavior and glitches when the input signal changes unexpectedly between clock cycles.
+3. Giải pháp đề xuất (Proposed Solution)
+Giải pháp: Xây dựng hệ thống IoT kết hợp Web Dashboard trực tuyến. Thiết bị điều khiển cửa (ESP32 + RC522 + Keypad) sẽ liên lạc thời gian thực với Web API để xác thực quyền truy cập qua hai phương thức song song: Thẻ từ chứa Token định thời hoặc Mã OTP dùng một lần.
 
-4. Proposed Method
-The system will be modeled and designed as a Sequential Circuit using a Finite State Machine (FSM).
+Điểm khác biệt & Giá trị nổi bật (USPs):
 
-Specifically, the research will implement in parallel and analyze the feasibility of two core FSM architectures:
+Xác thực kép linh hoạt: Kết hợp thẻ vật lý bảo mật cho thành viên cố định và mã số OTP sinh tự động trên Web cho khách ngắn hạn.
 
-Mealy Machine: A model whose output depends on both the current state and the current input.
+Ứng dụng lý thuyết tối ưu phần cứng: Dự án tích hợp và so sánh trực quan hai thuật toán điều khiển Mealy FSM (Ưu tiên phản hồi nhanh) và Moore FSM (Ưu tiên an toàn bảo mật, chống nhiễu mạng) ngay trên bo mạch nhúng, tạo ra điểm nhấn kỹ thuật mạnh mẽ cho một đồ án công nghệ.
 
-Moore Machine: A model whose output depends only on the current state.
+4. Đối tượng người dùng (Actors)
+Admin / Manager (Ban quản lý Lab): Cấp phát thẻ, duyệt yêu cầu mượn phòng, cấu hình thời gian token cho thẻ, xem báo cáo lịch sử ra vào trực tuyến, quản lý danh mục thiết bị.
 
-5. Expected Outcome
+Member (Thành viên/Sinh viên cố định): Đăng ký lịch sử dụng Lab trên website, theo dõi thời hạn hoạt động của thẻ từ cá nhân.
 
-Successfully construct a State Diagram for the door lock system recognizing the password sequence 1011.
-
-Perform an in-depth comparison between the Mealy and Moore models applied to the same problem (in terms of the number of states and differences in output logic).
-
-Analyze and propose solutions to overcome timing and glitch phenomena during the state transitions of the circuit.
+Guest (Khách/Thành viên tạm thời): Đăng nhập web để yêu cầu cấp mã OTP vào phòng Lab một lần (hiệu lực trong 5 phút)
