@@ -10,7 +10,7 @@ This file is used to track changes and progress for the topic proposal and weekl
 ## Week 1 checklist
 - Choose topic `Smart GreenHouse` and research theme `Mạch tổ hợp (Multiplexer)`
 - Form team
-- Create branch `SE1930_G07`
+- Create branch `SE1930_G04`
 - Update: `topic_proposal.md`,`domain_scope.md`,`topic_revision_log.md`, `sensor_action_table.md`,`system_output_schema.json` and `weekly_reports/week1.md`
 
 ## Weekly progress log
