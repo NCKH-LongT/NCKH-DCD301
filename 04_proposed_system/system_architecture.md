@@ -1,90 +1,48 @@
-# System Architecture
+# System Architecture Specification
 
-## 1. Sensor & Recommended Action Table
+This document details the architectural design and block-level components of the Data Quality-Aware Agentic RAG Framework. The system is designed as a modular, computer-based automated decision support application that processes incoming environment data to produce valid control actions.
 
-| Sensor Name | Purpose / Function | Input Data | Recommended System Action |
-| :--- | :--- | :--- | :--- |
-| **Infrared Proximity Sensor (IR Proximity)** | Detects products moving on the conveyor belt to generate Clock pulses for the counter. | Digital Signal: `High` (Object Detected) / `Low` (No Object). | Generate one Clock Pulse for the Mod-10 counter to increment by one. |
-| **Motor Current Sensor (ACS712)** | Monitors the current consumed by the packaging actuator to detect mechanical jams. | Analog Signal -> Converted into Ampere (A) values. | If the current exceeds the safe threshold due to a jam, stop the conveyor belt and trigger an alarm. |
-| **Circuit State Monitor (Logic State Monitor)** | Monitors the outputs $Q_3Q_2Q_1Q_0$ of the counter to detect abnormal states. | Digital Signal (4-bit output from Flip-Flops). | If a state within the range `1010` - `1111` is detected, activate the noise-error logging mechanism while allowing the circuit to self-correct back to `0000`. |
+## 1. High-Level Block Architecture
+The system consists of three decoupled operational layers that form a single closed-loop execution pipeline:
++-----------------------------------------------------------------------------+
+|                               DATA INGESTION LAYER                          |
+|  [Simulated Input: CSV/Excel] ---> [Error & Anomaly Injection Script]       |
++------------------------------------+----------------------------------------+
+| (Raw & Injected Streams)
+v
++-----------------------------------------------------------------------------+
+|                            DATA QUALITY CONTROL LAYER                       |
+|  [Statistical Imputation Engine] ---> [Noise & Outlier Isolation Filter]    |
++------------------------------------+----------------------------------------+
+| (Cleaned Environmental Vectors)
+v
++-----------------------------------------------------------------------------+
+|                         INTELLIGENT AGENTIC RAG LAYER                       |
+|  [Semantic Query Generator] <=======> [Vector Database / Document Store]    |
+|               |                                      ^                      |
+|               | (Cleaned Telemetry)                  | (Retrieved Context)  |
+|               v                                      v                      |
+|  +-----------------------------------------------------------------------+  |
+|  |                             LLM AI AGENT                              |  |
+|  |      [Reasoning & Planning Core] ----> [Structured Output Formatter]  |  |
+|  +-------------------------------------------------+---------------------+  |
++----------------------------------------------------+------------------------+
+|
+v
+[Standard Execution JSON Output]
+## 2. Detailed Component Breakdown
 
----
+### 2.1. Data Ingestion & Quality Layer
+* **Telemetry Reader:** Actively parses time-series files (`.csv` or `.xlsx`) capturing parameters like Greenhouse Temperature, Air/Soil Humidity, and Nutrient Solution pH.
+* **Error-Aware Validation Engine:** Evaluates data completeness. It checks for structural missing values (NaN) or extreme numeric deviations (spikes caused by broken sensors) based on predefined statistical bounds. It ensures only mathematically valid vectors proceed to the reasoning pipeline.
 
-## 2. Expected JSON Output Schema (`system_output_schema.json`)
+### 2.2. Retrieval-Augmented Generation (RAG) Core
+* **Knowledge Vectorization:** Agricultural rulebooks, plant manuals, and irrigation guidelines are chunked and converted into semantic embeddings.
+* **Context Retrieval Engine:** When telemetry values deviate from standard agricultural thresholds, the system generates queries to search the local knowledge store, pulling exact instructional paragraphs required to mitigate the detected greenhouse anomaly.
 
-```json
-{
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "DecadeCounterSystemOutput",
-  "type": "object",
-  "properties": {
-    "timestamp": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "counter_status": {
-      "type": "object",
-      "properties": {
-        "current_state_binary": {
-          "type": "string",
-          "pattern": "^[0-1]{4}$"
-        },
-        "current_state_decimal": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 15
-        },
-        "is_valid_state": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "current_state_binary",
-        "current_state_decimal",
-        "is_valid_state"
-      ]
-    },
-    "sensor_data": {
-      "type": "object",
-      "properties": {
-        "product_detected": {
-          "type": "boolean"
-        },
-        "motor_current_ampere": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "product_detected",
-        "motor_current_ampere"
-      ]
-    },
-    "system_action": {
-      "type": "object",
-      "properties": {
-        "command": {
-          "type": "string",
-          "enum": [
-            "KEEP_COUNTING",
-            "TRIGGER_PACKAGING",
-            "SELF_STARTING_RESET",
-            "EMERGENCY_STOP"
-          ]
-        },
-        "description": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "command",
-        "description"
-      ]
-    }
-  },
-  "required": [
-    "timestamp",
-    "counter_status",
-    "sensor_data",
-    "system_action"
-  ]
-}
+### 2.3. Agentic Orchestrator & Decision Core
+* **LLM Reasoning Agent:** Serves as the centralized control center. It accepts the synchronized system inputs: the real-time cleaned sensor data and the validated technical manual segments.
+* **Structured Command Formatter:** Evaluates the consolidated prompt, reasons through the corrective tasks (e.g., assessing if a fan or pump adjustment is required), and formats the operational decisions into a deterministic, programmatic output structure.
+
+## 3. Communication Protocols & Data Contracts
+The sub-modules communicate internally via object interfaces. The final boundary contract exiting the system is strictly bounded to the structured JSON schema specified in `data_flow.md`, ensuring decoupled interoperability between the core AI software framework and simulated hardware actuators.
