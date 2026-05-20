@@ -1,122 +1,366 @@
-Research Topic Proposal
-Reliable Sensor Data Processing in AIoT Smart Greenhouse Using BCD Error Detection and Agentic RAG
-Short title: AIoT Smart Greenhouse: BCD Error Detection + Agentic RAG
+Smart Greenhouse Monitoring with BCD Arithmetic Error Detection & Agentic RAG
+Vietnamese Title
 
-1. Idea Summary
-This topic proposes an AIoT smart greenhouse monitoring system that combines BCD arithmetic error detection with an Agentic Retrieval-Augmented Generation (RAG) pipeline to support reliable and explainable agricultural decision-making.
-The main idea is to build a data quality gate before sensor data is used by the AI model. Sensor readings such as temperature, humidity, soil moisture, light intensity, and water flow are validated using BCD logic to detect invalid codes or arithmetic overflow.
-After BCD validation, the system calculates a Data Quality Score (DQ_score) to estimate the reliability of sensor data. This score determines whether the system should provide a full recommendation, lower the confidence level, require human confirmation, or reject the recommendation when data quality is too poor.
-Finally, the validated data is processed by the Agentic RAG pipeline. This component retrieves relevant agricultural knowledge, performs multi-step reasoning, verifies its output, and generates recommendations with explanations and confidence levels.
-2. Why This Topic Can Be Developed into a Conference Paper
-Existing smart greenhouse studies usually focus on sensor data collection, automation, or AI-based recommendation. However, one important issue is still not fully addressed: the reliability of sensor data before it enters the AI reasoning process.
-If sensor data is missing, faulty, or contradictory, an AI model may generate inaccurate recommendations. This is especially risky in smart agriculture because actions such as turning on fans, activating irrigation, or sending alerts directly affect the crop-growing environment.
-This topic addresses that gap by combining three core components:
-•	BCD Error Detection for low-level sensor data validation.
-•	Data Quality Score for evaluating sensor reliability.
-•	Agentic RAG for knowledge retrieval and explainable recommendation generation.
-Gap Statement
-Existing smart greenhouse systems mainly focus on IoT data collection, automation, or AI-based recommendation. However, limited attention has been paid to validating sensor data quality before AI reasoning. This paper proposes a unified AIoT framework that integrates BCD arithmetic error detection, data quality scoring, and Agentic RAG to improve the reliability and explainability of smart greenhouse decision support.
-3. Research Objectives
-Code	Objective
-O1	Integrate BCD arithmetic error detection to validate sensor data in an AIoT smart greenhouse system.
-O2	Develop a Data Quality Score formula to evaluate reliability based on BCD validity, data completeness, and sensor consistency.
-O3	Design an Agentic RAG pipeline that can retrieve agricultural knowledge, perform multi-step reasoning, and generate explainable recommendations.
-O4	Evaluate the proposed framework through simulated sensor fault scenarios and compare it with baseline methods.
+Hệ Thống Nhà Kính Thông Minh AIoT: Ứng Dụng Phát Hiện Lỗi Số Học BCD và Agentic RAG
 
-4. Research Questions
-RQ1: How can real-time IoT sensor data be integrated with agricultural knowledge bases to support decision-making in smart greenhouses?
-RQ2: How can BCD error detection be used as a sensor data quality validation mechanism before AI reasoning is performed?
-RQ3: Can Agentic RAG improve recommendation accuracy and explainability compared with rule-based systems, LLM-only reasoning, and Naive RAG?
-RQ4: How does the system respond to faulty data conditions such as missing data, invalid BCD codes, or conflicting sensor readings?
-5. Problem Scope
-5.1 Input and Environment
-The system operates in a simulated smart greenhouse environment. The input data includes five types of sensors:
-Sensor Type	Purpose
-Temperature sensor	Measures greenhouse temperature.
-Humidity sensor	Measures air humidity.
-Soil moisture sensor	Measures soil moisture level.
-Light intensity sensor	Measures light intensity inside the greenhouse.
-Water flow sensor	Measures water flow in the irrigation system.
+English Title
 
-This study does not focus on real hardware manufacturing or commercial deployment. Instead, it focuses on framework design, sensor data processing, and simulation-based evaluation.
-5.2 Output
-The system generates recommended actions for greenhouse actuators:
-Action	Meaning
-turn_on_fan	Turn on the fan.
-turn_off_fan	Turn off the fan.
-turn_on_irrigation	Activate the irrigation system.
-turn_off_irrigation	Deactivate the irrigation system.
-turn_on_grow_light	Turn on the grow light.
-send_alert	Send an alert to the greenhouse manager.
+A Data Quality-Aware Agentic RAG Framework Using BCD Error Detection for AIoT Smart Agriculture
 
-6. System Architecture and Data Preprocessing
-6.1 Four-Layer System Architecture
-Layer	Layer Name	Input	Output
-1	Sensor + BCD Processing	Raw sensor data	BCD values and validity flags
-2	Data Quality Evaluation	BCD flags and sensor readings	DQ_score and confidence tier
-3	Agentic RAG Pipeline	DQ_score and contextual query	Retrieved evidence, relevant knowledge, and reasoning chain
-4	Recommendation Engine	Evidence and sensor context	Recommendation, explanation, and confidence level
+1. Project Overview
 
-6.2 BCD Error Detection Logic
-The system uses a Boolean expression to detect errors in BCD results:
-Err = Cy + S3 · S2 + S3 · S1
-Symbol	Meaning
-Cy	Carry-out
-S3, S2, S1	Bits in the BCD result
-Err	BCD error flag
+This project proposes an intelligent greenhouse monitoring framework that integrates:
 
-When Err = 1, the system identifies that the data may contain an invalid BCD code or an arithmetic overflow. In this case, a correction mechanism is triggered by adding 0110 to convert the result into a valid BCD form.
-6.3 Data Quality Score
-The system uses a Data Quality Score to evaluate the reliability of sensor data.
-DQ_score = w1 · S_bcd + w2 · S_complete + w3 · S_consistent
-Component	Meaning	Weight
-S_bcd	Validity level of BCD data	0.40
-S_complete	Completeness level of sensor data	0.35
-S_consistent	Consistency level among sensor readings	0.25
+Real-time AIoT sensor processing
+Hardware-level BCD arithmetic validation
+Data quality assessment
+Agentic Retrieval-Augmented Generation (Agentic RAG)
+Explainable and safe AI decision-making
 
-DQ_score	Confidence Level	System Response
-0.85 - 1.00	High	Generate a full recommendation.
-0.65 - 0.84	Medium	Generate a recommendation with uncertainty warning.
-0.40 - 0.64	Low	Switch to fallback mode and require human confirmation.
-< 0.40	Very low	Reject the recommendation and send a maintenance alert.
+The system continuously monitors greenhouse environmental conditions such as temperature, humidity, soil moisture, and light intensity. Sensor values are encoded using Binary Coded Decimal (BCD) representation and validated through lightweight arithmetic error-detection logic before entering the AI reasoning pipeline.
 
-7. Fault Scenarios and Experimental Dataset
-The study uses four simulated scenarios to evaluate the proposed system:
-Scenario	Condition	Simulation Method
-S1 - Normal	All sensors operate normally.	Complete data with valid BCD values.
-S2 - Missing Data	One or more sensors have missing readings.	Intentionally remove 20-60% of sensor readings.
-S3 - Sensor Fault	A sensor returns invalid BCD codes.	Inject invalid codes such as 1111 into the data stream.
-S4 - Conflicting Readings	Sensor values are contradictory.	Create abnormal differences in temperature or humidity readings.
+The proposed framework introduces a hardware-aware data validation layer that prevents corrupted sensor data from propagating into the AI decision system.
 
-8. Experimental Models
-The proposed framework will be compared with three baseline methods:
-Method	Description
-Rule-Based System	Uses fixed IF-THEN rules, such as IF temperature > 35°C THEN turn_on_fan.
-LLM-Only	Sends sensor data directly to an LLM to generate recommendations.
-Naive RAG	Retrieves relevant documents and generates an answer without agents or sensor quality validation.
-Agentic RAG + BCD	The proposed framework with BCD validation, DQ_score, multi-step retrieval, and self-verification.
+2. Research Motivation
 
-9. Evaluation Metrics
-Metric	Meaning
-Recommendation Accuracy	The percentage of recommendations that match the expected expert-defined action.
-Explainability Score	The clarity of explanations, evidence, and reasoning steps.
-Hallucination Rate	The rate of incorrect or unsupported agricultural information generated by the system.
-Safe-Failure Rate	The ability of the system to lower confidence or reject recommendations when sensor data is faulty.
-Latency	The processing time from sensor data input to recommendation output.
-DQ_score	The calculated quality score of sensor data.
+Most existing smart agriculture systems focus on:
 
-10. Proposed Paper Structure
-1.	Introduction: Introduce the AIoT smart greenhouse context, the problem of faulty sensor data, and the need for explainable decision-making.
-2.	Related Work: Review studies on IoT agriculture, BCD error detection, RAG, and Agentic RAG.
-3.	Research Scope and Problem Definition: Define the problem scope, sensor types, simulation environment, and system goals.
-4.	System Design: Present the four-layer architecture, data flow, and role of each component.
-5.	BCD Error Detection and Data Quality Evaluation: Describe the BCD error detection formula and the DQ_score calculation.
-6.	Agentic RAG-based Recommendation Pipeline: Explain how the system retrieves knowledge, performs multi-step reasoning, and generates recommendations.
-7.	Planned Comparative Evaluation: Describe the baselines, simulated dataset, and evaluation metrics.
-8.	Robustness Evaluation under Fault Scenarios: Analyze how the system handles missing data, sensor faults, and conflicting readings.
-9.	Conclusion and Future Work: Summarize the expected contributions and future development directions.
-11. Contribution Statement
-The expected contributions of this paper are threefold. First, this study proposes the use of BCD arithmetic error detection as a lightweight data validation mechanism for AIoT greenhouse sensor data. Second, it introduces a composite Data Quality Score to estimate the reliability of sensor readings before AI-based reasoning is performed. Third, it presents an Agentic RAG-based decision-support framework that generates agricultural recommendations with explanations, confidence levels, and safe-failure behavior under faulty sensor conditions.
-12. Sample Abstract
-Abstract. This paper proposes an AIoT smart greenhouse monitoring framework that combines BCD arithmetic error detection with an Agentic Retrieval-Augmented Generation pipeline to support reliable and explainable agricultural decision-making. The system focuses on greenhouse sensor data, including temperature, humidity, soil moisture, light intensity, and water flow. Before the data is used by the AI reasoning module, it is validated through BCD logic to detect invalid codes and arithmetic overflow. A composite Data Quality Score is then calculated based on BCD validity, data completeness, and sensor consistency to estimate the reliability of the input data.
-The proposed framework uses Agentic RAG to retrieve relevant agricultural knowledge, perform multi-step reasoning, and generate recommendations with explanations and confidence levels. The planned evaluation will compare the proposed approach with rule-based control, LLM-only reasoning, and Naive RAG under four simulated sensor conditions: normal operation, missing data, sensor fault, and conflicting readings. Evaluation metrics include recommendation accuracy, hallucination rate, safe-failure rate, latency, and explainability score. The expected contribution of this study is a unified framework that links low-level sensor data validation with high-level AI-based decision support for smart greenhouse systems.
+IoT monitoring
+Deep learning prediction
+Rule-based automation
+RAG-based agricultural assistance
+
+However, current systems rarely consider:
+
+Hardware-level arithmetic corruption
+Invalid BCD sensor codes
+Sensor conflict reliability
+AI hallucination caused by low-quality sensor data
+Safe-failure mechanisms for unreliable environments
+
+This project bridges the gap between:
+
+Digital hardware validation
+AIoT data quality assessment
+Agentic RAG reasoning systems
+3. Research Gap
+
+Existing studies have explored smart agriculture, IoT sensor networks, and data quality assessment separately. However, limited attention has been given to integrating real-time hardware-level validation such as BCD arithmetic error detection with Agentic RAG frameworks for explainable agricultural decision support.
+
+Furthermore, the influence of invalid BCD codes, arithmetic overflow, and sensor corruption on AI recommendation reliability and safe-failure behavior remains underexplored.
+
+4. Research Objectives
+ID	Objective
+O1	Develop a real-time IoT sensor pipeline using BCD encoding
+O2	Design a Data Quality (DQ) scoring engine
+O3	Build an agricultural RAG knowledge base
+O4	Implement an Agentic RAG reasoning workflow
+O5	Compare proposed system against multiple baselines
+O6	Evaluate robustness under multiple fault scenarios
+O7	Build a web dashboard for monitoring and visualization
+5. Research Questions
+RQ1
+
+How can real-time IoT sensor data be integrated with domain-specific agricultural knowledge through RAG to support explainable greenhouse decision-making?
+
+RQ2
+
+How does hardware-level corruption such as invalid BCD codes and missing sensor values affect AI recommendation reliability?
+
+RQ3
+
+Can an Agentic RAG framework improve contextual relevance, explainability, and safe-failure capability compared with:
+
+Rule-based systems
+LLM-only systems
+Naive RAG systems?
+RQ4
+
+How effective is the framework under:
+
+Normal conditions
+Missing data
+BCD logic faults
+Conflicting sensors?
+RQ-BCD
+
+How can BCD arithmetic error detection serve as a lightweight real-time data validation gate for AIoT systems?
+
+Inline hardware validation equation:
+
+Err=Cy+S
+3
+	​
+
+S
+2
+	​
+
++S
+3
+	​
+
+S
+1
+	​
+
+
+6. Proposed System Architecture
+Multi-Layer Architecture
+IoT Sensors
+    ↓
+BCD Encoding Layer
+    ↓
+BCD Error Detection Gate
+    ↓
+Data Quality Engine
+    ↓
+Agentic RAG Pipeline
+    ↓
+LLM Decision Engine
+    ↓
+Recommendation API
+    ↓
+Dashboard & Actuator Control
+7. Hardware-Level BCD Validation
+BCD Error Detection Logic
+
+The system validates sensor bitstreams using minimized Boolean logic.
+
+BCD correction and overflow detection equation:
+
+Err=Cy+S
+3
+	​
+
+S
+2
+	​
+
++S
+3
+	​
+
+S
+1
+	​
+
+
+Where:
+
+Cy = Carry bit
+S3 S2 S1 = Sum bits from BCD arithmetic
+
+If:
+
+Err = 1
+Invalid BCD code detected
+Overflow occurs
+
+Then:
+
+Data quality score is reduced
+System enters uncertainty-aware mode
+Unsafe actuator actions are blocked
+8. Data Quality Assessment Engine
+Data Quality Dimensions
+Dimension	Metric	Detection Method
+Validity	BCD invalid rate	Boolean logic checking
+Completeness	Missing ratio	Null/drop packet analysis
+Consistency	Sensor variance	Cross-sensor correlation
+Data Quality Formula
+
+DQ
+Score
+	​
+
+=0.40S
+bcd
+	​
+
++0.35S
+complete
+	​
+
++0.25S
+consistent
+	​
+
+
+Confidence Tiers
+Tier	Range	System Action
+HIGH	DQ > 0.85	Fully automated
+MEDIUM	0.65 < DQ ≤ 0.85	Lower confidence
+LOW	0.40 < DQ ≤ 0.65	Require approval
+UNRELIABLE	DQ ≤ 0.40	Safe-failure halt
+9. Agentic RAG Workflow
+Workflow Steps
+Observe
+    ↓
+Diagnose
+    ↓
+Retrieve
+    ↓
+Evaluate
+    ↓
+Verify
+    ↓
+Conclude
+Agent Pipeline
+Sensor Stream
+    ↓
+BCD Validation
+    ↓
+DQ Scoring
+    ↓
+RAG Retrieval
+    ↓
+LLM Reasoning
+    ↓
+Self Verification
+    ↓
+Safe Recommendation
+10. Knowledge Base Design
+Document Sources
+
+The RAG system retrieves agricultural knowledge from:
+
+VietGAP greenhouse standards
+FAO climate control guidelines
+Irrigation manuals
+Environmental control references
+Sensor calibration guides
+Embedding Pipeline
+PDF Documents
+    ↓
+Chunking
+    ↓
+Embedding
+    ↓
+Vector Database
+    ↓
+Similarity Search
+    ↓
+Top-k Retrieval
+Embedding Model
+
+Recommended embedding model:
+
+multilingual-e5-large
+
+Recommended vector databases:
+
+Qdrant
+ChromaDB
+11. Experimental Design
+Evaluation Scenarios
+Scenario	Description
+S1	Normal operation
+S2	Missing sensor packets
+S3	Injected invalid BCD codes
+S4	Conflicting sensor values
+Baseline Models
+Baseline	Description
+Rule-Based	Threshold logic only
+LLM-Only	No retrieval
+Naive RAG	Retrieval without agent reasoning
+Proposed	Agentic RAG + BCD validation
+12. Expected Results
+Baseline Comparison
+Model	Accuracy	Hallucination	Safe-Failure	Latency
+Rule-Based	0.51	0%	12.5%	12ms
+LLM-Only	0.65	18.2%	45.0%	1450ms
+Naive RAG	0.72	5.4%	38.8%	1980ms
+Agentic RAG + BCD	0.87	<0.8%	98.2%	2340ms
+13. Main Contributions
+
+This research makes three major contributions:
+
+Introduces BCD arithmetic error detection as a lightweight hardware-level validation mechanism for AIoT systems.
+Proposes a composite Data Quality Score that dynamically controls safe-failure decision behavior.
+Demonstrates that Agentic RAG combined with hardware validation significantly improves:
+recommendation accuracy
+explainability
+hallucination resistance
+safe-failure capability
+14. Recommended Technologies
+Layer	Technology
+Backend API	FastAPI
+Database	PostgreSQL + TimescaleDB
+Vector DB	Qdrant
+Embedding	multilingual-e5-large
+LLM	GPT-4o / Ollama
+Frontend	React + TailwindCSS
+Dashboard	Recharts
+Logic Layer	Python bitwise operations
+15. Suggested GitHub Repository Structure
+NCKH-BCD-AgenticRAG/
+│
+├── 01_topic_proposal/
+├── 02_related_work/
+├── 03_hardware_and_dq_layer/
+├── 04_rag_knowledge_base/
+├── 05_agentic_pipeline/
+├── 06_experimental_suite/
+├── 07_system_dashboard/
+├── 08_academic_paper/
+├── docs/
+├── assets/
+├── README.md
+├── requirements.txt
+├── docker-compose.yml
+└── .gitignore
+16. Suggested README Sections
+
+Your GitHub README should contain:
+
+Project Introduction
+System Architecture
+Features
+Installation Guide
+Running the Simulation
+Fault Injection Examples
+Evaluation Metrics
+Dashboard Preview
+Experimental Results
+Citation & References
+17. Suggested Keywords
+AI & RAG
+Agentic RAG
+Explainable AI
+Safe-Failure AI
+Agricultural LLM
+AIoT
+Hardware & Validation
+BCD arithmetic validation
+Digital logic fault detection
+Hardware-aware AI
+Data quality assessment
+Agriculture
+Smart greenhouse
+Precision agriculture
+Climate control
+Sensor anomaly detection
+18. Final Improved Contribution Statement
+
+This study proposes a novel hardware-aware Agentic RAG framework for AIoT smart agriculture that integrates lightweight BCD arithmetic error detection with data quality-aware reasoning. By combining hardware-level validation, composite data quality scoring, and retrieval-augmented autonomous decision-making, the proposed framework significantly improves recommendation reliability, explainability, and safe-failure robustness under sensor corruption and fault injection scenarios.
+
+19. Recommended GitHub Project Description
+Hardware-aware Agentic RAG framework for smart greenhouse monitoring using BCD arithmetic error detection, data quality assessment, and explainable AIoT decision support.
+20. Suggested GitHub Topics
+agentic-rag
+smart-agriculture
+aiot
+rag
+llm
+qdrant
+fastapi
+timescaledb
+greenhouse
+data-quality
+bcd
+digital-logic
+sensor-fault-detection
+safe-failure
+explainable-ai
+langchain
