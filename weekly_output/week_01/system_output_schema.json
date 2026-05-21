@@ -1,0 +1,102 @@
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Logic Function Implementation Schema",
+  "description": "Describes the structure for implementing a logic function using the Decoder method.",
+  "type": "object",
+  "properties": {
+    "functionName": {
+      "description": "The name of the implemented logic function, e.g., '1-bit Full Adder Sum'",
+      "type": "string"
+    },
+    "inputVariables": {
+      "description": "A list of the function's input variables.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "examples": [
+        ["A", "B", "C"]
+      ]
+    },
+    "implementation": {
+      "description": "Details about the function's implementation.",
+      "type": "object",
+      "properties": {
+        "method": {
+          "description": "The implementation method.",
+          "type": "string",
+          "const": "Decoder-OR"
+        },
+        "decoder": {
+          "description": "Information about the decoder used.",
+          "type": "object",
+          "properties": {
+            "type": {
+              "description": "The type of decoder, e.g., '3-to-8', '2-to-4'.",
+              "type": "string"
+            },
+            "inputs": {
+              "description": "Which variables the decoder's inputs are connected to.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": ["type", "inputs"]
+        },
+        "orGateInputs": {
+          "description": "A list of the decoder outputs connected to the OR gate. Each value corresponds to a minterm.",
+          "type": "object",
+          "properties": {
+            "mintermIndices": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "decoderOutputs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^Y[0-9]+$"
+              }
+            }
+          },
+          "required": ["mintermIndices", "decoderOutputs"]
+        }
+      },
+      "required": ["method", "decoder", "orGateInputs"]
+    },
+    "booleanExpression": {
+      "description": "The expression of the logic function as a sum of minterms.",
+      "type": "string",
+      "examples": ["F(A,B,C) = Σm(1, 4, 7)"]
+    }
+  },
+  "required": ["functionName", "inputVariables", "implementation", "booleanExpression"]
+}
+```
+
+**Ví dụ một đối tượng JSON theo cấu trúc trên:**
+
+```json
+{
+  "functionName": "1-bit Full Adder Sum",
+  "inputVariables": ["A", "B", "Cin"],
+  "implementation": {
+    "method": "Decoder-OR",
+    "decoder": {
+      "type": "3-to-8",
+      "inputs": ["A", "B", "Cin"]
+    },
+    "orGateInputs": {
+      "mintermIndices": [1, 2, 4, 7],
+      "decoderOutputs": ["Y1", "Y2", "Y4", "Y7"]
+    }
+  },
+  "booleanExpression": "S(A, B, Cin) = Σm(1, 2, 4, 7)"
+}
+```
