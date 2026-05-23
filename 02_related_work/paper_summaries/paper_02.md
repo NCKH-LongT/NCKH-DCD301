@@ -1,63 +1,75 @@
-# Paper 01 Summary
+# Paper 02 Summary
 
-## 1. Design of a High Speed BCD Adder
+## 2. Hardware Modeling of Binary Coded Decimal Adder in Field Programmable Gate Array
 
 ## Citation
 
-**Title:** Design of a High Speed BCD Adder  
-**Authors:** A. N. Jayanthi, C. S. Ravichandran  
-**Year:** 2011  
-**Source:** European Journal of Scientific Research  
-**DOI/Link:** https://www.researchgate.net/publication/291876203_Design_of_a_high_speed_BCD_adder
+**Title:** Hardware Modeling of Binary Coded Decimal Adder in Field Programmable Gate Array  
+**Authors:** Muhammad Ibn Ibrahimy, Rezwanul Ahsan, Iksannurazmi Bambang Soeroso  
+**Year:** 2013  
+**Source:** American Journal of Applied Sciences, 10(5), 466–477  
+**DOI/Link:** https://doi.org/10.3844/ajassp.2013.466.477  
+**Alternative Link:** https://www.researchgate.net/publication/260449465_Hardware_Modeling_of_Binary_Coded_Decimal_Adder_in_FPGA
 
 ## Problem
 
-The paper addresses the delay problem in conventional Binary Coded Decimal (BCD) adders. In traditional BCD addition, the circuit first performs binary addition and then applies correction logic when the result is greater than 9 or when a carry is generated. This process creates a long critical path and increases the overall computation time. The problem becomes more serious when the BCD adder is extended to multi-digit or large-bit decimal addition.
+The paper addresses the lack of practical FPGA-based implementations of Binary Coded Decimal (BCD) adders. Although BCD arithmetic is useful for decimal-based applications, many previous works focused more on theoretical arithmetic design than actual FPGA realization.
+
+The paper also addresses the delay problem caused by carry propagation in conventional adder structures.
 
 ## Method
 
-The paper proposes a high-speed BCD adder architecture that reduces delay by increasing parallelism in the carry computation and correction process. The proposed architecture uses optimized carry generation logic so that correction signals can be produced faster than in a conventional BCD adder.
+The paper designs and compares two BCD adder architectures: **Ripple Carry (RC) adder** and **Carry Look-Ahead (CLA) adder**.
 
-The design was described using **Verilog HDL**, simulated using **ModelSim XE III 6.1e**, synthesized with **Xilinx tools**, and implemented on a **Xilinx Spartan 3E XC3S500EFT256 FPGA kit** using **ISE Foundation 8.2i**.
+The RC adder is simpler but slower because each carry depends on the previous stage. The CLA adder improves speed by generating carry signals in advance.
+
+The design is modeled using **Verilog HDL** and implemented using **Altera Quartus II EDA tools**. The design flow includes functional simulation, timing simulation, synthesis, and hardware implementation on an FPGA board.
 
 ## Dataset
 
-This paper does not use a dataset because it is a hardware design and digital circuit implementation study. Instead of using data samples, the paper evaluates the proposed circuit through simulation and FPGA implementation.
+This paper does not use a dataset because it is a hardware modeling and FPGA implementation study.
 
-The input cases are BCD arithmetic test values used to verify whether the adder produces correct decimal addition results.
+Instead, the authors use testbench input combinations to verify the correctness of the BCD adder. Example binary/decimal test inputs are applied to check whether the output is correctly represented in BCD and displayed on a 7-segment display.
 
 ## Evaluation
 
-The paper evaluates the proposed BCD adder mainly using hardware performance metrics, especially:
+The paper evaluates the BCD adder using hardware-oriented metrics, including:
 
-- Propagation delay
-- Timing performance
-- Comparison with conventional BCD adder architecture
-- FPGA implementation feasibility
+- Data arrival time
+- Area utilization
+- Cell usage
+- Functional correctness
+- Timing analysis
+- Physical FPGA implementation result
 
-The most important evaluation metric is delay, because the main objective of the paper is to design a faster BCD adder.
+The main comparison is between the RC-based adder and the CLA-based adder.
 
 ## Results
 
-The experimental results show that the proposed reduced-delay BCD adder is faster than the conventional BCD adder. For 128-bit BCD addition, the conventional BCD adder requires **231.377 ns**, while the proposed reduced-delay BCD adder requires only **103.649 ns**.
+The results show that the **CLA-based BCD adder is faster** than the RC-based BCD adder.
 
-This result shows that increasing parallelism in the BCD adder architecture can significantly reduce computation delay and improve decimal arithmetic performance.
+In the synthesis results, the CLA architecture has lower data arrival time than the RC architecture. However, the CLA design uses more area and more cells, which may lead to higher power consumption.
+
+The final design was implemented on an **Altera DE2 board** containing an **Altera Cyclone II 2C35 FPGA device**. The hardware test confirmed that the BCD adder produced correct decimal outputs on the 7-segment display.
 
 ## Limitations
 
-The paper mainly focuses on reducing delay, while other important hardware factors are not deeply analyzed. For example, area usage, power consumption, and FPGA resource utilization are not discussed in detail.
+The paper mainly compares only two architectures: Ripple Carry and Carry Look-Ahead. It does not explore more advanced BCD adder designs such as parallel-prefix adders, carry-select adders, or mixed BCD/Excess-6 adders.
 
-Another limitation is that the implementation uses older FPGA hardware and older design tools. Therefore, the results may need to be re-evaluated on modern FPGA platforms.
+Another limitation is that the FPGA platform is relatively old. The paper also focuses more on timing and area than on power analysis, scalability, or integration into a larger sensor-processing system.
 
 ## Relevance to Our Topic
 
-This paper is directly relevant to the topic **BCD Arithmetic Error Detection for Reliable Sensor Data Processing in AIoT Smart Greenhouse Systems** because it provides a hardware foundation for fast and reliable BCD arithmetic.
+This paper is relevant to the topic **BCD Arithmetic Error Detection for Reliable Sensor Data Processing in AIoT Smart Greenhouse Systems** because it provides a practical FPGA-based BCD adder implementation.
 
-In the proposed greenhouse system, decimal sensor values such as temperature, humidity, soil moisture, light intensity, and water flow may need to be processed accurately. A high-speed BCD adder can support reliable decimal computation before the data is passed to quality checking or AI-based recommendation modules.
+The design flow using Verilog, simulation, synthesis, and FPGA deployment can help our group build the arithmetic-processing module for decimal sensor data.
+
+The comparison between RC and CLA is also useful because it shows that faster carry-generation logic can improve decimal arithmetic performance.
 
 ## Possible Improvement
 
-Our group can extend this work by adding **BCD error detection** mechanisms to the high-speed BCD adder. For example, the system can detect invalid BCD codes, overflow conditions, or abnormal decimal results during sensor data processing.
+Our group can improve this work by adding **invalid BCD code detection**, **overflow detection**, and **sensor-data validation logic** to the BCD adder.
 
-Another possible improvement is to implement and test the design on a modern FPGA platform, then compare delay, area, power consumption, and resource usage. The improved design can also be integrated into an AIoT smart greenhouse pipeline for reliable sensor data validation and decision support.
+Instead of only producing decimal addition output, the improved design can also detect whether the input or output contains invalid decimal codes.
 
+Another improvement is to implement the design on a modern FPGA board and compare delay, area, LUT usage, and power consumption. The improved arithmetic module can then be integrated into an AIoT greenhouse system for reliable sensor data processing.
