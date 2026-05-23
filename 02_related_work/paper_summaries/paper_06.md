@@ -1,15 +1,5 @@
 # Paper 06 Summary
 
-## 6. [Paper Title]
-**Link:**
-
-### Paper Summary
-
-
-### Key Points
--
-# Paper 06 Summary
-
 ## 6. Reduced Delay BCD Adder
 
 ## Citation
@@ -88,14 +78,3 @@ Possible improvements include:
 - Combining arithmetic error detection with greenhouse sensor data validation
 
 This improvement would connect the reduced-delay BCD adder with reliable AIoT sensor data processing.
-### Strengths
--
-
-### Limitations
--
-
-### Relevance to Project
-
-
-### Recommendation
-
