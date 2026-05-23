@@ -1,11 +1,5 @@
 # Paper 09 Summary
 
-## 9. [Paper Title]
-**Link:**
-
-### Paper Summary
-# Paper 09 Summary
-
 ## 9. Data Quality Assessment and Analysis for Pest Identification in Smart Agriculture
 
 ## Citation
@@ -74,18 +68,3 @@ Possible improvements include:
 - Detecting abnormal temperature, humidity, soil moisture, light, and water flow readings
 - Combining BCD error detection with sensor data quality scoring
 - Using validated sensor data for more reliable Agentic RAG recommendations
-
-### Key Points
--
-
-### Strengths
--
-
-### Limitations
--
-
-### Relevance to Project
-
-
-### Recommendation
-
