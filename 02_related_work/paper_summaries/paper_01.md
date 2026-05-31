@@ -2,49 +2,56 @@
 
 ## Citation
 
-Tên bài: Implementasi Deteksi Dan Koreksi Error Pada Komunikasi Serial Arduino Berbasis UART Dengan Metode Hamming Code  
-Tác giả: Muhammad Rizki Maulana, Eko Setijadi, Gamantyo Hendrantoro  
-Năm: 2018  
-Nguồn: Jurnal Pengembangan Teknologi Informasi dan Ilmu Komputer (J-PTIIK)  
-DOI/Link: https://j-ptiik.ub.ac.id/index.php/j-ptiik/article/view/3186
+Tên bài: Fault diagnosis and health management of bearings in rotating equipment based on vibration analysis – a review  
+Tác giả: Adnan Althubaiti, Faris Elasha, Joao Amaral Teixeira  
+Năm: 2021  
+Nguồn: Journal of Vibroengineering  
+DOI/Link: https://doi.org/10.21595/jve.2021.22100
+
+---
 
 ## Problem
 
-Bài báo giải quyết vấn đề lỗi truyền dữ liệu trong giao tiếp nối tiếp UART giữa các thiết bị Arduino. Nhiễu trong quá trình truyền có thể làm đảo bit dữ liệu, gây sai lệch thông tin.
+Bài báo giải quyết nhu cầu tối ưu hóa tuổi thọ vòng bi và chi phí bảo trì thông qua việc phát hiện lỗi ở giai đoạn sớm.
+
+---
 
 ## Method
 
-Bài báo sử dụng mã Hamming để phát hiện và sửa lỗi bit đơn trong quá trình truyền UART giữa các vi điều khiển Arduino.
+Sử dụng phương pháp tổng quan tài liệu (Review), hệ thống hóa các kỹ thuật trích xuất đặc trưng truyền thống kết hợp với các thuật toán Machine Learning và Deep Learning.
+
+---
 
 ## Dataset
 
-Dữ liệu thử nghiệm là các chuỗi bit nhị phân được truyền giữa các Arduino thông qua giao tiếp UART và được chèn lỗi giả lập trong quá trình truyền.
+Tổng hợp và đánh giá dựa trên nhiều nguồn dữ liệu nghiên cứu và thực nghiệm khác nhau trong lĩnh vực giám sát tình trạng máy móc.
+
+---
 
 ## Evaluation
 
-Bài báo đánh giá:
-- Khả năng phát hiện lỗi
-- Khả năng sửa lỗi
-- Độ chính xác truyền dữ liệu
+Đánh giá dựa trên khả năng phát hiện lỗi sớm và độ chính xác trong việc dự báo thời gian sử dụng hữu ích còn lại (RUL).
+
+---
 
 ## Results
 
-Hệ thống có thể phát hiện và sửa thành công lỗi bit đơn trong truyền dữ liệu UART bằng mã Hamming.
+Các phương pháp hiện tại thường chỉ phù hợp cho các trường hợp cụ thể và khó có tính tổng quát hóa.
+
+---
 
 ## Limitations
 
-- Chỉ sửa được lỗi 1 bit
-- Chưa hỗ trợ lỗi nhiều bit
-- Chưa đánh giá hiệu năng thời gian thực
+Hầu hết các thuật toán chỉ hiệu quả trong một số kịch bản nhất định.
+
+---
 
 ## Relevance to our topic
 
-Bài báo liên quan trực tiếp đến đề tài Memory & Error Detection vì sử dụng Hamming Code để phát hiện và sửa lỗi dữ liệu trên hệ thống nhúng.
+Cung cấp nền tảng lý thuyết đầy đủ về các phương pháp chẩn đoán lỗi vòng bi.
+
+---
 
 ## Possible improvement
 
-Nhóm có thể:
-- Triển khai trên ESP32
-- Thêm realtime monitoring
-- Đo latency và memory usage
-- So sánh hiệu suất sequential và parallel decoding
+Phát triển các mô hình giảm sự phụ thuộc vào dữ liệu huấn luyện.

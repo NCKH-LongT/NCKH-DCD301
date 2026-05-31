@@ -2,49 +2,58 @@
 
 ## Citation
 
-Tên bài: Application of Hamming Code for Error Control in Memory  
-Tác giả: Đỗ H. N. Tran và cộng sự  
-Năm: 2022  
-Nguồn: Journal of Technical Education Science  
-DOI/Link: https://jte.edu.vn/index.php/jte/article/view/1141
+Tên bài: Vibration, and temperature run-to-failure dataset of ball bearing for prognostics  
+Tác giả: Nhóm tác giả Data in Brief (Elsevier)  
+Năm: 2024  
+Nguồn: ScienceDirect (Data in Brief)  
+DOI/Link: https://doi.org/10.1016/j.dib.2024.110403
+
+---
 
 ## Problem
 
-Bài báo giải quyết vấn đề lỗi bit trong bộ nhớ của hệ thống nhúng và IoT, có thể gây mất dữ liệu hoặc lỗi hệ thống.
+Thiếu các bộ dữ liệu chất lượng cao bao quát toàn bộ vòng đời của vòng bi.
+
+---
 
 ## Method
 
-Bài báo thiết kế hệ thống ECC sử dụng mã Hamming để mã hóa dữ liệu trước khi lưu vào bộ nhớ nhằm phát hiện và sửa lỗi bit đơn.
+Tiến hành thử nghiệm tuổi thọ cấp tốc trên vòng bi thực tế cho đến khi xảy ra hư hỏng hoàn toàn.
+
+---
 
 ## Dataset
 
-Bài báo sử dụng các mẫu dữ liệu nhị phân và giả lập lỗi bit trong bộ nhớ để kiểm tra khả năng sửa lỗi.
+Bộ dữ liệu chuỗi thời gian đa biến gồm:
+- độ rung
+- nhiệt độ
+
+---
 
 ## Evaluation
 
-Bài báo đánh giá:
-- Khả năng phát hiện lỗi
-- Khả năng sửa lỗi
-- Độ chính xác của encoder và decoder
+Sử dụng phân tích bằng kính hiển vi để xác định loại hư hỏng vật lý.
+
+---
 
 ## Results
 
-Hệ thống ECC hoạt động hiệu quả trong việc phát hiện và sửa lỗi bit đơn, giúp tăng độ tin cậy của bộ nhớ.
+Xây dựng thành công bộ dữ liệu chuẩn công khai phục vụ nghiên cứu prognostics.
+
+---
 
 ## Limitations
 
-- Chỉ sửa được single-bit error
-- Chưa đánh giá realtime performance
-- Chưa triển khai trên phần cứng ESP32 hoặc Arduino
+Nghiên cứu chủ yếu tập trung vào cung cấp dữ liệu thô.
+
+---
 
 ## Relevance to our topic
 
-Đây là bài báo phù hợp trực tiếp với đề tài Memory & Error Detection vì tập trung vào ECC cho bộ nhớ bằng mã Hamming.
+Đây là nguồn dữ liệu thực nghiệm quan trọng cho việc huấn luyện mô hình AI.
+
+---
 
 ## Possible improvement
 
-Nhóm có thể:
-- Xây dựng hệ thống realtime monitoring
-- Đo execution time và memory overhead
-- Triển khai trên ESP32 hoặc Arduino
-- Thêm visualization dashboard
+Kết hợp nhiều loại sensor để xây dựng Health Index đa biến.
