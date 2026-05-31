@@ -52,4 +52,6 @@ This study will be guided by the following research questions:
 
 ### 6. Expected Outcome
 
-The primary outcome will be a technical report that clearly explains the principles and procedures for decoder-based logic design. The system's output will be a structured JSON object that describes the implementation details for a given logic function, following a predefined schema. This provides a machine-readable representation of the design.
+| Research Questions | Expected Output |
+| :--- | :--- |
+| **RQ-02:** How can a decoder be used in combination with OR gates to implement a logic function instead of using basic logic gates?<br><br>*(Sub-questions)*<br>- **RQ2.1:** What is the relationship between the outputs of a Decoder and the minterms of a logic function?<br>- **RQ2.2:** For a given Boolean function, how do you select the correct Decoder outputs to connect to the OR gate?<br>- **RQ2.3:** What are the advantages of implementing with a Decoder compared to designing with discrete AND/OR/NOT gates? | Decoder-based combinational logic can successfully implement arbitrary Boolean functions by generating all minterms systematically and selectively combining them through OR gates.<br><br>This modular approach is expected to streamline the design process, reduce the structural complexity of custom gate routing, and provide superior ease of modification over traditional discrete gate networks. Additionally, the configuration can be standardized into a structured JSON schema for automated implementation. |

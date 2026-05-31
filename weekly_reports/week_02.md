@@ -1,46 +1,42 @@
-# Weekly Report — Week 02
+# Weekly Report - Week 02
 
-Date range: Week 02 (specify exact dates)
+## Group Information
 
-## Summary
+Class: SE1930
+Group: 6
+Leader: Phạm Lê Nhật Minh-SE193155
+Members:
+- Phạm Lê Nhật Minh-SE193155
+- Phan Trí Dũng-SE193224
+- Trần Minh Nhựt-SE193149
+- Lê Nguyễn Hoàng Lộc-SE193098
 
-This week we focused on literature consolidation and identifying concrete research directions for decoder-based combinational logic. Deliverables include the related-work extraction in `02_related_work/`, and Week 02 outputs summarizing contributions, literature matrix, related work summaries, and identified research gaps.
+## Tasks Completed This Week
 
-## Completed Tasks
+| Member | Task | Result |
+|---|---|---|
+| Phạm Lê Nhật Minh | Create `search_keywords.md` to document search terms for literature. | Completed |
+| Phan Trí Dũng | Create `paper_list.md` and find initial papers. | Completed |
+| Trần Minh Nhựt | Review and categorize the found papers. | Completed |
+| Lê Nguyễn Hoàng Lộc | Draft the report for week 2. | Completed |
 
-- Collected and reviewed 3 core papers on decoder-based architectures and synthesis.
-- Translated and consolidated related work summaries into English in `02_related_work/`.
-- Prepared Week 02 deliverables under `weekly_output/week_02/`:
-  - `contribution.md` — project contributions draft
-  - `literature_review_matrix.md` — working matrix of reviewed papers
-  - `related_work_summeries.md` — concise paper summaries
-  - `research_gap.md` — identified gaps motivating our work
+## Git Commits
 
-## Deliverables (links)
-- `weekly_output/week_02/contribution.md`
-- `weekly_output/week_02/literature_review_matrix.md`
-- `weekly_output/week_02/related_work_summeries.md`
-- `weekly_output/week_02/research_gap.md`
+| Commit ID | Message | Author |
+|---|---|---|
+| DepBo | docs: add paper_list.md & search_keywords.md | Phạm Lê Nhật Minh |
 
-## Issues / Blockers
+## Current Problems
 
-- Need 2–3 additional papers focusing on "sparse decoder" and "shared decoder" to strengthen the literature matrix.
-- No FPGA/post-layout data yet — requires access to FPGA toolchain or P&R flow.
+- The initial search yielded many papers focused on hardware implementation, requiring filtering to find those relevant to design methodology.
+- It is challenging to find papers that directly compare the decoder-based method with traditional gate-level design from a pedagogical or procedural standpoint.
 
-## Plan for Next Week (Week 03)
+## Plan for Next Week
 
-1. Search and add 2–3 more relevant papers (sparse/shared decoder focus).
-2. Select two benchmark boolean functions (one sparse, one dense) and prepare initial RTL skeletons.
-3. Start implementing partial minterm generation prototype (algorithm + reference RTL).
-4. Prepare experiment plan and measurement script template.
+- Summarize the 3 most relevant papers into `paper_summaries/paper_01.md`, `paper_02.md`, and `paper_03.md`.
+- Each member will take one paper to summarize and analyze.
+- Draft the report for week 3.
 
-## Team Assignments (proposed)
+## Questions for Instructor
 
-- Member A: Literature + paper summaries and matrix updates.
-- Member B: Decomposition algorithm and RTL prototype.
-- Member C: Synthesis/FPGA mapping and measurement scripts.
-- Member D: Paper writing and result consolidation.
-
----
-
-Prepared by: (your name)
+- No questions this week.
