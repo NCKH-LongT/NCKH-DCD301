@@ -1,11 +1,9 @@
 # Paper List
 
-Danh sách các bài báo đã được tổng hợp trong `paper_summeries/`:
+Danh sách các bài báo đã được tổng hợp trong `paper_summaries/`:
 
-1. R. S. S. S. B. Subrahmanyam, K. Bhargavi, et al., "Design and Analysis of Low Power and High Speed Decoder Circuits using Alternative Logic Styles," Lecture Notes in Electrical Engineering, Springer, 2023. https://doi.org/10.1007/978-981-19-8669-7_12
+1. A. Costamagna, G. De Micheli, "Accuracy recovery: A decomposition procedure for the synthesis of partially-specified Boolean functions," INTEGRATION, the VLSI journal, 2023. https://www.sciencedirect.com/science/article/pii/S0167926022001791
 
-2. J. Lim, S. Park, H. Lee, "High-Speed and Area-Efficient Combinational Logic Architecture for Error Correction Code Decoders," IEEE Transactions on VLSI Systems, 2024. https://doi.org/10.1109/TVLSI.2024.3351234
+2. D. Balobas, N. Konofaos, "Optimization of CMOS Decoders Using Three-Transistor Logic," MDPI Electronics, 2025. https://www.mdpi.com/2079-9292/14/5/914
 
-3. M. Gerasimenko, A. Zakrevskij, "Automated Synthesis of Combinational Logic Using Decoders and Multiplexers for Post-Quantum Cryptography Hardware," Microprocessors and Microsystems, 2022. https://doi.org/10.1016/j.micpro.2022.104567
-
-Ghi chú: nếu có thêm bài mới, thêm theo định dạng số và include DOI / link.
+3. T. A. Ikwunne, S. O. Okide, "Interactive Algorithms for the Verification of the Equality between Complex and Simplified Boolean-Algebra Expressions in Digital Decoders," Review of Computer Engineering Research, 2020. https://archive.conscientiabeam.com/index.php/76/article/view/1476

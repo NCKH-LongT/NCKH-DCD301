@@ -1,36 +1,36 @@
 # Search Keywords
 
-This file lists search keywords and query combinations used to find papers related to decoder architectures, decoder-based combinational logic, EDA optimization for decoder-OR structures, and applications in ECC / PQC / VLSI.
+This file lists search keywords and query combinations used to find papers related to our core methodology: combinational logic synthesis using decoders, hardware-level decoder optimization, and mathematical verification of Boolean expressions.
 
-- decoder based logic
-- decoder OR architecture
-- decoder OR combinational logic
-- decoder LUT architecture
-- minterm generation decoder
-- hierarchical decoder synthesis
-- decoder-based synthesis EDA
-- decoder optimization sparse functions
-- partial minterm generation
-- decoder pass-transistor logic
-- mixed-logic decoder design
-- decoder for ECC
-- decoder for error correction
-- decoder-based FPGA mapping
-- decoder hierarchical OR
-- automated synthesis decoders multiplexer
-- post-quantum cryptography hardware decoder
+## Core Keywords by Topic
+
+**1. Logic Synthesis & Architecture (Paper 01 Focus)**
+- Boolean decomposition algorithm
+- disjoint support decomposition (DSD)
+- logic synthesis from partial specifications
+- accuracy recovery logic
+- machine learning hardware mapping
+- automated logic synthesis EDA
+
+**2. Hardware Optimization (Paper 02 Focus)**
+- CMOS decoder optimization
+- Three-Transistor Logic (3TL) decoder
 - low-power decoder design
-- decoder scalability 2^n
+- transistor count minimization
+- FinFET logic decoder
 
-Example combined queries (Google Scholar / IEEE / ScienceDirect):
+**3. Mathematical Verification & Minterms (Paper 03 Focus)**
+- Boolean algebra equivalence verification
+- canonical minterm expression
+- digital decoder truth table
+- interactive logic verification algorithm
+- minterm to decoder output mapping
 
-```
-"decoder based" AND "combinational logic"
-"decoder" AND "look-up table" AND "LUT"
-"decoder" AND "ECC" AND "glitch power"
-"hierarchical decoder" AND "synthesis"
-"decoder" AND "post-quantum" AND "hardware"
-"mixed-logic" AND "decoder" AND "low power"
-```
+## Example Combined Queries (Google Scholar / IEEE Xplore / ScienceDirect)
 
-Recommendation: filter by year >= 2018, and add keywords like "FPGA" or "ASIC" when focusing on hardware mapping.
+```text
+"disjoint support decomposition" AND "logic synthesis"
+"partial specifications" AND "Boolean function" AND "decoder"
+"CMOS decoder" AND "low power" AND "transistor logic"
+"canonical minterm" AND "decoder verification"
+"accuracy recovery" AND "automated synthesis"
