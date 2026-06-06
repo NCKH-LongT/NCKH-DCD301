@@ -1,0 +1,85 @@
+🌱 Nông nghiệp nhà kính tiên tiến: Công nghệ mới và thực hành canh tác
+Athanasios Koukounaras
+Horticulturae 2021, 7, 1
+
+==================================================
+📌 Giới thiệu
+- Nông nghiệp nhà kính là hệ thống sản xuất thâm canh, cho phép kiểm soát môi trường (nhiệt độ, ánh sáng, độ ẩm).
+- Giúp sử dụng tài nguyên hiệu quả (nước, phân bón).
+- Áp dụng công nghệ cao như thủy canh, tự động hóa, cảm biến.
+- Thị trường toàn cầu năm 2019 trị giá 30 tỷ USD, dự báo tăng trưởng 9% mỗi năm.
+- Thách thức: biến đổi khí hậu và quản lý không phù hợp.
+
+==================================================
+🔬 Công nghệ mới trong nông nghiệp nhà kính
+
+1. Pin mặt trời nhạy màu (DSSC)
+- Dùng cho mái kính nhà kính.
+- Tạo năng lượng tái tạo và cải thiện chất lượng quả cà chua.
+- Tận dụng ánh sáng dư thừa mùa hè để sản xuất điện.
+
+2. Cảm biến quang phổ phát hiện thiếu nước/nitơ
+- Sử dụng các chỉ số MSAVI, NDVI, PRI.
+- Độ chính xác phân loại đạt trên 89%.
+- Hướng tới hệ thống hỗ trợ quyết định thông minh cho quản lý tưới tiêu.
+
+3. Đèn LED kết hợp hormone GA3
+- LED thay thế nguồn sáng truyền thống.
+- GA3 giúp kích thích tăng trưởng và ra hoa.
+- Kết hợp LED + GA3 cho thấy hiệu quả hiệp đồng ở cây cảnh.
+
+4. Tái chế nước thải bia
+- Nước thải bia được xử lý kỵ khí rồi dùng cho nông nghiệp không đất.
+- Năng suất cây trồng cao hơn so với nước thải thô.
+- Giúp tái chế dinh dưỡng và giảm gánh nặng xử lý chất thải đô thị.
+
+5. Bổ sung silica bằng đất tảo cát
+- Silica không thiết yếu nhưng cải thiện sức khỏe cây.
+- Đất tảo cát giúp tăng chiều cao, đường kính thân và hoa.
+- Có tiềm năng ứng dụng rộng rãi cho nhiều loại cây cảnh.
+
+==================================================
+🌿 Thực hành canh tác tiên tiến
+
+1. Quản lý tưới tiêu
+- Tưới tiêu là công việc nhạy cảm nhất của người trồng.
+- Cần hệ thống AI để mô hình hóa và giám sát đất – cây – khí quyển.
+
+2. Ứng dụng biochar
+- Biochar là vật liệu giàu carbon từ sinh khối.
+- Cải thiện đặc tính giá thể và tăng trưởng cây.
+- Cần nghiên cứu thêm để tối ưu quy trình sản xuất.
+
+3. Ảnh hưởng của ánh sáng đến vi sinh vật
+- Chất lượng ánh sáng ảnh hưởng đến vi khuẩn, nấm và hệ vi sinh trên lá.
+- Có thể điều chỉnh ánh sáng để hỗ trợ kiểm soát sinh học.
+
+4. Canh tác hữu cơ vs truyền thống
+- Thí nghiệm trên giống hành tây cho thấy:
+  + Hữu cơ có hàm lượng đường, vitamin C, kali cao hơn.
+  + Hàm lượng nitrat thấp hơn.
+- Gợi ý tiềm năng lai tạo giống phù hợp cả hai hệ thống.
+
+5. So sánh khí canh và thủy canh
+- Khí canh cải thiện sự phát triển rễ (khối lượng, diện tích, thể tích).
+- Tuy nhiên, sinh trưởng thân không vượt trội do hạn chế dinh dưỡng.
+- Cần nghiên cứu thêm về áp suất và chu kỳ phun sương.
+
+6. Tiêu chí chất lượng cây ghép
+- Đối với dưa hấu ghép, các tiêu chí quan trọng gồm:
+  + Diện tích lá, đường kính thân, khối lượng khô rễ và thân.
+  + Chỉ số chất lượng Dickson.
+- Giúp phân loại cây giống chính xác cho nông dân và doanh nghiệp.
+
+7. Cây thay thế: cải dại (hedge mustard)
+- Có giá trị dinh dưỡng và chất lượng tương tự rau lá phổ biến.
+- Chứa nhiều sắc tố, vitamin C, phenol, anthocyanin.
+- Tiềm năng trở thành loại rau mới cho thị trường.
+
+==================================================
+🎯 Kết luận
+- Nông nghiệp nhà kính là phương thức sản xuất thâm canh, mang lại năng suất và chất lượng cao.
+- Công nghệ mới (DSSC, LED, cảm biến, tái chế nước thải, silica) và thực hành tiên tiến (tưới tiêu thông minh, biochar, hữu cơ, khí canh, ghép cây) là chìa khóa để phát triển bền vững.
+- Cần quản lý tốt tác động môi trường để vừa đáp ứng nhu cầu lương thực toàn cầu, vừa duy trì sự cạnh tranh.
+
+nguồn: https://www.mdpi.com/2311-7524/7/1/1

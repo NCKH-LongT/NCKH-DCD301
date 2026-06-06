@@ -1,0 +1,25 @@
+sensor_id,sensor_name,sensor_type,location,value,unit,status,timestamp
+temp_1,Temperature Sensor 1,temperature,greenhouse_1,45.5,C,critical,2024-01-15T11:00:00Z
+humid_1,Humidity Sensor 1,humidity,greenhouse_1,92.2,%,critical,2024-01-15T11:00:00Z
+soil_1,Soil Moisture Sensor 1,soil_moisture,greenhouse_1,88.8,%,critical,2024-01-15T11:00:00Z
+light_1,Light Sensor 1,light,greenhouse_1,48000,lux,critical,2024-01-15T11:00:00Z
+temp_2,Temperature Sensor 2,temperature,field_2,3.3,C,critical,2024-01-15T11:00:00Z
+humid_2,Humidity Sensor 2,humidity,field_2,95.5,%,critical,2024-01-15T11:00:00Z
+soil_2,Soil Moisture Sensor 2,soil_moisture,field_2,90.1,%,critical,2024-01-15T11:00:00Z
+light_2,Light Sensor 2,light,field_2,100,lux,critical,2024-01-15T11:00:00Z
+temp_3,Temperature Sensor 3,temperature,storage_3,48.8,C,critical,2024-01-15T11:00:00Z
+humid_3,Humidity Sensor 3,humidity,storage_3,96.3,%,critical,2024-01-15T11:00:00Z
+soil_3,Soil Moisture Sensor 3,soil_moisture,storage_3,2.9,%,critical,2024-01-15T11:00:00Z
+light_3,Light Sensor 3,light,storage_3,50000,lux,critical,2024-01-15T11:00:00Z
+temp_1,Temperature Sensor 1,temperature,greenhouse_1,46.1,C,critical,2024-01-15T11:05:00Z
+humid_1,Humidity Sensor 1,humidity,greenhouse_1,93.5,%,critical,2024-01-15T11:05:00Z
+soil_1,Soil Moisture Sensor 1,soil_moisture,greenhouse_1,89.2,%,critical,2024-01-15T11:05:00Z
+light_1,Light Sensor 1,light,greenhouse_1,49000,lux,critical,2024-01-15T11:05:00Z
+temp_2,Temperature Sensor 2,temperature,field_2,2.8,C,critical,2024-01-15T11:05:00Z
+humid_2,Humidity Sensor 2,humidity,field_2,94.9,%,critical,2024-01-15T11:05:00Z
+soil_2,Soil Moisture Sensor 2,soil_moisture,field_2,89.8,%,critical,2024-01-15T11:05:00Z
+light_2,Light Sensor 2,light,field_2,50,lux,critical,2024-01-15T11:05:00Z
+temp_3,Temperature Sensor 3,temperature,storage_3,47.9,C,critical,2024-01-15T11:05:00Z
+humid_3,Humidity Sensor 3,humidity,storage_3,97.2,%,critical,2024-01-15T11:05:00Z
+soil_3,Soil Moisture Sensor 3,soil_moisture,storage_3,3.1,%,critical,2024-01-15T11:05:00Z
+light_3,Light Sensor 3,light,storage_3,49500,lux,critical,2024-01-15T11:05:00Z

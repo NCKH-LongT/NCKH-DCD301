@@ -1,0 +1,25 @@
+sensor_id,sensor_name,sensor_type,location,value,unit,status,timestamp
+temp_1,Temperature Sensor 1,temperature,greenhouse_1,32.5,C,warning,2024-01-15T10:00:00Z
+humid_1,Humidity Sensor 1,humidity,greenhouse_1,78.2,%,warning,2024-01-15T10:00:00Z
+soil_1,Soil Moisture Sensor 1,soil_moisture,greenhouse_1,72.8,%,warning,2024-01-15T10:00:00Z
+light_1,Light Sensor 1,light,greenhouse_1,42000,lux,warning,2024-01-15T10:00:00Z
+temp_2,Temperature Sensor 2,temperature,field_2,14.3,C,warning,2024-01-15T10:00:00Z
+humid_2,Humidity Sensor 2,humidity,field_2,82.5,%,warning,2024-01-15T10:00:00Z
+soil_2,Soil Moisture Sensor 2,soil_moisture,field_2,75.1,%,warning,2024-01-15T10:00:00Z
+light_2,Light Sensor 2,light,field_2,4500,lux,warning,2024-01-15T10:00:00Z
+temp_3,Temperature Sensor 3,temperature,storage_3,33.8,C,warning,2024-01-15T10:00:00Z
+humid_3,Humidity Sensor 3,humidity,storage_3,85.3,%,warning,2024-01-15T10:00:00Z
+soil_3,Soil Moisture Sensor 3,soil_moisture,storage_3,19.9,%,warning,2024-01-15T10:00:00Z
+light_3,Light Sensor 3,light,storage_3,1000,lux,warning,2024-01-15T10:00:00Z
+temp_1,Temperature Sensor 1,temperature,greenhouse_1,31.8,C,warning,2024-01-15T10:05:00Z
+humid_1,Humidity Sensor 1,humidity,greenhouse_1,79.1,%,warning,2024-01-15T10:05:00Z
+soil_1,Soil Moisture Sensor 1,soil_moisture,greenhouse_1,73.2,%,warning,2024-01-15T10:05:00Z
+light_1,Light Sensor 1,light,greenhouse_1,41800,lux,warning,2024-01-15T10:05:00Z
+temp_2,Temperature Sensor 2,temperature,field_2,14.8,C,warning,2024-01-15T10:05:00Z
+humid_2,Humidity Sensor 2,humidity,field_2,81.9,%,warning,2024-01-15T10:05:00Z
+soil_2,Soil Moisture Sensor 2,soil_moisture,field_2,74.8,%,warning,2024-01-15T10:05:00Z
+light_2,Light Sensor 2,light,field_2,4700,lux,warning,2024-01-15T10:05:00Z
+temp_3,Temperature Sensor 3,temperature,storage_3,34.2,C,warning,2024-01-15T10:05:00Z
+humid_3,Humidity Sensor 3,humidity,storage_3,84.8,%,warning,2024-01-15T10:05:00Z
+soil_3,Soil Moisture Sensor 3,soil_moisture,storage_3,20.1,%,warning,2024-01-15T10:05:00Z
+light_3,Light Sensor 3,light,storage_3,1100,lux,warning,2024-01-15T10:05:00Z

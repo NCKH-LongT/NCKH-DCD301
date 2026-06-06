@@ -1,0 +1,66 @@
+🌱 Tiến bộ trong hệ thống nhà kính thông minh và tự động: Tổng quan về IoT, trí tuệ nhân tạo và robot
+
+Tác giả: Rawan Al-Najadi, Yaseen Al-Mulla, Khaled Goher
+Smart Agricultural Technology, 2026
+
+==================================================
+📌 Tóm tắt
+Các vùng khô hạn và siêu khô hạn đang mất dần đất canh tác do biến đổi khí hậu, ô nhiễm và tăng trưởng dân số. Nhà kính với công nghệ giám sát và điều khiển tiên tiến là giải pháp hứa hẹn để duy trì năng suất. Bài báo tổng hợp hơn 100 nghiên cứu từ 2021–2025 về ứng dụng IoT, học máy (ML), học sâu (DL) và robot trong dự đoán năng suất, phát hiện bệnh và giám sát sinh trưởng. Các công nghệ này được xem là chìa khóa để phát triển nhà kính tự động, tiết kiệm năng lượng và nước.
+
+==================================================
+🔎 1. Giới thiệu
+
+- **[Tầm quan trọng của nhà kính](ca://s?q=Tam_quan_trong_nha_kinh)**: Đất nông nghiệp giảm do công nghiệp hóa, biến đổi khí hậu, dân số tăng. Đến 2050, dân số toàn cầu dự kiến đạt 10 tỷ, nhu cầu lương thực tăng gấp đôi.
+- **[Nông nghiệp môi trường kiểm soát (CEA)](ca://s?q=Nong_nghiep_CEA)**: Tạo điều kiện tối ưu cho cây, giảm tiêu thụ nước và phân bón, nâng cao năng suất.
+- **[Nhà kính hiện đại](ca://s?q=Nha_kinh_hien_dai)**: Cho phép sản xuất quanh năm, kiểm soát nhiệt độ, độ ẩm, ánh sáng, nâng cao chất lượng và hiệu quả.
+
+==================================================
+🔬 2. Công nghệ nhà kính
+
+- **[Nhà kính thông minh](ca://s?q=Nha_kinh_thong_minh)**: Tích hợp ICT để tự động giám sát và điều khiển, giảm phụ thuộc lao động.
+- **[Tiết kiệm năng lượng](ca://s?q=Cong_nghe_tiet_kiem_nang_luong)**: Nâng cấp nhà kính truyền thống có thể tiết kiệm tới 80% năng lượng.
+- **[Mạng cảm biến không dây (WSN)](ca://s?q=WSN_trong_nha_kinh)**: Giám sát nhiệt độ, độ ẩm, ánh sáng, độ ẩm đất liên tục.
+- **[Trí tuệ nhân tạo](ca://s?q=AI_trong_nha_kinh)**: Nâng cao độ chính xác và hiệu quả chi phí trong điều khiển môi trường.
+
+==================================================
+🤖 3. Robot trong nhà kính
+
+- **[Ứng dụng robot](ca://s?q=Ung_dung_robot_nha_kinh)**: Tự động hóa các công việc lặp lại như tưới, phun thuốc, thu hoạch.
+- **[Robot kết hợp AI](ca://s?q=Robot_AI_nha_kinh)**: Sử dụng camera RGB, LiDAR, cảm biến đa phổ để thu thập dữ liệu.
+- **[Quy trình ML/DL](ca://s?q=Quy_trinh_ML_DL_nha_kinh)**:
+  - Thu thập dữ liệu hình ảnh lá cây, quả, cỏ dại.
+  - Huấn luyện mô hình CNN, Transformer, SVM.
+  - Triển khai trên robot để dự đoán thời gian thực.
+  - Đánh giá bằng độ chính xác, F1-score, độ nhạy, độ đặc hiệu.
+
+==================================================
+📡 4. IoT trong giám sát và điều khiển
+
+- **[IoT giám sát vi khí hậu](ca://s?q=IoT_giam_sat_vi_khi_hau)**: Cảm biến đo nhiệt độ, độ ẩm, ánh sáng, độ ẩm đất.
+- **[Truyền dữ liệu](ca://s?q=Truyen_du_lieu_IoT)**: Sử dụng Wi-Fi, LoRa, Zigbee, MQTT để kết nối.
+- **[Hệ thống điều khiển](ca://s?q=He_thong_dieu_khien_nha_kinh)**: Máy bơm, quạt, đèn, van nước được điều khiển tự động.
+- **[Ứng dụng thực tế](ca://s?q=Ung_dung_thuc_te_IoT_nha_kinh)**: Giảm tiêu thụ nước 16.5%, tăng năng suất, tiết kiệm năng lượng.
+
+==================================================
+📈 5. Thách thức và xu hướng
+
+- **[Thách thức](ca://s?q=Thach_thuc_nha_kinh_thong_minh)**:
+  - Tích hợp đa cảm biến (fusion).
+  - Thiếu dữ liệu huấn luyện.
+  - Hạn chế tính toán và chi phí cao.
+  - Vấn đề bảo mật và tương thích.
+- **[Xu hướng tương lai](ca://s?q=Xu_huong_tuong_lai_nha_kinh)**:
+  - Tích hợp AI, IoT, robot thành hệ thống đồng bộ.
+  - Sử dụng điện toán biên (edge computing).
+  - Tăng cường năng lượng tái tạo.
+  - Phát triển nhà kính tự động hoàn toàn.
+
+==================================================
+🎯 6. Kết luận
+
+- Nhà kính thông minh là giải pháp quan trọng cho nông nghiệp bền vững.
+- IoT, AI và robot giúp nâng cao năng suất, chất lượng, tiết kiệm tài nguyên.
+- Cần nghiên cứu thêm về tích hợp hệ thống, khả năng mở rộng và tính kinh tế.
+- Đây là bước tiến quan trọng hướng tới **Nông nghiệp 4.0** và sản xuất lương thực toàn cầu.
+
+nguồn: https://www.sciencedirect.com/science/article/pii/S2772375525009013

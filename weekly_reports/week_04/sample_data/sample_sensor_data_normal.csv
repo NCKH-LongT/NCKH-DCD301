@@ -1,0 +1,25 @@
+sensor_id,sensor_name,sensor_type,location,value,unit,status,timestamp
+temp_1,Temperature Sensor 1,temperature,greenhouse_1,22.5,C,normal,2024-01-15T09:00:00Z
+humid_1,Humidity Sensor 1,humidity,greenhouse_1,65.2,%,normal,2024-01-15T09:00:00Z
+soil_1,Soil Moisture Sensor 1,soil_moisture,greenhouse_1,45.8,%,normal,2024-01-15T09:00:00Z
+light_1,Light Sensor 1,light,greenhouse_1,15000,lux,normal,2024-01-15T09:00:00Z
+temp_2,Temperature Sensor 2,temperature,field_2,21.3,C,normal,2024-01-15T09:00:00Z
+humid_2,Humidity Sensor 2,humidity,field_2,58.5,%,normal,2024-01-15T09:00:00Z
+soil_2,Soil Moisture Sensor 2,soil_moisture,field_2,42.1,%,normal,2024-01-15T09:00:00Z
+light_2,Light Sensor 2,light,field_2,18500,lux,normal,2024-01-15T09:00:00Z
+temp_3,Temperature Sensor 3,temperature,storage_3,19.8,C,normal,2024-01-15T09:00:00Z
+humid_3,Humidity Sensor 3,humidity,storage_3,52.3,%,normal,2024-01-15T09:00:00Z
+soil_3,Soil Moisture Sensor 3,soil_moisture,storage_3,38.9,%,normal,2024-01-15T09:00:00Z
+light_3,Light Sensor 3,light,storage_3,12000,lux,normal,2024-01-15T09:00:00Z
+temp_1,Temperature Sensor 1,temperature,greenhouse_1,23.1,C,normal,2024-01-15T09:05:00Z
+humid_1,Humidity Sensor 1,humidity,greenhouse_1,64.8,%,normal,2024-01-15T09:05:00Z
+soil_1,Soil Moisture Sensor 1,soil_moisture,greenhouse_1,46.2,%,normal,2024-01-15T09:05:00Z
+light_1,Light Sensor 1,light,greenhouse_1,15200,lux,normal,2024-01-15T09:05:00Z
+temp_2,Temperature Sensor 2,temperature,field_2,21.5,C,normal,2024-01-15T09:05:00Z
+humid_2,Humidity Sensor 2,humidity,field_2,59.1,%,normal,2024-01-15T09:05:00Z
+soil_2,Soil Moisture Sensor 2,soil_moisture,field_2,42.5,%,normal,2024-01-15T09:05:00Z
+light_2,Light Sensor 2,light,field_2,18700,lux,normal,2024-01-15T09:05:00Z
+temp_3,Temperature Sensor 3,temperature,storage_3,20.1,C,normal,2024-01-15T09:05:00Z
+humid_3,Humidity Sensor 3,humidity,storage_3,52.8,%,normal,2024-01-15T09:05:00Z
+soil_3,Soil Moisture Sensor 3,soil_moisture,storage_3,39.2,%,normal,2024-01-15T09:05:00Z
+light_3,Light Sensor 3,light,storage_3,12100,lux,normal,2024-01-15T09:05:00Z

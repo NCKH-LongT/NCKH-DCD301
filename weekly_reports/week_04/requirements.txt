@@ -1,0 +1,25 @@
+# === Core ===
+flask==2.3.2
+flask-cors==4.0.0
+python-dotenv==1.0.0
+requests==2.31.0
+
+# === Database ===
+psycopg2-binary==2.9.6
+
+# === RAG Pipeline (Week 4) ===
+# Vector DB
+# psycopg2-binary for PostgreSQL/pgvector connectivity
+psycopg2-binary==2.9.9
+
+# Embedding models
+sentence-transformers==2.2.2
+
+# API Server (FastAPI alternative)
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.2
+
+# === Evaluation ===
+numpy==1.24.3
+pandas==2.0.3
