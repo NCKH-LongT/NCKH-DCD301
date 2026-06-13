@@ -141,18 +141,18 @@
 
 ---
 
-## Checklist Tuần 5
+## Checklist Tuần 5 (cập nhật 2026-06-13)
 
 - [x] Phát hiện được missing data
 - [x] Phát hiện được outlier
 - [x] Phát hiện được sensor fault (stuck)
 - [x] Phát hiện được sensor drift
 - [x] Phát hiện được timestamp delay
-- [ ] Phát hiện được conflicting sensor (cross-sensor)
-- [ ] Agent gọi được data quality module
-- [ ] Agent gọi được RAG
-- [ ] Output có explanation và evidence
-- [ ] Confidence score được tính đúng
+- [x] Phát hiện được conflicting sensor (cross-sensor)
+- [x] Agent gọi được data quality module
+- [x] Agent gọi được RAG
+- [x] Output có explanation và evidence
+- [x] Confidence score được tính đúng (4-term formula)
 
 ---
 
@@ -189,11 +189,50 @@
   - `weekly_reports/week_05/src/data_quality/`, `tests/`
 - **DB test:** PostgreSQL `dcd_rag` (temp_1) — null detection: 0 nulls; gap detection: 6 gaps; outlier: 2 flagged (46.1°C > 45°C)
 
+## Tiến độ thực tế — Member 3 (cập nhật 2026-06-13)
+
+Phase 1 hoàn thành — đầu ra khớp mentor spec (schema tại `Requirement-of-Mentor.md` lines 264-286):
+
+| Deliverable | Trạng thái | Ghi chú |
+|-------------|------------|---------|
+| `src/data_quality/checker.py` | ✅ Đã nộp | ~280 dòng, gộp 5 DQ modules + State Analyzer + recommendation builder + cross-sensor conflict |
+| `src/rag/rag_client.py` | ✅ Đã nộp | Wrapper quanh RAGRetriever, evidence format: `{source, chunk_id, relevance_score}` |
+| `src/agent/agent_workflow.py` | ✅ Đã nộp | Full 7-step: fetch → DQ → State Analyze → RAG → Recommend → Confidence → JSON output |
+| `tests/test_agent_workflow.py` | ✅ Đã nộp | 17 tests (6 checker + 3 RAG + 4 mock workflow + 4 real DB integration) |
+| `docs/agent_workflow.html` | ✅ Đã nộp | Pipeline visualization (HTML) |
+| `src/agent/agent_service.py` | ⏳ Phase 2 | Chờ sau integration với Member 4 |
+
+**Kết quả:** 89/89 tests pass (17 member3 + 27 M2 + 18 M1 + 8 drift + 8 stuck + 11 timestamp_delay)
+
+**Output JSON schema (khớp mentor):**
+```json
+{
+  "status": "pass/warning/error/no_data",
+  "detected_issue": "temperature_high | sensor_fault | ...",
+  "sensor_quality_score": 0.0–1.0,
+  "recommendation": {"action": "...", "level": 1–5, "duration_minutes": N, "confidence": 0.0–1.0},
+  "explanation": "...",
+  "evidence": [{"source": "...", "chunk_id": "...", "relevance_score": 0.0–1.0}],
+  "requires_human_approval": true/false,
+  "confidence": {
+    "final": ...,
+    "sensor_quality_score": ...,
+    "rag_relevance_score": ...,
+    "rule_consistency_score": ...,
+    "historical_stability_score": ...,
+    "formula": "0.4*SQS + 0.3*RAG + 0.2*Rule + 0.1*Historical"
+  }
+}
+```
+
+**Confidence formula:** `0.4×SQS + 0.3×RAG_relevance + 0.2×Rule_consistency + 0.1×Historical_stability`
+
 ## Ghi chú
 
-- Cần phối hợp giữa Member 1, 2 với Member 3 để đảm bảo data quality checker được agent gọi đúng
-- Cần phối hợp với Member 3 (RAG tuần 4) để lấy RAG query code đã viết
-- Cross-sensor conflict detection có thể làm chung với Member 2
+- ✅ Cross-sensor conflict detection: so sánh temp_1 vs temp_2 (diff > 5°C), hum_1 vs hum_2 (diff > 15%)
+- ⚠️ `historical_stability_score` = 0.5 tạm thời, cần Member 4 thay thế
+- ⏳ `agent_service.py` (Phần 2): chờ Member 4 confidence + review complete
+- ⏳ Demo JSON (`demo_output.json`): Member 4 lo
 
 ---
 
