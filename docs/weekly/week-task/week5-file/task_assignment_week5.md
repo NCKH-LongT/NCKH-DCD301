@@ -182,9 +182,12 @@
 | `README.md` | ✅ Đã nộp | Full integration guide với code example cho Agent (Member 3) |
 
 **Tỷ lệ hoàn thành:** 100% (5/5 file đã nộp; 45/45 tests passed)
-- **Commit:** `e823315` trên branch `SE1930_G07` — repo `NCKH-LongT/NCKH-DCD301`
-- **Vị trí:** `04_proposed_system/src/data_quality/`, `06_experiment_results/tests/`, `weekly_reports/week_05/`
-- **DB test:** PostgreSQL `dcd_rag` (72 rows) — integration test chạy OK
+- **Commit:** `2d42b1a` (push chung Member 1 + 2) trên branch `SE1930_G07` — repo `NCKH-LongT/NCKH-DCD301`
+- **Vị trí:**
+  - `04_proposed_system/src/data_quality/missing_data.py`, `outlier.py`
+  - `06_experiment_results/tests/test_missing_data.py`, `test_outlier.py`
+  - `weekly_reports/week_05/src/data_quality/`, `tests/`
+- **DB test:** PostgreSQL `dcd_rag` (temp_1) — null detection: 0 nulls; gap detection: 6 gaps; outlier: 2 flagged (46.1°C > 45°C)
 
 ## Ghi chú
 
