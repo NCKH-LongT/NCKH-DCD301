@@ -1,33 +1,361 @@
-# System Output Specification & Schema
+# Data Flow
 
-## 1. Technical Output Format
-[cite_start]The ultimate output of the closed-loop execution cycle processed by the AI Agent must be exported as a single, structurally unified **JSON file**[cite: 20].
+## 1. Overview
 
-## 2. Mandatory Schema Fields
-[cite_start]To ensure compliance and system usability, each generated JSON file must encompass the following components[cite: 20]:
-1. [cite_start]**Device Control Commands:** Explicit instructions defining which actuator to trigger along with quantitative parameters (e.g., turning on a fan, or watering a specific volume in ml)[cite: 19, 20].
-2. [cite_start]**Reasoning Explanation:** A clear, natural language explanation detailing exactly why the AI decided on those actions[cite: 20].
-3. [cite_start]**Verification Evidence:** An exact text quote from the original digitized technical document discovered by the RAG engine to establish complete trust[cite: 20].
+This document describes the complete data flow of the proposed Firefly-Optimized CNN-LSTM framework for Remaining Useful Life (RUL) prediction of rolling bearings.
 
-## 3. Sample JSON Output Schema
-```json
-{
-  "timestamp": "2026-05-20T16:45:00Z",
-  "system_status": "Warning",
-  "control_commands": [
-    {
-      "actuator": "Fan",
-      "status": "ON"
-    },
-    {
-      "actuator": "Water Pump",
-      "status": "ON",
-      "volume_ml": 250
-    }
-  ],
-  "reasoning": "The current greenhouse temperature has exceeded the standard threshold. The system activates the ventilation fan to cool down the environment and triggers irrigation to prevent plant dehydration.",
-  "verification": {
-    "document_title": "High_Tech_Agriculture_Manual.pdf",
-    "exact_quote": "When the greenhouse temperature exceeds the safety threshold, immediately activate the ventilation system and provide an additional 200ml to 300ml of water to avoid heat shock."
-  }
-}
+The objective of the data flow is to illustrate how raw vibration signals are transformed into accurate RUL predictions through a sequence of data processing, feature extraction, temporal learning, hyperparameter optimization, and evaluation stages.
+
+The proposed framework utilizes benchmark bearing degradation datasets, including FEMTO-ST (PRONOSTIA) and IMS, to train and evaluate the predictive model.
+
+---
+
+# 2. Overall Data Flow
+
+The overall processing pipeline of the proposed system is illustrated as follows:
+
+```text
+FEMTO-ST / IMS Dataset
+            │
+            ▼
+Raw Vibration Signals
+            │
+            ▼
+Data Preprocessing
+(Normalization + Windowing)
+            │
+            ▼
+CNN Feature Extraction
+            │
+            ▼
+Feature Sequence Generation
+            │
+            ▼
+LSTM Temporal Learning
+            │
+            ▼
+RUL Prediction Layer
+            │
+            ▼
+Performance Evaluation
+(RMSE, MAE, R²)
+```
+
+During model training, the Firefly Algorithm operates in parallel with the CNN-LSTM model to optimize hyperparameters and improve predictive performance.
+
+---
+
+# 3. Stage 1: Data Acquisition
+
+## 3.1 Dataset Source
+
+The proposed study utilizes publicly available benchmark datasets widely used in Prognostics and Health Management (PHM) research:
+
+### FEMTO-ST (PRONOSTIA)
+
+The FEMTO-ST dataset contains accelerated degradation experiments performed on rolling bearings under different operating conditions.
+
+The dataset provides:
+
+* Horizontal vibration signals
+* Vertical vibration signals
+* Bearing degradation history
+* Run-to-failure records
+
+### IMS Dataset
+
+The IMS dataset contains long-term bearing monitoring data collected from rotating machinery until failure.
+
+The dataset provides:
+
+* Continuous vibration measurements
+* Bearing health degradation trajectories
+* Failure information
+
+These datasets are commonly used for evaluating RUL prediction models and enable fair comparison with existing studies.
+
+---
+
+# 4. Stage 2: Raw Signal Input
+
+The raw input data consist of vibration signals collected from bearing sensors.
+
+Characteristics of the signals include:
+
+* High-dimensional time-series data
+* Nonlinear degradation behavior
+* Noise and environmental interference
+* Progressive degradation patterns
+
+At this stage, no manual feature engineering is applied.
+
+The system directly utilizes vibration signals as input for further processing.
+
+---
+
+# 5. Stage 3: Data Preprocessing
+
+## 5.1 Objective
+
+The purpose of preprocessing is to improve data quality and prepare the signals for deep learning analysis.
+
+## 5.2 Signal Normalization
+
+Because vibration amplitudes may vary significantly between experiments, normalization is performed to standardize the input range.
+
+Benefits include:
+
+* Improved training stability
+* Faster convergence
+* Reduced numerical instability
+
+## 5.3 Sliding Window Segmentation
+
+The continuous vibration signals are divided into smaller overlapping windows.
+
+Each window represents a local degradation state of the bearing.
+
+Benefits include:
+
+* Increased number of training samples
+* Better temporal representation
+* Improved sequence learning
+
+## 5.4 Label Generation
+
+For each signal window, the corresponding Remaining Useful Life value is assigned.
+
+The generated labels become the prediction targets during model training.
+
+Output of this stage:
+
+* Preprocessed vibration windows
+* Corresponding RUL labels
+
+---
+
+# 6. Stage 4: CNN Feature Extraction
+
+## 6.1 Purpose
+
+The CNN module automatically extracts degradation-related features from vibration signals.
+
+Traditional handcrafted features often require extensive domain expertise and may fail to capture complex degradation patterns.
+
+CNN addresses this limitation through automatic feature learning.
+
+## 6.2 Processing Flow
+
+Input:
+
+* Preprocessed vibration windows
+
+Processing:
+
+* Convolution operations
+* Activation functions
+* Pooling operations
+
+Output:
+
+* High-level degradation feature maps
+
+These feature maps provide compact representations of bearing health conditions.
+
+## 6.3 Generated Information
+
+CNN learns:
+
+* Local degradation signatures
+* Frequency-related fault characteristics
+* Amplitude variations
+* Nonlinear signal patterns
+
+The extracted features are forwarded to the LSTM module.
+
+---
+
+# 7. Stage 5: Feature Sequence Generation
+
+The output generated by CNN is transformed into sequential feature vectors.
+
+These vectors preserve temporal ordering and represent the degradation evolution of the bearing over time.
+
+Output:
+
+```text
+Feature Vector 1
+Feature Vector 2
+Feature Vector 3
+...
+Feature Vector N
+```
+
+This sequence becomes the input for LSTM learning.
+
+---
+
+# 8. Stage 6: LSTM Temporal Learning
+
+## 8.1 Purpose
+
+Bearing degradation is a dynamic process that evolves over time.
+
+LSTM is responsible for learning long-term dependencies between historical and future degradation states.
+
+## 8.2 Processing Flow
+
+Input:
+
+* CNN-generated feature sequences
+
+Processing:
+
+* Memory cell operations
+* Input gate
+* Forget gate
+* Output gate
+
+Output:
+
+* Temporal degradation representations
+
+## 8.3 Learned Information
+
+LSTM captures:
+
+* Degradation progression trends
+* Long-term temporal dependencies
+* Historical operating influence
+* Remaining life evolution patterns
+
+These learned representations are used to estimate Remaining Useful Life.
+
+---
+
+# 9. Stage 7: RUL Prediction
+
+The fully connected prediction layer receives temporal representations from the LSTM network.
+
+Its objective is to estimate the remaining lifetime of the bearing.
+
+Input:
+
+* Temporal degradation features
+
+Output:
+
+* Predicted Remaining Useful Life (RUL)
+
+Example:
+
+```text
+Actual RUL      = 85 cycles
+Predicted RUL   = 82 cycles
+Prediction Error = 3 cycles
+```
+
+The prediction results are used for performance evaluation and optimization.
+
+---
+
+# 10. Stage 8: Firefly-Based Hyperparameter Optimization
+
+## 10.1 Role of Firefly Algorithm
+
+Unlike CNN and LSTM, the Firefly Algorithm does not directly process vibration signals.
+
+Instead, it optimizes CNN-LSTM hyperparameters during model training.
+
+## 10.2 Optimized Hyperparameters
+
+The optimization process targets:
+
+* Learning Rate
+* Number of CNN Filters
+* Kernel Size
+* Number of LSTM Units
+* Dropout Rate
+* Batch Size
+
+## 10.3 Optimization Workflow
+
+```text
+Generate Firefly Population
+            │
+            ▼
+Generate Hyperparameter Sets
+            │
+            ▼
+Train CNN-LSTM
+            │
+            ▼
+Evaluate RMSE
+            │
+            ▼
+Update Firefly Positions
+            │
+            ▼
+Generate Better Solutions
+            │
+            ▼
+Optimal Hyperparameters
+```
+
+The best hyperparameter configuration is selected for final model training.
+
+---
+
+# 11. Stage 9: Performance Evaluation
+
+## 11.1 Evaluation Purpose
+
+The evaluation stage measures the effectiveness of the proposed model.
+
+## 11.2 Evaluation Metrics
+
+The following metrics are employed:
+
+### Root Mean Square Error (RMSE)
+
+Measures prediction error magnitude.
+
+### Mean Absolute Error (MAE)
+
+Measures average absolute prediction error.
+
+### Coefficient of Determination (R²)
+
+Measures how well predictions fit actual degradation behavior.
+
+## 11.3 Comparative Evaluation
+
+The proposed Firefly-CNN-LSTM model will be compared against baseline approaches such as:
+
+* CNN
+* LSTM
+* CNN-LSTM
+* Metaheuristic-optimized CNN-LSTM models from literature
+
+This comparison helps determine whether Firefly optimization improves predictive performance.
+
+---
+
+# 12. Expected Output
+
+The final output of the proposed framework includes:
+
+* Predicted Remaining Useful Life values
+* Optimized CNN-LSTM architecture
+* Performance metrics (RMSE, MAE, R²)
+* Comparative evaluation results
+
+The generated information supports predictive maintenance decisions and enables more reliable estimation of bearing lifetime.
+
+---
+
+# 13. Summary
+
+The proposed data flow begins with raw vibration signals obtained from benchmark bearing datasets and proceeds through preprocessing, CNN-based feature extraction, LSTM-based temporal learning, Firefly-based hyperparameter optimization, and final RUL prediction.
+
+This workflow enables the system to automatically learn degradation characteristics, optimize model configuration, and provide accurate Remaining Useful Life predictions for rolling bearings.
