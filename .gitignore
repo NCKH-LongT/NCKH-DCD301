@@ -1,0 +1,68 @@
+# ============================================
+# NCKH-DCD301 .gitignore
+# ============================================
+
+# --- Secrets & Environment ---
+.env
+.env.*
+!.env.example
+
+# --- Binary / Archive ---
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+*.pdf
+*.docx
+*.pptx
+*.xlsx
+*.doc
+*.ppt
+*.xls
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+
+# --- IDE & Editor ---
+DCD.code-workspace
+*.code-workspace
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Cache & Temp ---
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.serena/
+.kilo/
+
+# --- OS ---
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# --- Large / Reference (keep in local only) ---
+reference/
+src/docling/
+
+# --- HTML exports (generated) ---
+*.html
+!docs/**/*.html
+
+# --- Specific tracked files to untrack ---
+workspace-overview.html
+LaTeX2e_Proceedings_Templates_download.zip
