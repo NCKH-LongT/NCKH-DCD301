@@ -6,9 +6,9 @@ Folder này chứa các tài liệu về **Problem Statement, Research Questions
 
 | File | Mô tả | Trạng thái |
 |---|---|---|
-| `problem_statement.md` | Mô tả bài toán | ❌ Chưa có |
-| `research_questions.md` | 4 Research Questions (RQ1–RQ4) | ❌ Chưa có |
-| `research_gap.md` | Khoảng trống nghiên cứu | ✅ Có (copy từ `docs/weekly/drafts/research_gap.md`) |
+| `problem_statement.md` | Mô tả bài toán | ✅ Có |
+| `research_questions.md` | 4 Research Questions (RQ1–RQ4) | ✅ Có (4 RQs) |
+| `research_gap.md` | Khoảng trống nghiên cứu | ✅ Có |
 
 ## Mapping từ repo cũ
 

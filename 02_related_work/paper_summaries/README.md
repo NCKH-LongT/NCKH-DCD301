@@ -1,11 +1,26 @@
 # paper_summaries
 
-Folder con chứa **tóm tắt từng paper** trong literature review.
+Folder con chứa **toàn bộ nội dung papers** đã review trong literature review.
 
-Mỗi file `paper_XX.md` tóm tắt một paper cụ thể theo template:
+## Cấu trúc
+
+- `A1_*.md` ~ `E4_*.md` — **Full-text** nội dung 23 papers, trích xuất từ PDF gốc
+- `*_summary.md` — Tóm tắt ngắn theo template (8 papers chính)
+
+## Phân loại theo nhóm
+
+| Nhóm | Chủ đề | Số file |
+|------|--------|---------|
+| **A** | Agentic AI trong Nông nghiệp | 9 papers |
+| **B** | IoT Data Quality | 4 papers |
+| **C** | Anomaly Detection (Greenhouse/IoT) | 5 papers |
+| **D** | Surveys & Platforms | 4 papers |
+| **E** | AI-IoT Ứng dụng | 2 papers |
+
+## Template tóm tắt (summary files)
 
 ```markdown
-# Paper XX — [Tên paper]
+# Paper — [Tên paper]
 
 | Mục | Nội dung |
 |---|---|
@@ -19,4 +34,4 @@ Mỗi file `paper_XX.md` tóm tắt một paper cụ thể theo template:
 | **Relation to our work** | ... |
 ```
 
-Hiện tại folder này đang trống, cần bổ sung bằng cách tóm tắt các paper trong `literature_review_matrix.md`.
+Xem thêm: `paper_list.md` (cha) để xem danh sách đầy đủ.
