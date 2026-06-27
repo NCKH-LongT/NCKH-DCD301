@@ -1,0 +1,4 @@
+PWD d:\STUDY\KY7\DCD\GIT-DCD
+INPUT C:\Users\QUYDAM\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
+INPUT d:\STUDY\KY7\DCD\GIT-DCD\report.tex
+OUTPUT report.log
