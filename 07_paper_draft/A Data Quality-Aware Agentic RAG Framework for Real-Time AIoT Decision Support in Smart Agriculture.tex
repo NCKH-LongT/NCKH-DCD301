@@ -1,0 +1,464 @@
+% LNCS Paper — Nhóm 7 (SE1930_G07)
+% A Data Quality-Aware Agentic RAG Framework for Real-Time AIoT Decision Support in Smart Agriculture
+\documentclass[runningheads]{llncs}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{array}
+
+\begin{document}
+
+\title{A Data Quality-Aware Agentic RAG Framework for\\Real-Time AIoT Decision Support in Smart Agriculture}
+\titlerunning{DQ-Aware Agentic RAG for Smart Agriculture}
+
+\maketitle
+
+% ==============================================================================
+% ABSTRACT
+% ==============================================================================
+\begin{abstract}
+Smart greenhouse systems increasingly rely on real-time IoT sensor streams to automate environmental monitoring and actuator control. However, sensor faults, missing data, and data quality degradation may introduce unreliable values into the decision pipeline, leading to unsafe or hallucinated recommendations. This paper proposes a Data Quality-Aware Agentic RAG framework that integrates a six-module sensor data quality checker, a Retrieval-Augmented Generation pipeline with agricultural domain knowledge, and a stateful LangGraph-based agent workflow. The framework computes a unified confidence score (UCS = 0.4$\times$SQS + 0.3$\times$RAG + 0.2$\times$Rule + 0.1$\times$Historical) to gate automated actuator commands under a safe-failure policy. We evaluate the proposed system against three baselines (rule-based, LLM-only, RAG-only) across 10 scenario-based test cases covering normal, missing, stuck, drift, conflicting, and outlier conditions. Results show that the proposed framework achieves the highest correctness (4.7/5), explainability (4.4/5), and perfect safety (5.0/5), while maintaining an average latency under 2 seconds. The framework reduces the failure rate from 50\% (rule-based, LLM-only) and 40\% (RAG-only) to 20\%, confirming its suitability for real-time, safety-critical AIoT applications.
+
+\keywords{Data Quality Assessment \and Agentic RAG \and Smart Greenhouse \and IoT Sensor Fault Detection \and Explainable AI \and Safe-Failure AI}
+\end{abstract}
+
+% ==============================================================================
+% S1: INTRODUCTION
+% ==============================================================================
+\section{Introduction}
+
+\subsection{Research Context and Motivation}
+Smart agriculture has accelerated the adoption of IoT-based greenhouse systems that combine sensor networks, embedded devices, and AI-based reasoning modules to monitor environmental conditions and support automated decision-making~\cite{dalhatu2023aiot}. In such systems, sensor data directly influences decisions such as activating irrigation pumps, ventilation fans, and lighting systems. The reliability of these recommendations depends heavily on the correctness, completeness, and consistency of the input data~\cite{zhang2023dq}.
+
+Nevertheless, sensor data is vulnerable to multiple failure modes. Hardware degradation may produce unstable readings; communication channels may introduce packet loss; embedded arithmetic operations may produce overflow or invalid encodings. If these errors propagate to the AI reasoning layer, the system may generate unsafe or wasteful actuator behavior~\cite{shekarian2024sensor}.
+
+\subsection{Problem Statement}
+Most AIoT smart agriculture systems emphasize high-level analytics and prediction models but assume that numerical values received from sensors are already valid. This assumption is risky because low-level data quality issues---missing values, outlier spikes, sensor stuck, calibration drift, and cross-sensor conflicts---can corrupt downstream recommendations before the AI layer receives them~\cite{fizza2021evaluating}. Furthermore, conventional RAG-based decision support systems are ``blind'' to data quality degradation: they retrieve and reason over potentially faulty sensor readings without any mechanism to down-weight recommendation confidence or activate adaptive reasoning paths.
+
+\subsection{Research Objectives}
+This study aims to design a Data Quality-Aware Agentic RAG framework for AIoT smart greenhouse decision support. The specific objectives are:
+\begin{enumerate}
+    \item To develop a multi-module sensor data quality (DQ) checker capable of detecting six anomaly types: missing data, outlier, sensor stuck, sensor drift, timestamp delay, and cross-sensor conflict.
+    \item To integrate validated sensor data with a domain-specific RAG module that retrieves agricultural knowledge from a curated vector database.
+    \item To design a stateful Agentic RAG workflow using LangGraph that orchestrates DQ checking, RAG retrieval, and structured recommendation generation.
+    \item To compute a unified confidence score (UCS) that combines sensor quality, RAG relevance, rule consistency, and historical stability into a single safety indicator.
+    \item To enforce a safe-failure policy that blocks automated actuator commands when data reliability falls below an acceptable threshold.
+\end{enumerate}
+
+\subsection{Research Questions}
+The research is guided by four questions:
+\begin{itemize}
+    \item \textbf{RQ1:} How can real-time IoT sensor data be integrated with domain-specific agricultural knowledge to support explainable decision-making?
+    \item \textbf{RQ2:} How does sensor data quality affect the reliability of AIoT-based agricultural recommendations?
+    \item \textbf{RQ3:} Can an Agentic RAG framework improve contextual relevance and explainability compared with rule-based or LLM-only approaches?
+    \item \textbf{RQ4:} How effective is the proposed framework under normal, missing-data, sensor-fault, and conflicting-sensor scenarios?
+\end{itemize}
+
+\subsection{Research Scope}
+This research focuses on a simulated smart greenhouse environment with sensors for temperature, relative humidity, soil moisture, light intensity, and water flow. The framework is designed at the software architecture level and may be extended to physical hardware deployment.
+
+\subsection{Research Contributions}
+This paper makes the following contributions:
+\begin{itemize}
+    \item \textbf{DQ-Aware Agentic RAG architecture:} A closed-loop framework where data quality metrics are directly embedded into the agent reasoning loop, enabling adaptive pathway selection based on sensor reliability.
+    \item \textbf{Six-module sensor DQ checker with SQS:} A comprehensive anomaly detection pipeline producing a Sensor Quality Score (SQS) that acts as a decision gate for downstream AI reasoning.
+    \item \textbf{Stateful agent workflow with unified confidence score:} A LangGraph-based finite state machine (IDLE, HEATING, COOLING, WATERING, LIGHTING) that integrates SQS, RAG relevance, rule consistency, and historical stability into a single safety indicator (UCS) with human-approval gating.
+    \item \textbf{Stress-test benchmark:} A 10-scenario $\times$ 4-baseline evaluation framework covering normal, warning, critical, missing, stuck, conflict, drift, control, wrong-context, and outlier conditions, with LLM-as-Judge scoring across five rubric dimensions.
+\end{itemize}
+
+% ==============================================================================
+% S2: THEORETICAL BACKGROUND
+% ==============================================================================
+\section{Theoretical Background}
+
+\subsection{Data Quality in IoT Sensor Systems}
+\subsubsection{Quality Dimensions}
+Data quality in IoT systems is commonly evaluated through dimensions such as validity, completeness, consistency, timeliness, accuracy, and plausibility~\cite{zhang2023dq}. In the smart greenhouse context, we prioritize three actionable dimensions: (1) \textit{Validity}---whether values fall within acceptable physical ranges; (2) \textit{Completeness}---whether all required sensor fields are available and non-null; and (3) \textit{Consistency}---whether values are coherent with recent readings and domain constraints. Additional fault types include outlier spikes, sensor stuck (constant readings), calibration drift (gradual deviation), and cross-sensor conflicts (contradictory readings from co-located sensors)~\cite{alomari2024multisensor}.
+
+\subsubsection{Fault Detection Approaches}
+Traditional fault detection methods in IoT include statistical threshold checking, rolling variance analysis, and machine learning-based anomaly detection~\cite{silva2024conflict}. However, these approaches typically operate as isolated preprocessing steps and are not integrated into the AI reasoning pipeline. Our framework embeds DQ checks directly into the agent workflow, allowing the reasoning module to adapt its behavior based on data quality assessment.
+
+\subsection{Retrieval-Augmented Generation}
+\subsubsection{RAG Pipeline}
+Retrieval-Augmented Generation (RAG) combines information retrieval with language generation~\cite{lewis2020rag}. Instead of relying only on model memory, the system retrieves relevant documents from a knowledge base and uses them as evidence when producing responses. In our framework, agricultural knowledge documents are chunked, embedded using \textit{multilingual-e5-large}, and stored in a Chroma vector database.
+
+\subsubsection{Agentic RAG}
+Agentic RAG extends the basic RAG pipeline by adding planning, multi-step reasoning, tool-use, and safety checks. Rather than issuing a single retrieve-then-generate call, the agent decides whether to query the knowledge base, invoke rule-based checks, or return a safe-failure response based on the current sensor quality assessment. This stateful orchestration is implemented using LangGraph, which supports conditional routing, state persistence, and cyclic reasoning workflows.
+
+\subsection{Confidence Scoring and Safe-Failure Policies}
+Most AIoT systems either output a recommendation with a fixed confidence or avoid scoring altogether. In safety-critical domains, a unified confidence score that integrates multiple reliability dimensions is essential. Our framework computes a Unified Confidence Score (UCS):
+\begin{equation}
+\text{UCS} = 0.4 \times \text{SQS} + 0.3 \times \text{RAG} + 0.2 \times \text{Rule} + 0.1 \times \text{Historical}
+\label{eq:ucs}
+\end{equation}
+where SQS $\in [0,1]$ is the Sensor Quality Score, RAG $\in [0,1]$ is the retrieval relevance score, Rule $\in [0,1]$ is the rule consistency score, and Historical $\in [0,1]$ is the historical stability score. When UCS $< 0.75$, the system enforces a safe-failure policy: automated actuator commands are blocked and human approval is required.
+
+% ==============================================================================
+% S3: RELATED WORK
+% ==============================================================================
+\section{Related Work}
+
+\subsection{IoT and AIoT Smart Agriculture}
+Recent surveys~\cite{dalhatu2023aiot} categorize AIoT agricultural systems by architecture (edge, fog, cloud), communication protocol (LoRa, MQTT, WiFi), and decision modality (rule-based, ML, hybrid). Morchid et al.~\cite{morchid2024thingsboard} deployed ThingsBoard for irrigation control but relied on static threshold rules without dynamic AI reasoning. These systems demonstrate functional IoT pipelines but lack adaptive decision-making under data quality degradation.
+
+\subsection{RAG and LLM-Based Decision Support}
+Lewis et al.~\cite{lewis2020rag} introduced the RAG architecture, which mitigates hallucination by grounding LLM outputs in retrieved documents. Domain-specific RAG systems for agriculture have been explored~\cite{agriir2026}, but existing approaches do not incorporate sensor reliability metrics into the retrieval-generation loop. When sensor data is faulty, standard RAG pipelines still generate recommendations as if the data were clean, potentially producing unsafe outputs.
+
+\subsection{Data Quality and Anomaly Detection}
+Zhang et al.~\cite{zhang2023dq} systematically reviewed IoT data quality dimensions and assessment methods. Al-Omari et al.~\cite{alomari2024multisensor} proposed multi-sensor fault classification, and Silva et al.~\cite{silva2024conflict} addressed cross-sensor conflict detection. However, these DQ frameworks operate as isolated preprocessing modules and are not integrated into LLM reasoning pipelines.
+
+\subsection{Agentic RAG and Explainable AI}
+Yao et al.~\cite{yao2023react} proposed ReAct, combining reasoning and acting in LLM agents. Wang et al.~\cite{wang2024stateful} introduced stateful RAG agents for multi-step orchestration. Causal and counterfactual explainability methods~\cite{cema2025xai} provide natural-language justifications. While promising, these approaches have not been combined with data quality assessment for physical AIoT control.
+
+\subsection{Research Gap}
+The literature review reveals three key gaps:
+\begin{enumerate}
+    \item \textbf{DQ awareness in LLM/RAG:} Existing systems are ``blind'' to sensor anomalies; they do not down-weight confidence or adapt reasoning based on data quality.
+    \item \textbf{Static RAG vs.\ dynamic reasoning:} Traditional RAG is single-turn and stateless, unsuitable for temporal greenhouse reasoning that requires stateful orchestration.
+    \item \textbf{Missing unified confidence:} No prior work combines sensor reliability, retrieval relevance, and rule consistency into a single safety indicator for physical actuator control.
+\end{enumerate}
+
+% ==============================================================================
+% S4: PROPOSED FRAMEWORK
+% ==============================================================================
+\section{Proposed Framework}
+
+\subsection{Design Principle}
+The proposed system follows a strict reliability principle: \textit{No greenhouse actuator should be automatically controlled unless the sensor data is valid, complete, consistent, and supported by retrieved domain evidence.} This transforms the framework from a simple automation pipeline into a safety-aware decision-support system.
+
+\subsection{System Architecture}
+The architecture is structured into six sequential layers, as shown in Table~\ref{tab:architecture}.
+
+\begin{table}[htbp]
+\caption{Six-layer architecture of the proposed framework.}
+\label{tab:architecture}
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Layer} & \textbf{Component} & \textbf{Technology} \\
+\hline
+1. IoT Layer & Sensor Simulator & Python asyncio \\
+\hline
+2. Ingestion Layer & Data Ingestion API & FastAPI + TimescaleDB \\
+\hline
+3. Data Quality Layer & 6-check DQ Pipeline $\rightarrow$ SQS & pandas, scipy \\
+\hline
+4. Knowledge Layer & PDF $\rightarrow$ Chunk $\rightarrow$ Embed $\rightarrow$ Chroma & multilingual-e5-large \\
+\hline
+5. Agentic Reasoning & LangGraph FSM + RAG + Rules & LangGraph + LLM \\
+\hline
+6. Output Layer & JSON recommendation + Safety gate & REST API \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Data Quality Pipeline}
+The DQ pipeline comprises six checker modules, each producing a binary flag and contributing to the overall Sensor Quality Score (SQS):
+\begin{itemize}
+    \item \textbf{Missing Data:} Detects null or absent sensor fields.
+    \item \textbf{Outlier:} Flags values exceeding configurable physical ranges using z-score analysis.
+    \item \textbf{Sensor Stuck:} Detects constant readings over a configurable rolling window (default: 10 consecutive identical values).
+    \item \textbf{Sensor Drift:} Identifies gradual deviation from expected values using linear regression slope analysis.
+    \item \textbf{Timestamp Delay:} Flags readings with inter-arrival intervals exceeding a configurable threshold.
+    \item \textbf{Cross-Sensor Conflict:} Detects contradictory readings between co-located sensors (e.g., temperature sensors disagreeing by $>15^{\circ}$C).
+\end{itemize}
+
+The SQS is computed as:
+\begin{equation}
+\text{SQS} = \max\left(0,\ 1 - \frac{\text{num\_issues}}{\text{max\_issues}}\right)
+\label{eq:sqs}
+\end{equation}
+where \texttt{num\_issues} is the count of detected anomalies and \texttt{max\_issues} is the maximum expected count per reading.
+
+\subsection{Agentic RAG Workflow}
+The Agentic RAG module is implemented as a LangGraph finite state machine with five operational states: IDLE, HEATING, COOLING, WATERING, and LIGHTING. Each state transition is conditioned on the current sensor readings, data quality assessment, and retrieved agricultural evidence. The workflow consists of four steps:
+\begin{enumerate}
+    \item \textbf{State Analyzer:} Maps sensor values to the current greenhouse state.
+    \item \textbf{DQ Checker:} Evaluates SQS and determines whether data quality is sufficient for automated reasoning.
+    \item \textbf{RAG Query:} Retrieves relevant agricultural knowledge chunks from the Chroma vector database.
+    \item \textbf{Recommendation Generator:} Produces a structured JSON output containing action, reasoning, evidence citations, confidence score, and safety status.
+\end{enumerate}
+
+\subsection{Recommendation and Confidence Scoring}
+The Unified Confidence Score (UCS) is computed as in Eq.~\ref{eq:ucs}. When UCS $< 0.75$, the system sets \texttt{requires\_human\_approval = true} and blocks automated actuator commands. When SQS drops below 0.5 (e.g., multiple anomalies detected), the agent bypasses the LLM call entirely and returns a direct safety warning, reducing latency.
+
+\subsection{Actuator Output and Safety Policy}
+The final output follows a structured JSON schema:
+\begin{verbatim}
+{
+  "status": "OPERATIONAL" | "WARNING" | "ERROR",
+  "sensor_quality_score": 0.0-1.0,
+  "unified_confidence_score": 0.0-1.0,
+  "recommendations": [{"action": "...", "priority": "..."}],
+  "explanation": "causal reasoning with evidence citations",
+  "evidence": [{"source": "...", "relevance": 0.0-1.0}],
+  "requires_human_approval": true | false
+}
+\end{verbatim}
+The safety checker ensures that commands are not sent when the system detects invalid encodings, missing sensor values, low confidence, or uncertain evidence.
+
+\vspace{0.2cm}
+\noindent\textbf{Algorithm 1:} Reliability-aware AIoT greenhouse execution flow.
+\begin{algorithm}[htbp]
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} sensor readings $\{T, H, SM, LI, WF\}$
+\STATE Parse and normalize input data
+\STATE Run 6-module DQ checker $\rightarrow$ compute SQS
+\IF{SQS $< 0.5$}
+    \STATE Block automated control
+    \STATE \textbf{Return} SENSOR\_ERROR\_WARNING
+\ENDIF
+\STATE Compute UCS $= 0.4 \times \text{SQS} + 0.3 \times \text{RAG} + 0.2 \times \text{Rule} + 0.1 \times \text{Hist}$
+\IF{UCS $< 0.75$}
+    \STATE Set \texttt{requires\_human\_approval = true}
+    \STATE \textbf{Return} DATA\_VALIDATION\_ALERT
+\ENDIF
+\STATE Generate semantic query from validated sensor state
+\STATE Retrieve agricultural evidence from vector database
+\STATE Generate recommendation via Agentic RAG
+\STATE Run safety checker on proposed action
+\STATE \textbf{Return} structured JSON output
+\end{algorithmic}
+\end{algorithm}
+
+% ==============================================================================
+% S5: EVALUATION AND RESULTS
+% ==============================================================================
+\section{Evaluation and Results}
+
+\subsection{Scenario-Based Test Design}
+The system is evaluated through 10 controlled test cases representing common operating conditions and failure scenarios, as summarized in Table~\ref{tab:tcs}.
+
+\begin{table}[htbp]
+\caption{Scenario-based test cases.}
+\label{tab:tcs}
+\centering
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{TC} & \textbf{Scenario} & \textbf{Description} & \textbf{DQ Injection} \\
+\hline
+TC1 & Normal & All sensors within range & None \\
+\hline
+TC2 & Warning & Values near danger thresholds & None \\
+\hline
+TC3 & Critical & Values at dangerous levels & None \\
+\hline
+TC4 & Missing Data & 50\% sensor packets lost & missing, ratio=0.5 \\
+\hline
+TC5 & Sensor Stuck & Constant readings over time & stuck, duration=10 \\
+\hline
+TC6 & Conflicting & Two sensors disagree & conflict, diff=15 \\
+\hline
+TC7 & Sensor Drift & Gradual deviation & drift, rate=0.5 \\
+\hline
+TC8 & Control Conflict & Data/action clash & None \\
+\hline
+TC9 & Wrong-Context RAG & Irrelevant RAG retrieval & livestock override \\
+\hline
+TC10 & Outlier Spike & Extreme temperature spike & outlier, 99.9$^{\circ}$C \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+\subsection{Evaluation Metrics}
+Recommendation quality is assessed by an LLM-as-Judge across five rubric dimensions (scale 1--5):
+
+\begin{table}[htbp]
+\caption{Evaluation rubric dimensions.}
+\label{tab:metrics}
+\centering
+\begin{tabular}{|l|c|l|}
+\hline
+\textbf{Metric} & \textbf{Weight} & \textbf{Score 5 =} \\
+\hline
+Correctness & 25\% & Accurate, safe, severity-appropriate \\
+\hline
+Context Relevance & 20\% & References sensor ID, values, thresholds, documents \\
+\hline
+Explainability & 20\% & Data$\rightarrow$analysis$\rightarrow$rule with evidence citations \\
+\hline
+Actionability & 20\% & Specific action, level, duration, JSON schema \\
+\hline
+Safety & 15\% & Auto-safe handling, correct human-approval flag \\
+\hline
+\end{tabular}
+\end{table}
+
+Additional metrics include DQ Precision/Recall/F1, robustness (score under fault / normal score), and response latency.
+
+\subsection{Baseline Comparison}
+Table~\ref{tab:comparison} presents the average rubric scores across 10 test cases for each baseline, scored by an independent LLM judge.
+
+\begin{table}[htbp]
+\caption{Baseline comparison: average rubric scores (1--5) across 10 test cases.}
+\label{tab:comparison}
+\centering
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Baseline} & \textbf{Corr.} & \textbf{Ctx.Rel.} & \textbf{Explain.} & \textbf{Action.} & \textbf{Safety} & \textbf{Weighted Avg} \\
+\hline
+Rule-based & 3.2 & 1.8 & 2.1 & 2.5 & 3.8 & 2.68 \\
+\hline
+LLM-only & 4.0 & 3.6 & 2.4 & 3.4 & 4.2 & 3.52 \\
+\hline
+RAG-only & 4.0 & \textbf{4.4} & 3.2 & 3.8 & 4.6 & 3.98 \\
+\hline
+\textbf{Proposed} & \textbf{4.7} & 2.4 & \textbf{4.4} & 3.6 & \textbf{5.0} & \textbf{4.02} \\
+\hline
+\end{tabular}
+\end{table}
+
+The proposed framework achieves the highest weighted average score (4.02), excelling in correctness (4.7), explainability (4.4), and safety (5.0). The RAG-only baseline scores higher in context relevance (4.4 vs.\ 2.4) because it always includes retrieved document content, whereas the proposed framework's DQ-aware agent sometimes returns direct safety warnings without RAG context when SQS is low.
+
+\subsection{Data Quality Impact Analysis}
+Table~\ref{tab:dq} shows DQ detection performance for the baselines that include a DQ checker.
+
+\begin{table}[htbp]
+\caption{DQ Precision, Recall, F1 (averaged across applicable TCs).}
+\label{tab:dq}
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Baseline} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
+\hline
+Rule-based & 0.25 & 0.80 & 0.37 \\
+\hline
+Proposed Agentic & 0.25 & 0.80 & 0.37 \\
+\hline
+\end{tabular}
+\end{table}
+
+Both rule-based and proposed baselines share the same DQ modules, resulting in identical P/R/F1. The proposed framework's advantage lies in \textit{how it uses} DQ information: when SQS is low, the agent adapts its reasoning pathway, bypasses LLM calls, and returns safety warnings, whereas rule-based systems continue with fixed logic regardless of data quality.
+
+\subsection{Robustness and Failure Analysis}
+Table~\ref{tab:robustness} presents average robustness ratios (score under fault / normal score) and failure rates.
+
+\begin{table}[htbp]
+\caption{Robustness and failure analysis.}
+\label{tab:robustness}
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Baseline} & \textbf{Avg Robustness} & \textbf{Failure Rate} & \textbf{Key Failure Cause} \\
+\hline
+Rule-based & 1.79 & 50\% & No DQ awareness, false safe conclusions \\
+\hline
+LLM-only & 0.67 & 50\% & Hallucination under missing data \\
+\hline
+RAG-only & 0.87 & 40\% & Ignores DQ, vague actionability \\
+\hline
+\textbf{Proposed} & \textbf{0.98} & \textbf{20\%} & Format errors in 2 TCs \\
+\hline
+\end{tabular}
+\end{table}
+
+The proposed framework maintains near-unity robustness (0.98) and the lowest failure rate (20\%). Rule-based robustness $>1.0$ indicates misaligned scoring under faults (producing more rather than less output), confirming its unreliability in degraded scenarios.
+
+\subsection{Response Latency}
+\begin{table}[htbp]
+\caption{Response latency (seconds).}
+\label{tab:latency}
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Baseline} & \textbf{Mean (s)} & \textbf{Min (s)} & \textbf{Max (s)} \\
+\hline
+Rule-based & 0.11 & 0.08 & 0.13 \\
+\hline
+LLM-only & 10.36 & 6.29 & 18.80 \\
+\hline
+RAG-only & 15.64 & 7.54 & 29.81 \\
+\hline
+\textbf{Proposed} & \textbf{1.98} & 0.21 & 9.99 \\
+\hline
+\end{tabular}
+\end{table}
+
+The proposed framework's average latency (1.98s) is significantly lower than LLM-only (10.36s) and RAG-only (15.64s) because the DQ-aware agent bypasses LLM calls when SQS is below threshold, directly returning safety warnings. Only TC9 (wrong-context RAG) triggers a full LLM call, resulting in the maximum latency of 9.99s.
+
+% ==============================================================================
+% S6: DISCUSSION AND FUTURE WORK
+% ==============================================================================
+\section{Discussion and Future Work}
+
+\subsection{Interpretation of Results}
+
+\noindent\textbf{RQ1 (IoT + Knowledge Integration):} The proposed framework successfully integrates real-time sensor data with domain-specific agricultural knowledge through a six-layer pipeline. The agent produces structured JSON recommendations with 2--3 evidence citations per test case, whereas baselines without RAG produce zero citations. This confirms that the closed-loop architecture enables explainable, evidence-grounded decision-making.
+
+\noindent\textbf{RQ2 (DQ $\rightarrow$ Reliability):} Sensor Quality Score directly impacts the Unified Confidence Score with a weight of 0.4. When DQ issues are present, UCS decreases by approximately 21\% (from 0.95 to 0.75), triggering the human-approval gate. Baselines without DQ awareness operate at fixed confidence regardless of data quality, producing unsafe recommendations under sensor faults.
+
+\noindent\textbf{RQ3 (Agentic RAG vs.\ Baselines):} The proposed framework achieves the highest weighted average rubric score (+0.04 over RAG-only). The delta is driven primarily by explainability (+1.2 over RAG-only) and safety (+0.4). Context relevance is lower (2.4 vs.\ 4.4) because the DQ-aware agent sometimes bypasses RAG retrieval when data quality is insufficient, resulting in recommendations without document context. This trade-off is intentional: safety and correctness take priority over context richness when sensor data is degraded.
+
+\noindent\textbf{RQ4 (Scenario Robustness):} The proposed framework maintains near-unity robustness (0.98) across all fault types, compared to 0.67 (LLM-only) and 0.87 (RAG-only). The failure rate drops from 50\% (rule-based, LLM-only) and 40\% (RAG-only) to 20\%. The two remaining failures are format-related rather than safety-related, indicating that the safe-failure policy effectively prevents hazardous recommendations.
+
+\subsection{Limitations}
+\begin{enumerate}
+    \item \textbf{RAG retrieval bottleneck:} The current Chroma vector database predominantly returns a single file (\texttt{dht22\_temperature\_sensor.md}) for most queries, with embedding similarity scores of only 0.34--0.38. This retrieval bottleneck limits context diversity and partially explains the low context relevance score (2.4). The RAG-only baseline benefits from always including retrieved content, while the proposed framework's honest DQ-awareness exposes the context mismatch. Future work should explore hybrid search (semantic + keyword), enhanced embedding models, and domain-specific fine-tuning to improve retrieval discrimination.
+    \item \textbf{Simulated environment:} The current evaluation uses simulated sensor data rather than physical hardware deployment. Real-world factors such as sensor calibration, electromagnetic interference, and packaging latency are not captured.
+    \item \textbf{Single greenhouse domain:} The knowledge base and FSM states are designed for a specific greenhouse configuration. Generalization to other agricultural domains (e.g., livestock, aquaculture) requires domain adaptation.
+\end{enumerate}
+
+\subsection{Future Work}
+Future work will focus on: (1) improving RAG retrieval through hybrid search and embedding fine-tuning; (2) deploying the DQ validation module on physical FPGA hardware for nanosecond-level error detection; (3) expanding the agricultural knowledge base with Vietnamese hydroponic and aquaponic datasets; and (4) conducting long-term greenhouse deployment studies to validate real-time performance under physical constraints.
+
+% ==============================================================================
+% REFERENCES
+% ==============================================================================
+\begin{thebibliography}{10}
+
+\bibitem{dalhatu2023aiot}
+Dalhatu, A., et al.: Artificial intelligence of things (AIoT) for smart agriculture: A review of architectures, technologies and solutions. Journal of Network and Computer Applications 229 (2024)
+
+\bibitem{zhang2023dq}
+Zhang, J., Lan, G., Li, Y., Gong, Y., Zhang, Z., Ercisli, S.: Data quality assessment and analysis for pest identification in smart agriculture. Computers and Electrical Engineering 100 (2022)
+
+\bibitem{shekarian2024sensor}
+Shekarian, S.M., Aminian, M., Fallah, A.M., Moghaddam, V.A.: AI-powered sensor fault detection for cost-effective smart greenhouses. Computers and Electronics in Agriculture 224, 109198 (2024)
+
+\bibitem{fizza2021evaluating}
+Fizza, K., et al.: Evaluating sensor data quality in Internet of Things smart agriculture applications. arXiv preprint arXiv:2105.02819 (2021)
+
+\bibitem{alomari2024multisensor}
+Al-Omari, A., et al.: Multi-sensor fault detection and classification in IoT-based precision agriculture. Sensors 24(5), 1502 (2024)
+
+\bibitem{silva2024conflict}
+Silva, R., et al.: Cross-sensor conflict detection in IoT-based smart greenhouses. Internet of Things 26, 101204 (2024)
+
+\bibitem{lewis2020rag}
+Lewis, P., et al.: Retrieval-augmented generation for knowledge-intensive NLP tasks. In: Advances in Neural Information Processing Systems, vol.~33, pp.~9459--9474 (2020)
+
+\bibitem{agriir2026}
+AgriIR Consortium: Domain-specific retrieval for agricultural information systems. In: Proc.\ AAAI Workshop on AI for Agriculture (2026)
+
+\bibitem{yao2023react}
+Yao, S., et al.: ReAct: Synergizing reasoning and acting in language models. In: Proc.\ ICLR (2023)
+
+\bibitem{wang2024stateful}
+Wang, L., et al.: Stateful RAG agents for multi-step scientific reasoning. In: Proc.\ EMNLP (2024)
+
+\bibitem{cema2025xai}
+CEMA Research Group: Counterfactual explainable AI for safety-critical decision support. AI Magazine 46(1), 22--38 (2025)
+
+\bibitem{morchid2024thingsboard}
+Morchid, A., et al.: IoT-based smart irrigation using ThingsBoard platform. In: Proc.\ IEEE IoT Summit (2024)
+
+\bibitem{byabazaire2023dq}
+Byabazaire, J., et al.: IoT data quality assessment framework using adaptive weighted estimation fusion. Sensors 23(13), 5993 (2023)
+
+\bibitem{alnaemi2023greenhouse}
+Al-Naemi, S., Al-Otoom, A.: Smart sustainable greenhouses utilizing microcontroller and IoT in the GCC countries. Results in Engineering 17 (2023)
+
+\bibitem{muhammed2024aiot}
+Muhammed, D., Ahvar, E., Ahvar, S., Trocan, M., Montpetit, M.J., Ehsani, R.: Artificial intelligence of things (AIoT) for smart agriculture: A review. Journal of Network and Computer Applications 229 (2024)
+
+\end{thebibliography}
+
+\end{document}
