@@ -1,7 +1,7 @@
 # Paper 01 Summary
 
 **Nhóm:** Direct (M5 / bán lẻ)
-**Mức kiểm chứng (29/09/2026):** ⚠️ **Chỉ đọc được abstract** (qua OpenAlex). Toàn văn trên ScienceDirect là open access nhưng trang yêu cầu CAPTCHA khi truy cập tự động → **nhóm cần tự mở bằng trình duyệt để kiểm tra các mục [Chưa kiểm chứng]**.
+**Mức kiểm chứng (29/09/2026):** ✅ **Đã đọc toàn văn** (PDF open access trong `papers_pdf/1-s2.0-S0169207021001187-main.pdf`, 12 trang).
 
 > **Quy ước nguồn** (để đối chiếu khi giảng viên hỏi):
 > - `(tr. N)` = trang thứ N trong file PDF (đếm theo trang PDF, không phải số in trên trang); `(abstract)` = phần tóm tắt của bài.
@@ -19,35 +19,38 @@ DOI/Link: https://doi.org/10.1016/j.ijforecast.2021.07.007
 
 ## Problem
 
-- Cuộc thi M5 tập trung vào dự báo doanh số bán lẻ: tạo dự báo điểm chính xác nhất cho **42.840 chuỗi thời gian** doanh số phân cấp của Walmart, đồng thời ước lượng độ bất định của dự báo (abstract).
+- Cuộc thi M5 tập trung vào dự báo doanh số bán lẻ: tạo dự báo điểm chính xác nhất cho **42.840 chuỗi thời gian** doanh số phân cấp của Walmart, đồng thời ước lượng độ bất định (abstract).
 
 ## Method
 
-- Bài **không đề xuất mô hình**; mô tả bối cảnh, cách tổ chức và triển khai cuộc thi, gồm 2 nhánh song song: **Accuracy** và **Uncertainty** (abstract).
-- M5 mở rộng các cuộc thi M trước ở 5 điểm: (a) nhiều phương pháp tham gia hơn, đặc biệt là machine learning; (b) đánh giá cả phân phối bất định; (c) có biến ngoại sinh/giải thích; (d) chuỗi thời gian phân nhóm, tương quan; (e) tập trung vào chuỗi có tính **rời rạc (intermittency)** (abstract).
-- [Chưa kiểm chứng] Con số "24 benchmark" ghi trong file Excel ban đầu — cần mở toàn văn.
+- Bài **không đề xuất mô hình**; mô tả bối cảnh, tổ chức và triển khai cuộc thi với 2 nhánh song song **Accuracy** và **Uncertainty** (abstract).
+- Mở rộng so với các cuộc thi M trước ở 5 điểm, trong đó có biến ngoại sinh, chuỗi phân nhóm tương quan và chuỗi **rời rạc (intermittency)** (abstract; tr. 2).
 
 ## Dataset
 
-- 42.840 chuỗi doanh số phân cấp của Walmart (abstract).
-- Cấp thấp nhất gồm 30.490 chuỗi (3.049 sản phẩm × 10 cửa hàng, 1.941 ngày) [Nguồn thứ cấp: bài 11, tr. 16]; 3 ngành hàng Hobbies, Foods, Household [Nguồn thứ cấp: bài 05, tr. 4].
+- 3.049 sản phẩm, 42.840 chuỗi ở **12 cấp tổng hợp**; cấp thấp nhất product–store có **30.490 chuỗi** (bảng cấp tổng hợp, tr. 6).
+- Chia dữ liệu: ngày 1–1913 (29/01/2011–24/04/2016) là tập huấn luyện ban đầu; ngày 1914–1941 là validation; 28 ngày cuối (1942–1969) là test (tr. 5).
+- Có biến ngoại sinh: lịch, giá bán, hoạt động khuyến mãi (tr. 5); SNAP ở 3 bang CA, TX, WI, mỗi bang 10 ngày/tháng (~33% số ngày) (tr. 6).
+- **Phân loại theo Syntetos–Boylan** (tr. 7–8): dùng CV² và ADI với ngưỡng **0,5 và 4/3**; 30.490 chuỗi gồm **22.339 intermittent (73%), 5.206 lumpy (17%), 883 erratic (3%), 2.062 smooth (7%)**. Tác giả lưu ý ngưỡng này ban đầu dùng để so sánh các phương pháp dự báo cụ thể, sau này mới được dùng rộng rãi để phân 4 nhóm chuỗi (tr. 8).
+- Các chuỗi không có mùa vụ hay xu hướng mạnh (tr. 7).
 
 ## Evaluation
 
-- [Nguồn thứ cấp: bài 08, tr. 13–14] RMSSE (dạng có trọng số — WRMSSE) là thước đo chính thức của nhánh Accuracy; scaled multi-quantile loss dạng có trọng số (WSPL) là thước đo chính của nhánh Uncertainty.
+- Accuracy: **WRMSSE**; Uncertainty: **WSPL** (weighted scaled pinball loss) (tr. 3).
 
 ## Results
 
-- Bài mang tính giới thiệu, làm tài liệu nền để hiểu kết quả hai nhánh thi (abstract). Kết quả nằm ở bài 02 và 03.
+- Bài mang tính giới thiệu, làm tài liệu nền cho kết quả hai nhánh thi (abstract). Kết quả nằm ở bài 02 và 03.
 
 ## Limitations
 
-- [Nhận định nhóm] Bộ dữ liệu M5 gồm doanh số, lịch và giá bán — **không có tồn kho, lead time, chi phí**. Doanh số bằng 0 có thể do hết hàng (nhu cầu bị che khuất). Điều này kiểm chứng được bằng cách mở các file dữ liệu M5 trên Kaggle, không phải nội dung bài báo.
+- Tác giả thừa nhận kết luận của M5 có giới hạn khi khái quát hóa ra ngoài dữ liệu mà nó đại diện (tr. 11).
+- [Nhận định nhóm] Dữ liệu M5 không có tồn kho, lead time, chi phí; doanh số bằng 0 có thể do hết hàng.
 
 ## Relevance to our topic
 
-[Nhận định nhóm] **Cao.** Nguồn chính thức để mô tả dataset trong phần Dataset.
+[Nhận định nhóm] **Rất cao.** Nguồn chính thức cho mô tả dataset, và cho **tỷ lệ 4 nhóm nhu cầu** dùng trong phân tích ADI–CV² của đề tài.
 
 ## Possible improvement
 
-[Nhận định nhóm] Bổ sung lớp mô phỏng tồn kho có tham số để dùng M5 cho bài toán ra quyết định.
+[Nhận định nhóm] Dùng đúng ngưỡng 0,5 và 4/3 như bài này để kết quả so sánh được; báo cáo KPI tồn kho riêng cho từng nhóm.

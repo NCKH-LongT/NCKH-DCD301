@@ -37,12 +37,12 @@ DOI/Link: https://doi.org/10.1057/palgrave.jors.2601841
 ## Results
 
 - Đề xuất quy tắc phân loại theo ADI và CV² (abstract).
-- Ngưỡng ADI = 1,32: [Nguồn thứ cấp: bài 12, tr. 10] gọi là "ngưỡng phổ biến ADI > 1,32".
-- [Chưa kiểm chứng] Ngưỡng CV² = 0,49 và tên 4 nhóm (smooth/erratic/intermittent/lumpy) — cần mở toàn văn.
+- [Nguồn thứ cấp: bài 01, tr. 7–8] Ngưỡng của Syntetos et al. (2005) là **CV² = 0,5 và ADI = 4/3**, dùng để chia 4 nhóm smooth, erratic, intermittent, lumpy. Bài 12 (tr. 10) gọi ngưỡng ADI là "ADI > 1,32".
+- ⚠️ Con số hay gặp "0,49 / 1,32" là giá trị làm tròn hoặc trích lại. Nhóm nên dùng **0,5 và 4/3 theo bài 01** vì đã kiểm chứng được.
 
 ## Limitations
 
-- [Nguồn thứ cấp: bài 12, tr. 10] Ngưỡng ADI > 1,32 chỉ được đưa ra để phân biệt giữa các phương pháp dự báo đơn giản, **không** phải định nghĩa tính rời rạc.
+- Ngưỡng ban đầu chỉ dùng để so sánh các phương pháp dự báo cụ thể; sau này mới được áp dụng rộng rãi để phân loại [Nguồn thứ cấp: bài 01, tr. 8]. Bài 12 (tr. 10) nói rõ hơn: ngưỡng này **không** phải định nghĩa tính rời rạc.
 
 ## Relevance to our topic
 

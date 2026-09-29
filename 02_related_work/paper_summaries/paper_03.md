@@ -1,7 +1,7 @@
 # Paper 03 Summary
 
 **Nhóm:** Direct (M5 / bán lẻ)
-**Mức kiểm chứng (29/09/2026):** ⚠️ **Chỉ đọc được abstract** (qua OpenAlex). Toàn văn open access trên ScienceDirect nhưng bị CAPTCHA khi truy cập tự động → nhóm cần tự mở bằng trình duyệt.
+**Mức kiểm chứng (29/09/2026):** ✅ **Đã đọc toàn văn** (PDF open access trong `papers_pdf/1-s2.0-S0169207021001722-main.pdf`, 21 trang).
 
 > **Quy ước nguồn** (để đối chiếu khi giảng viên hỏi):
 > - `(tr. N)` = trang thứ N trong file PDF (đếm theo trang PDF, không phải số in trên trang); `(abstract)` = phần tóm tắt của bài.
@@ -24,30 +24,29 @@ DOI/Link: https://doi.org/10.1016/j.ijforecast.2021.10.009
 ## Method
 
 - Yêu cầu dự báo **9 phân vị**: 0,005; 0,025; 0,165; 0,250; 0,500; 0,750; 0,835; 0,975; 0,995 (abstract).
-- Bài trình bày triển khai, kết quả, các phương pháp tốt nhất, phát hiện chính (abstract).
-- [Chưa kiểm chứng] Phương pháp cụ thể của các đội thắng.
+- Phần lớn phương pháp thắng dùng **LightGBM**; các đội còn lại chủ yếu dùng LSTM (tr. 14).
+- Đội hạng nhất (Everyday Low SPLices; Lainder & Wolfinger) **huấn luyện mô hình gradient boosting riêng cho từng phân vị và từng cấp tổng hợp**, tổng **126 mô hình**, siêu tham số tìm trong không gian cấu hình LightGBM; đặc trưng gồm ngày trong tuần/tháng, SNAP, ngày lễ, rolling mean/median/quantile, tỷ lệ số 0; **không dùng giá**; có hiệu chỉnh nhất quán giữa các cấp (reconciliation) (tr. 14).
 
 ## Dataset
 
-- M5 (Walmart), 42.840 chuỗi (abstract).
-- [Nguồn thứ cấp: bài 13, tr. 1 và tr. 25] Có **892 đội** tham gia nhánh Uncertainty.
+- M5, 42.840 chuỗi (abstract).
+- **1.137 người, 892 đội, 94 quốc gia** (tr. 5).
 
 ## Evaluation
 
-- [Nguồn thứ cấp: bài 08, tr. 14; bài 13] Weighted scaled pinball loss (WSPL).
+- WSPL (xem bài 01, tr. 3).
 
 ## Results
 
-- [Chưa kiểm chứng] Kết quả chi tiết — cần đọc toàn văn.
+- Các kết luận chính của nhánh Accuracy cũng đúng cho nhánh Uncertainty; nhấn mạnh hiệu năng của ML, đặc biệt **LightGBM được đại đa số top 50 sử dụng** (tr. 19).
 
 ## Limitations
 
-- [Chưa kiểm chứng] Ghi chú trong Excel ban đầu ("giới hạn ở top 50 đội") — cần đọc toàn văn.
 - [Nhận định nhóm] Không đánh giá việc dùng phân vị cho quyết định tồn kho.
 
 ## Relevance to our topic
 
-[Nhận định nhóm] **Rất cao.** Dự báo phân vị là đầu vào của lớp quyết định newsvendor.
+[Nhận định nhóm] **Rất cao.** Bằng chứng trực tiếp rằng **LightGBM huấn luyện theo từng phân vị** — đúng cách tiếp cận của nhóm — là lời giải hạng nhất của M5 Uncertainty. Điều này cân bằng với kết quả bất lợi của bài 12 (vốn dùng LightGBM dạng distributional, cách khác).
 
 ## Possible improvement
 
