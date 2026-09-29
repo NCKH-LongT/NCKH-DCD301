@@ -7,6 +7,7 @@ Chi tiết từng bài, kèm **số trang nguồn cho từng ý**, xem `paper_su
 - ✅ = đã đọc toàn văn.
 - ⚠️ = chỉ đọc được abstract. Các ô có dấu `*` là thông tin chưa kiểm chứng từ chính bài đó, xem file tóm tắt.
 - Nội dung cột **Relevance** là **nhận định của nhóm**.
+- `†` = lấy từ tóm tắt do người dùng cung cấp, **chưa đối chiếu PDF**.
 
 | No | Paper Title | Year | Venue | Kiểm chứng | Domain | AI Method | Dataset | Metrics | Main Contribution | Limitation | Relevance to Our Topic |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -28,7 +29,7 @@ Chi tiết từng bài, kèm **số trang nguồn cho từng ý**, xem `paper_su
 | 16 | TSB – linking forecasting to obsolescence | 2011 | EJOR | ⚠️ (+ bài 23) | **Tồn kho** | TSB: cập nhật xác suất nhu cầu mỗi kỳ | **Mô phỏng** | * | Không lệch; nối dự báo với lỗi thời | Chỉ mô phỏng (theo abstract) | Rất cao: cơ sở cho THANH LÝ |
 | 17 | DeepAR | 2020 | IJF | ✅ (arXiv) | Bán lẻ / tổng quát | RNN tự hồi quy toàn cục, xác suất | parts, electricity, traffic, ec, ec-sub | ρ-risk (quantile loss) | Cải thiện ~15% so với SOTA lúc đó | Không do tác giả nêu | Baseline nên thêm |
 | 18 | Categorization of demand patterns | 2005 | JORS | ⚠️ (+ bài 01, 23) | **Tồn kho** | Phân loại theo ADI & CV²; EWMA, Croston, SBA | 3.000 chuỗi ô tô | MSE lý thuyết | Quy tắc chọn phương pháp theo ADI–CV² | Ngưỡng 1,32 không phải định nghĩa tính rời rạc (theo bài 12) | Rất cao: khung phân tích |
-| 19 | Optimising forecasting models for inventory planning | 2020 | IJPE | ⚠️ | **Tồn kho** | Tối ưu tham số dự báo theo metric tồn kho* | Dữ liệu thực* | * | Đưa metric tồn kho vào tối ưu dự báo | * | Rất cao, sau khi đọc toàn văn |
+| 19 | Optimising forecasting models for inventory planning | 2020 | IJPE | ⚠️ (trang mô tả + tóm tắt người dùng†) | **Tồn kho** | Tối ưu tham số dự báo theo metric tồn kho qua vòng mô phỏng tồn kho† | 229 SKU hàng tiêu dùng, theo tuần, 173 quan sát/SKU, lead time 3–5 tuần† | Bias, mức phục vụ, tồn kho, độ chính xác† | Sai số tăng ~9% nhưng bias ngoài mẫu cải thiện ~62%†; MSE nhỏ nhất ≠ chi phí tồn kho nhỏ nhất† | * | Rất cao; **phải đối chiếu PDF trước khi trích số** |
 | 20 | Forecast accuracy and inventory performance… M5 | 2025 | EJOR | ❌ | **Tồn kho + M5** | * | M5* | * | * | * | **Có thể trùng hướng, bắt buộc đọc** |
 | 21 | Multi-algorithm optimization for inventory analytics | 2025 | SCA | ✅ | **Tồn kho + M5** | LSTM + GA–DQN; so với RL, GA, ML, heuristic | Tập con thực phẩm biến động mạnh của M5; mô phỏng 365 ngày | TIC, service level, stockout, bullwhip; MAE, RMSE, MAPE | Service level 61% → 94% | Lead time cố định; RL tốn kém, khó giải thích (tác giả nêu); không có thanh lý, không phân loại ADI–CV² | Rất cao: **đã có mô phỏng tồn kho nhiều kỳ trên M5** |
 | 22 | Hybrid learning framework… adaptive inventory planning | 2026 | SCA | ✅ | Bán lẻ + M5 | XGBoost + LightGBM + LSTM-GRU stacking + GARCH | 8.000 chuỗi bán nhiều của M5 | R², RMSE, MAE, MAPE (theo ngành hàng) | R² 0,968; safety stock theo GARCH giảm chi phí tồn kho kỳ vọng 11,8% (1 phép tính minh họa, tr. 15) | **Không đánh giá chuỗi thưa/chậm, "điểm yếu chính"** (tác giả nêu, tr. 4, 18) | Cao: dẫn chứng cho gap chuỗi rời rạc |
