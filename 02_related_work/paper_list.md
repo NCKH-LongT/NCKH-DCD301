@@ -54,7 +54,10 @@ Mức liên quan: ★★★ = trụ cột, ★★ = hỗ trợ, ★ = tham khả
 | 24 | Feature engineering for intermittent demand forecasting: zero-detection and forecast performance across GRU, LSTM, and TCN architectures | El-Meehy, El-Kharbotly, El-Beheiry | 2026 | Journal of Intelligent Manufacturing (Springer) | [doi](https://doi.org/10.1007/s10845-026-02964-7) | ★★ |
 | 25 | Forecasting Critical Spare Parts Demand in Combined Cycle Power Plant Using Ensemble Learning | Putra, Purnomo | 2026 | Engineering Proceedings (MDPI) 143:30 | [doi](https://doi.org/10.3390/engproc2026143030) | ★ (kỷ yếu hội nghị) |
 
-**Không đưa vào danh sách:** `engproc-59-00132.pdf`, tức Vupulluri & Munagala (2023), *Histopathological Image Analysis Using Deep Learning Framework*. Đây là bài phân tích ảnh mô bệnh học ung thư vú, không liên quan tới đề tài.
+**Không đưa vào danh sách (đã xem):**
+
+- `logistics-09-00126.pdf`, tức Ntai, Kontopanou & Anastasiadis (2025), *Leveraging Household Food Waste Consumer Behaviour to Optimise Logistics*, Logistics 9(3), 126, doi:10.3390/logistics9030126. Đây là khảo sát khoảng 200 hộ gia đình ở vùng Attica (Hy Lạp) phân tích bằng hồi quy (tr. 7, 14); không có mô hình dự báo, không dùng dữ liệu bán lẻ hay M5. Bài **không thay thế được bài 20**. Có thể dùng một câu trong Introduction làm động cơ (mua theo khuyến mãi làm tăng lãng phí và gây dao động nhu cầu, theo abstract), nhưng không cần thiết.
+- `engproc-59-00132.pdf`, tức Vupulluri & Munagala (2023), *Histopathological Image Analysis Using Deep Learning Framework*. Đây là bài phân tích ảnh mô bệnh học ung thư vú, không liên quan tới đề tài.
 
 **Về việc thay thế bài 15, 16, 18 bằng bài mới:** không thay. Khi dùng Croston, TSB và phân loại ADI–CV² thì phải trích **bài gốc** của phương pháp. Bài 23 được dùng làm **nguồn thứ cấp** để kiểm chứng nội dung mô tả các phương pháp đó.
 
