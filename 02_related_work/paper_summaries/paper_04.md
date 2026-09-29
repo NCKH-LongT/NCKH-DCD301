@@ -2,15 +2,15 @@
 
 **Nhóm:** Direct (M5 / bán lẻ)
 
-> Tóm tắt dựa trên abstract và ghi chú trong `M5_papers_baseline_gap.xlsx`. Cần đọc toàn văn để bổ sung số liệu chi tiết.
+> Metadata và link **đã được kiểm tra (2026-09-29)** qua Crossref / arXiv API; link mở được. Tóm tắt dựa trên abstract, ghi chú `M5_papers_baseline_gap.xlsx` và đối chiếu PDF ở các chi tiết về dataset. Cần đọc toàn văn để bổ sung số liệu kết quả.
 
 ## Citation
 
-Tên bài: Algorithmic Transparency in Forecasting Support Systems
-Tác giả: Leif Feddersen
-Năm: 2024
-Nguồn: arXiv:2411.00699
-DOI/Link: https://arxiv.org/abs/2411.00699
+Tên bài: Interpretability and Control in Forecasting Support Systems (bản chính thức HICSS; bản preprint arXiv có tên "Algorithmic Transparency in Forecasting Support Systems", tác giả Leif Feddersen)
+Tác giả: Leif Feddersen, Catherine Cleophas
+Năm: 2026
+Nguồn: Proceedings of the 59th Hawaii International Conference on System Sciences (HICSS 2026), tr. 1445 (10 trang); preprint arXiv:2411.00699 (2024)
+DOI/Link: https://doi.org/10.24251/HICSS.2026.172 (arXiv: https://arxiv.org/abs/2411.00699)
 
 ## Problem
 
@@ -18,11 +18,11 @@ Người dùng trong doanh nghiệp thường chỉnh tay dự báo. Thiết k�
 
 ## Method
 
-Thí nghiệm người dùng với 3 thiết kế FSS có mức độ minh bạch khác nhau, dựa trên phân rã chuỗi thời gian (mô hình kiểu Prophet).
+Thí nghiệm người dùng (n = 197) với 3 thiết kế FSS: Opaque (không minh bạch), Interpretable (hiển thị phân rã chuỗi thời gian) và Control (cho người dùng chỉnh tham số các thành phần).
 
 ## Dataset
 
-Theo ghi chú của nhóm: subset nhỏ của M5 (nhóm FOODS).
+Subset M5: 10 chuỗi thuộc nhóm FOODS (đã kiểm tra trong PDF, mục 4.2–4.3); người tham gia dự báo 14 ngày tới.
 
 ## Evaluation
 

@@ -2,7 +2,7 @@
 
 **Nhóm:** Direct (M5 / bán lẻ)
 
-> Tóm tắt dựa trên abstract và ghi chú trong `M5_papers_baseline_gap.xlsx`. Cần đọc toàn văn để bổ sung số liệu chi tiết.
+> Metadata và link **đã được kiểm tra (2026-09-29)** qua Crossref / arXiv API; link mở được. Tóm tắt dựa trên abstract, ghi chú `M5_papers_baseline_gap.xlsx` và đối chiếu PDF ở các chi tiết về dataset. Cần đọc toàn văn để bổ sung số liệu kết quả.
 
 ## Citation
 
@@ -22,11 +22,11 @@ Bài toán kết hợp dự báo được đặt thành tối ưu đa mục tiê
 
 ## Dataset
 
-Walmart (M5; theo ghi chú nhóm, còn 28.903/30.490 SKU sau khi loại các SKU toàn số 0) và dữ liệu phụ tùng Royal Air Force.
+M5 (Walmart, ~60,1% quan sát bằng 0): loại 1.587 chuỗi **toàn số 0 trong giai đoạn tham chiếu nhưng có bán trong giai đoạn đánh giá** (không có lịch sử để dự báo), còn 28.903 chuỗi; và dữ liệu phụ tùng Royal Air Force. Horizon 28 ngày theo M5.
 
 ## Evaluation
 
-Độ chính xác dự báo và hiệu quả quyết định tồn kho, so với mô hình đơn lẻ, trung bình đơn giản và tối ưu đơn mục tiêu.
+Độ chính xác dự báo xác suất và 3 chỉ số tồn kho: tổng chi phí `c1·Holding + c2·Stockout`, tồn kho trung bình, lượng thiếu hàng. Mức order-up-to = phân vị τ của dự báo, τ = tỷ lệ tới hạn newsvendor. So sánh với mô hình đơn lẻ, trung bình đơn giản (SA) và tối ưu đơn mục tiêu.
 
 ## Results
 
@@ -34,7 +34,7 @@ Cách tiếp cận đa mục tiêu cho hiệu năng cân bằng và ổn định
 
 ## Limitations
 
-Loại 1.587 SKU toàn số 0 khi ước lượng trọng số; cần nhiều mô hình cơ sở để kết hợp (tốn kém); chỉ tập trung vào phía nhập hàng, không có quyết định xử lý hàng dư.
+Đánh giá tồn kho theo newsvendor **từng kỳ độc lập** (so phân vị với nhu cầu thực mỗi ngày), không có lead time và không mang tồn kho sang kỳ sau; không có quyết định xử lý hàng dư (thanh lý); không phân tích theo loại nhu cầu; loại 1.587 chuỗi không có lịch sử (cold-start); cần nhiều mô hình cơ sở để kết hợp.
 
 ## Relevance to our topic
 
@@ -42,4 +42,4 @@ Loại 1.587 SKU toàn số 0 khi ước lượng trọng số; cần nhiều m�
 
 ## Possible improvement
 
-Nhóm khác biệt ở chỗ: (1) một mô hình quantile duy nhất thay vì kết hợp nhiều mô hình; (2) quyết định **hai chiều** (nhập + thanh lý); (3) **giữ lại** SKU nhu cầu thưa và phân tích riêng theo nhóm ADI–CV².
+Nhóm khác biệt ở chỗ: (1) **mô phỏng tồn kho nhiều kỳ** có lead time, chu kỳ đặt hàng và tồn kho mang sang; (2) quyết định **hai chiều** (nhập + thanh lý); (3) phân tích kết quả **theo nhóm nhu cầu ADI–CV²**; (4) một mô hình LightGBM quantile duy nhất thay vì kết hợp nhiều mô hình. Nhóm cũng nên trích dẫn Goltsos et al. (2022, EJOR) mà bài này dẫn.

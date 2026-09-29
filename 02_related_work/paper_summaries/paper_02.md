@@ -2,15 +2,15 @@
 
 **Nhóm:** Direct (M5 / bán lẻ)
 
-> Tóm tắt dựa trên abstract và ghi chú trong `M5_papers_baseline_gap.xlsx`. Cần đọc toàn văn để bổ sung số liệu chi tiết.
+> Metadata và link **đã được kiểm tra (2026-09-29)** qua Crossref / arXiv API; link mở được. Tóm tắt dựa trên abstract, ghi chú `M5_papers_baseline_gap.xlsx` và đối chiếu PDF ở các chi tiết về dataset. Cần đọc toàn văn để bổ sung số liệu kết quả.
 
 ## Citation
 
 Tên bài: M5 accuracy competition: Results, findings, and conclusions
 Tác giả: Spyros Makridakis, Evangelos Spiliotis, Vassilios Assimakopoulos
 Năm: 2022
-Nguồn: International Journal of Forecasting, 38(4)
-DOI/Link: https://www.sciencedirect.com/science/article/pii/S0169207021001874
+Nguồn: International Journal of Forecasting, 38(4), 1346–1364
+DOI/Link: https://doi.org/10.1016/j.ijforecast.2021.11.013 (ScienceDirect: https://www.sciencedirect.com/science/article/pii/S0169207021001874)
 
 ## Problem
 

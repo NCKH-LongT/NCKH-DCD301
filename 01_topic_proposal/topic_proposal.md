@@ -39,7 +39,7 @@ Bộ dữ liệu M5 (Walmart, 42.840 chuỗi thời gian phân cấp, 30.490 SKU
 
 - Theo tổng kết cuộc thi M5 (Makridakis et al., 2022), các mô hình dạng LightGBM thắng áp đảo về độ chính xác. Tuy nhiên, đánh giá chỉ dừng ở sai số dự báo, chưa gắn với chi phí vận hành kho.
 - Dự báo điểm (point forecast) chỉ cho một con số. Muốn quyết định lượng tồn kho an toàn thì cần biết **độ bất định**, tức là cần dự báo xác suất / phân vị (quantile).
-- Các nghiên cứu gần đây (bài 11 và bài 12 trong `paper_list.md`) chỉ ra rằng **SKU có nhu cầu thưa/bằng 0** vẫn là bài toán mở, thậm chí bị loại khỏi thực nghiệm. Trong khi đó, đây chính là nhóm dễ gây tồn kho chết nhất.
+- Các nghiên cứu gần đây (bài 12 trong `paper_list.md`) chỉ ra rằng **SKU có nhu cầu thưa/bằng 0** (khoảng 60% quan sát của M5 là số 0) vẫn là bài toán mở. Trong khi đó, đây chính là nhóm dễ gây tồn kho chết nhất.
 - Doanh nghiệp vừa và nhỏ cần một pipeline **đơn giản, tái lập được, chạy được trên máy thường**, không cần ensemble hàng chục mô hình (bài 8: ensemble không phải lúc nào cũng đáng chi phí).
 
 ## 6. Target Users
@@ -85,8 +85,8 @@ Bộ dữ liệu M5 (Walmart, 42.840 chuỗi thời gian phân cấp, 30.490 SKU
 
 ## 9. Expected Contribution
 
-1. **Khung "forecast-to-decision"** trên M5: nối dự báo phân vị bằng LightGBM với chính sách nhập hàng và thanh lý, đánh giá bằng **KPI tồn kho** (fill rate, stockout, overstock, tổng chi phí) thay vì chỉ sai số dự báo.
-2. **Phân tích thực nghiệm theo loại nhu cầu (ADI–CV²):** chỉ ra ở nhóm SKU nào thì AI mang lại lợi ích rõ nhất. Phần này **giữ lại cả SKU nhu cầu thưa/bằng 0** mà bài 11 đã loại bỏ.
+1. **Khung "forecast-to-decision"** trên M5: nối dự báo phân vị bằng LightGBM với chính sách nhập hàng và thanh lý trong một **mô phỏng tồn kho nhiều kỳ** (có lead time và tồn kho mang sang), đánh giá bằng **KPI tồn kho** (fill rate, stockout, overstock, tổng chi phí) thay vì chỉ sai số dự báo.
+2. **Phân tích thực nghiệm theo loại nhu cầu (ADI–CV²):** chỉ ra ở nhóm SKU nào thì AI mang lại lợi ích rõ nhất, và ở nhóm nào baseline thống kê (TSB) vẫn đủ tốt.
 3. **Phân tích độ nhạy theo tỷ lệ chi phí** c_u/c_o: cho thấy khuyến nghị thay đổi thế nào theo chiến lược doanh nghiệp (ưu tiên không hết hàng hay ưu tiên ít tồn kho).
 4. Pipeline và mã nguồn **mở, tái lập được** (khắc phục hạn chế "khó tái lập" của bài 2 và 3).
 
@@ -109,12 +109,12 @@ Danh sách đầy đủ gồm 19 bài, xem `02_related_work/paper_list.md`. Các
 
 | No | Title | Year | Source | Link / DOI |
 |---|---|---|---|---|
-| 02 | M5 accuracy competition: Results, findings, and conclusions | 2022 | Int. J. Forecasting | https://www.sciencedirect.com/science/article/pii/S0169207021001874 |
-| 03 | The M5 uncertainty competition: Results, findings and conclusions | 2022 | Int. J. Forecasting | https://www.sciencedirect.com/science/article/pii/S0169207021001722 |
+| 02 | M5 accuracy competition: Results, findings, and conclusions | 2022 | Int. J. Forecasting | https://doi.org/10.1016/j.ijforecast.2021.11.013 |
+| 03 | The M5 uncertainty competition: Results, findings and conclusions | 2022 | Int. J. Forecasting | https://doi.org/10.1016/j.ijforecast.2021.10.009 |
 | 11 | Multi-objective probabilistic forecast combination for inventory demand | 2026 | arXiv | https://arxiv.org/abs/2606.04900 |
 | 12 | Intermittent time series forecasting: local vs global models | 2026 | arXiv | https://arxiv.org/abs/2601.14031 |
 | 16 | Intermittent demand: Linking forecasting to inventory obsolescence | 2011 | EJOR | https://doi.org/10.1016/j.ejor.2011.05.018 |
 | 18 | On the categorization of demand patterns | 2005 | JORS | https://doi.org/10.1057/palgrave.jors.2601841 |
 | 19 | Optimising forecasting models for inventory planning | 2020 | IJPE | https://doi.org/10.1016/j.ijpe.2019.107597 |
 
-> **Lưu ý định vị:** Bài 11 (Wang, Kang, Spiliotis & Petropoulos, 2026) là bài gần nhất: cũng dùng dữ liệu Walmart và cũng đánh giá theo hiệu quả tồn kho. Đề tài của nhóm phải khác biệt rõ ở ba điểm: (1) một mô hình LightGBM quantile gọn thay vì kết hợp nhiều mô hình; (2) quyết định **hai chiều** nhập hàng + thanh lý; (3) **giữ lại** SKU nhu cầu thưa/bằng 0 và phân tích theo nhóm ADI–CV².
+> **Lưu ý định vị:** Bài 11 (Wang, Kang, Spiliotis & Petropoulos, 2026) là bài gần nhất: cũng dùng M5, cũng đặt mức order-up-to bằng phân vị τ theo newsvendor, và cũng đo chi phí tồn/thiếu hàng. Đã kiểm tra PDF: họ đánh giá **từng kỳ độc lập** (không lead time, không mang tồn kho sang kỳ sau), **không có thanh lý**, **không phân tích theo loại nhu cầu** và **không dùng LightGBM**. Đề tài của nhóm khác biệt ở bốn điểm: (1) mô phỏng tồn kho nhiều kỳ có lead time; (2) quyết định **hai chiều** nhập hàng + thanh lý; (3) phân tích theo nhóm ADI–CV²; (4) một mô hình LightGBM quantile gọn thay vì kết hợp nhiều mô hình.

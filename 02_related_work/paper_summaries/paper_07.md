@@ -2,14 +2,14 @@
 
 **Nhóm:** Direct (M5 / bán lẻ)
 
-> Tóm tắt dựa trên abstract và ghi chú trong `M5_papers_baseline_gap.xlsx`. Cần đọc toàn văn để bổ sung số liệu chi tiết.
+> Metadata và link **đã được kiểm tra (2026-09-29)** qua Crossref / arXiv API; link mở được. Tóm tắt dựa trên abstract, ghi chú `M5_papers_baseline_gap.xlsx` và đối chiếu PDF ở các chi tiết về dataset. Cần đọc toàn văn để bổ sung số liệu kết quả.
 
 ## Citation
 
 Tên bài: The Forecast Critic: Leveraging Large Language Models for Poor Forecast Identification
 Tác giả: Luke Bhan, Hanyu Zhang, Andrew Gordon Wilson, Michael W. Mahoney, Chuck Arvin
 Năm: 2025
-Nguồn: arXiv:2512.12059
+Nguồn: AAAI 2026 Workshop AI4TS (và AABA4ET); arXiv:2512.12059
 DOI/Link: https://arxiv.org/abs/2512.12059
 
 ## Problem

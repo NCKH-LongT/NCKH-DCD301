@@ -2,7 +2,7 @@
 
 **Nhóm:** AI model / method
 
-> Bài bổ sung (không có trong file Excel ban đầu). Thông tin được tóm tắt từ kiến thức chung, **cần mở bài gốc để kiểm tra lại** trước khi trích dẫn.
+> Bài bổ sung (không có trong file Excel ban đầu). Tên bài, tác giả, năm, tạp chí, tập/số/trang và DOI **đã được kiểm tra qua Crossref / trang NeurIPS (2026-09-29)**. Phần tóm tắt nội dung viết từ kiến thức chung, nên đọc bài gốc trước khi trích số liệu.
 
 ## Citation
 
