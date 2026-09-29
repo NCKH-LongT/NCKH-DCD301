@@ -30,12 +30,13 @@ Chi tiết từng bài, kèm **số trang nguồn cho từng ý**, xem `paper_su
 | 17 | DeepAR | 2020 | IJF | ✅ (arXiv) | Bán lẻ / tổng quát | RNN tự hồi quy toàn cục, xác suất | parts, electricity, traffic, ec, ec-sub | ρ-risk (quantile loss) | Cải thiện ~15% so với SOTA lúc đó | Không do tác giả nêu | Baseline nên thêm |
 | 18 | Categorization of demand patterns | 2005 | JORS | ⚠️ (+ bài 01, 23) | **Tồn kho** | Phân loại theo ADI & CV²; EWMA, Croston, SBA | 3.000 chuỗi ô tô | MSE lý thuyết | Quy tắc chọn phương pháp theo ADI–CV² | Ngưỡng 1,32 không phải định nghĩa tính rời rạc (theo bài 12) | Rất cao: khung phân tích |
 | 19 | Optimising forecasting models for inventory planning | 2020 | IJPE | ⚠️ (trang mô tả + tóm tắt người dùng†) | **Tồn kho** | Tối ưu tham số dự báo theo metric tồn kho qua vòng mô phỏng tồn kho† | 229 SKU hàng tiêu dùng, theo tuần, 173 quan sát/SKU, lead time 3–5 tuần† | Bias, mức phục vụ, tồn kho, độ chính xác† | Sai số tăng ~9% nhưng bias ngoài mẫu cải thiện ~62%†; MSE nhỏ nhất ≠ chi phí tồn kho nhỏ nhất† | * | Rất cao; **phải đối chiếu PDF trước khi trích số** |
-| 20 | Forecast accuracy and inventory performance… M5 | 2025 | EJOR | ❌ | **Tồn kho + M5** | * | M5* | * | * | * | **Có thể trùng hướng, bắt buộc đọc** |
 | 21 | Multi-algorithm optimization for inventory analytics | 2025 | SCA | ✅ | **Tồn kho + M5** | LSTM + GA–DQN; so với RL, GA, ML, heuristic | Tập con thực phẩm biến động mạnh của M5; mô phỏng 365 ngày | TIC, service level, stockout, bullwhip; MAE, RMSE, MAPE | Service level 61% → 94% | Lead time cố định; RL tốn kém, khó giải thích (tác giả nêu); không có thanh lý, không phân loại ADI–CV² | Rất cao: **đã có mô phỏng tồn kho nhiều kỳ trên M5** |
 | 22 | Hybrid learning framework… adaptive inventory planning | 2026 | SCA | ✅ | Bán lẻ + M5 | XGBoost + LightGBM + LSTM-GRU stacking + GARCH | 8.000 chuỗi bán nhiều của M5 | R², RMSE, MAE, MAPE (theo ngành hàng) | R² 0,968; safety stock theo GARCH giảm chi phí tồn kho kỳ vọng 11,8% (1 phép tính minh họa, tr. 15) | **Không đánh giá chuỗi thưa/chậm, "điểm yếu chính"** (tác giả nêu, tr. 4, 18) | Cao: dẫn chứng cho gap chuỗi rời rạc |
 | 23 | New approach to forecast intermittent demand… spare parts | 2025 | Appl. Sci. | ✅ | **Tồn kho** (phụ tùng) | Họ Croston (Croston, SBA, TSB…) + SK mới; chính sách (R, Q) | 2.050 SKU ô tô × 104 tuần (không công khai) | sSPEC, MASE, sAPIS; safety stock, backorder | Giảm safety stock ở cùng mức phục vụ | Lead time cố định; 1 ngành (tác giả nêu) | Cao: nguồn thứ cấp cho 15, 16, 18 |
 | 24 | Feature engineering for intermittent demand (Z%, NZ%) | 2026 | J. Intell. Manuf. | ✅ | Nhu cầu rời rạc + M5 | GRU, LSTM, TCN + 20 chiến lược đặc trưng | 19 chuỗi M5 (3 mức ADI) | WMAPE, Z%, NZ%; tồn kho, thiếu hàng | Z% ↑ → tồn kho ↓ nhưng thiếu hàng ↑ | Chỉ dự báo điểm (tác giả nêu); 19 chuỗi | TB–cao: MAPE không dùng được; đánh đổi tồn kho–phục vụ |
 | 25 | Forecasting critical spare parts… power plant | 2026 | Eng. Proc. | ✅ | Phụ tùng nhà máy điện | RF, XGBoost | 1 nhà máy, dữ liệu tháng 2020–2024 | RMSE, MAE, MAPE (bỏ kỳ bằng 0) | XGBoost tốt hơn RF; tồn cuối kỳ vượt xa safety stock → ước tính tiết kiệm ~2,6 tỷ IDR/năm (tr. 7) | Dữ liệu nhỏ, không phải bán lẻ; không mô phỏng chính sách (nhận định) | Thấp–TB: ví dụ tồn kho dư |
+
+> **Bài 20 (Theodorou et al., 2025) không có trong bảng**: không truy cập được toàn văn nên không dùng làm căn cứ. Xem `paper_summaries/paper_20.md` để biết cách trích dẫn an toàn.
 
 ## Tổng hợp (Synthesis)
 
@@ -45,7 +46,7 @@ Chi tiết từng bài, kèm **số trang nguồn cho từng ý**, xem `paper_su
 
 - **Nhóm M5 (02, 03, 06, 08, 09, 13):** tối ưu **độ chính xác dự báo** (WRMSSE, WSPL, quantile loss). Hướng mới là foundation model và ensemble (06), đánh đổi chi phí (08), dự báo phân cấp (09, 13).
 - **Nhóm nhu cầu rời rạc (12, 15, 16, 18, 23, 24):** dữ liệu nhiều số 0 cần phương pháp riêng (Croston, TSB) và phân phối phù hợp (Tweedie cho phân vị cao, bài 12).
-- **Nhóm dự báo → tồn kho (11, 16, 19, 20, 21, 22):** bài 21 mô phỏng tồn kho nhiều kỳ trên M5 bằng RL/GA; bài 22 tạo khoảng dự báo cho safety stock; bài 20 nghiên cứu trực tiếp quan hệ độ chính xác–tồn kho trên M5 (chưa đọc được). bài 11 cho thấy tối ưu theo sai số thống kê không đồng nghĩa với quyết định tồn kho tốt nhất (abstract bài 11). Bài 16 nối dự báo với tồn kho lỗi thời. Bài 19 đưa metric tồn kho vào việc tối ưu mô hình dự báo (chỉ từ trang mô tả).
+- **Nhóm dự báo → tồn kho (11, 16, 19, 21, 22, 23, 24):** bài 21 mô phỏng tồn kho nhiều kỳ trên M5 bằng RL/GA; bài 22 tạo khoảng dự báo cho safety stock; bài 23 nối dự báo nhu cầu rời rạc với chính sách (R, Q) và safety stock; bài 24 cho thấy dự báo đúng kỳ bằng 0 làm giảm tồn kho nhưng tăng thiếu hàng (tr. 21). Bài 11 cho thấy tối ưu theo sai số thống kê không đồng nghĩa với quyết định tồn kho tốt nhất (abstract bài 11). Bài 16 nối dự báo với tồn kho lỗi thời. Bài 19 đưa metric tồn kho vào việc tối ưu mô hình dự báo (chỉ từ trang mô tả).
 
 ### 2. Model thường dùng
 
@@ -67,7 +68,7 @@ Các gap cũ không còn đứng được:
 
 - ~~"Chỉ bài 11 đánh giá bằng metric tồn kho trên M5"~~: bài 21 cũng làm.
 - ~~"Chưa có mô phỏng tồn kho nhiều kỳ trên M5"~~: bài 21 đã mô phỏng 365 ngày với điểm đặt hàng lại và safety stock (tr. 8).
-- ⚠️ Bài 20 (EJOR 2025) có tên bài trùng câu hỏi "độ chính xác dự báo ↔ hiệu quả tồn kho trên M5". **Chưa đọc được**, nên không thể khẳng định RQ này còn mới.
+- ~~"Chưa ai nghiên cứu quan hệ độ chính xác dự báo ↔ hiệu quả tồn kho trên M5"~~: **không dùng**. Bài 20 (Theodorou et al., 2025, EJOR) có tên bài đúng chủ đề này nhưng không đọc được toàn văn, nên bài được đưa ra khỏi ma trận (xem `paper_list.md`, mục F). Đề tài **không** đặt RQ theo hướng này.
 
 Các gap còn đứng được (đã có dẫn chứng):
 

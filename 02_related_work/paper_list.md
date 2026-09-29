@@ -1,6 +1,6 @@
 # Paper List
 
-Yêu cầu README (Bước 2): ≥ 5 bài liên quan trực tiếp, ≥ 3 bài về model/phương pháp AI, ≥ 2 bài về domain. Hiện có **25 bài**: 13 bài trực tiếp, 4 bài model/method, 2 bài domain, bài 20–22 (M5 + tồn kho) và bài 23–25 (nhu cầu rời rạc, bổ sung ngày 29/09/2026).
+Yêu cầu README (Bước 2): ≥ 5 bài liên quan trực tiếp, ≥ 3 bài về model/phương pháp AI, ≥ 2 bài về domain. Danh sách chính thức có **24 bài đã đọc được** (ít nhất ở mức abstract): 13 bài trực tiếp, 4 bài model/method, 2 bài domain, bài 21–22 (M5 + tồn kho) và bài 23–25 (nhu cầu rời rạc). **Bài 20 không tính vào danh sách chính thức** (xem mục F).
 
 Mức liên quan: ★★★ = trụ cột, ★★ = hỗ trợ, ★ = tham khảo phụ.
 
@@ -42,7 +42,6 @@ Mức liên quan: ★★★ = trụ cột, ★★ = hỗ trợ, ★ = tham khả
 
 | No | Title | Authors | Year | Venue | Link | Mức |
 |---|---|---|---|---|---|---|
-| 20 | Forecast accuracy and inventory performance: Insights on their relationship from the M5 competition data | Theodorou, Spiliotis, Assimakopoulos | 2025 | EJOR 322(2):414–426 | [doi](https://doi.org/10.1016/j.ejor.2024.12.033) | ★★★ (**chưa đọc được — bắt buộc đọc**) |
 | 21 | A comparative study of multi-algorithm optimization for inventory analytics in supply chains | Zabraoui, Hmamou, Chafi, Kammouri Alami | 2025 | Supply Chain Analytics 12:100154 | [doi](https://doi.org/10.1016/j.sca.2025.100154) | ★★★ |
 | 22 | A hybrid learning framework for forecasting uncertainty and adaptive inventory planning in retail supply chains | Mohammed, Anas, El Hammoumi | 2026 | Supply Chain Analytics 13:100180 | [doi](https://doi.org/10.1016/j.sca.2025.100180) | ★★★ |
 
@@ -53,6 +52,12 @@ Mức liên quan: ★★★ = trụ cột, ★★ = hỗ trợ, ★ = tham khả
 | 23 | A New Approach to Forecast Intermittent Demand and Stock-Keeping-Unit Level Optimization for Spare Parts Management | Sfiris, Koulouriotis | 2025 | Applied Sciences (MDPI) 15(22):12030 | [doi](https://doi.org/10.3390/app152212030) | ★★★ (nguồn thứ cấp cho bài 15, 16, 18) |
 | 24 | Feature engineering for intermittent demand forecasting: zero-detection and forecast performance across GRU, LSTM, and TCN architectures | El-Meehy, El-Kharbotly, El-Beheiry | 2026 | Journal of Intelligent Manufacturing (Springer) | [doi](https://doi.org/10.1007/s10845-026-02964-7) | ★★ |
 | 25 | Forecasting Critical Spare Parts Demand in Combined Cycle Power Plant Using Ensemble Learning | Putra, Purnomo | 2026 | Engineering Proceedings (MDPI) 143:30 | [doi](https://doi.org/10.3390/engproc2026143030) | ★ (kỷ yếu hội nghị) |
+
+## F. Theo dõi — chưa đọc được (không dùng làm căn cứ)
+
+| No | Title | Authors | Year | Venue | Link | Trạng thái |
+|---|---|---|---|---|---|---|
+| 20 | Forecast accuracy and inventory performance: Insights on their relationship from the M5 competition data | Theodorou, Spiliotis, Assimakopoulos | 2025 | EJOR 322(2):414–426 | [doi](https://doi.org/10.1016/j.ejor.2024.12.033) | ⛔ Không truy cập được toàn văn → chỉ được trích ở mức tên bài (xem `paper_summaries/paper_20.md`) |
 
 **Không đưa vào danh sách (đã xem):**
 
