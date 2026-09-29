@@ -1,6 +1,6 @@
 # Paper List
 
-Yêu cầu README (Bước 2): ≥ 5 bài liên quan trực tiếp, ≥ 3 bài về model/phương pháp AI, ≥ 2 bài về domain. Hiện có **13 + 4 + 2 = 19 bài**.
+Yêu cầu README (Bước 2): ≥ 5 bài liên quan trực tiếp, ≥ 3 bài về model/phương pháp AI, ≥ 2 bài về domain. Hiện có **22 bài**: 13 bài trực tiếp, 4 bài model/method, 2 bài domain, và 3 bài bổ sung 20–22 (tìm thêm ngày 29/09/2026).
 
 Mức liên quan: ★★★ = trụ cột, ★★ = hỗ trợ, ★ = tham khảo phụ.
 
@@ -37,6 +37,14 @@ Mức liên quan: ★★★ = trụ cột, ★★ = hỗ trợ, ★ = tham khả
 |---|---|---|---|---|---|---|
 | 18 | On the categorization of demand patterns | Syntetos, Boylan, Croston | 2005 | JORS 56(5):495–503 | [doi](https://doi.org/10.1057/palgrave.jors.2601841) | ★★★ |
 | 19 | Optimising forecasting models for inventory planning | Kourentzes, Trapero, Barrow | 2020 | IJPE 225:107597 | [doi](https://doi.org/10.1016/j.ijpe.2019.107597) | ★★★ |
+
+## D. Bổ sung: M5 + tồn kho (có ảnh hưởng trực tiếp tới gap)
+
+| No | Title | Authors | Year | Venue | Link | Mức |
+|---|---|---|---|---|---|---|
+| 20 | Forecast accuracy and inventory performance: Insights on their relationship from the M5 competition data | Theodorou, Spiliotis, Assimakopoulos | 2025 | EJOR 322(2):414–426 | [doi](https://doi.org/10.1016/j.ejor.2024.12.033) | ★★★ (**chưa đọc được — bắt buộc đọc**) |
+| 21 | A comparative study of multi-algorithm optimization for inventory analytics in supply chains | Zabraoui, Hmamou, Chafi, Kammouri Alami | 2025 | Supply Chain Analytics 12:100154 | [doi](https://doi.org/10.1016/j.sca.2025.100154) | ★★★ |
+| 22 | A hybrid learning framework for forecasting uncertainty and adaptive inventory planning in retail supply chains | Mohammed, Anas, El Hammoumi | 2026 | Supply Chain Analytics 13:100180 | [doi](https://doi.org/10.1016/j.sca.2025.100180) | ★★★ |
 
 ## Kiểm tra reference (2026-09-29)
 

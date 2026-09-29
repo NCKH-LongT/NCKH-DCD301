@@ -29,6 +29,9 @@ Chi tiết từng bài, kèm **số trang nguồn cho từng ý**, xem `paper_su
 | 17 | DeepAR | 2020 | IJF | ✅ (arXiv) | Bán lẻ / tổng quát | RNN tự hồi quy toàn cục, xác suất | parts, electricity, traffic, ec, ec-sub | ρ-risk (quantile loss) | Cải thiện ~15% so với SOTA lúc đó | Không do tác giả nêu | Baseline nên thêm |
 | 18 | Categorization of demand patterns | 2005 | JORS | ⚠️ | **Tồn kho** | Phân loại theo ADI & CV²; EWMA, Croston, SBA | 3.000 chuỗi ô tô | MSE lý thuyết | Quy tắc chọn phương pháp theo ADI–CV² | Ngưỡng 1,32 không phải định nghĩa tính rời rạc (theo bài 12) | Rất cao: khung phân tích |
 | 19 | Optimising forecasting models for inventory planning | 2020 | IJPE | ⚠️ | **Tồn kho** | Tối ưu tham số dự báo theo metric tồn kho* | Dữ liệu thực* | * | Đưa metric tồn kho vào tối ưu dự báo | * | Rất cao, sau khi đọc toàn văn |
+| 20 | Forecast accuracy and inventory performance… M5 | 2025 | EJOR | ❌ | **Tồn kho + M5** | * | M5* | * | * | * | **Có thể trùng hướng, bắt buộc đọc** |
+| 21 | Multi-algorithm optimization for inventory analytics | 2025 | SCA | ✅ | **Tồn kho + M5** | LSTM + GA–DQN; so với RL, GA, ML, heuristic | Tập con thực phẩm biến động mạnh của M5; mô phỏng 365 ngày | TIC, service level, stockout, bullwhip; MAE, RMSE, MAPE | Service level 61% → 94% | Lead time cố định; RL tốn kém, khó giải thích (tác giả nêu) | Rất cao: **đã có mô phỏng tồn kho nhiều kỳ trên M5** |
+| 22 | Hybrid learning framework… adaptive inventory planning | 2026 | SCA | ✅ | Bán lẻ + M5 | XGBoost + LightGBM + LSTM-GRU stacking + GARCH | 8.000 chuỗi bán nhiều của M5 | R², RMSE, MAE | Khoảng tin cậy thích nghi; R² 0,968 | **Không đánh giá chuỗi thưa/chậm** (tác giả nêu); không có KPI tồn kho | Cao: dẫn chứng cho gap chuỗi rời rạc |
 
 ## Tổng hợp (Synthesis)
 
@@ -38,7 +41,7 @@ Chi tiết từng bài, kèm **số trang nguồn cho từng ý**, xem `paper_su
 
 - **Nhóm M5 (02, 03, 06, 08, 09, 13):** tối ưu **độ chính xác dự báo** (WRMSSE, WSPL, quantile loss). Hướng mới là foundation model và ensemble (06), đánh đổi chi phí (08), dự báo phân cấp (09, 13).
 - **Nhóm nhu cầu rời rạc (12, 15, 16, 18):** dữ liệu nhiều số 0 cần phương pháp riêng (Croston, TSB) và phân phối phù hợp (Tweedie cho phân vị cao, bài 12).
-- **Nhóm dự báo → tồn kho (11, 16, 19):** bài 11 cho thấy tối ưu theo sai số thống kê không đồng nghĩa với quyết định tồn kho tốt nhất (abstract bài 11). Bài 16 nối dự báo với tồn kho lỗi thời. Bài 19 đưa metric tồn kho vào việc tối ưu mô hình dự báo (chỉ từ trang mô tả).
+- **Nhóm dự báo → tồn kho (11, 16, 19, 20, 21, 22):** bài 21 mô phỏng tồn kho nhiều kỳ trên M5 bằng RL/GA; bài 22 tạo khoảng dự báo cho safety stock; bài 20 nghiên cứu trực tiếp quan hệ độ chính xác–tồn kho trên M5 (chưa đọc được). bài 11 cho thấy tối ưu theo sai số thống kê không đồng nghĩa với quyết định tồn kho tốt nhất (abstract bài 11). Bài 16 nối dự báo với tồn kho lỗi thời. Bài 19 đưa metric tồn kho vào việc tối ưu mô hình dự báo (chỉ từ trang mô tả).
 
 ### 2. Model thường dùng
 
@@ -49,15 +52,26 @@ Chi tiết từng bài, kèm **số trang nguồn cho từng ý**, xem `paper_su
 
 - Dự báo điểm: WRMSSE, RMSSE (02, 06, 08, 09, 12).
 - Dự báo xác suất: WSPL / scaled quantile loss (03, 08, 12, 13), DRPS (11), sCRPS (07).
-- Tồn kho: total cost, holding, stockout (11). **Rất ít bài trong danh sách dùng metric tồn kho.**
+- Tồn kho: total cost, holding, stockout (11); TIC, service level, stockout rate, bullwhip (21). Chỉ 2 bài trong số các bài đã đọc được dùng metric tồn kho.
 - MAPE không được bài nào trong danh sách dùng. [Nhận định nhóm] Lý do là M5 có ~60,1% quan sát bằng 0 (bài 11, tr. 16), nên MAPE không xác định.
 
-### 4. Khoảng trống (gap), đầu vào cho Bước 5
+### 4. Khoảng trống (gap), đầu vào cho Bước 5 (**đã cập nhật sau khi đọc bài 21–22**)
 
-1. Trong 13 bài dùng M5, **chỉ bài 11** đánh giá bằng metric tồn kho.
-2. Bài 11 **tự thừa nhận** giới hạn ở newsvendor **một kỳ, một sản phẩm**, chưa áp dụng cho hệ nhiều kỳ (bài 11, tr. 26). Bài này cũng không có quyết định thanh lý (nhận định nhóm sau khi đọc toàn văn).
-3. Bài 01 (tr. 8) đã phân loại M5 theo ADI–CV², với 73% chuỗi là intermittent, nhưng chưa bài nào trong danh sách phân tích hiệu quả **tồn kho** theo từng nhóm này (nhận định nhóm).
-4. ⚠️ **Hai bằng chứng trái chiều về LightGBM xác suất:**
-   - Bài 03 (tr. 14): lời giải **hạng nhất** M5 Uncertainty là LightGBM huấn luyện **riêng cho từng phân vị**.
-   - Bài 12 (tr. 13, 19): LightGBM **dạng distributional** không cạnh tranh trên dữ liệu rời rạc, còn TiDE + Tweedie tốt nhất.
-   - Đề tài dùng LightGBM **quantile regression**, cùng cách với bài 03. Nhóm vẫn nên thêm TiDE hoặc DeepAR làm baseline để trả lời phản biện.
+Các gap cũ không còn đứng được:
+
+- ~~"Chỉ bài 11 đánh giá bằng metric tồn kho trên M5"~~: bài 21 cũng làm.
+- ~~"Chưa có mô phỏng tồn kho nhiều kỳ trên M5"~~: bài 21 đã mô phỏng 365 ngày với điểm đặt hàng lại và safety stock (tr. 8).
+- ⚠️ Bài 20 (EJOR 2025) có tên bài trùng câu hỏi "độ chính xác dự báo ↔ hiệu quả tồn kho trên M5". **Chưa đọc được**, nên không thể khẳng định RQ này còn mới.
+
+Các gap còn đứng được (đã có dẫn chứng):
+
+1. **Chuỗi rời rạc bị loại hoặc chọn lọc bỏ.** Bài 22 chỉ dùng 8.000 chuỗi bán nhiều và tự nêu thiếu chuỗi thưa/chậm (tr. 4). Bài 21 chỉ dùng tập con thực phẩm biến động mạnh (tr. 8). Bài 11 loại 1.587 chuỗi không có lịch sử (tr. 17). Trong khi đó, 73% chuỗi M5 là intermittent (bài 01, tr. 8).
+2. **Không có quyết định thanh lý / xử lý hàng dư.** Không bài nào đã đọc (11, 21, 22) có quyết định này. Bài 16 (abstract) liên hệ dự báo với tồn kho lỗi thời nhưng chỉ dùng dữ liệu mô phỏng.
+3. **Chưa có phân tích KPI tồn kho theo nhóm ADI–CV².** Bài 01 phân loại M5 nhưng chỉ nhằm mô tả dữ liệu; bài 22 báo cáo tỷ lệ các nhóm nhưng không có KPI tồn kho.
+4. **Minh bạch và dễ giải thích.** Bài 21 dùng RL và tự nêu DRL/DL khó diễn giải (tr. 19); bài 06 nêu ensemble khó giải thích (tr. 7). Chính sách dựa trên phân vị dự báo (newsvendor/order-up-to) thì minh bạch hơn. (Nhận định nhóm, cần lập luận thêm.)
+
+Về mô hình, có hai bằng chứng trái chiều về LightGBM xác suất:
+
+- Bài 03 (tr. 14): lời giải hạng nhất M5 Uncertainty là LightGBM **theo từng phân vị**.
+- Bài 12 (tr. 13, 19): LightGBM **dạng distributional** không cạnh tranh; TiDE + Tweedie tốt nhất.
+- Đề tài dùng cách giống bài 03, và nên có TiDE hoặc DeepAR làm baseline.

@@ -119,3 +119,8 @@ Danh sách đầy đủ gồm 19 bài, xem `02_related_work/paper_list.md`. Các
 | 19 | Optimising forecasting models for inventory planning | 2020 | IJPE | https://doi.org/10.1016/j.ijpe.2019.107597 |
 
 > **Lưu ý định vị:** Bài 11 (Wang, Kang, Spiliotis & Petropoulos, 2026) là bài gần nhất: cũng dùng M5, cũng đặt mức order-up-to bằng phân vị τ theo newsvendor, và cũng đo chi phí tồn/thiếu hàng. Đã kiểm tra PDF: họ đánh giá **từng kỳ độc lập** (không lead time, không mang tồn kho sang kỳ sau), **không có thanh lý**, **không phân tích theo loại nhu cầu** và **không dùng LightGBM**. Đề tài của nhóm khác biệt ở bốn điểm: (1) mô phỏng tồn kho nhiều kỳ có lead time; (2) quyết định **hai chiều** nhập hàng + thanh lý; (3) phân tích theo nhóm ADI–CV²; (4) một mô hình LightGBM quantile gọn thay vì kết hợp nhiều mô hình.
+>
+> **Cập nhật 29/09/2026 sau khi đọc bài 21–22:**
+> - Điểm (1) **không còn là điểm mới**: bài 21 (Zabraoui et al., 2025) đã mô phỏng tồn kho 365 ngày trên M5.
+> - Điểm mới chính của đề tài nên chuyển sang: **giữ lại toàn bộ chuỗi rời rạc** (73% M5, bài 01 tr. 8), trong khi bài 21 và 22 đều chọn lọc bỏ; **quyết định thanh lý**; **KPI tồn kho theo nhóm ADI–CV²**.
+> - ⚠️ Bài 20 (Theodorou et al., 2025, EJOR) **chưa đọc được** nhưng có thể trùng câu hỏi nghiên cứu. **Phải đọc trước khi chốt RQ ở Bước 6.**
