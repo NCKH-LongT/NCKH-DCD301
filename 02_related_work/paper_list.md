@@ -1,6 +1,6 @@
 # Paper List
 
-Yêu cầu README (Bước 2): ≥ 5 bài liên quan trực tiếp, ≥ 3 bài về model/phương pháp AI, ≥ 2 bài về domain. Hiện có **25 bài**: 13 bài trực tiếp, 4 bài model/method, 2 bài domain, bài 20–22 (M5 + tồn kho) và bài 23–25 (nhu cầu rời rạc, bổ sung ngày 29/09/2026).
+Yêu cầu README (Bước 2): ≥ 5 bài liên quan trực tiếp, ≥ 3 bài về model/phương pháp AI, ≥ 2 bài về domain. Danh sách chính thức có **24 bài đã đọc được** (ít nhất ở mức abstract): 13 bài trực tiếp, 4 bài model/method, 2 bài domain, bài 21–22 (M5 + tồn kho) và bài 23–25 (nhu cầu rời rạc). **Bài 20 không tính vào danh sách chính thức** (xem mục F).
 
 Mức liên quan: ★★★ = trụ cột, ★★ = hỗ trợ, ★ = tham khảo phụ.
 
@@ -42,7 +42,6 @@ Mức liên quan: ★★★ = trụ cột, ★★ = hỗ trợ, ★ = tham khả
 
 | No | Title | Authors | Year | Venue | Link | Mức |
 |---|---|---|---|---|---|---|
-| 20 | Forecast accuracy and inventory performance: Insights on their relationship from the M5 competition data | Theodorou, Spiliotis, Assimakopoulos | 2025 | EJOR 322(2):414–426 | [doi](https://doi.org/10.1016/j.ejor.2024.12.033) | ★★★ (**chưa đọc được — bắt buộc đọc**) |
 | 21 | A comparative study of multi-algorithm optimization for inventory analytics in supply chains | Zabraoui, Hmamou, Chafi, Kammouri Alami | 2025 | Supply Chain Analytics 12:100154 | [doi](https://doi.org/10.1016/j.sca.2025.100154) | ★★★ |
 | 22 | A hybrid learning framework for forecasting uncertainty and adaptive inventory planning in retail supply chains | Mohammed, Anas, El Hammoumi | 2026 | Supply Chain Analytics 13:100180 | [doi](https://doi.org/10.1016/j.sca.2025.100180) | ★★★ |
 
@@ -54,7 +53,16 @@ Mức liên quan: ★★★ = trụ cột, ★★ = hỗ trợ, ★ = tham khả
 | 24 | Feature engineering for intermittent demand forecasting: zero-detection and forecast performance across GRU, LSTM, and TCN architectures | El-Meehy, El-Kharbotly, El-Beheiry | 2026 | Journal of Intelligent Manufacturing (Springer) | [doi](https://doi.org/10.1007/s10845-026-02964-7) | ★★ |
 | 25 | Forecasting Critical Spare Parts Demand in Combined Cycle Power Plant Using Ensemble Learning | Putra, Purnomo | 2026 | Engineering Proceedings (MDPI) 143:30 | [doi](https://doi.org/10.3390/engproc2026143030) | ★ (kỷ yếu hội nghị) |
 
-**Không đưa vào danh sách:** `engproc-59-00132.pdf`, tức Vupulluri & Munagala (2023), *Histopathological Image Analysis Using Deep Learning Framework*. Đây là bài phân tích ảnh mô bệnh học ung thư vú, không liên quan tới đề tài.
+## F. Theo dõi — chưa đọc được (không dùng làm căn cứ)
+
+| No | Title | Authors | Year | Venue | Link | Trạng thái |
+|---|---|---|---|---|---|---|
+| 20 | Forecast accuracy and inventory performance: Insights on their relationship from the M5 competition data | Theodorou, Spiliotis, Assimakopoulos | 2025 | EJOR 322(2):414–426 | [doi](https://doi.org/10.1016/j.ejor.2024.12.033) | ⛔ Không truy cập được toàn văn → chỉ được trích ở mức tên bài (xem `paper_summaries/paper_20.md`) |
+
+**Không đưa vào danh sách (đã xem):**
+
+- `logistics-09-00126.pdf`, tức Ntai, Kontopanou & Anastasiadis (2025), *Leveraging Household Food Waste Consumer Behaviour to Optimise Logistics*, Logistics 9(3), 126, doi:10.3390/logistics9030126. Đây là khảo sát khoảng 200 hộ gia đình ở vùng Attica (Hy Lạp) phân tích bằng hồi quy (tr. 7, 14); không có mô hình dự báo, không dùng dữ liệu bán lẻ hay M5. Bài **không thay thế được bài 20**. Có thể dùng một câu trong Introduction làm động cơ (mua theo khuyến mãi làm tăng lãng phí và gây dao động nhu cầu, theo abstract), nhưng không cần thiết.
+- `engproc-59-00132.pdf`, tức Vupulluri & Munagala (2023), *Histopathological Image Analysis Using Deep Learning Framework*. Đây là bài phân tích ảnh mô bệnh học ung thư vú, không liên quan tới đề tài.
 
 **Về việc thay thế bài 15, 16, 18 bằng bài mới:** không thay. Khi dùng Croston, TSB và phân loại ADI–CV² thì phải trích **bài gốc** của phương pháp. Bài 23 được dùng làm **nguồn thứ cấp** để kiểm chứng nội dung mô tả các phương pháp đó.
 

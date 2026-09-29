@@ -123,4 +123,4 @@ Danh sách đầy đủ gồm 19 bài, xem `02_related_work/paper_list.md`. Các
 > **Cập nhật 29/09/2026 sau khi đọc bài 21–22:**
 > - Điểm (1) **không còn là điểm mới**: bài 21 (Zabraoui et al., 2025) đã mô phỏng tồn kho 365 ngày trên M5.
 > - Điểm mới chính của đề tài nên chuyển sang: **giữ lại toàn bộ chuỗi rời rạc** (73% M5, bài 01 tr. 8), trong khi bài 21 và 22 đều chọn lọc bỏ; **quyết định thanh lý**; **KPI tồn kho theo nhóm ADI–CV²**.
-> - ⚠️ Bài 20 (Theodorou et al., 2025, EJOR) **chưa đọc được** nhưng có thể trùng câu hỏi nghiên cứu. **Phải đọc trước khi chốt RQ ở Bước 6.**
+> - Bài 20 (Theodorou et al., 2025, EJOR) **không đọc được toàn văn** nên không dùng làm căn cứ. Để tránh trùng, đề tài **không** đặt RQ kiểu "độ chính xác dự báo có tương quan với hiệu quả tồn kho trên M5 không"; RQ tập trung vào chuỗi rời rạc, quyết định thanh lý và KPI theo nhóm ADI–CV². Khi viết bài chỉ trích bài 20 ở mức tên bài.

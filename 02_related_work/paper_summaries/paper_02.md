@@ -34,7 +34,7 @@ DOI/Link: https://doi.org/10.1016/j.ijforecast.2021.11.013
 
 ## Evaluation
 
-- WRMSSE (xem bài 01, tr. 3); so sánh với các benchmark thống kê và benchmark khác (tr. 2).
+- WRMSSE (tr. 3); so sánh với các benchmark thống kê và benchmark khác (tr. 2).
 
 ## Results
 
