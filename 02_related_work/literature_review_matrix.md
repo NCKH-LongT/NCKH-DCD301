@@ -24,14 +24,17 @@ Chi tiết từng bài, kèm **số trang nguồn cho từng ý**, xem `paper_su
 | 12 | Intermittent TSF: local vs global | 2026 | arXiv | ✅ | Nhu cầu rời rạc | Local vs global (TiDE, DeepAR, …, LightGBM distributional) | 5 dataset, >40k chuỗi | sQL (5 phân vị), RMSSE | TiDE + Tweedie tốt nhất; **LightGBM xác suất không cạnh tranh** | Chưa có kiến trúc chuẩn; chưa so foundation model | Rất cao, **phản biện lựa chọn LightGBM** |
 | 13 | e2eTD probabilistic top-down | 2026 | arXiv | ✅ | Bán lẻ | ETS cho chuỗi tổng hợp + top-down sampling | M5, Favorita | WSPL, thời gian chạy | Hạng 11/892 M5-U; <5 phút trên laptop | Chọn chuỗi tổng hợp thủ công | Cao |
 | 14 | LightGBM | 2017 | NeurIPS | ✅ | Tổng quát | GBDT (GOSS, EFB) | Allstate, Flight Delay, KDD10, KDD12 | Thời gian, độ chính xác | Nhanh hơn GBDT tới >20× | Không bàn chuỗi thời gian (nhận định) | Mô hình chính |
-| 15 | Croston's method | 1972 | JORS (ORQ) | ⚠️ | Tồn kho | Ước lượng riêng kích thước & tần suất | * | * | Khắc phục SES với nhu cầu rời rạc | Lệch dương; không xử lý lỗi thời (theo bài 16) | Baseline |
-| 16 | TSB – linking forecasting to obsolescence | 2011 | EJOR | ⚠️ | **Tồn kho** | TSB: cập nhật xác suất nhu cầu mỗi kỳ | **Mô phỏng** | * | Không lệch; nối dự báo với lỗi thời | Chỉ mô phỏng (theo abstract) | Rất cao: cơ sở cho THANH LÝ |
+| 15 | Croston's method | 1972 | JORS (ORQ) | ⚠️ (+ bài 23) | Tồn kho | Ước lượng riêng kích thước & tần suất | * | * | Khắc phục SES với nhu cầu rời rạc | Lệch dương; không xử lý lỗi thời (theo bài 16) | Baseline |
+| 16 | TSB – linking forecasting to obsolescence | 2011 | EJOR | ⚠️ (+ bài 23) | **Tồn kho** | TSB: cập nhật xác suất nhu cầu mỗi kỳ | **Mô phỏng** | * | Không lệch; nối dự báo với lỗi thời | Chỉ mô phỏng (theo abstract) | Rất cao: cơ sở cho THANH LÝ |
 | 17 | DeepAR | 2020 | IJF | ✅ (arXiv) | Bán lẻ / tổng quát | RNN tự hồi quy toàn cục, xác suất | parts, electricity, traffic, ec, ec-sub | ρ-risk (quantile loss) | Cải thiện ~15% so với SOTA lúc đó | Không do tác giả nêu | Baseline nên thêm |
-| 18 | Categorization of demand patterns | 2005 | JORS | ⚠️ | **Tồn kho** | Phân loại theo ADI & CV²; EWMA, Croston, SBA | 3.000 chuỗi ô tô | MSE lý thuyết | Quy tắc chọn phương pháp theo ADI–CV² | Ngưỡng 1,32 không phải định nghĩa tính rời rạc (theo bài 12) | Rất cao: khung phân tích |
+| 18 | Categorization of demand patterns | 2005 | JORS | ⚠️ (+ bài 01, 23) | **Tồn kho** | Phân loại theo ADI & CV²; EWMA, Croston, SBA | 3.000 chuỗi ô tô | MSE lý thuyết | Quy tắc chọn phương pháp theo ADI–CV² | Ngưỡng 1,32 không phải định nghĩa tính rời rạc (theo bài 12) | Rất cao: khung phân tích |
 | 19 | Optimising forecasting models for inventory planning | 2020 | IJPE | ⚠️ | **Tồn kho** | Tối ưu tham số dự báo theo metric tồn kho* | Dữ liệu thực* | * | Đưa metric tồn kho vào tối ưu dự báo | * | Rất cao, sau khi đọc toàn văn |
 | 20 | Forecast accuracy and inventory performance… M5 | 2025 | EJOR | ❌ | **Tồn kho + M5** | * | M5* | * | * | * | **Có thể trùng hướng, bắt buộc đọc** |
 | 21 | Multi-algorithm optimization for inventory analytics | 2025 | SCA | ✅ | **Tồn kho + M5** | LSTM + GA–DQN; so với RL, GA, ML, heuristic | Tập con thực phẩm biến động mạnh của M5; mô phỏng 365 ngày | TIC, service level, stockout, bullwhip; MAE, RMSE, MAPE | Service level 61% → 94% | Lead time cố định; RL tốn kém, khó giải thích (tác giả nêu) | Rất cao: **đã có mô phỏng tồn kho nhiều kỳ trên M5** |
 | 22 | Hybrid learning framework… adaptive inventory planning | 2026 | SCA | ✅ | Bán lẻ + M5 | XGBoost + LightGBM + LSTM-GRU stacking + GARCH | 8.000 chuỗi bán nhiều của M5 | R², RMSE, MAE | Khoảng tin cậy thích nghi; R² 0,968 | **Không đánh giá chuỗi thưa/chậm** (tác giả nêu); không có KPI tồn kho | Cao: dẫn chứng cho gap chuỗi rời rạc |
+| 23 | New approach to forecast intermittent demand… spare parts | 2025 | Appl. Sci. | ✅ | **Tồn kho** (phụ tùng) | Họ Croston (Croston, SBA, TSB…) + SK mới; chính sách (R, Q) | 2.050 SKU ô tô × 104 tuần (không công khai) | sSPEC, MASE, sAPIS; safety stock, backorder | Giảm safety stock ở cùng mức phục vụ | Lead time cố định; 1 ngành (tác giả nêu) | Cao: nguồn thứ cấp cho 15, 16, 18 |
+| 24 | Feature engineering for intermittent demand (Z%, NZ%) | 2026 | J. Intell. Manuf. | ✅ | Nhu cầu rời rạc + M5 | GRU, LSTM, TCN + 20 chiến lược đặc trưng | 19 chuỗi M5 (3 mức ADI) | WMAPE, Z%, NZ%; tồn kho, thiếu hàng | Z% ↑ → tồn kho ↓ nhưng thiếu hàng ↑ | Chỉ dự báo điểm (tác giả nêu); 19 chuỗi | TB–cao: MAPE không dùng được; đánh đổi tồn kho–phục vụ |
+| 25 | Forecasting critical spare parts… power plant | 2026 | Eng. Proc. | ✅ | Phụ tùng nhà máy điện | RF, XGBoost | 1 nhà máy, dữ liệu tháng 2020–2024 | RMSE, MAE, MAPE (bỏ kỳ bằng 0) | XGBoost tốt hơn RF | Dữ liệu nhỏ, không phải bán lẻ (nhận định) | Thấp |
 
 ## Tổng hợp (Synthesis)
 
@@ -40,7 +43,7 @@ Chi tiết từng bài, kèm **số trang nguồn cho từng ý**, xem `paper_su
 ### 1. Các bài trước đã làm gì?
 
 - **Nhóm M5 (02, 03, 06, 08, 09, 13):** tối ưu **độ chính xác dự báo** (WRMSSE, WSPL, quantile loss). Hướng mới là foundation model và ensemble (06), đánh đổi chi phí (08), dự báo phân cấp (09, 13).
-- **Nhóm nhu cầu rời rạc (12, 15, 16, 18):** dữ liệu nhiều số 0 cần phương pháp riêng (Croston, TSB) và phân phối phù hợp (Tweedie cho phân vị cao, bài 12).
+- **Nhóm nhu cầu rời rạc (12, 15, 16, 18, 23, 24):** dữ liệu nhiều số 0 cần phương pháp riêng (Croston, TSB) và phân phối phù hợp (Tweedie cho phân vị cao, bài 12).
 - **Nhóm dự báo → tồn kho (11, 16, 19, 20, 21, 22):** bài 21 mô phỏng tồn kho nhiều kỳ trên M5 bằng RL/GA; bài 22 tạo khoảng dự báo cho safety stock; bài 20 nghiên cứu trực tiếp quan hệ độ chính xác–tồn kho trên M5 (chưa đọc được). bài 11 cho thấy tối ưu theo sai số thống kê không đồng nghĩa với quyết định tồn kho tốt nhất (abstract bài 11). Bài 16 nối dự báo với tồn kho lỗi thời. Bài 19 đưa metric tồn kho vào việc tối ưu mô hình dự báo (chỉ từ trang mô tả).
 
 ### 2. Model thường dùng
@@ -53,7 +56,7 @@ Chi tiết từng bài, kèm **số trang nguồn cho từng ý**, xem `paper_su
 - Dự báo điểm: WRMSSE, RMSSE (02, 06, 08, 09, 12).
 - Dự báo xác suất: WSPL / scaled quantile loss (03, 08, 12, 13), DRPS (11), sCRPS (07).
 - Tồn kho: total cost, holding, stockout (11); TIC, service level, stockout rate, bullwhip (21). Chỉ 2 bài trong số các bài đã đọc được dùng metric tồn kho.
-- MAPE không được bài nào trong danh sách dùng. [Nhận định nhóm] Lý do là M5 có ~60,1% quan sát bằng 0 (bài 11, tr. 16), nên MAPE không xác định.
+- **Không dùng MAPE.** MAPE không xác định khi nhu cầu thực bằng 0 (bài 24, tr. 4); M5 có ~60,1% quan sát bằng 0 (bài 11, tr. 16). Bài 25 phải loại các kỳ bằng 0 khỏi MAPE (abstract), còn bài 21 và 22 vẫn dùng MAPE/R², là điểm yếu có thể phê bình.
 
 ### 4. Khoảng trống (gap), đầu vào cho Bước 5 (**đã cập nhật sau khi đọc bài 21–22**)
 

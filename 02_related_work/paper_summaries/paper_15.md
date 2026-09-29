@@ -40,6 +40,7 @@ DOI/Link: https://doi.org/10.1057/jors.1972.50
 ## Limitations
 
 - [Nguồn thứ cấp: bài 16, abstract] Phương pháp Croston không cập nhật sau các kỳ nhu cầu bằng 0 nên không phù hợp khi sản phẩm lỗi thời, và bị lệch dương (positively biased).
+- [Nguồn thứ cấp: bài 23, tr. 1 và Bảng tr. 4] Croston bị lệch dương, dẫn tới SBA để sửa lệch; phương pháp vẫn được dùng rộng rãi trong ERP và phần mềm dự báo.
 
 ## Relevance to our topic
 

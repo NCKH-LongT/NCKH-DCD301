@@ -36,6 +36,7 @@ DOI/Link: https://doi.org/10.1016/j.ejor.2011.05.018
 ## Results
 
 - Phương pháp mới cho hiệu năng vượt trội và giúp hiểu mối liên hệ giữa dự báo nhu cầu và lỗi thời (abstract).
+- [Nguồn thứ cấp: bài 23, tr. 2 và Bảng tr. 4] TSB thay khoảng cách giữa các lần có nhu cầu bằng xác suất xảy ra nhu cầu giảm dần theo hàm mũ; phù hợp hơn với các kỳ bằng 0, đặc biệt với sản phẩm cuối vòng đời.
 
 ## Limitations
 

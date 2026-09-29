@@ -37,8 +37,9 @@ DOI/Link: https://doi.org/10.1057/palgrave.jors.2601841
 ## Results
 
 - Đề xuất quy tắc phân loại theo ADI và CV² (abstract).
-- [Nguồn thứ cấp: bài 01, tr. 7–8] Ngưỡng của Syntetos et al. (2005) là **CV² = 0,5 và ADI = 4/3**, dùng để chia 4 nhóm smooth, erratic, intermittent, lumpy. Bài 12 (tr. 10) gọi ngưỡng ADI là "ADI > 1,32".
-- ⚠️ Con số hay gặp "0,49 / 1,32" là giá trị làm tròn hoặc trích lại. Nhóm nên dùng **0,5 và 4/3 theo bài 01** vì đã kiểm chứng được.
+- [Nguồn thứ cấp: bài 01, tr. 7–8] Ngưỡng của Syntetos et al. (2005) là **CV² = 0,5 và ADI = 4/3**.
+- [Nguồn thứ cấp: bài 23, tr. 10] Định nghĩa 4 nhóm: Smooth (ADI ≤ 1,32 và CV² ≤ 0,49), Intermittent (ADI > 1,32 và CV² ≤ 0,49), Erratic (ADI ≤ 1,32 và CV² > 0,49), Lumpy (ADI > 1,32 và CV² > 0,49). Bài 22 (tr. 4) và bài 24 (tr. 8) cũng dùng 1,32/0,49.
+- ⚠️ Hai cách ghi (4/3 ≈ 1,33 và 0,5; hoặc 1,32 và 0,49) đều xuất hiện trong tài liệu. Nhóm chọn **một** cách, ghi rõ nguồn, và dùng nhất quán. Khuyến nghị: dùng **4/3 và 0,5 theo bài 01** để so sánh được với tỷ lệ nhóm của M5.
 
 ## Limitations
 

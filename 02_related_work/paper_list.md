@@ -1,6 +1,6 @@
 # Paper List
 
-Yêu cầu README (Bước 2): ≥ 5 bài liên quan trực tiếp, ≥ 3 bài về model/phương pháp AI, ≥ 2 bài về domain. Hiện có **22 bài**: 13 bài trực tiếp, 4 bài model/method, 2 bài domain, và 3 bài bổ sung 20–22 (tìm thêm ngày 29/09/2026).
+Yêu cầu README (Bước 2): ≥ 5 bài liên quan trực tiếp, ≥ 3 bài về model/phương pháp AI, ≥ 2 bài về domain. Hiện có **25 bài**: 13 bài trực tiếp, 4 bài model/method, 2 bài domain, bài 20–22 (M5 + tồn kho) và bài 23–25 (nhu cầu rời rạc, bổ sung ngày 29/09/2026).
 
 Mức liên quan: ★★★ = trụ cột, ★★ = hỗ trợ, ★ = tham khảo phụ.
 
@@ -45,6 +45,18 @@ Mức liên quan: ★★★ = trụ cột, ★★ = hỗ trợ, ★ = tham khả
 | 20 | Forecast accuracy and inventory performance: Insights on their relationship from the M5 competition data | Theodorou, Spiliotis, Assimakopoulos | 2025 | EJOR 322(2):414–426 | [doi](https://doi.org/10.1016/j.ejor.2024.12.033) | ★★★ (**chưa đọc được — bắt buộc đọc**) |
 | 21 | A comparative study of multi-algorithm optimization for inventory analytics in supply chains | Zabraoui, Hmamou, Chafi, Kammouri Alami | 2025 | Supply Chain Analytics 12:100154 | [doi](https://doi.org/10.1016/j.sca.2025.100154) | ★★★ |
 | 22 | A hybrid learning framework for forecasting uncertainty and adaptive inventory planning in retail supply chains | Mohammed, Anas, El Hammoumi | 2026 | Supply Chain Analytics 13:100180 | [doi](https://doi.org/10.1016/j.sca.2025.100180) | ★★★ |
+
+## E. Bổ sung: nhu cầu rời rạc (29/09/2026)
+
+| No | Title | Authors | Year | Venue | Link | Mức |
+|---|---|---|---|---|---|---|
+| 23 | A New Approach to Forecast Intermittent Demand and Stock-Keeping-Unit Level Optimization for Spare Parts Management | Sfiris, Koulouriotis | 2025 | Applied Sciences (MDPI) 15(22):12030 | [doi](https://doi.org/10.3390/app152212030) | ★★★ (nguồn thứ cấp cho bài 15, 16, 18) |
+| 24 | Feature engineering for intermittent demand forecasting: zero-detection and forecast performance across GRU, LSTM, and TCN architectures | El-Meehy, El-Kharbotly, El-Beheiry | 2026 | Journal of Intelligent Manufacturing (Springer) | [doi](https://doi.org/10.1007/s10845-026-02964-7) | ★★ |
+| 25 | Forecasting Critical Spare Parts Demand in Combined Cycle Power Plant Using Ensemble Learning | Putra, Purnomo | 2026 | Engineering Proceedings (MDPI) 143:30 | [doi](https://doi.org/10.3390/engproc2026143030) | ★ (kỷ yếu hội nghị) |
+
+**Không đưa vào danh sách:** `engproc-59-00132.pdf`, tức Vupulluri & Munagala (2023), *Histopathological Image Analysis Using Deep Learning Framework*. Đây là bài phân tích ảnh mô bệnh học ung thư vú, không liên quan tới đề tài.
+
+**Về việc thay thế bài 15, 16, 18 bằng bài mới:** không thay. Khi dùng Croston, TSB và phân loại ADI–CV² thì phải trích **bài gốc** của phương pháp. Bài 23 được dùng làm **nguồn thứ cấp** để kiểm chứng nội dung mô tả các phương pháp đó.
 
 ## Kiểm tra reference (2026-09-29)
 
