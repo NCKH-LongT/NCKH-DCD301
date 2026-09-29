@@ -1,8 +1,13 @@
 # Paper 16 Summary
 
 **Nhóm:** AI model / method (+ domain)
+**Mức kiểm chứng (29/09/2026):** ⚠️ **Chỉ đọc được abstract** (qua OpenAlex). Bản mở có trên kho Salford và Groningen nhưng bị chặn khi tải tự động → nhóm có thể tự tải bằng trình duyệt.
 
-> Bài bổ sung (không có trong file Excel ban đầu). Tên bài, tác giả, năm, tạp chí, tập/số/trang và DOI **đã được kiểm tra qua Crossref / trang NeurIPS (2026-09-29)**. Phần tóm tắt nội dung viết từ kiến thức chung, nên đọc bài gốc trước khi trích số liệu.
+> **Quy ước nguồn** (để đối chiếu khi giảng viên hỏi):
+> - `(tr. N)` = trang thứ N trong file PDF (đếm theo trang PDF, không phải số in trên trang); `(abstract)` = phần tóm tắt của bài.
+> - `[Nguồn thứ cấp: bài X, tr. N]` = thông tin **không** đọc trực tiếp từ bài này mà từ một bài khác trích dẫn nó.
+> - `[Chưa kiểm chứng]` = chưa tìm thấy trong phần đã đọc được; **không được dùng trong bài báo** cho tới khi mở toàn văn kiểm tra.
+> - `[Nhận định nhóm]` = phân tích của nhóm, **không phải** nội dung bài báo.
 
 ## Citation
 
@@ -14,32 +19,32 @@ DOI/Link: https://doi.org/10.1016/j.ejor.2011.05.018
 
 ## Problem
 
-Croston không cập nhật dự báo trong các kỳ không có nhu cầu, nên phản ứng chậm khi sản phẩm sắp lỗi thời, dẫn tới tồn kho chết.
+- Croston là phương pháp chuẩn cho nhu cầu rời rạc nhưng có 2 nhược điểm: (1) không cập nhật sau các kỳ nhu cầu bằng 0 → không phù hợp với vấn đề **lỗi thời (obsolescence)**; (2) bị lệch dương. SBA đã xử lý (2) (abstract).
 
 ## Method
 
-Phương pháp TSB: cập nhật **xác suất có nhu cầu** mỗi kỳ (kể cả kỳ bằng 0) thay vì khoảng cách giữa các lần có nhu cầu.
+- Phương pháp mới (thường gọi là TSB): **không lệch** và cập nhật **xác suất có nhu cầu** thay vì khoảng cách giữa các lần có nhu cầu, cập nhật **mỗi kỳ** (abstract).
 
 ## Dataset
 
-Dữ liệu mô phỏng và thực tế.
+- **Thí nghiệm mô phỏng** quy mô lớn (abstract).
 
 ## Evaluation
 
-Sai số dự báo, chi phí tồn kho và lượng hàng lỗi thời.
+- [Chưa kiểm chứng] Metric cụ thể không có trong abstract.
 
 ## Results
 
-TSB giảm rủi ro tồn kho lỗi thời so với Croston/SBA khi nhu cầu suy giảm.
+- Phương pháp mới cho hiệu năng vượt trội và giúp hiểu mối liên hệ giữa dự báo nhu cầu và lỗi thời (abstract).
 
 ## Limitations
 
-Mô hình thống kê cục bộ, không dùng biến ngoại sinh (giá, sự kiện).
+- [Nhận định nhóm] Chỉ có bằng chứng mô phỏng (theo abstract); mô hình thống kê cục bộ, không dùng biến ngoại sinh.
 
 ## Relevance to our topic
 
-**Rất cao.** Nối trực tiếp dự báo với **tồn kho lỗi thời**, là cơ sở lý thuyết cho khuyến nghị THANH LÝ.
+[Nhận định nhóm] **Rất cao.** Cơ sở lý thuyết nối dự báo với tồn kho lỗi thời → khuyến nghị THANH LÝ.
 
 ## Possible improvement
 
-Dùng TSB làm baseline mạnh cho nhóm SKU rời rạc/lumpy.
+[Nhận định nhóm] Dùng TSB làm baseline mạnh cho nhóm SKU rời rạc.

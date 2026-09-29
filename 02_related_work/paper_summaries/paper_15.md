@@ -1,8 +1,13 @@
 # Paper 15 Summary
 
 **Nhóm:** AI model / method
+**Mức kiểm chứng (29/09/2026):** ⚠️ **Chỉ đọc được abstract** (bài closed access, không có bản mở).
 
-> Bài bổ sung (không có trong file Excel ban đầu). Tên bài, tác giả, năm, tạp chí, tập/số/trang và DOI **đã được kiểm tra qua Crossref / trang NeurIPS (2026-09-29)**. Phần tóm tắt nội dung viết từ kiến thức chung, nên đọc bài gốc trước khi trích số liệu.
+> **Quy ước nguồn** (để đối chiếu khi giảng viên hỏi):
+> - `(tr. N)` = trang thứ N trong file PDF (đếm theo trang PDF, không phải số in trên trang); `(abstract)` = phần tóm tắt của bài.
+> - `[Nguồn thứ cấp: bài X, tr. N]` = thông tin **không** đọc trực tiếp từ bài này mà từ một bài khác trích dẫn nó.
+> - `[Chưa kiểm chứng]` = chưa tìm thấy trong phần đã đọc được; **không được dùng trong bài báo** cho tới khi mở toàn văn kiểm tra.
+> - `[Nhận định nhóm]` = phân tích của nhóm, **không phải** nội dung bài báo.
 
 ## Citation
 
@@ -14,32 +19,32 @@ DOI/Link: https://doi.org/10.1057/jors.1972.50
 
 ## Problem
 
-Làm mịn hàm mũ (SES) bị lệch khi nhu cầu rời rạc (nhiều kỳ bằng 0).
+- Làm mịn hàm mũ thường dùng trong hệ thống kiểm soát tồn kho; với nhu cầu rời rạc, nó gần như luôn cho mức tồn kho không phù hợp — nhu cầu cố định theo chu kỳ có thể sinh mức tồn tới gấp đôi mức cần (abstract).
 
 ## Method
 
-Tách chuỗi thành hai phần: kích thước nhu cầu khác 0 và khoảng cách giữa các lần có nhu cầu, rồi làm mịn riêng từng phần.
+- Dùng **ước lượng riêng** cho kích thước nhu cầu và tần suất nhu cầu (abstract).
 
 ## Dataset
 
-Dữ liệu tồn kho mô phỏng/thực tế (phân tích lý thuyết).
+- [Chưa kiểm chứng] Không có trong abstract.
 
 ## Evaluation
 
-Độ lệch và phương sai của dự báo; tác động tới tồn kho.
+- [Chưa kiểm chứng] Không có trong abstract.
 
 ## Results
 
-Cho dự báo ít lệch hơn SES đối với nhu cầu rời rạc, trở thành phương pháp chuẩn trong thực tế.
+- Quy tắc đặt tồn kho an toàn cũng phải điều chỉnh để có mức bảo vệ nhất quán trước hết hàng (abstract).
 
 ## Limitations
 
-Vẫn còn lệch (sau này được sửa bởi SBA); không cập nhật khi sản phẩm ngừng bán (obsolescence).
+- [Nguồn thứ cấp: bài 16, abstract] Phương pháp Croston không cập nhật sau các kỳ nhu cầu bằng 0 nên không phù hợp khi sản phẩm lỗi thời, và bị lệch dương (positively biased).
 
 ## Relevance to our topic
 
-**Cao.** Baseline chuẩn cho nhóm SKU rời rạc.
+[Nhận định nhóm] **Cao.** Baseline chuẩn cho SKU nhu cầu rời rạc.
 
 ## Possible improvement
 
-Dùng làm baseline thống kê trong thí nghiệm.
+[Nhận định nhóm] Dùng làm baseline thống kê.

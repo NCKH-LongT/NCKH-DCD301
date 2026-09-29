@@ -1,8 +1,13 @@
 # Paper 14 Summary
 
 **Nhóm:** AI model / method
+**Mức kiểm chứng (29/09/2026):** ✅ **Đã đọc toàn văn** (bản PDF chính thức trên trang NeurIPS, 9 trang).
 
-> Bài bổ sung (không có trong file Excel ban đầu). Tên bài, tác giả, năm, tạp chí, tập/số/trang và DOI **đã được kiểm tra qua Crossref / trang NeurIPS (2026-09-29)**. Phần tóm tắt nội dung viết từ kiến thức chung, nên đọc bài gốc trước khi trích số liệu.
+> **Quy ước nguồn** (để đối chiếu khi giảng viên hỏi):
+> - `(tr. N)` = trang thứ N trong file PDF (đếm theo trang PDF, không phải số in trên trang); `(abstract)` = phần tóm tắt của bài.
+> - `[Nguồn thứ cấp: bài X, tr. N]` = thông tin **không** đọc trực tiếp từ bài này mà từ một bài khác trích dẫn nó.
+> - `[Chưa kiểm chứng]` = chưa tìm thấy trong phần đã đọc được; **không được dùng trong bài báo** cho tới khi mở toàn văn kiểm tra.
+> - `[Nhận định nhóm]` = phân tích của nhóm, **không phải** nội dung bài báo.
 
 ## Citation
 
@@ -14,32 +19,32 @@ DOI/Link: https://papers.nips.cc/paper_files/paper/2017/hash/6449f44a102fde84866
 
 ## Problem
 
-Gradient boosting decision tree chậm khi dữ liệu có nhiều mẫu và nhiều đặc trưng.
+- Các cài đặt GBDT (XGBoost, pGBRT) kém hiệu quả khi số đặc trưng lớn và dữ liệu lớn, do phải duyệt mọi mẫu để ước lượng information gain (abstract).
 
 ## Method
 
-GOSS (Gradient-based One-Side Sampling) và EFB (Exclusive Feature Bundling), tăng trưởng cây theo lá (leaf-wise).
+- **GOSS** (Gradient-based One-Side Sampling): bỏ phần lớn mẫu có gradient nhỏ; **EFB** (Exclusive Feature Bundling): gộp các đặc trưng loại trừ nhau (abstract).
 
 ## Dataset
 
-Nhiều dataset công khai lớn.
+- Các dataset công khai lớn, gồm Allstate Insurance Claim, Flight Delay, KDD CUP 2010, KDD CUP 2012 (tr. 6).
 
 ## Evaluation
 
-Thời gian huấn luyện, AUC/NDCG/sai số tùy bài toán.
+- Thời gian huấn luyện và độ chính xác (abstract; mục 5).
 
 ## Results
 
-Huấn luyện nhanh hơn GBDT truyền thống tới hơn 20 lần với độ chính xác gần như tương đương.
+- Tăng tốc huấn luyện so với GBDT truyền thống **lên tới hơn 20 lần** với độ chính xác gần như tương đương (abstract; tr. 2).
 
 ## Limitations
 
-Là thuật toán tổng quát, không dành riêng cho chuỗi thời gian; cần tự thiết kế đặc trưng lag/rolling.
+- [Nhận định nhóm] Thuật toán tổng quát, không dành riêng cho chuỗi thời gian; bài gốc không bàn về dự báo xác suất hay Tweedie/quantile loss.
 
 ## Relevance to our topic
 
-**Rất cao.** Là mô hình AI chính của đề tài; hỗ trợ sẵn loss Tweedie và quantile.
+[Nhận định nhóm] **Rất cao.** Trích dẫn gốc cho mô hình chính.
 
 ## Possible improvement
 
-Áp dụng với objective `quantile` (nhiều mức τ) và `tweedie` cho dữ liệu M5.
+[Nhận định nhóm] Áp dụng với objective quantile và tweedie (tính năng của thư viện, không phải nội dung bài báo).

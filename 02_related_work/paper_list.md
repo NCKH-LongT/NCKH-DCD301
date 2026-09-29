@@ -59,5 +59,5 @@ Các chỉnh sửa sau kiểm tra:
 ## Ghi chú
 
 - Bài 08, 09, 11, 12, 13 vẫn **chưa qua phản biện** (chỉ có trên arXiv). Khi viết bài, nên ưu tiên trích dẫn bài tạp chí và kiểm tra xem bài arXiv đã có bản được xuất bản chính thức chưa.
-- **Gợi ý đọc thêm (đã xác minh):** Goltsos, T. E., Syntetos, A. A., Glock, C. H., & Ioannou, G. (2022). Inventory–forecasting: Mind the gap. *European Journal of Operational Research*, 299(2), 397–419. https://doi.org/10.1016/j.ejor.2021.07.040. Đây là bài tổng quan về khoảng cách giữa dự báo và tồn kho, được bài 11 trích dẫn; rất nên đưa vào Introduction.
+- **Gợi ý đọc thêm (đã xác minh):** Goltsos, T. E., Syntetos, A. A., Glock, C. H., & Ioannou, G. (2022). Inventory–forecasting: Mind the gap. *European Journal of Operational Research*, 299(2), 397–419. https://doi.org/10.1016/j.ejor.2021.07.040. Theo abstract (OpenAlex): bài là **tổng quan có cấu trúc (structured review)** về tích hợp dự báo nhu cầu và kiểm soát tồn kho, đề xuất 4 mức tích hợp (từ bỏ qua đến hiểu đầy đủ tương tác), và chỉ ra rằng phần lớn nghiên cứu dự báo coi dự báo là mục tiêu tự thân mà bỏ qua bước chuyển thành quyết định nhập hàng. Rất nên đưa vào Introduction. *Chưa đọc toàn văn.*
 - Nên bổ sung thêm 2–3 bài từ hội nghị mục tiêu (ví dụ KSE, SoICT, ACIIDS) để phản biện thấy bài phù hợp với venue.

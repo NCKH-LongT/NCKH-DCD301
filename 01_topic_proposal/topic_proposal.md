@@ -37,9 +37,9 @@ Bộ dữ liệu M5 (Walmart, 42.840 chuỗi thời gian phân cấp, 30.490 SKU
 
 ## 5. Motivation
 
-- Theo tổng kết cuộc thi M5 (Makridakis et al., 2022), các mô hình dạng LightGBM thắng áp đảo về độ chính xác. Tuy nhiên, đánh giá chỉ dừng ở sai số dự báo, chưa gắn với chi phí vận hành kho.
+- LightGBM là một phần của nhiều lời giải thành công ở cuộc thi M5 (theo bài 12, tr. 6 và bài 06, tr. 4 trong `paper_list.md`). *Cần đọc toàn văn bài M5 Accuracy (bài 02) trước khi viết mạnh hơn, ví dụ "thắng áp đảo".* Các đánh giá trên M5 chủ yếu dừng ở sai số dự báo, chưa gắn với chi phí vận hành kho.
 - Dự báo điểm (point forecast) chỉ cho một con số. Muốn quyết định lượng tồn kho an toàn thì cần biết **độ bất định**, tức là cần dự báo xác suất / phân vị (quantile).
-- Các nghiên cứu gần đây (bài 12 trong `paper_list.md`) chỉ ra rằng **SKU có nhu cầu thưa/bằng 0** (khoảng 60% quan sát của M5 là số 0) vẫn là bài toán mở. Trong khi đó, đây chính là nhóm dễ gây tồn kho chết nhất.
+- Khoảng 60,1% quan sát của M5 bằng 0 (bài 11, tr. 16). Bài 12 (tr. 2) chỉ ra rằng chưa có kiến trúc global model được thiết lập cho chuỗi nhu cầu rời rạc, tức **SKU có nhu cầu thưa/bằng 0** vẫn là bài toán mở. Trong khi đó, đây chính là nhóm dễ gây tồn kho chết nhất.
 - Doanh nghiệp vừa và nhỏ cần một pipeline **đơn giản, tái lập được, chạy được trên máy thường**, không cần ensemble hàng chục mô hình (bài 8: ensemble không phải lúc nào cũng đáng chi phí).
 
 ## 6. Target Users
@@ -57,10 +57,10 @@ Bộ dữ liệu M5 (Walmart, 42.840 chuỗi thời gian phân cấp, 30.490 SKU
 
 **Mô hình chính (AI):**
 
-- **LightGBM global model** (Ke et al., 2017), cùng loại mô hình đã thắng M5 Accuracy:
+- **LightGBM global model** (Ke et al., 2017), loại mô hình được dùng rộng rãi trong các lời giải M5 (bài 06, tr. 4; bài 12, tr. 6):
   - Dự báo điểm với hàm mất mát **Tweedie** (phù hợp dữ liệu nhiều số 0).
   - Dự báo **phân vị (quantile regression)** ở các mức τ ∈ {0.5, 0.75, 0.9, 0.95, 0.99}. Các phân vị này dùng làm đầu vào cho lớp ra quyết định.
-- **Phân loại nhu cầu theo ADI–CV²** (Syntetos–Boylan): smooth / erratic / intermittent / lumpy. Dùng để phân tích kết quả theo từng nhóm và chọn chiến lược phù hợp.
+- **Phân loại nhu cầu theo ADI và CV²** (Syntetos, Boylan & Croston, 2005). Dùng để phân tích kết quả theo từng nhóm. *Các ngưỡng cụ thể (ADI = 1,32; CV² = 0,49) và tên 4 nhóm cần được kiểm tra trong toàn văn bài 18 trước khi dùng.*
 
 **Lớp ra quyết định (Decision layer), không phải model mới mà là chính sách tồn kho cổ điển được "cấp dữ liệu" bởi dự báo xác suất:**
 
@@ -73,6 +73,7 @@ Bộ dữ liệu M5 (Walmart, 42.840 chuỗi thời gian phân cấp, 30.490 SKU
 - Seasonal Naive (tuần trước), Moving Average 28 ngày, ETS.
 - Croston / TSB (chuẩn cho nhu cầu rời rạc).
 - LightGBM dự báo điểm + safety stock giả định phân phối chuẩn. Đây là ablation quan trọng nhất: trả lời câu hỏi dự báo xác suất có tốt hơn cách truyền thống hay không.
+- **TiDE và/hoặc DeepAR** (global, xác suất). Cần thiết vì bài 12 (tr. 13, 19) cho thấy LightGBM dạng xác suất (distributional) không cạnh tranh trên dữ liệu rời rạc, còn TiDE + Tweedie tốt nhất. Nhóm dùng LightGBM **quantile regression** (cách khác) nên phải chứng minh bằng thực nghiệm.
 - *(Tùy chọn)* Chronos zero-shot, đại diện cho foundation model (bài 6, 7).
 
 ## 8. System Features
@@ -93,7 +94,7 @@ Bộ dữ liệu M5 (Walmart, 42.840 chuỗi thời gian phân cấp, 30.490 SKU
 ## 10. Evaluation Plan
 
 - **Dataset:** M5 Forecasting (Kaggle/Walmart), gồm 3 bang, 10 cửa hàng, 3 ngành hàng, 30.490 SKU–store, 1.941 ngày. Giai đoạn thử nghiệm: dùng 3 cửa hàng đại diện (CA_1, TX_1, WI_1 ≈ 9.147 chuỗi), sau đó mở rộng ra toàn bộ nếu tài nguyên cho phép. Chia dữ liệu theo đúng thiết kế gốc (28 ngày validation, 28 ngày test) và thêm rolling-origin backtest.
-- **Baseline:** Seasonal Naive, MA(28), ETS, Croston/TSB, LightGBM point + normal safety stock.
+- **Baseline:** Seasonal Naive, MA(28), ETS, Croston/TSB, LightGBM point + normal safety stock, TiDE/DeepAR.
 - **Metrics:**
   - *Dự báo:* RMSSE / WRMSSE, MAE, RMSE, Pinball loss / WSPL. Không dùng MAPE vì dữ liệu có nhiều số 0 nên MAPE không xác định.
   - *Tồn kho (quan trọng nhất):* Fill rate, tỷ lệ ngày hết hàng, số lượng tồn dư, chi phí lưu kho, tổng chi phí (thiếu + thừa), giá trị hàng đề xuất thanh lý.

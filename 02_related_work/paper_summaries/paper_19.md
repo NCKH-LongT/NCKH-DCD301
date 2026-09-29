@@ -1,8 +1,13 @@
 # Paper 19 Summary
 
 **Nhóm:** Domain (inventory)
+**Mức kiểm chứng (29/09/2026):** ⚠️ **Chỉ đọc được trang mô tả của kho Lancaster** (tóm tắt + keywords). File PDF trên kho tải rất chậm/không hoàn tất → nhóm cần tự tải để kiểm tra.
 
-> Bài bổ sung (không có trong file Excel ban đầu). Tên bài, tác giả, năm, tạp chí, tập/số/trang và DOI **đã được kiểm tra qua Crossref / trang NeurIPS (2026-09-29)**. Phần tóm tắt nội dung viết từ kiến thức chung, nên đọc bài gốc trước khi trích số liệu.
+> **Quy ước nguồn** (để đối chiếu khi giảng viên hỏi):
+> - `(tr. N)` = trang thứ N trong file PDF (đếm theo trang PDF, không phải số in trên trang); `(abstract)` = phần tóm tắt của bài.
+> - `[Nguồn thứ cấp: bài X, tr. N]` = thông tin **không** đọc trực tiếp từ bài này mà từ một bài khác trích dẫn nó.
+> - `[Chưa kiểm chứng]` = chưa tìm thấy trong phần đã đọc được; **không được dùng trong bài báo** cho tới khi mở toàn văn kiểm tra.
+> - `[Nhận định nhóm]` = phân tích của nhóm, **không phải** nội dung bài báo.
 
 ## Citation
 
@@ -10,36 +15,39 @@ Tên bài: Optimising forecasting models for inventory planning
 Tác giả: Nikolaos Kourentzes, Juan R. Trapero, Devon K. Barrow
 Năm: 2020
 Nguồn: International Journal of Production Economics, 225, 107597
-DOI/Link: https://doi.org/10.1016/j.ijpe.2019.107597
+DOI/Link: https://doi.org/10.1016/j.ijpe.2019.107597 · bản mở: https://eprints.lancs.ac.uk/id/eprint/140119/
 
 ## Problem
 
-Mô hình dự báo thường được tối ưu và chọn theo sai số một bước (ví dụ MSE), trong khi mục tiêu thực là hiệu quả tồn kho.
+- Dự báo không chính xác gây hết hàng, mất doanh thu hoặc tồn kho quá mức; tài liệu dự báo thường ưu tiên metric thống kê thay vì kết quả tồn kho (trang mô tả Lancaster).
 
 ## Method
 
-Đề xuất các hàm mục tiêu/tiêu chí chọn mô hình hướng tới tồn kho (bao gồm độ chính xác của phân phối/khoảng dự báo trong lead time) thay vì chỉ sai số điểm.
+- Tối ưu tham số mô hình dự báo bằng cách **đưa trực tiếp các metric tồn kho và chính sách tồn kho hiện có** vào hàm mục tiêu; cân bằng nhiều mục tiêu (đáp ứng nhu cầu vs giảm tồn dư) qua hàm chi phí (trang mô tả Lancaster).
+- [Chưa kiểm chứng] Họ mô hình dự báo cụ thể (exponential smoothing?) — cần mở toàn văn.
 
 ## Dataset
 
-Dữ liệu bán lẻ và mô phỏng.
+- So sánh với các cách tiếp cận có sẵn trên **dữ liệu thực** (trang mô tả Lancaster); keywords có "simulation".
+- [Chưa kiểm chứng] Số chuỗi, ngành, tần suất.
 
 ## Evaluation
 
-Sai số dự báo và chỉ số tồn kho (mức phục vụ đạt được, lượng tồn).
+- [Chưa kiểm chứng] Metric cụ thể.
 
 ## Results
 
-Tối ưu mô hình theo tiêu chí gắn với tồn kho cho kết quả tồn kho tốt hơn so với tối ưu thuần sai số dự báo.
+- Bài xem xét liệu độ chính xác dự báo có phải chỉ báo đáng tin cho hiệu quả tồn kho hay không (trang mô tả Lancaster).
+- [Chưa kiểm chứng] Kết luận cụ thể — cần mở toàn văn trước khi trích.
 
 ## Limitations
 
-Tập trung vào mô hình thống kê (họ exponential smoothing); chưa xét mô hình ML toàn cục.
+- [Chưa kiểm chứng].
 
 ## Relevance to our topic
 
-**Rất cao.** Là bằng chứng kinh điển cho luận điểm "forecast accuracy ≠ inventory performance" của đề tài.
+[Nhận định nhóm] **Rất cao** cho luận điểm "độ chính xác dự báo ≠ hiệu quả tồn kho" — nhưng chỉ trích sau khi đọc toàn văn.
 
 ## Possible improvement
 
-Mở rộng luận điểm sang mô hình ML global (LightGBM) trên dữ liệu lớn M5, với quyết định hai chiều nhập/thanh lý.
+[Nhận định nhóm] Mở rộng luận điểm sang mô hình ML trên M5.

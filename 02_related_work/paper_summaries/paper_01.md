@@ -1,8 +1,13 @@
 # Paper 01 Summary
 
 **Nhóm:** Direct (M5 / bán lẻ)
+**Mức kiểm chứng (29/09/2026):** ⚠️ **Chỉ đọc được abstract** (qua OpenAlex). Toàn văn trên ScienceDirect là open access nhưng trang yêu cầu CAPTCHA khi truy cập tự động → **nhóm cần tự mở bằng trình duyệt để kiểm tra các mục [Chưa kiểm chứng]**.
 
-> Metadata và link **đã được kiểm tra (2026-09-29)** qua Crossref / arXiv API; link mở được. Tóm tắt dựa trên abstract, ghi chú `M5_papers_baseline_gap.xlsx` và đối chiếu PDF ở các chi tiết về dataset. Cần đọc toàn văn để bổ sung số liệu kết quả.
+> **Quy ước nguồn** (để đối chiếu khi giảng viên hỏi):
+> - `(tr. N)` = trang thứ N trong file PDF (đếm theo trang PDF, không phải số in trên trang); `(abstract)` = phần tóm tắt của bài.
+> - `[Nguồn thứ cấp: bài X, tr. N]` = thông tin **không** đọc trực tiếp từ bài này mà từ một bài khác trích dẫn nó.
+> - `[Chưa kiểm chứng]` = chưa tìm thấy trong phần đã đọc được; **không được dùng trong bài báo** cho tới khi mở toàn văn kiểm tra.
+> - `[Nhận định nhóm]` = phân tích của nhóm, **không phải** nội dung bài báo.
 
 ## Citation
 
@@ -10,36 +15,39 @@ Tên bài: The M5 competition: Background, organization, and implementation
 Tác giả: Spyros Makridakis, Evangelos Spiliotis, Vassilios Assimakopoulos
 Năm: 2022
 Nguồn: International Journal of Forecasting, 38(4), 1325–1336
-DOI/Link: https://doi.org/10.1016/j.ijforecast.2021.07.007 (ScienceDirect: https://www.sciencedirect.com/science/article/pii/S0169207021001187)
+DOI/Link: https://doi.org/10.1016/j.ijforecast.2021.07.007
 
 ## Problem
 
-Mô tả bối cảnh, mục tiêu và cách tổ chức cuộc thi M5: dự báo doanh số bán lẻ phân cấp (hierarchical) của Walmart, gồm cả dự báo điểm (Accuracy) và dự báo xác suất (Uncertainty).
+- Cuộc thi M5 tập trung vào dự báo doanh số bán lẻ: tạo dự báo điểm chính xác nhất cho **42.840 chuỗi thời gian** doanh số phân cấp của Walmart, đồng thời ước lượng độ bất định của dự báo (abstract).
 
 ## Method
 
-Không đề xuất mô hình mới. Định nghĩa bộ dữ liệu, cấu trúc phân cấp 12 cấp độ, thước đo đánh giá và 24 benchmark chuẩn (Naive, sNaive, SES, MA, Croston, SBA, TSB, ES, ARIMA, MLP/RF...).
+- Bài **không đề xuất mô hình**; mô tả bối cảnh, cách tổ chức và triển khai cuộc thi, gồm 2 nhánh song song: **Accuracy** và **Uncertainty** (abstract).
+- M5 mở rộng các cuộc thi M trước ở 5 điểm: (a) nhiều phương pháp tham gia hơn, đặc biệt là machine learning; (b) đánh giá cả phân phối bất định; (c) có biến ngoại sinh/giải thích; (d) chuỗi thời gian phân nhóm, tương quan; (e) tập trung vào chuỗi có tính **rời rạc (intermittency)** (abstract).
+- [Chưa kiểm chứng] Con số "24 benchmark" ghi trong file Excel ban đầu — cần mở toàn văn.
 
 ## Dataset
 
-M5 (Walmart): 3.049 sản phẩm × 10 cửa hàng = 30.490 chuỗi SKU–store ở cấp thấp nhất, tổng 42.840 chuỗi qua 12 cấp; 1.941 ngày (2011–2016); kèm `calendar` (sự kiện, SNAP) và `sell_prices`.
+- 42.840 chuỗi doanh số phân cấp của Walmart (abstract).
+- Cấp thấp nhất gồm 30.490 chuỗi (3.049 sản phẩm × 10 cửa hàng, 1.941 ngày) [Nguồn thứ cấp: bài 11, tr. 16]; 3 ngành hàng Hobbies, Foods, Household [Nguồn thứ cấp: bài 05, tr. 4].
 
 ## Evaluation
 
-WRMSSE (Weighted Root Mean Squared Scaled Error) cho Accuracy; WSPL (Weighted Scaled Pinball Loss) trên 9 phân vị cho Uncertainty. Horizon 28 ngày.
+- [Nguồn thứ cấp: bài 08, tr. 13–14] RMSSE (dạng có trọng số — WRMSSE) là thước đo chính thức của nhánh Accuracy; scaled multi-quantile loss dạng có trọng số (WSPL) là thước đo chính của nhánh Uncertainty.
 
 ## Results
 
-Cung cấp một benchmark công khai, lớn, có nhiều chuỗi nhu cầu rời rạc (intermittent), trở thành chuẩn so sánh cho dự báo bán lẻ.
+- Bài mang tính giới thiệu, làm tài liệu nền để hiểu kết quả hai nhánh thi (abstract). Kết quả nằm ở bài 02 và 03.
 
 ## Limitations
 
-Chỉ mô tả thiết kế cuộc thi. Dữ liệu **không có thông tin tồn kho, lead time, chi phí**, và doanh số bằng 0 có thể là do hết hàng chứ không phải do không có nhu cầu (censored demand).
+- [Nhận định nhóm] Bộ dữ liệu M5 gồm doanh số, lịch và giá bán — **không có tồn kho, lead time, chi phí**. Doanh số bằng 0 có thể do hết hàng (nhu cầu bị che khuất). Điều này kiểm chứng được bằng cách mở các file dữ liệu M5 trên Kaggle, không phải nội dung bài báo.
 
 ## Relevance to our topic
 
-**Cao.** Đây là nguồn chính thức mô tả dataset và metric mà nhóm sẽ dùng (phần Dataset, Evaluation Metrics).
+[Nhận định nhóm] **Cao.** Nguồn chính thức để mô tả dataset trong phần Dataset.
 
 ## Possible improvement
 
-Bổ sung lớp mô phỏng tồn kho có tham số (lead time, chi phí) để biến M5 thành bài toán ra quyết định, không chỉ bài toán dự báo.
+[Nhận định nhóm] Bổ sung lớp mô phỏng tồn kho có tham số để dùng M5 cho bài toán ra quyết định.

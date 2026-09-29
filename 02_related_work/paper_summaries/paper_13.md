@@ -1,45 +1,52 @@
 # Paper 13 Summary
 
 **Nhóm:** Direct (M5 / bán lẻ)
+**Mức kiểm chứng (29/09/2026):** ✅ **Đã đọc toàn văn bản arXiv (32 trang).**
 
-> Metadata và link **đã được kiểm tra (2026-09-29)** qua Crossref / arXiv API; link mở được. Tóm tắt dựa trên abstract, ghi chú `M5_papers_baseline_gap.xlsx` và đối chiếu PDF ở các chi tiết về dataset. Cần đọc toàn văn để bổ sung số liệu kết quả.
+> **Quy ước nguồn** (để đối chiếu khi giảng viên hỏi):
+> - `(tr. N)` = trang thứ N trong file PDF (đếm theo trang PDF, không phải số in trên trang); `(abstract)` = phần tóm tắt của bài.
+> - `[Nguồn thứ cấp: bài X, tr. N]` = thông tin **không** đọc trực tiếp từ bài này mà từ một bài khác trích dẫn nó.
+> - `[Chưa kiểm chứng]` = chưa tìm thấy trong phần đã đọc được; **không được dùng trong bài báo** cho tới khi mở toàn văn kiểm tra.
+> - `[Nhận định nhóm]` = phân tích của nhóm, **không phải** nội dung bài báo.
 
 ## Citation
 
 Tên bài: End-to-end probabilistic hierarchical forecasting of large hierarchies via probabilistic top-down
 Tác giả: Lorenzo Zambon, Dario Azzimonti, Giorgio Corani
 Năm: 2026
-Nguồn: arXiv:2606.26774
+Nguồn: arXiv:2606.26774 (chưa qua phản biện)
 DOI/Link: https://arxiv.org/abs/2606.26774
 
 ## Problem
 
-Tạo dự báo xác suất nhất quán giữa các cấp phân cấp mà vẫn tính toán hiệu quả ở quy mô bán lẻ (hàng trăm nghìn chuỗi).
+- Dự báo xác suất nhất quán giữa các cấp phân cấp với chi phí tính toán chấp nhận được ở quy mô bán lẻ (abstract).
 
 ## Method
 
-e2eTD: chỉ dự báo các chuỗi tổng hợp cấp cao (~0,3% phân cấp, mượt hơn), rồi dùng thuật toán lấy mẫu top-down xác suất để phân bổ xuống cấp thấp.
+- e2eTD: chỉ dự báo trực tiếp một tập nhỏ chuỗi tổng hợp (~0,3% phân cấp, mượt hơn), rồi dùng thuật toán lấy mẫu top-down xác suất với tỷ lệ phân bổ lịch sử được mô hình hóa như phân phối đồng thời (abstract).
+- Mô hình dự báo cho các chuỗi tổng hợp được chọn: **ETS** tự chọn mô hình (tr. 9).
 
 ## Dataset
 
-M5 (~40.000 chuỗi) và Favorita (~300.000 chuỗi).
+- M5 và Favorita (abstract; tr. 1).
 
 ## Evaluation
 
-Weighted scaled pinball loss trên các cấp.
+- Weighted scaled pinball loss (WSPL) trên các cấp; chi phí tính toán (abstract; tr. 25).
 
 ## Results
 
-WSPL thấp nhất trong các phương pháp so sánh; nếu tham gia M5 Uncertainty sẽ xếp hạng 11/892 đội. Chạy ~5 phút (M5) và ~20 phút (Favorita) trên laptop thường.
+- WSPL trung bình thấp nhất trên M5 và Favorita; nếu tham gia M5 Uncertainty sẽ xếp **11/892**; riêng cấp thấp nhất (L12) xếp thứ 7 trong top 50 (tr. 25).
+- Chạy dưới 5 phút (M5) và dưới 20 phút (Favorita) trên laptop thường (tr. 25).
 
 ## Limitations
 
-Chỉ dự báo trực tiếp một tập con chuỗi tổng hợp đủ mượt; chất lượng ở cấp SKU phụ thuộc vào tỷ lệ phân bổ lịch sử.
+- Tác giả nêu hướng cần phát triển (tr. 25): chọn chuỗi tổng hợp để dự báo hiện làm **thủ công**; mô hình hóa tỷ lệ phân bổ đang dùng heuristic đơn giản.
 
 ## Relevance to our topic
 
-**Cao.** Baseline dự báo xác suất nhẹ và mạnh; cho thấy có thể làm tốt trên laptop.
+[Nhận định nhóm] **Cao.** Baseline dự báo xác suất nhẹ, chạy được trên laptop.
 
 ## Possible improvement
 
-Nhóm tập trung vào cấp SKU–store (cấp ra quyết định nhập/thanh lý) thay vì cấp tổng hợp.
+[Nhận định nhóm] Nhóm tập trung vào cấp SKU–store — cấp mà bài này nhấn mạnh là cấp dẫn dắt quyết định tồn kho (tr. 25).

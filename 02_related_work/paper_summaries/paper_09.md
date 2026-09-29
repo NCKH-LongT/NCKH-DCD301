@@ -1,45 +1,53 @@
 # Paper 09 Summary
 
 **Nhóm:** Direct (M5 / bán lẻ)
+**Mức kiểm chứng (29/09/2026):** ✅ **Đã đọc toàn văn bản arXiv (7 trang).**
 
-> Metadata và link **đã được kiểm tra (2026-09-29)** qua Crossref / arXiv API; link mở được. Tóm tắt dựa trên abstract, ghi chú `M5_papers_baseline_gap.xlsx` và đối chiếu PDF ở các chi tiết về dataset. Cần đọc toàn văn để bổ sung số liệu kết quả.
+> **Quy ước nguồn** (để đối chiếu khi giảng viên hỏi):
+> - `(tr. N)` = trang thứ N trong file PDF (đếm theo trang PDF, không phải số in trên trang); `(abstract)` = phần tóm tắt của bài.
+> - `[Nguồn thứ cấp: bài X, tr. N]` = thông tin **không** đọc trực tiếp từ bài này mà từ một bài khác trích dẫn nó.
+> - `[Chưa kiểm chứng]` = chưa tìm thấy trong phần đã đọc được; **không được dùng trong bài báo** cho tới khi mở toàn văn kiểm tra.
+> - `[Nhận định nhóm]` = phân tích của nhóm, **không phải** nội dung bài báo.
 
 ## Citation
 
 Tên bài: Hierarchical Time Series Forecasting Via Latent Mean Encoding
 Tác giả: Alessandro Salatiello, Stefan Birr, Manuel Kunz
 Năm: 2025
-Nguồn: arXiv:2506.19633
+Nguồn: arXiv:2506.19633 (chưa qua phản biện)
 DOI/Link: https://arxiv.org/abs/2506.19633
 
 ## Problem
 
-Tạo dự báo nhất quán (coherent) giữa nhiều mức tổng hợp thời gian.
+- Dự báo nhất quán ở nhiều mức tổng hợp thời gian (temporal hierarchy) (abstract).
 
 ## Method
 
-Kiến trúc mạng phân cấp mới, mỗi module xử lý một mức tổng hợp thời gian, học mã hóa giá trị trung bình của biến mục tiêu trong lớp ẩn.
+- Kiến trúc phân cấp dạng encoder–decoder với các module chuyên cho từng mức tổng hợp thời gian, học mã hóa hành vi trung bình trong lớp ẩn (abstract).
+- So sánh với TSMixer dạng nguyên khối (Mono), TFT, DeepAR và baseline trung bình cửa sổ (tr. 4, mục 2.4).
 
 ## Dataset
 
-M5, chia train/validation/test = 1886/28/28 ngày (đã kiểm tra trong PDF; context window c = 35, horizon h = 28).
+- M5; dùng 1886 ngày đầu để train, 28 ngày validation, 28 ngày test; context window c = 35, horizon h = 28 (tr. 3).
 
 ## Evaluation
 
-Sai số dự báo (abstract không nêu cụ thể).
+- WRMSSE, RMSE theo ngày/tuần, MFEV, MAD (Bảng 1, tr. 4).
 
 ## Results
 
-Vượt các phương pháp đã có như TSMixer trên M5.
+- EncDecMSE đạt WRMSSE **0,620**, EncDecNB 0,634, so với TSMixer-Ext 0,640, TFT 0,670, DeepAR 0,789 (Bảng 1, tr. 4).
+- Lưu ý: số liệu của DeepAR, TFT, TSMixer-Ext được **lấy lại từ Chen et al. (2023)**, huấn luyện tới 300 epoch, trong khi mô hình của tác giả chỉ 100 epoch (tr. 4).
 
 ## Limitations
 
-Abstract không nêu hạn chế và không có số liệu cụ thể; cần đọc toàn văn.
+- Bài không có mục hạn chế riêng (đã tìm trong toàn văn).
+- [Nhận định nhóm] Chỉ thực nghiệm trên M5; một phần baseline lấy lại từ bài khác chứ không chạy lại.
 
 ## Relevance to our topic
 
-**Trung bình.** Tham khảo cách chia dữ liệu chuẩn 1886/28/28.
+[Nhận định nhóm] **Trung bình.** Tham khảo cách chia dữ liệu 1886/28/28.
 
 ## Possible improvement
 
-Nhóm dùng cùng cách chia để so sánh được với các bài khác.
+[Nhận định nhóm] Dùng cùng cách chia để so sánh được.
