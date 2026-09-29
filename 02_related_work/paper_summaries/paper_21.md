@@ -49,7 +49,7 @@ DOI/Link: https://doi.org/10.1016/j.sca.2025.100154
 
 - Tác giả tự nêu (tr. 19): chi phí huấn luyện RL lớn; DRL/DL khó diễn giải; **giả định lead time cố định** và hành vi nhà cung cấp đơn giản.
 - So sánh heuristic–GA giả định lead time và giá không đổi (tr. 14).
-- [Nhận định nhóm] Chỉ dùng tập con thực phẩm biến động mạnh, không phải toàn bộ M5; không có quyết định thanh lý; không phân tích theo nhóm ADI–CV²; dùng MAPE, vốn khó áp dụng khi dữ liệu có nhiều số 0.
+- [Nhận định nhóm] Chỉ dùng tập con thực phẩm biến động mạnh, không phải toàn bộ M5; **không có quyết định thanh lý** (không tìm thấy các từ liquidation, markdown, clearance, salvage trong bài); **không phân loại ADI–CV²** (mặt hàng bán chậm/rời rạc chỉ được nhắc định tính trong bảng so sánh ở tr. 16); dùng MAPE, vốn không xác định khi nhu cầu bằng 0 (xem bài 24, tr. 4).
 
 ## Relevance to our topic
 

@@ -20,6 +20,7 @@ DOI/Link: https://doi.org/10.1016/j.ijforecast.2021.10.009
 ## Problem
 
 - Nhánh **Uncertainty** của M5: dự báo chính xác phân phối bất định của 42.840 chuỗi doanh số phân cấp của Walmart (abstract).
+- Tác giả nêu: trong dự báo bán lẻ, người ta thường quan tâm các **phân vị cao (0,925–0,995)** vì hữu ích để xác định **safety stock** (tr. 2).
 
 ## Method
 
@@ -34,7 +35,7 @@ DOI/Link: https://doi.org/10.1016/j.ijforecast.2021.10.009
 
 ## Evaluation
 
-- WSPL (xem bài 01, tr. 3).
+- WSPL (tr. 3).
 
 ## Results
 
@@ -42,7 +43,7 @@ DOI/Link: https://doi.org/10.1016/j.ijforecast.2021.10.009
 
 ## Limitations
 
-- [Nhận định nhóm] Không đánh giá việc dùng phân vị cho quyết định tồn kho.
+- Tác giả nêu: **M5 không tập trung vào một bài toán ra quyết định cụ thể** và không định nghĩa tham số của bài toán đó, nên mọi phân vị đều có thể hữu ích (tr. 2–3). Nói cách khác, cuộc thi không đánh giá dự báo phân vị ở tầng quyết định tồn kho.
 
 ## Relevance to our topic
 
