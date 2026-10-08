@@ -39,6 +39,8 @@ def scenarios(grid):
     vary = {"tau": [d["tau"]], "L": [d["L"]], "H": [d["H"]], "q_liq": [d["q_liq"]], "k": [d["k_fixed"]]}
     if grid == "full":
         vary = {"tau": [0.8, 0.9, 0.95], "L": [1, 2, 4], "H": [8, 13, 26], "q_liq": [0.9, 0.95, 0.99], "k": [13, 26, 52]}
+    elif grid == "tau":          # trade-off curves only: same horizons as the default scenario
+        vary = {**vary, "tau": [0.8, 0.9, 0.95]}
     for key, vals in vary.items():
         for v in vals:
             s = {**base, key: v}
@@ -51,7 +53,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dataset", required=True, choices=["M5", "VN1"])
     ap.add_argument("--models", default=",".join(ALL_MODELS))
-    ap.add_argument("--grid", default="default", choices=["default", "full"])
+    ap.add_argument("--grid", default="default", choices=["default", "tau", "full"])
     ap.add_argument("--boot", type=int, default=0, help="bootstrap resamples for KPI CIs")
     ap.add_argument("--stores", default="", help="M5 only: comma-separated store_id subset")
     ap.add_argument("--tag", default="", help="suffix of the output folder")
