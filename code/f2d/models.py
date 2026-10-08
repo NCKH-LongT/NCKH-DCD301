@@ -293,7 +293,7 @@ def lgb_tweedie(b, origins, h, qs, series, log=print):
 # ------------------------------------------------------------------------------------------------
 # Additional ML baselines (no deep learning; ai_model_integration.md, section 3)
 # ------------------------------------------------------------------------------------------------
-HGB_MAX_TRAIN_ROWS = 1_000_000   # HistGradientBoosting is slower than LightGBM: train on a random subsample
+HGB_MAX_TRAIN_ROWS = 300_000     # HistGradientBoosting is much slower than LightGBM: train on a random subsample
 
 
 def lgb_conformal(b: Builder, origins, h, qs, series, log=print):
@@ -346,7 +346,7 @@ def hgb_quantile(b: Builder, origins, h, qs, series, log=print):
         y = np.minimum(y, np.percentile(y, TARGET_CLIP_PCT))
         log(f"    block cutoff {c}: train {len(y):,} rows, predict {len(Ip):,}")
         for k, q in enumerate(qs):
-            m = HistGradientBoostingRegressor(loss="quantile", quantile=q, learning_rate=0.05, max_iter=500,
+            m = HistGradientBoostingRegressor(loss="quantile", quantile=q, learning_rate=0.1, max_iter=300,
                                               max_leaf_nodes=63, min_samples_leaf=200, l2_regularization=1.0,
                                               categorical_features=cat if cat.any() else None,
                                               early_stopping=True, validation_fraction=0.1, n_iter_no_change=30,

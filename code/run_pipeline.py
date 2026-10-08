@@ -55,6 +55,8 @@ def main():
     ap.add_argument("--boot", type=int, default=0, help="bootstrap resamples for KPI CIs")
     ap.add_argument("--stores", default="", help="M5 only: comma-separated store_id subset")
     ap.add_argument("--tag", default="", help="suffix of the output folder")
+    ap.add_argument("--default-only-models", default="hgb_quantile",
+                    help="models forecast only at the default horizons (L+R, H) even with --grid full")
     a = ap.parse_args()
     names = a.models.split(",")
     t_all = time.time()
@@ -83,6 +85,8 @@ def main():
 
     scen = scenarios(a.grid)
     horizons = sorted({s["L"] + R for s in scen} | {s["H"] for s in scen})
+    default_h = [config.DEFAULT["L"] + R, config.DEFAULT["H"]]
+    light = set(filter(None, a.default_only_models.split(",")))
     b = Builder(p)
     qs = list(config.QUANTILES)
 
@@ -91,7 +95,7 @@ def main():
     fm_rows = []
     s_abs, s_sq = evaluate.naive_scales(Y, p["start"], test0)
     for m in names:
-        for h in horizons:
+        for h in (default_h if m in light else horizons):
             path = os.path.join(fc_dir, f"{m}_h{h}.npz")
             if os.path.exists(path):
                 Q = np.load(path)["Q"]
@@ -118,6 +122,8 @@ def main():
     kpi_rows = []
     for m in names:
         for s in scen:
+            if (m, s["L"] + R) not in F or (m, s["H"]) not in F:
+                continue
             S = F[m, s["L"] + R][idx][:, :, qs.index(s["tau"])]
             pols = {"none": np.full_like(S, np.inf),
                     "quantile": F[m, s["H"]][idx][:, :, qs.index(s["q_liq"])],
