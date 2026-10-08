@@ -1,7 +1,7 @@
 flowchart TB
     subgraph SRC[Nguồn dữ liệu]
         M5[(M5 CSV<br/>sales, calendar, prices)]
-        VN[(VN Excel<br/>sales, inventory, master data)]
+        VN[(VN1 CSV<br/>sales, prices theo phase)]
     end
     subgraph DATA[Tầng dữ liệu]
         ING[Data Ingestion] --> HAR[Harmonizer<br/>panel theo tuần]

@@ -1,4 +1,4 @@
-"""Profile the two datasets used in the study (M5 and the Vietnam footwear retail dataset).
+"""Profile the datasets used in the study: M5 and VN1 (main), Vietnam footwear retail (appendix).
 
 Writes code/outputs/data_profile.md. All numbers quoted in 03_problem_and_gap and
 04_proposed_system come from this report.
@@ -155,6 +155,34 @@ def main():
     log(cmp.to_markdown())
     log()
     log("Note: weeks of supply of several hundred weeks suggest either extreme overstock or that the sales files (`*_split_1.xlsx`) contain only part of the transactions.")
+
+    # ---------------- VN1 ----------------
+    v_dir = os.path.join(DATA, "Vn1 forcasting")
+    keys = ["Client", "Warehouse", "Product"]
+    sales = [pd.read_csv(os.path.join(v_dir, f"Phase {p} - Sales.csv")).set_index(keys) for p in (0, 1, 2)]
+    prices = [pd.read_csv(os.path.join(v_dir, f"Phase {p} - Price.csv")).set_index(keys) for p in (0, 1)]
+    S = pd.concat(sales, axis=1)
+    P = pd.concat(prices, axis=1)
+    log()
+    log("## 4. VN1 Forecasting – Accuracy Challenge")
+    log()
+    log(f"- Series (client × warehouse × product): {len(S):,}; clients: {S.index.get_level_values(0).nunique()}; warehouses: {S.index.droplevel(2).nunique()}; products: {S.index.get_level_values(2).nunique():,}")
+    log(f"- Weeks: {S.shape[1]} ({S.columns[0]} → {S.columns[-1]}); Phase 0 = {sales[0].shape[1]}, Phase 1 = {sales[1].shape[1]}, Phase 2 (hidden test) = {sales[2].shape[1]}")
+    Y = S.to_numpy(dtype=float)
+    log(f"- Sales cells missing (NaN): {np.isnan(Y).mean():.1%}; negative values: {int((Y < 0).sum())}")
+    log(f"- Price cells available (non-NaN), Phase 0–1: {P.notna().to_numpy().mean():.1%}")
+    # start each series at its first positive sale to avoid pre-launch zeros
+    Yz = np.nan_to_num(Y, nan=0.0).clip(min=0)
+    first = np.where((Yz > 0).any(1), (Yz > 0).argmax(1), Yz.shape[1])
+    lens = Yz.shape[1] - first
+    log(f"- Series with no positive sale at all: {int((lens == 0).sum())}; median active length: {int(np.median(lens[lens > 0]))} weeks")
+    log()
+    log("| Level | Series | Periods | Zero share | Median ADI | Demand classes (%) |")
+    log("|---|---|---|---|---|---|")
+    matrix_profile(Yz, "VN1 client × warehouse × product, weekly (full grid)")
+    act = Yz[lens >= 52]
+    act = np.stack([row[-52:] for row in act])
+    matrix_profile(act, "VN1 last 52 weeks, series active ≥ 52 weeks")
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:

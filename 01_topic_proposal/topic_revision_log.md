@@ -7,6 +7,7 @@
 | v1.1 | 2026-09-29 | Bổ sung 6 bài (model/method + domain); xác định bài 11 là đối thủ gần nhất và thêm 3 điểm khác biệt | Hoàn thành Bước 2–4 |
 | v1.2 | 2026-09-29 | Kiểm tra toàn bộ 19 reference (Crossref, arXiv API, HTTP); sửa venue của bài 04, 06, 07, 15; sửa lại điểm khác biệt so với bài 11 sau khi đọc PDF | Đảm bảo reference chính xác, tránh phản biện bắt lỗi |
 | v2.0 | 2026-10-08 | Chuyển hướng thành **benchmark "từ dự báo đến quyết định" trên 2 dataset** (M5 + giày dép Việt Nam, Vietnam Datathon 2023) ở **tần suất tuần**; cập nhật Bước 5–6; viết Bước 7 (thiết kế hệ thống); thêm `code/profile_datasets.py` | Định hướng tạp chí Q3–Q4; dữ liệu VN có giá vốn và tồn kho thực; tăng khả năng khái quát hóa ngoài M5 |
+| v2.1 | 2026-10-08 | Dataset chính đổi thành **M5 + VN1** (VN1 Forecasting – Accuracy Challenge, 15.053 chuỗi tuần); dataset Datathon Việt Nam chuyển sang **phụ lục mô tả**; bỏ chi phí tuyệt đối, đánh giá bằng **KPI không đơn vị tiền**, đường đánh đổi tồn kho – fill rate và ngưỡng hòa vốn thanh lý | Không xác minh được độ đầy đủ và giấy phép của dữ liệu Datathon; giả định chi phí không đủ tin cậy cho tạp chí Q3–Q4; VN1 công khai, có đáp án chính thức, đã có tiền lệ học thuật (bài 08) |
 
 ## Việc cần làm tiếp
 

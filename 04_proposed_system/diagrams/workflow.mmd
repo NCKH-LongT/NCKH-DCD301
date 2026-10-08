@@ -1,5 +1,5 @@
 flowchart LR
-    A[1. Nạp dữ liệu<br/>M5 CSV, VN Excel] --> B[2. Làm sạch<br/>+ gộp theo tuần]
+    A[1. Nạp dữ liệu<br/>M5 CSV, VN1 CSV] --> B[2. Làm sạch<br/>+ đưa về tuần]
     B --> C[3. Panel chung<br/>Parquet]
     C --> D[4. Phân loại<br/>ADI–CV²]
     C --> E[5. Tạo đặc trưng]
@@ -7,6 +7,6 @@ flowchart LR
     E --> F[6. Huấn luyện + dự báo<br/>phân vị D_L+R, D_H]
     F --> G[7. Decision Engine<br/>đặt hàng / thanh lý]
     G --> H[8. Mô phỏng tồn kho<br/>nhiều kỳ]
-    H --> I[9. Đánh giá<br/>sai số + KPI]
+    H --> I[9. Đánh giá<br/>sai số + KPI không đơn vị tiền]
     G --> J[10. API / Dashboard]
     I --> J

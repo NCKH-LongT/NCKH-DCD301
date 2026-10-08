@@ -63,3 +63,16 @@ Stock at end of Jan-2022 vs units sold in 2022 at the same site code (all channe
 |    1210 |            6725 |               974 |             359   |
 
 Note: weeks of supply of several hundred weeks suggest either extreme overstock or that the sales files (`*_split_1.xlsx`) contain only part of the transactions.
+
+## 4. VN1 Forecasting – Accuracy Challenge
+
+- Series (client × warehouse × product): 15,053; clients: 46; warehouses: 328; products: 11,171
+- Weeks: 196 (2020-07-06 → 2024-04-01); Phase 0 = 170, Phase 1 = 13, Phase 2 (hidden test) = 13
+- Sales cells missing (NaN): 0.0%; negative values: 0
+- Price cells available (non-NaN), Phase 0–1: 29.3%
+- Series with no positive sale at all: 0; median active length: 124 weeks
+
+| Level | Series | Periods | Zero share | Median ADI | Demand classes (%) |
+|---|---|---|---|---|---|
+| VN1 client × warehouse × product, weekly (full grid) | 15,053 | 196 | 69.9% | 5.03 | {'intermittent': 57.6, 'lumpy': 31.1, 'smooth': 5.9, 'erratic': 5.4} |
+| VN1 last 52 weeks, series active ≥ 52 weeks | 12,519 | 52 | 56.2% | 2.89 | {'intermittent': 48.2, 'smooth': 24.6, 'lumpy': 15.4, 'erratic': 11.8} |
