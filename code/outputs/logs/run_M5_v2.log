@@ -1,0 +1,43 @@
+M5: 30,490 series x 277 weeks; test weeks 2015-11-21 .. 2016-05-14; evaluated series 30,381
+  classes: {'all': 30381, 'smooth': 16102, 'erratic': 1777, 'intermittent': 10285, 'lumpy': 2217}
+  forecasting tsb_nb, h=3 ...
+    done in 68s
+  forecasting tsb_nb, h=13 ...
+    done in 55s
+  forecasting lgb_conformal, h=3 ...
+    block cutoff 251: conformal on 393,846 validation residuals (60s)
+    block cutoff 264: conformal on 394,935 validation residuals (70s)
+    done in 131s
+  forecasting lgb_conformal, h=13 ...
+    block cutoff 251: conformal on 390,555 validation residuals (40s)
+    block cutoff 264: conformal on 394,525 validation residuals (74s)
+    done in 114s
+  forecasting hgb_quantile, h=3 ...
+    block cutoff 251: train 300,000 rows, predict 394,953
+      q=0.5: 150 iterations (12s)
+      q=0.8: 300 iterations (26s)
+      q=0.9: 282 iterations (38s)
+      q=0.95: 193 iterations (46s)
+      q=0.99: 112 iterations (52s)
+    block cutoff 264: train 300,000 rows, predict 394,953
+      q=0.5: 113 iterations (10s)
+      q=0.8: 300 iterations (22s)
+      q=0.9: 300 iterations (35s)
+      q=0.95: 209 iterations (45s)
+      q=0.99: 133 iterations (51s)
+    done in 105s
+  forecasting hgb_quantile, h=13 ...
+    block cutoff 251: train 300,000 rows, predict 394,953
+      q=0.5: 300 iterations (18s)
+      q=0.8: 300 iterations (31s)
+      q=0.9: 300 iterations (43s)
+      q=0.95: 300 iterations (57s)
+      q=0.99: 138 iterations (64s)
+    block cutoff 264: train 300,000 rows, predict 394,953
+      q=0.5: 300 iterations (18s)
+      q=0.8: 300 iterations (32s)
+      q=0.9: 300 iterations (44s)
+      q=0.95: 247 iterations (55s)
+      q=0.99: 105 iterations (60s)
+    done in 126s
+finished in 626s -> D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\M5

@@ -1,0 +1,147 @@
+VN1: 15,053 series x 196 weeks; test weeks 2023-10-09 .. 2024-04-01; evaluated series 13,844
+  classes: {'all': 13844, 'smooth': 2596, 'erratic': 1901, 'intermittent': 6539, 'lumpy': 2808}
+  forecasting empirical, h=2 ...
+    done in 24s
+  forecasting empirical, h=5 ...
+    done in 24s
+  forecasting empirical, h=8 ...
+    done in 38s
+  forecasting empirical, h=26 ...
+    done in 27s
+  forecasting tsb, h=2 ...
+    done in 15s
+  forecasting tsb, h=5 ...
+    done in 15s
+  forecasting tsb, h=8 ...
+    done in 13s
+  forecasting tsb, h=26 ...
+    done in 12s
+  forecasting ets, h=2 ...
+    done in 1s
+  forecasting ets, h=5 ...
+    done in 1s
+  forecasting ets, h=8 ...
+    done in 1s
+  forecasting ets, h=26 ...
+    done in 1s
+  forecasting lgb_tweedie, h=2 ...
+    block cutoff 170: train 891,865 rows, valid 168,978, predict 179,972
+      tweedie: 391 rounds (16s)
+    block cutoff 183: train 988,636 rows, valid 179,864, predict 179,972
+      tweedie: 420 rounds (17s)
+    done in 33s
+  forecasting lgb_tweedie, h=3 ...
+    block cutoff 170: train 884,707 rows, valid 167,690, predict 179,972
+      tweedie: 484 rounds (18s)
+    block cutoff 183: train 980,800 rows, valid 179,682, predict 179,972
+      tweedie: 583 rounds (23s)
+    done in 42s
+  forecasting lgb_tweedie, h=5 ...
+    block cutoff 170: train 870,400 rows, valid 165,275, predict 179,972
+      tweedie: 404 rounds (15s)
+    block cutoff 183: train 965,370 rows, valid 178,948, predict 179,972
+      tweedie: 779 rounds (28s)
+    done in 43s
+  forecasting lgb_tweedie, h=8 ...
+    block cutoff 170: train 849,337 rows, valid 161,766, predict 179,972
+      tweedie: 562 rounds (62s)
+    block cutoff 183: train 942,796 rows, valid 176,957, predict 179,972
+      tweedie: 492 rounds (23s)
+    done in 85s
+  forecasting lgb_tweedie, h=13 ...
+    block cutoff 170: train 814,997 rows, valid 156,211, predict 179,972
+      tweedie: 303 rounds (14s)
+    block cutoff 183: train 906,219 rows, valid 171,602, predict 179,972
+      tweedie: 770 rounds (30s)
+    done in 44s
+  forecasting lgb_tweedie, h=26 ...
+    block cutoff 170: train 728,082 rows, valid 141,913, predict 179,972
+      tweedie: 271 rounds (11s)
+    block cutoff 183: train 814,997 rows, valid 156,211, predict 179,972
+      tweedie: 432 rounds (17s)
+    done in 28s
+  forecasting lgb_quantile, h=2 ...
+    block cutoff 170: train 891,865 rows, valid 168,978, predict 179,972
+      q=0.5: 178 rounds (10s)
+      q=0.8: 1000 rounds (47s)
+      q=0.9: 229 rounds (58s)
+      q=0.95: 395 rounds (75s)
+      q=0.99: 94 rounds (81s)
+    block cutoff 183: train 988,636 rows, valid 179,864, predict 179,972
+      q=0.5: 130 rounds (9s)
+      q=0.8: 994 rounds (46s)
+      q=0.9: 930 rounds (80s)
+      q=0.95: 260 rounds (92s)
+      q=0.99: 202 rounds (102s)
+    done in 183s
+  forecasting lgb_quantile, h=3 ...
+    block cutoff 170: train 884,707 rows, valid 167,690, predict 179,972
+      q=0.5: 386 rounds (17s)
+      q=0.8: 995 rounds (55s)
+      q=0.9: 362 rounds (68s)
+      q=0.95: 271 rounds (79s)
+      q=0.99: 124 rounds (85s)
+    block cutoff 183: train 980,800 rows, valid 179,682, predict 179,972
+      q=0.5: 396 rounds (18s)
+      q=0.8: 361 rounds (34s)
+      q=0.9: 158 rounds (43s)
+      q=0.95: 179 rounds (52s)
+      q=0.99: 195 rounds (60s)
+    done in 146s
+  forecasting lgb_quantile, h=5 ...
+    block cutoff 170: train 870,400 rows, valid 165,275, predict 179,972
+      q=0.5: 908 rounds (38s)
+      q=0.8: 476 rounds (58s)
+      q=0.9: 193 rounds (67s)
+      q=0.95: 172 rounds (75s)
+      q=0.99: 138 rounds (81s)
+    block cutoff 183: train 965,370 rows, valid 178,948, predict 179,972
+      q=0.5: 958 rounds (43s)
+      q=0.8: 807 rounds (121s)
+      q=0.9: 137 rounds (133s)
+      q=0.95: 87 rounds (147s)
+      q=0.99: 128 rounds (165s)
+    done in 247s
+  forecasting lgb_quantile, h=8 ...
+    block cutoff 170: train 849,337 rows, valid 161,766, predict 179,972
+      q=0.5: 1000 rounds (81s)
+      q=0.8: 620 rounds (105s)
+      q=0.9: 104 rounds (112s)
+      q=0.95: 158 rounds (119s)
+      q=0.99: 247 rounds (130s)
+    block cutoff 183: train 942,796 rows, valid 176,957, predict 179,972
+      q=0.5: 1000 rounds (40s)
+      q=0.8: 167 rounds (50s)
+      q=0.9: 89 rounds (62s)
+      q=0.95: 33 rounds (70s)
+      q=0.99: 14 rounds (73s)
+    done in 203s
+  forecasting lgb_quantile, h=13 ...
+    block cutoff 170: train 814,997 rows, valid 156,211, predict 179,972
+      q=0.5: 998 rounds (57s)
+      q=0.8: 656 rounds (109s)
+      q=0.9: 157 rounds (129s)
+      q=0.95: 149 rounds (147s)
+      q=0.99: 95 rounds (159s)
+    block cutoff 183: train 906,219 rows, valid 171,602, predict 179,972
+      q=0.5: 999 rounds (90s)
+      q=0.8: 386 rounds (127s)
+      q=0.9: 55 rounds (139s)
+      q=0.95: 25 rounds (148s)
+      q=0.99: 10 rounds (154s)
+    done in 314s
+  forecasting lgb_quantile, h=26 ...
+    block cutoff 170: train 728,082 rows, valid 141,913, predict 179,972
+      q=0.5: 253 rounds (29s)
+      q=0.8: 117 rounds (51s)
+      q=0.9: 83 rounds (67s)
+      q=0.95: 36 rounds (75s)
+      q=0.99: 83 rounds (86s)
+    block cutoff 183: train 814,997 rows, valid 156,211, predict 179,972
+      q=0.5: 417 rounds (40s)
+      q=0.8: 76 rounds (53s)
+      q=0.9: 36 rounds (63s)
+      q=0.95: 11 rounds (68s)
+      q=0.99: 94 rounds (80s)
+    done in 167s
+finished in 1818s -> D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\VN1

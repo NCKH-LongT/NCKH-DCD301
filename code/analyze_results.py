@@ -82,6 +82,20 @@ def main():
             plt.close(fig)
             lines += [f"![trade-off](fig_tradeoff_{d}.png)", ""]
 
+            # inventory needed to reach a given fill rate (linear interpolation along the τ curve)
+            targets = (0.90, 0.92, 0.94, 0.96)
+            for g in CLASSES:
+                tg = k[(k.policy == "none") & (k.group == g) & (k.L == D["L"]) & (k.H == D["H"])
+                       & (k.q_liq == D["q_liq"]) & (k.k == D["k_fixed"])]
+                rows = {}
+                for m, gg in tg.groupby("model"):
+                    gg = gg.sort_values("tau")
+                    f_, i_ = gg.fill_rate.to_numpy(), gg.inventory_weeks.to_numpy()
+                    rows[m] = {f"fill {t:.2f}": (np.interp(t, f_, i_) if f_.min() <= t <= f_.max() else np.nan) for t in targets}
+                t = pd.DataFrame(rows).T
+                lines += [f"### Inventory (weeks of demand) needed to reach a fill rate — {g} (— = not reached for τ ∈ [0.8, 0.95])", "",
+                          t.round(2).to_markdown().replace("nan", "—"), ""]
+
         # 4. liquidation (default scenario)
         liq = k[is_base(k) & (k.group == "all")][["model", "policy", "fill_rate", "stockout_rate_demand_weeks", "inventory_weeks",
                                                   "excess_weeks_of_demand", "liquidated_share", "liq_series_share"]]

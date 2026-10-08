@@ -1,0 +1,44 @@
+M5: 30,490 series x 277 weeks; test weeks 2015-11-21 .. 2016-05-14; evaluated series 30,381
+  classes: {'all': 30381, 'smooth': 16102, 'erratic': 1777, 'intermittent': 10285, 'lumpy': 2217}
+  forecasting lgb_tweedie, h=3 ...
+    block cutoff 251: train 2,858,893 rows, valid 393,846, predict 394,953
+      tweedie: 435 rounds (154s)
+    block cutoff 264: train 2,935,304 rows, valid 394,935, predict 394,953
+      tweedie: 592 rounds (85s)
+    done in 240s
+  forecasting lgb_tweedie, h=13 ...
+    block cutoff 251: train 2,792,695 rows, valid 390,555, predict 394,953
+      tweedie: 271 rounds (56s)
+    block cutoff 264: train 2,877,187 rows, valid 394,525, predict 394,953
+      tweedie: 597 rounds (90s)
+    done in 147s
+  forecasting lgb_quantile, h=3 ...
+    block cutoff 251: train 2,858,893 rows, valid 393,846, predict 394,953
+      q=0.5: 217 rounds (48s)
+      q=0.8: 997 rounds (185s)
+      q=0.9: 467 rounds (295s)
+      q=0.95: 302 rounds (371s)
+      q=0.99: 271 rounds (440s)
+    block cutoff 264: train 2,935,304 rows, valid 394,935, predict 394,953
+      q=0.5: 1000 rounds (355s)
+      q=0.8: 994 rounds (543s)
+      q=0.9: 703 rounds (682s)
+      q=0.95: 380 rounds (757s)
+      q=0.99: 338 rounds (810s)
+    done in 1251s
+  forecasting lgb_quantile, h=13 ...
+    block cutoff 251: train 2,792,695 rows, valid 390,555, predict 394,953
+      q=0.5: 997 rounds (120s)
+      q=0.8: 784 rounds (214s)
+      q=0.9: 236 rounds (251s)
+      q=0.95: 90 rounds (274s)
+      q=0.99: 112 rounds (300s)
+    block cutoff 264: train 2,877,187 rows, valid 394,525, predict 394,953
+      q=0.5: 1000 rounds (159s)
+      q=0.8: 585 rounds (248s)
+      q=0.9: 338 rounds (300s)
+      q=0.95: 302 rounds (347s)
+      q=0.99: 269 rounds (384s)
+    done in 686s
+finished in 2351s -> D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\M5
+ALL_DONE

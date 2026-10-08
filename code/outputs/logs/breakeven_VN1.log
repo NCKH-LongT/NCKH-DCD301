@@ -1,0 +1,31 @@
+D:\Term 8\Research Capstone\NCKH-DCD301\code\liquidation_breakeven.py:82: RuntimeWarning: divide by zero encountered in divide
+  wos = np.where(md > 0, base["on_hand_end"][:, w].mean(1) / md, np.nan)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\liquidation_breakeven.py:82: RuntimeWarning: invalid value encountered in divide
+  wos = np.where(md > 0, base["on_hand_end"][:, w].mean(1) / md, np.nan)
+        model   policy group  liquidated_share_of_demand  d_sales  s_star_h25_m50  s_star_endsalv_h25_m50
+    empirical quantile   all                       0.001    -25.0           0.960                  -7.723
+    empirical    fixed   all                       0.090 -14787.0           0.994                   0.993
+          tsb quantile   all                       0.023 -55708.0           1.142                   1.258
+          tsb    fixed   all                       0.002  -1305.0           1.020                   1.053
+       tsb_nb quantile   all                       0.019 -26009.0           1.066                   1.138
+       tsb_nb    fixed   all                       0.005  -4018.0           1.029                   1.074
+          ets quantile   all                       0.001  -1741.0           1.071                   1.133
+          ets    fixed   all                       0.059 -12700.0           1.000                   1.000
+  lgb_tweedie quantile   all                       0.006  -2850.0           0.981                   0.965
+  lgb_tweedie    fixed   all                       0.021 -19125.0           1.040                   1.059
+lgb_conformal quantile   all                       0.004  -1316.0           0.958                   0.635
+lgb_conformal    fixed   all                       0.023 -25312.0           1.051                   1.074
+ hgb_quantile quantile   all                       0.031  -5909.0           0.960                   0.833
+ hgb_quantile    fixed   all                       0.029 -41957.0           1.072                   1.124
+ lgb_quantile quantile   all                       0.010  -1326.0           0.951                   0.781
+ lgb_quantile    fixed   all                       0.027 -44014.0           1.085                   1.147
+
+        model group  median_weeks_of_supply   p75   p90  zero_demand_series_share
+    empirical   all                    4.38 11.31 33.00                      0.28
+          tsb   all                    3.00  7.84 19.00                      0.28
+       tsb_nb   all                    4.38  9.90 24.02                      0.28
+          ets   all                    5.30 13.41 37.00                      0.28
+  lgb_tweedie   all                    5.61 16.83 50.21                      0.28
+lgb_conformal   all                    5.29 15.00 44.34                      0.28
+ hgb_quantile   all                    6.85 18.42 42.00                      0.28
+ lgb_quantile   all                    6.92 18.30 42.00                      0.28
