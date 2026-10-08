@@ -12,7 +12,7 @@
 
 ### RQ1 — Benchmark trên hai dataset
 
-**Under a common multi-period quantile-based replenishment policy, how do LightGBM quantile regression, the M5-winning LightGBM-Tweedie point approach with normal safety stock, TSB, ETS/Seasonal Naive and a deep global model (TiDE or DeepAR) compare in forecast accuracy and in cost-free inventory KPIs on M5 and VN1, and do their rankings hold across the two datasets?**
+**Under a common multi-period quantile-based replenishment policy, how do LightGBM quantile regression, the M5-winning LightGBM-Tweedie point approach with normal safety stock or with conformal calibration, a second gradient-boosting implementation (HistGradientBoosting quantile), TSB (Poisson and negative binomial), ETS and an empirical baseline compare in forecast accuracy and in cost-free inventory KPIs on M5 and VN1, and do their rankings hold across the two datasets?**
 
 Mục tiêu:
 
@@ -23,7 +23,7 @@ Mục tiêu:
   - (b) tồn kho, không có đơn vị tiền: fill rate, mức phục vụ đạt được so với mục tiêu, tỷ lệ tuần hết hàng, tồn kho trung bình tính bằng số tuần nhu cầu.
 - Vẽ **đường đánh đổi tồn kho – fill rate** khi τ thay đổi; so sánh xếp hạng giữa hai dataset (tương quan hạng).
 
-Căn cứ: LightGBM được cả top 50 M5 Accuracy dùng (bài 02, tr. 1); lời giải hạng nhất M5 Uncertainty là LightGBM theo phân vị (bài 03, tr. 14). Ngược lại, bài 12 thấy LightGBM dạng distributional kém trên dữ liệu rời rạc (tr. 13, 19). Gap 1, 5.
+Căn cứ: LightGBM được cả top 50 M5 Accuracy dùng (bài 02, tr. 1); lời giải hạng nhất M5 Uncertainty là LightGBM theo phân vị (bài 03, tr. 14). Ngược lại, bài 12 thấy LightGBM dạng distributional kém trên dữ liệu rời rạc (tr. 13, 19); vì vậy có thêm hai đối chứng ML (conformal, HistGradientBoosting). Mô hình sâu (TiDE, DeepAR) nằm ngoài phạm vi vì lý do chi phí tính toán (`04_proposed_system/ai_model_integration.md` mục 4). Gap 1, 5.
 
 ### RQ2 — Theo nhóm nhu cầu
 

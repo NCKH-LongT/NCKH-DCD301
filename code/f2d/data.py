@@ -38,6 +38,10 @@ def load_m5():
                     attrs=attrs, events=z["events"], event_names=list(z["event_names"]), name="M5")
     dcols = [c for c in sales.columns if c.startswith("d_")]
     cal = cal.iloc[: len(dcols)].copy()
+    # drop incomplete Walmart weeks (d_1940-d_1941 form a 2-day week 11618)
+    full = cal.groupby("wm_yr_wk")["d"].transform("size") == 7
+    dcols = [d for d, f in zip(dcols, full) if f]
+    cal = cal[full.to_numpy()].copy()
     wk_ids, inv = np.unique(cal["wm_yr_wk"].to_numpy(), return_inverse=True)
     Yd = sales[dcols].to_numpy(dtype=np.float32)
     Y = np.stack([Yd[:, inv == j].sum(1) for j in range(len(wk_ids))], axis=1)
@@ -50,6 +54,7 @@ def load_m5():
 
     prices = pd.read_csv(os.path.join(config.M5_DIR, "sell_prices.csv"))
     prices["series_id"] = prices["item_id"] + "_" + prices["store_id"] + "_evaluation"
+    prices = prices[prices["wm_yr_wk"].isin(wk_ids)]            # sell_prices also covers the 28 hidden days after d_1941
     row = pd.Series(np.arange(len(attrs)), index=attrs["series_id"])
     col = pd.Series(np.arange(len(wk_ids)), index=wk_ids)
     P = np.full(Y.shape, np.nan, dtype=np.float32)

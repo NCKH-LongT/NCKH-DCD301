@@ -40,7 +40,7 @@
 | **Đánh giá không phụ thuộc chi phí tuyệt đối**: theo mức phục vụ mục tiêu, đường đánh đổi tồn kho – fill rate, ngưỡng giá thu hồi hòa vốn của thanh lý | 1, 3 | Điểm cộng phương pháp (giảm phụ thuộc vào giả định) |
 | Đánh giá ở tầng quyết định (KPI tồn kho) | 1 | Có tiền lệ (bài 11, 21; W1–W3), không phải điểm mới độc lập |
 | Mô phỏng nhiều kỳ có lead time | 7 | So với bài 11 là mới; bài 21 và W1 đã có, **không** phải điểm mới độc lập |
-| Phương pháp dự báo: LightGBM quantile + baseline thống kê + mô hình sâu | 6 | Lựa chọn thiết kế, **không** phải thuật toán mới |
+| Phương pháp dự báo: LightGBM quantile + baseline thống kê + baseline ML (không dùng deep learning) | 6 | Lựa chọn thiết kế, **không** phải thuật toán mới |
 
 ## 4. Đóng góp dự kiến
 

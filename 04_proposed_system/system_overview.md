@@ -43,7 +43,9 @@ Phụ lục: dataset giày dép Việt Nam (Vietnam Datathon 2023), chỉ để 
 ## 5. Mô hình AI
 
 - **Mô hình chính:** LightGBM hồi quy phân vị (global model, mỗi phân vị một mô hình).
-- **Baseline:** Seasonal Naive, ETS, TSB, LightGBM-Tweedie dự báo điểm + safety stock chuẩn (cách của đội thắng M5 Accuracy, bài 02, tr. 9), TiDE hoặc DeepAR.
+- **Baseline thống kê:** Empirical, ETS, TSB (Poisson và negative binomial).
+- **Baseline ML:** LightGBM-Tweedie dự báo điểm + safety stock chuẩn (cách của đội thắng M5 Accuracy, bài 02, tr. 9); LightGBM-Tweedie + conformal; HistGradientBoosting quantile (scikit-learn).
+- **Không dùng deep learning** (lý do: `ai_model_integration.md` mục 4).
 - Chi tiết: `ai_model_integration.md`.
 
 ## 6. Output

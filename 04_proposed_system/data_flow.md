@@ -38,14 +38,15 @@ Bản nguồn sơ đồ: `diagrams/workflow.mmd`. Dataset giày dép Việt Nam 
 
 **M5**
 
-- Gộp ngày → tuần Walmart (`wm_yr_wk`): 1.941 ngày → 278 tuần [DP].
+- Gộp ngày → tuần Walmart (`wm_yr_wk`): 1.941 ngày → 278 tuần [DP], trong đó tuần cuối (11618) chỉ có 2 ngày (d_1940–d_1941) nên bị bỏ → **277 tuần đủ 7 ngày** dùng trong benchmark.
+- `sell_prices.csv` có giá cho cả 28 ngày ẩn sau d_1941; các tuần này bị loại khi ghép giá.
 - Bỏ các tuần trước khi sản phẩm bắt đầu bán ở mỗi cửa hàng (trước tuần đầu tiên có giá trong `sell_prices.csv`), để không thổi phồng tỷ lệ số 0.
 
 **VN1**
 
 - Ghép Phase 0 (170 tuần) + Phase 1 (13 tuần) + Phase 2 (13 tuần đáp án) theo `Client`, `Warehouse`, `Product` → 196 tuần [DP]. Không có ô thiếu doanh số, không có giá trị âm [DP].
 - Mỗi chuỗi bắt đầu từ **tuần có bán đầu tiên** (độ dài hoạt động trung vị 124 tuần [DP]).
-- Giá thiếu (70,7% số ô [DP]) được điền bằng giá gần nhất trước đó trong cùng chuỗi; thêm cờ `price_observed` để mô hình biết đâu là giá thật.
+- Giá thiếu (70,7% số ô [DP]) được điền bằng giá gần nhất trước đó trong cùng chuỗi. **Không** dùng cờ `price_observed`: VN1 chỉ có giá ở tuần có bán, nên cờ này trùng với `lag_1 > 0` khi huấn luyện, còn Phase 2 không có giá nên cờ luôn bằng 0 ở khối test 2 (lệch train/test).
 
 **Phụ lục — giày dép Việt Nam** (chỉ dùng cho thống kê mô tả): giữ kênh "Bán lẻ"; bỏ tuần bất thường 202352 (2.583 dòng); không trừ 26.432 dòng trả hàng (số lượng âm) vào nhu cầu; gộp SKU lên mẫu–màu (`mold_code` + `color`) × toàn chuỗi → 1.006 chuỗi, 84 tuần [DP].
 
@@ -63,15 +64,20 @@ Bản nguồn sơ đồ: `diagrams/workflow.mmd`. Dataset giày dép Việt Nam 
 | Lag | qty tuần t−1…t−4, t−8, t−13, t−26, t−52 | 8 | 8 |
 | Thống kê trượt | Trung bình, độ lệch 4/13/26 tuần; tỷ lệ tuần bằng 0 trong 13 tuần; số tuần từ lần bán gần nhất | 8 | 8 |
 | Lịch | Tuần trong năm, tháng (M5 thêm số sự kiện, số ngày SNAP) | 4 | 2 |
-| Giá | Giá tuần, thay đổi giá so với 4 tuần trước (VN1 thêm cờ `price_observed`) | 2 | 3 |
-| Tĩnh | Mã phân loại (category) | 4 | 2 |
-| **Tổng** | | **26** | **23** |
+| Giá | Giá tuần, thay đổi giá so với 4 tuần trước | 2 | 2 |
+| Tĩnh | Mã phân loại (category) | 4 | 0 (*) |
+| Quy mô | Mức bán trung bình 52 tuần gần nhất `scale` (sàn 0,1) | 1 | 1 |
+| **Tổng** | | **27** | **21** |
 
-**18 đặc trưng chung** (lag, thống kê trượt, tuần, tháng, giá, thay đổi giá). Có thể chạy thêm một thí nghiệm phụ chỉ dùng 18 đặc trưng này cho cả hai dataset, để so sánh công bằng tuyệt đối.
+Chuẩn hóa: lag, trung bình và độ lệch trượt được chia cho `scale`; mô hình quantile học D_h / `scale` rồi nhân lại (pinball loss bất biến theo tỷ lệ), để một mô hình toàn cục xử lý được chuỗi có quy mô rất khác nhau. Sự kiện và SNAP (M5) được cộng trên đúng cửa sổ mục tiêu h tuần (biết trước). Cài đặt: `code/f2d/features.py`.
+
+(*) `Client` (46 mức) và `Warehouse` (328 mức) của VN1 là mã ẩn danh. Khi dùng làm biến categorical trong LightGBM, chúng gây overfit và làm dự báo phân vị "nổ" ở một số chuỗi lớn (thử trên khối test 1, q = 0,9: pinball 8,0 khi giữ, 7,2 khi regularize mạnh, 7,0 khi bỏ). Vì vậy VN1 không dùng thuộc tính tĩnh. Target chuẩn hóa D_h / `scale` của mô hình quantile được cắt ở phân vị 99,9 của tập huấn luyện (chuỗi hồi sinh sau thời gian dài bằng 0 có `scale` = 0,1 tạo đuôi cực dày: pinball 21,8 → 8,0).
+
+**19 đặc trưng chung** (lag, thống kê trượt, tuần, tháng, giá, thay đổi giá, `scale`). Có thể chạy thêm một thí nghiệm phụ chỉ dùng 19 đặc trưng này cho cả hai dataset, để so sánh công bằng tuyệt đối.
 
 ## 6. Chia dữ liệu và rolling origin
 
-| | M5 (278 tuần) | VN1 (196 tuần) |
+| | M5 (277 tuần) | VN1 (196 tuần) |
 |---|---|---|
 | Kiểm thử | 26 tuần cuối | 26 tuần cuối = Phase 1 + **Phase 2 (đáp án chính thức)** |
 | Kiểm định | 13 tuần ngay trước test | 13 tuần ngay trước test |

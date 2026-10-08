@@ -13,7 +13,7 @@ Hệ thống chạy theo **lô hằng tuần (weekly batch)**: mỗi tuần nạ
 | **Database / Storage** | Lưu panel, đặc trưng, dự báo, khuyến nghị, KPI | Parquet + **DuckDB** (truy vấn SQL trên file, không cần server) |
 | **Demand Classifier** | Tính ADI, CV², gán nhóm nhu cầu cho mỗi chuỗi | Python (numpy) |
 | **Feature Builder** | Lag, thống kê trượt, lịch, giá, thuộc tính tĩnh | pandas |
-| **AI Forecasting Service** | Huấn luyện và dự báo phân vị bằng nhiều mô hình | LightGBM; `statsforecast` (ETS, TSB, Seasonal Naive); `neuralforecast` (TiDE/DeepAR, GPU RTX 3050) |
+| **AI Forecasting Service** | Huấn luyện và dự báo phân vị bằng nhiều mô hình | LightGBM, scikit-learn (HistGradientBoosting); ETS, TSB, Empirical cài vector hóa bằng numpy/scipy; chỉ dùng CPU |
 | **Decision Engine** | Order-up-to + thanh lý từ phân vị; tính xác suất hết hàng | Python |
 | **Inventory Simulator** | Mô phỏng nhiều kỳ (lost sales, lead time) để backtest chính sách | Python (numpy, vector hóa theo chuỗi) |
 | **Evaluator** | Sai số dự báo, KPI tồn kho không đơn vị tiền, đường đánh đổi, ngưỡng hòa vốn thanh lý, kiểm định thống kê | numpy, scipy, matplotlib |
@@ -100,6 +100,6 @@ Bản nguồn sơ đồ: `diagrams/architecture.mmd`.
 
 Máy nhóm: CPU i5-12450H (12 luồng), RAM 16 GB, GPU RTX 3050 Laptop, ổ C còn khoảng 8 GB.
 
-- Làm việc ở **tần suất tuần** để giữ bộ nhớ trong giới hạn: M5 theo tuần có 30.490 × 278 ≈ 8,5 triệu ô; VN1 có 15.053 × 196 ≈ 3 triệu ô.
+- Làm việc ở **tần suất tuần** để giữ bộ nhớ trong giới hạn: M5 theo tuần có 30.490 × 277 ≈ 8,4 triệu ô; VN1 có 15.053 × 196 ≈ 3 triệu ô.
 - Dữ liệu, cache và môi trường Python đặt trên **ổ D**.
 - Thư mục `data/` không đưa lên git (đã có trong `.gitignore`).

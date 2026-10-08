@@ -73,7 +73,7 @@ Bộ dữ liệu M5 (Walmart, 42.840 chuỗi thời gian phân cấp, 30.490 SKU
 - Seasonal Naive (tuần trước), Moving Average 28 ngày, ETS.
 - Croston / TSB (chuẩn cho nhu cầu rời rạc).
 - LightGBM dự báo điểm + safety stock giả định phân phối chuẩn. Đây là ablation quan trọng nhất: trả lời câu hỏi dự báo xác suất có tốt hơn cách truyền thống hay không.
-- **TiDE và/hoặc DeepAR** (global, xác suất). Cần thiết vì bài 12 (tr. 13, 19) cho thấy LightGBM dạng distributional không cạnh tranh trên dữ liệu rời rạc, còn TiDE + Tweedie tốt nhất. Nhóm dùng LightGBM **quantile regression** (cùng cách với lời giải hạng nhất M5 Uncertainty, bài 03 tr. 14), nhưng vẫn phải chứng minh bằng thực nghiệm.
+- **Đối chứng ML** (cập nhật 10/2026, thay cho TiDE/DeepAR): LightGBM-Tweedie + conformal và HistGradientBoosting quantile. Bài 12 (tr. 13, 19) cho thấy LightGBM dạng distributional không cạnh tranh trên dữ liệu rời rạc; nhóm dùng LightGBM **quantile regression** (cùng cách với lời giải hạng nhất M5 Uncertainty, bài 03 tr. 14) và kiểm chứng bằng hai đối chứng này. Deep learning nằm ngoài phạm vi vì chi phí tính toán (xem `04_proposed_system/ai_model_integration.md` mục 4).
 - *(Tùy chọn)* Chronos zero-shot, đại diện cho foundation model (bài 6, 7).
 
 ## 8. System Features
@@ -94,7 +94,7 @@ Bộ dữ liệu M5 (Walmart, 42.840 chuỗi thời gian phân cấp, 30.490 SKU
 ## 10. Evaluation Plan
 
 - **Dataset:** M5 Forecasting (Kaggle/Walmart), gồm 3 bang, 10 cửa hàng, 3 ngành hàng, 30.490 SKU–store, 1.941 ngày. Giai đoạn thử nghiệm: dùng 3 cửa hàng đại diện (CA_1, TX_1, WI_1 ≈ 9.147 chuỗi), sau đó mở rộng ra toàn bộ nếu tài nguyên cho phép. Chia dữ liệu theo đúng thiết kế gốc (28 ngày validation, 28 ngày test) và thêm rolling-origin backtest.
-- **Baseline:** Seasonal Naive, MA(28), ETS, Croston/TSB, LightGBM point + normal safety stock, TiDE/DeepAR.
+- **Baseline:** Empirical, ETS, TSB (Poisson, negative binomial), LightGBM point + normal safety stock, LightGBM + conformal, HistGradientBoosting quantile.
 - **Metrics:**
   - *Dự báo:* RMSSE / WRMSSE, MAE, RMSE, Pinball loss / WSPL. Không dùng MAPE vì dữ liệu có nhiều số 0 nên MAPE không xác định.
   - *Tồn kho (quan trọng nhất):* Fill rate, tỷ lệ ngày hết hàng, số lượng tồn dư, chi phí lưu kho, tổng chi phí (thiếu + thừa), giá trị hàng đề xuất thanh lý.

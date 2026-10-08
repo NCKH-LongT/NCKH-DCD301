@@ -24,3 +24,5 @@ WARMUP_WEEKS = 4         # simulation weeks excluded from KPIs
 
 # Default scenario (grid in data_flow.md, section 7).
 DEFAULT = dict(R=1, L=2, tau=0.9, H=13, q_liq=0.95, k_fixed=26)
+
+SEED = 2026
