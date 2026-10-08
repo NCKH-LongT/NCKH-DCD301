@@ -53,6 +53,16 @@ Mức liên quan: ★★★ = trụ cột, ★★ = hỗ trợ, ★ = tham khả
 | 24 | Feature engineering for intermittent demand forecasting: zero-detection and forecast performance across GRU, LSTM, and TCN architectures | El-Meehy, El-Kharbotly, El-Beheiry | 2026 | Journal of Intelligent Manufacturing (Springer) | [doi](https://doi.org/10.1007/s10845-026-02964-7) | ★★ |
 | 25 | Forecasting Critical Spare Parts Demand in Combined Cycle Power Plant Using Ensemble Learning | Putra, Purnomo | 2026 | Engineering Proceedings (MDPI) 143:30 | [doi](https://doi.org/10.3390/engproc2026143030) | ★ (kỷ yếu hội nghị) |
 
+## G. Tìm thêm khi làm Bước 5 (chưa tóm tắt đầy đủ theo mẫu Bước 3)
+
+| Mã | Title | Authors | Year | Venue | Link | Mức đã đọc |
+|---|---|---|---|---|---|---|
+| W1 | Supervised learning for integrated forecasting and inventory control | van der Haar, Wellens, Boute, Basten | 2024 | EJOR | [doi](https://doi.org/10.1016/j.ejor.2024.07.004) | Abstract + mở đầu (preprint KU Leuven) |
+| W2 | From Demand Forecasting to Replenishment Simulation: A Data-Driven Machine Learning Approach for Fashion Retail | de Sousa | 2026 | Luận văn, Univ. of Porto | [pdf](https://repositorio-aberto.up.pt/bitstream/10216/175628/2/786426.pdf) | Abstract |
+| W3 | Forecasting for Inventory Decisions: A Decision-regret Benchmark for Perishability-aware Multi-Echelon Retail Replenishment using the M5/Walmart Data | Li | 2026 | SSRN (chưa phản biện) | [doi](https://doi.org/10.2139/ssrn.7051299) | ⛔ Chỉ tên bài |
+
+Khác biệt với đề tài: xem `03_problem_and_gap/research_gap.md`, mục 1.2.
+
 ## F. Theo dõi — chưa đọc được (không dùng làm căn cứ)
 
 | No | Title | Authors | Year | Venue | Link | Trạng thái |

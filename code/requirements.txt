@@ -1,0 +1,19 @@
+# Installed and used (versions pinned from the development machine, Python 3.12.10)
+pandas==2.3.3
+numpy==2.2.6
+scipy==1.17.1
+pyarrow==25.0.1
+python-calamine==0.8.2
+openpyxl==3.1.2
+tabulate==0.10.0
+matplotlib==3.10.9
+scikit-learn==1.8.0
+
+# Planned for modelling (pin after installation)
+lightgbm
+statsforecast
+neuralforecast
+duckdb
+fastapi
+uvicorn
+streamlit

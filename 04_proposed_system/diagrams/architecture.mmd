@@ -1,0 +1,31 @@
+flowchart TB
+    subgraph SRC[Nguồn dữ liệu]
+        M5[(M5 CSV<br/>sales, calendar, prices)]
+        VN[(VN Excel<br/>sales, inventory, master data)]
+    end
+    subgraph DATA[Tầng dữ liệu]
+        ING[Data Ingestion] --> HAR[Harmonizer<br/>panel theo tuần]
+        HAR --> DB[(Parquet + DuckDB)]
+    end
+    subgraph AI[AI Service]
+        CLS[Demand Classifier<br/>ADI–CV²]
+        FEA[Feature Builder]
+        FC[Forecasting<br/>LightGBM quantile + baselines]
+    end
+    subgraph DEC[Tầng quyết định]
+        DE[Decision Engine<br/>order-up-to + thanh lý]
+        SIM[Inventory Simulator]
+        EV[Evaluator<br/>sai số + KPI]
+    end
+    subgraph APP[Ứng dụng]
+        API[FastAPI]
+        UI[Streamlit dashboard]
+    end
+    M5 --> ING
+    VN --> ING
+    DB --> CLS --> FEA --> FC
+    FC -->|phân vị| DE
+    DE --> SIM --> EV
+    DE --> DB
+    EV --> DB
+    DB --> API --> UI

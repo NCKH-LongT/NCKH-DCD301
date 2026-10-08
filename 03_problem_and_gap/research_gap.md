@@ -1,65 +1,71 @@
 # Research Gap
 
-> Số trang `(tr. N)` và số bài theo `02_related_work/paper_list.md`; chi tiết trong `02_related_work/paper_summaries/` và `literature_review_matrix.md`. Bài 20 (Theodorou et al., 2025) **không dùng làm căn cứ** vì không đọc được toàn văn.
+> Quy ước nguồn: `(bài X, tr. N)` theo `02_related_work/paper_list.md`; `[DP]` = `code/outputs/data_profile.md`. Bài 20 (Theodorou et al., 2025) và bài W3 (mục 1.2) **không dùng làm căn cứ** vì không đọc được nội dung.
 
 ## 1. Các bài trước đã giải quyết như thế nào?
 
+### 1.1. Các bài trong danh sách chính thức
+
 | Nhóm | Bài | Đã làm gì |
 |---|---|---|
-| Dự báo trên M5 | 02, 03, 06, 08, 09, 13 | Tối ưu độ chính xác (WRMSSE, WSPL). LightGBM được cả top 50 M5 Accuracy dùng (bài 02, tr. 1); lời giải hạng nhất M5 Uncertainty là LightGBM theo từng phân vị (bài 03, tr. 14). Hướng mới: foundation model và ensemble (06), đánh đổi chi phí (08), dự báo phân cấp (09, 13). |
+| Dự báo trên M5 | 02, 03, 06, 08, 09, 13 | Tối ưu độ chính xác (WRMSSE, WSPL). LightGBM được cả top 50 M5 Accuracy dùng (bài 02, tr. 1); lời giải hạng nhất M5 Uncertainty là LightGBM theo từng phân vị (bài 03, tr. 14). Hướng mới: foundation model, ensemble (06), đánh đổi chi phí (08), dự báo phân cấp (09, 13). |
 | Nhu cầu rời rạc | 12, 15, 16, 18, 23, 24 | Croston/SBA/TSB, phân loại ADI–CV², phân phối phù hợp (Tweedie cho phân vị cao, bài 12). |
-| Dự báo → tồn kho | 11, 16, 19, 21, 22, 23, 24 | **Bài 11:** kết hợp dự báo xác suất bằng tối ưu đa mục tiêu, đánh giá theo newsvendor. **Bài 21:** mô phỏng tồn kho 365 ngày trên tập con M5 bằng LSTM + GA–DQN. **Bài 22:** khoảng dự báo thích nghi (GARCH) cho safety stock. **Bài 23:** dự báo nhu cầu rời rạc + chính sách (R, Q) cho phụ tùng. **Bài 24:** độ chính xác ở các kỳ bằng 0 ảnh hưởng ngược chiều tới tồn kho và thiếu hàng. |
+| Dự báo → tồn kho | 11, 16, 19, 21, 22, 23, 24 | **Bài 11:** kết hợp dự báo xác suất, đánh giá theo newsvendor. **Bài 21:** mô phỏng tồn kho 365 ngày trên tập con M5 (LSTM + GA–DQN). **Bài 22:** khoảng dự báo GARCH cho safety stock. **Bài 23:** dự báo nhu cầu rời rạc + chính sách (R, Q) cho phụ tùng. **Bài 24:** độ chính xác ở kỳ bằng 0 ảnh hưởng ngược chiều tới tồn kho và thiếu hàng. |
+
+### 1.2. Các nghiên cứu gần hướng, tìm thêm khi làm Bước 5 (29/09–08/10/2026)
+
+| Mã | Công trình | Mức đã đọc | Khác biệt với đề tài |
+|---|---|---|---|
+| W1 | van der Haar, Wellens, Boute, Basten (2024). *Supervised learning for integrated forecasting and inventory control*. EJOR. doi:10.1016/j.ejor.2024.07.004 | Abstract + phần mở đầu (bản preprint KU Leuven) | Học **trực tiếp** quyết định đặt hàng bằng hàm mất mát tùy chỉnh (end-to-end), thử trên lost sales, hàng dễ hỏng, dual sourcing. Đề tài dùng hướng **dự báo → chính sách** minh bạch và có thanh lý; W1 có thể làm baseline nâng cao |
+| W2 | de Sousa, A. G. P. (2026). *From Demand Forecasting to Replenishment Simulation: A Data-Driven Machine Learning Approach for Fashion Retail*. Luận văn, Đại học Porto | Abstract | Bối cảnh vận hành của **một** nhà bán lẻ phụ kiện thời trang toàn cầu; XGBoost/LightGBM (hurdle) + safety factor; mô phỏng nhập hàng so với hệ thống đang chạy. Theo abstract: không nhắc tới thanh lý, không so sánh nhiều dataset (chưa đọc toàn văn để khẳng định) |
+| W3 | Li, P. (2026). *Forecasting for Inventory Decisions: A Decision-regret Benchmark for Perishability-aware Multi-Echelon Retail Replenishment using the M5/Walmart Data*. SSRN. doi:10.2139/ssrn.7051299 | ⛔ **Chỉ tên bài** (SSRN chặn, OpenAlex không có abstract) | Theo **tên bài**: benchmark quyết định trên M5, có xét hàng dễ hỏng và **nhiều cấp**. Không dùng làm căn cứ; khi viết chỉ trích ở mức tên bài |
 
 ## 2. Các bài trước còn hạn chế gì?
 
-1. **Tầng quyết định nằm ngoài phạm vi của M5.** Chính nhóm tổ chức M5 viết rằng cuộc thi không tập trung vào một bài toán ra quyết định cụ thể và không định nghĩa tham số của bài toán đó (bài 03, tr. 2–3). Các bài dự báo trên M5 (02, 03, 06, 08, 09, 13) vì vậy đánh giá bằng sai số dự báo.
-2. **Chuỗi rời rạc bị chọn lọc bỏ trong các nghiên cứu gắn với tồn kho trên M5.**
-   - Bài 22 chỉ dùng 8.000 chuỗi bán nhiều và tự nêu thiếu chuỗi thưa/chậm là "điểm yếu chính" (tr. 4, 18).
-   - Bài 21 chỉ dùng tập con thực phẩm biến động mạnh (tr. 8).
-   - Bài 24 chỉ dùng 19 chuỗi M5 (tr. 8).
-   - Trong khi đó, 73% chuỗi M5 là intermittent (bài 01, tr. 8).
-   - Lưu ý: bài 11 **giữ** chuỗi rời rạc (M5 có ~60,1% quan sát bằng 0, tr. 16), chỉ loại 1.587 chuỗi chưa có lịch sử bán (tr. 17).
-3. **Không có quyết định thanh lý.** Đã tìm các từ khóa liquidation, markdown, clearance, salvage, disposal, write-off, obsolete trong toàn văn bài 11, 21, 22, 23, 24, 25: chỉ xuất hiện ở phần tài liệu tham khảo, không bài nào có quyết định thanh lý. Bài 16 liên hệ dự báo với tồn kho lỗi thời nhưng chỉ dùng thí nghiệm mô phỏng (abstract).
-4. **Thiếu KPI tồn kho theo nhóm ADI–CV².**
-   - Bài 01 phân loại M5 chỉ để mô tả dữ liệu (tr. 8).
-   - Bài 22 báo cáo tỷ lệ các nhóm (tr. 4), nhưng phần tồn kho chỉ là **một phép tính chi phí tổng hợp** (safety stock theo GARCH giảm chi phí kỳ vọng 11,8%, tr. 15), không tách theo nhóm.
-   - Bài 24 phân tích theo 3 mức ADI, nhưng chỉ có 19 chuỗi và dự báo điểm (tr. 8, 26).
-5. **Chính sách khó giải thích.** Bài 21 dùng RL và tự nêu DRL/DL khó diễn giải (tr. 19); bài 06 nêu kết quả ensemble khó giải thích (tr. 7). Chính sách dựa trên phân vị dự báo (newsvendor/order-up-to) minh bạch hơn (nhận định của nhóm).
-6. **Hạn chế của bài gần nhất (bài 11).** Tác giả tự nêu: bài chỉ xét **newsvendor một kỳ, một sản phẩm**, nên hạn chế khi áp dụng cho hệ nhiều kỳ hoặc nhiều cấp (tr. 26). Bài cũng tốn chi phí tính toán do NSGA-III, và dùng cửa sổ validation cố định (tr. 26).
+1. **Tầng quyết định nằm ngoài phạm vi của M5.** Nhóm tổ chức M5 viết rằng cuộc thi không tập trung vào một bài toán ra quyết định cụ thể (bài 03, tr. 2–3). Các bài dự báo trên M5 (02, 03, 06, 08, 09, 13) đánh giá bằng sai số dự báo.
+2. **Chuỗi rời rạc bị chọn lọc bỏ trong các nghiên cứu gắn với tồn kho trên M5.** Bài 22 chỉ dùng 8.000 chuỗi bán nhiều, tự nêu là "điểm yếu chính" (tr. 4, 18); bài 21 chỉ dùng tập con thực phẩm biến động mạnh (tr. 8); bài 24 chỉ dùng 19 chuỗi (tr. 8). Trong khi đó, 73% chuỗi M5 là intermittent (bài 01, tr. 8). *(Bài 11 giữ chuỗi rời rạc, chỉ loại 1.587 chuỗi chưa có lịch sử, tr. 17.)*
+3. **Không có quyết định thanh lý.** Tìm các từ khóa liquidation, markdown, clearance, salvage, disposal, write-off, obsolete trong toàn văn bài 11, 21, 22, 23, 24, 25: chỉ xuất hiện ở phần tài liệu tham khảo, không bài nào có quyết định thanh lý. W1, W2 (theo abstract) cũng không đề cập. Bài 16 liên hệ dự báo với tồn kho lỗi thời nhưng chỉ dùng mô phỏng (abstract).
+4. **Thiếu KPI tồn kho theo nhóm ADI–CV².** Bài 01 phân loại M5 chỉ để mô tả (tr. 8); bài 22 báo cáo tỷ lệ các nhóm (tr. 4) nhưng phép tính chi phí tồn kho là tổng hợp (tr. 15); bài 24 phân tích theo mức ADI nhưng chỉ 19 chuỗi và dự báo điểm (tr. 8, 26).
+5. **Kết quả chủ yếu trên một miền dữ liệu.** Các bài gắn với tồn kho trên M5 (11, 21, 22, 24) chỉ thử trên dữ liệu Walmart, cùng lắm thêm một dataset khác ngành (bài 11 thêm phụ tùng Không quân Anh). Bài 22 tự nêu chỉ thử trên M5, một môi trường bán lẻ ở Mỹ (tr. 17); nhóm tổ chức M5 cũng thừa nhận giới hạn khái quát hóa (bài 01, tr. 11). Tìm "Vietnam Datathon 2023" trên OpenAlex (06/10/2026) **không ra bài nào** dùng dataset Việt Nam này.
+6. **Chính sách khó giải thích.** Bài 21 dùng RL và tự nêu DRL/DL khó diễn giải (tr. 19); bài 06 nêu ensemble khó giải thích (tr. 7). Chính sách dựa trên phân vị dự báo minh bạch hơn (nhận định nhóm).
+7. **Hạn chế của bài gần nhất (bài 11):** chỉ xét **newsvendor một kỳ, một sản phẩm** (tác giả tự nêu, tr. 26).
 
 ## 3. Nhóm sẽ cải tiến điểm nào?
 
-| Cải tiến | Gap tương ứng | Mức độ mới |
+| Cải tiến | Gap | Mức độ mới |
 |---|---|---|
-| Giữ lại **toàn bộ nhóm nhu cầu** (kể cả intermittent và lumpy) và báo cáo KPI tồn kho **theo từng nhóm ADI–CV²** | 2, 4 | **Điểm mới chính** |
-| Bổ sung **quyết định thanh lý** dựa trên phân vị dự báo, bên cạnh quyết định nhập hàng | 3 | **Điểm mới chính** |
-| Đánh giá chính sách ở tầng quyết định (KPI tồn kho), không chỉ sai số dự báo | 1 | Có tiền lệ (bài 11, 21), nhưng chưa làm trên toàn bộ các nhóm nhu cầu |
-| Mô phỏng tồn kho **nhiều kỳ có lead time**, tồn kho mang sang kỳ sau | 6 | So với bài 11 là mới; **bài 21 đã có mô phỏng nhiều kỳ trên M5**, nên không phải điểm mới độc lập |
-| Dùng **LightGBM quantile** (giống cách của lời giải hạng nhất M5 Uncertainty, bài 03, tr. 14), so với baseline thống kê (ETS, TSB) và mô hình sâu (TiDE/DeepAR), thay vì kết hợp nhiều mô hình | 5, 6 | Lựa chọn thiết kế; cần kiểm chứng vì bài 12 cho thấy LightGBM dạng distributional kém trên dữ liệu rời rạc (tr. 13, 19) |
+| **Benchmark trên hai miền bán lẻ** (M5 + giày dép Việt Nam) với cùng một quy trình | 5 | **Điểm mới chính** |
+| Giữ lại **toàn bộ nhóm nhu cầu** và báo cáo KPI tồn kho **theo nhóm ADI–CV²** | 2, 4 | **Điểm mới chính** |
+| Bổ sung **quyết định thanh lý** dựa trên phân vị dự báo | 3 | **Điểm mới chính** |
+| Dùng **giá vốn và giá bán thực** (dữ liệu Việt Nam) để đặt tham số chi phí, thay vì chỉ giả định | 1, 5 | Điểm cộng thực tiễn |
+| Đánh giá ở tầng quyết định (KPI tồn kho) | 1 | Có tiền lệ (bài 11, 21; W1–W3), không phải điểm mới độc lập |
+| Mô phỏng nhiều kỳ có lead time | 7 | So với bài 11 là mới; bài 21 và W1 đã có, **không** phải điểm mới độc lập |
+| Phương pháp dự báo: LightGBM quantile + baseline thống kê + mô hình sâu | 6 | Lựa chọn thiết kế, **không** phải thuật toán mới |
 
-## 4. Đóng góp dự kiến của nhóm
+## 4. Đóng góp dự kiến
 
-1. Một pipeline **minh bạch** từ dự báo phân vị (LightGBM) tới khuyến nghị **nhập hàng / giữ nguyên / thanh lý** cho từng SKU–store trên M5.
-2. Đánh giá thực nghiệm bằng **KPI tồn kho** (fill rate, tỷ lệ hết hàng, tồn dư, chi phí) trong mô phỏng nhiều kỳ, **giữ lại toàn bộ chuỗi rời rạc**.
-3. Phân tích **theo nhóm ADI–CV²**: nhóm nào dự báo xác suất mang lại lợi ích rõ nhất, nhóm nào baseline thống kê (TSB) vẫn đủ tốt.
-4. Phân tích **độ nhạy** theo tỷ lệ chi phí c_u/c_o và lead time, vì M5 không có dữ liệu tồn kho thực.
+1. **Benchmark công khai, tái lập được** "từ dự báo đến quyết định" trên **hai miền bán lẻ** ở cùng tần suất tuần, với mã nguồn mở.
+2. **Lớp quyết định minh bạch** gồm nhập hàng (order-up-to theo phân vị) và **thanh lý** (theo phân vị dài hạn), đánh giá bằng KPI tồn kho.
+3. **Phân tích theo nhóm ADI–CV²** trên cả hai dataset: phương pháp nào hiệu quả ở nhóm nào, và xếp hạng có giữ nguyên khi đổi miền không.
+4. **Phân tích độ nhạy** theo tỷ lệ chi phí và lead time; với dữ liệu Việt Nam, tham số chi phí neo vào giá vốn thực.
+5. Mô tả và chuẩn hóa một **dataset bán lẻ Việt Nam** ít được khai thác (kèm cảnh báo về tính đầy đủ của dữ liệu).
 
 ## 5. Câu phát biểu gap (English)
 
-> Existing studies on the M5 dataset mainly optimise point or probabilistic forecast accuracy, as the competition itself did not target a specific decision-making problem. The few works that link forecasts to inventory decisions either restrict the analysis to selected high-volume or volatile series, evaluate a single-period newsvendor setting, or omit liquidation decisions. Limited attention has been given to evaluating quantile-based replenishment and liquidation policies in a multi-period simulation that retains intermittent and lumpy demand and reports inventory KPIs by demand class.
-
-Nguồn cho từng vế:
+> Most studies on the M5 data optimise forecast accuracy, as the competition itself did not target a specific decision-making problem. The few works that link forecasts to inventory decisions restrict the analysis to selected high-volume or volatile series, consider a single-period newsvendor setting, omit liquidation decisions, or evaluate a single retail market. Limited attention has been given to benchmarking probabilistic forecasting methods under a common, transparent replenishment-and-liquidation policy across different retail domains, while retaining intermittent and lumpy demand and reporting inventory KPIs by demand class.
 
 | Vế trong câu gap | Nguồn |
 |---|---|
-| "the competition itself did not target a specific decision-making problem" | Bài 03, tr. 2–3 |
+| "competition itself did not target a specific decision-making problem" | Bài 03, tr. 2–3 |
 | "selected high-volume or volatile series" | Bài 22 (tr. 4); bài 21 (tr. 8) |
 | "single-period newsvendor setting" | Bài 11, tr. 26 |
 | "omit liquidation decisions" | Tìm từ khóa trong toàn văn bài 11, 21–25 |
-| "retains intermittent and lumpy demand" | 73% intermittent + 17% lumpy trong M5 (bài 01, tr. 8) |
+| "evaluate a single retail market" | Bài 22 (tr. 17); bài 21, 24 chỉ dùng M5; bài 01 (tr. 11) |
+| "retaining intermittent and lumpy demand" | M5: 73% intermittent + 17% lumpy (bài 01, tr. 8); VN: [DP] |
 
 ## 6. Lưu ý khi viết bài
 
-- Bài 08, 09, 11, 12, 13 mới chỉ có trên arXiv, chưa qua phản biện. Đặc biệt **bài 11 là bài gần nhất** nên khi nộp cần kiểm tra xem bài đã được xuất bản chính thức chưa.
-- **Không** viết câu "no study has examined the relationship between forecast accuracy and inventory performance on M5", vì bài 20 (Theodorou et al., 2025) có thể đã làm việc này.
-- Dùng "limited attention" hoặc "to the best of our knowledge" thay cho "no study".
+- **Không** viết "no study has examined…". Bài 20 và W3 có thể đã làm một phần (benchmark quyết định trên M5). Dùng "limited attention" / "to the best of our knowledge".
+- Trước khi nộp, **cố đọc W3** (SSRN) và bài 20; nếu W3 đã có thanh lý hoặc phân tích theo nhóm nhu cầu thì phải định vị lại.
+- Bài 08, 09, 11, 12, 13 và W3 chưa qua phản biện; kiểm tra xem đã được xuất bản chính thức chưa trước khi nộp.
+- Dataset Việt Nam: nêu rõ nghi ngờ dữ liệu doanh số chưa đầy đủ ("split_1") và giấy phép chưa rõ.
