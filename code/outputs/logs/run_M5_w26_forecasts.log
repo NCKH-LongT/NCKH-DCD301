@@ -1,0 +1,94 @@
+M5: 30,490 series x 251 weeks; test weeks 2015-05-23 .. 2015-11-14; evaluated series 29,917
+  classes: {'all': 29917, 'smooth': 15705, 'erratic': 1671, 'intermittent': 10360, 'lumpy': 2181}
+  forecasting empirical, h=3 ...
+    done in 58s
+  forecasting empirical, h=13 ...
+    done in 60s
+  forecasting tsb, h=3 ...
+    done in 34s
+  forecasting tsb, h=13 ...
+    done in 32s
+  forecasting tsb_nb, h=3 ...
+    done in 79s
+  forecasting tsb_nb, h=13 ...
+    done in 63s
+  forecasting ets, h=3 ...
+    done in 6s
+  forecasting ets, h=13 ...
+    done in 6s
+  forecasting lgb_tweedie, h=3 ...
+    block cutoff 225: train 2,670,895 rows, valid 384,257, predict 388,921
+      tweedie: 124 rounds (22s)
+    block cutoff 238: train 2,770,635 rows, valid 388,875, predict 388,921
+      tweedie: 62 rounds (17s)
+    done in 40s
+  forecasting lgb_tweedie, h=13 ...
+    block cutoff 225: train 2,590,477 rows, valid 379,166, predict 388,921
+      tweedie: 188 rounds (26s)
+    block cutoff 238: train 2,694,220 rows, valid 385,901, predict 388,921
+      tweedie: 64 rounds (17s)
+    done in 45s
+  forecasting lgb_conformal, h=3 ...
+    block cutoff 225: conformal on 384,257 validation residuals (21s)
+    block cutoff 238: conformal on 388,875 validation residuals (17s)
+    done in 39s
+  forecasting lgb_conformal, h=13 ...
+    block cutoff 225: conformal on 379,166 validation residuals (23s)
+    block cutoff 238: conformal on 385,901 validation residuals (17s)
+    done in 42s
+  forecasting hgb_quantile, h=3 ...
+    block cutoff 225: train 300,000 rows, predict 388,921
+      q=0.5: 156 iterations (13s)
+      q=0.8: 170 iterations (21s)
+      q=0.9: 215 iterations (30s)
+      q=0.95: 140 iterations (35s)
+      q=0.99: 100 iterations (40s)
+    block cutoff 238: train 300,000 rows, predict 388,921
+      q=0.5: 94 iterations (7s)
+      q=0.8: 286 iterations (18s)
+      q=0.9: 215 iterations (27s)
+      q=0.95: 176 iterations (34s)
+      q=0.99: 128 iterations (39s)
+    done in 80s
+  forecasting hgb_quantile, h=13 ...
+    block cutoff 225: train 300,000 rows, predict 388,921
+      q=0.5: 300 iterations (15s)
+      q=0.8: 300 iterations (27s)
+      q=0.9: 300 iterations (38s)
+      q=0.95: 300 iterations (49s)
+      q=0.99: 182 iterations (56s)
+    block cutoff 238: train 300,000 rows, predict 388,921
+      q=0.5: 300 iterations (15s)
+      q=0.8: 300 iterations (28s)
+      q=0.9: 300 iterations (39s)
+      q=0.95: 300 iterations (51s)
+      q=0.99: 184 iterations (58s)
+    done in 115s
+  forecasting lgb_quantile, h=3 ...
+    block cutoff 225: train 2,670,895 rows, valid 384,257, predict 388,921
+      q=0.5: 274 rounds (49s)
+      q=0.8: 973 rounds (210s)
+      q=0.9: 346 rounds (255s)
+      q=0.95: 358 rounds (302s)
+      q=0.99: 238 rounds (348s)
+    block cutoff 238: train 2,770,635 rows, valid 388,875, predict 388,921
+      q=0.5: 278 rounds (45s)
+      q=0.8: 152 rounds (70s)
+      q=0.9: 357 rounds (117s)
+      q=0.95: 306 rounds (179s)
+      q=0.99: 199 rounds (250s)
+    done in 600s
+  forecasting lgb_quantile, h=13 ...
+    block cutoff 225: train 2,590,477 rows, valid 379,166, predict 388,921
+      q=0.5: 761 rounds (189s)
+      q=0.8: 347 rounds (232s)
+      q=0.9: 320 rounds (329s)
+      q=0.95: 387 rounds (418s)
+      q=0.99: 225 rounds (486s)
+    block cutoff 238: train 2,694,220 rows, valid 385,901, predict 388,921
+      q=0.5: 1000 rounds (171s)
+      q=0.8: 321 rounds (279s)
+      q=0.9: 185 rounds (354s)
+      q=0.95: 186 rounds (383s)
+      q=0.99: 107 rounds (400s)
+    done in 887s

@@ -71,7 +71,7 @@ Thời gian dự báo cho một horizon (2 khối huấn luyện, 26 origin), l�
 | HistGradientBoosting quantile | 105 s | 126 s | 85 s | 99 s |
 | **LightGBM quantile** (5 phân vị) | **1.251 s** | **686 s** | 146 s | 314 s |
 
-(*) Dự báo đã được cache từ lần chạy trước nên log không ghi thời gian. Ở các horizon khác của VN1 (h = 2, 5, 8, 26): Empirical 24–38 s, TSB Poisson 12–15 s, ETS khoảng 1 s. Toàn bộ pipeline VN1 với lưới kịch bản đầy đủ: khoảng 30 phút (`run_VN1.log`) + 11 phút cho 3 baseline bổ sung (`run_VN1_v2.log`). Mô phỏng tồn kho và tính KPI cho lưới τ của M5: 65 s (`run_M5_tau.log`).
+(*) Dự báo đã được cache từ lần chạy trước nên log không ghi thời gian. Ở cửa sổ kiểm thử thứ hai (VN1, h = 3 / 13; `run_VN1_w26.log`): Empirical 28 / 17 s, TSB Poisson 14 / 13 s, ETS 1 / 1 s. Ở các horizon khác của VN1 (h = 2, 5, 8, 26): Empirical 24–38 s, TSB Poisson 12–15 s, ETS khoảng 1 s. Toàn bộ pipeline VN1 với lưới kịch bản đầy đủ: khoảng 30 phút (`run_VN1.log`) + 11 phút cho 3 baseline bổ sung (`run_VN1_v2.log`). Mô phỏng tồn kho và tính KPI cho lưới τ của M5: 65 s (`run_M5_tau.log`).
 
 ## 7. Phiên bản và tái lập
 

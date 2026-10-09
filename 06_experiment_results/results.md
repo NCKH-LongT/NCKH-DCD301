@@ -20,13 +20,20 @@ Quy ước:
    - LightGBM quantile có SQL **trung bình** thấp nhất trên cả hai dataset, ở cả hai horizon và cả 4 nhóm; HistGradientBoosting sát ngay sau.
    - Kiểm định theo chuỗi xác nhận điều này trên M5 (h = 3).
    - Trên VN1 thì không: xét từng chuỗi, TSB negative binomial ngang (h = 3) hoặc tốt hơn (h = 13). Lợi thế của LightGBM quantile là **ít khi sai rất nặng**.
-2. **Hiệu quả tồn kho ở cùng fill rate:** LightGBM quantile cần ít tồn kho nhất trên toàn đường đánh đổi ở cả hai dataset (hạng 1,0 trên M5, 1,4 trên VN1).
-   - M5: ít hơn 3–12% so với các baseline mạnh ở fill rate 0,94–0,98.
-   - VN1: ở fill rate 0,90–0,92, LightGBM-Tweedie + safety stock chuẩn ngang hoặc nhỉnh hơn (chênh ≤ 2,4%). Từ 0,94 trở lên LightGBM quantile tốt nhất, và Tweedie không đạt được 0,96.
+2. **Hiệu quả tồn kho ở cùng fill rate:**
+   - M5, **vững qua hai cửa sổ:** LightGBM quantile cần ít tồn kho nhất (hạng theo đường đánh đổi 1,0 và 1,2). Ở fill rate 0,94–0,98, nó cần ít hơn các baseline mạnh 3–13%.
+   - VN1, **không vững** (mục 10):
+     - Cửa sổ chính: LightGBM quantile hạng 1,4; Tweedie nhỉnh hơn ở fill rate 0,90–0,92.
+     - Cửa sổ thứ hai: TSB-NB hạng 1,8, conformal 2,0, LightGBM quantile chỉ 3,8.
+     - Trên VN1 chưa có phương pháp nào hiệu quả nhất một cách ổn định.
 3. **Theo nhóm:**
    - M5: mô hình phân vị trực tiếp tốt nhất ở mọi nhóm.
-   - VN1: TSB-NB hiệu quả nhất ở nhóm smooth và ở fill rate trung bình (≤ 0,92) của nhóm intermittent; LightGBM quantile tốt nhất ở erratic, lumpy và ở fill rate cao.
-4. **Độ nhất quán giữa dataset:** xếp hạng theo đường đánh đổi nhất quán hơn nhiều so với xếp hạng theo fill rate ở một τ (Spearman ρ = 0,88, p = 0,004, so với 0,69, p = 0,058).
+   - VN1, vững qua hai cửa sổ: TSB-NB hiệu quả nhất ở nhóm smooth; LightGBM quantile hiệu quả nhất ở intermittent và lumpy (theo đường đánh đổi).
+   - VN1, nhóm erratic: phương pháp đứng đầu đổi giữa hai cửa sổ.
+4. **Độ nhất quán giữa dataset:**
+   - Cửa sổ chính: xếp theo đường đánh đổi nhất quán hơn (ρ = 0,88 so với 0,69).
+   - Cửa sổ thứ hai: điều này **không lặp lại** (0,50 so với 0,93).
+   - Chỉ nhóm intermittent nhất quán ở cả hai cửa sổ (ρ = 0,83–0,95).
 5. **Thanh lý:**
    - Quy tắc theo phân vị giảm tồn kho mà gần như không mất fill rate.
    - Quy tắc cố định và quy tắc dead-stock mất nhiều fill rate hơn hoặc làm tăng số tuần hết hàng.
@@ -192,6 +199,7 @@ Kiểm định KPI theo chuỗi ở τ = 0,9 (`tables/stat_tests.md`) cũng cho 
 - Từ 0,94 trở lên LightGBM quantile tốt nhất.
 - Tweedie không vượt được fill rate 0,952 ngay cả với τ = 0,99. [Nhận định nhóm] Đuôi của phân phối chuẩn quá mỏng cho dữ liệu rời rạc.
 - Ở fill rate 0,96–0,98, chỉ các mô hình có đuôi phân phối được học từ dữ liệu (quantile, conformal) hoặc TSB-NB (đến 0,96) đạt được.
+- **Lưu ý:** kết quả VN1 trong mục này **không lặp lại** ở cửa sổ kiểm thử thứ hai, nơi TSB-NB cần ít tồn kho nhất ở fill rate 0,90–0,94 (mục 10).
 
 ## 5. RQ2 — Theo nhóm nhu cầu
 
@@ -237,6 +245,7 @@ Nhận xét:
 - [Nhận định nhóm] Phần lớn khác biệt giữa hai dataset khi so ở một τ đến từ việc mỗi phương pháp hiệu chỉnh phân vị khác nhau, không phải từ hiệu quả tồn kho thực sự.
 - Nhóm smooth và lumpy kém nhất quán, vì ở VN1 TSB-NB (smooth) và conformal (lumpy) xếp cao hơn hẳn so với ở M5.
 - Thứ hạng **SQL** cũng nhất quán: ở h = 3, LightGBM quantile đứng đầu và Empirical đứng cuối ở cả hai dataset.
+- **Lưu ý:** ở cửa sổ thứ hai, Spearman theo đường đánh đổi chỉ còn 0,50 (p = 0,21), còn theo fill rate là 0,93. Vì vậy nhận định "xếp theo đường đánh đổi nhất quán hơn" **không vững**; chỉ nhóm intermittent nhất quán ở cả hai cửa sổ (mục 10).
 
 ## 7. RQ3 — Thanh lý
 
@@ -378,21 +387,82 @@ Ghi chú cho Bảng 9:
 | Giả thuyết | Kết quả | Mức độ |
 |---|---|---|
 | H1: LightGBM quantile có SQL thấp nhất | SQL trung bình: đúng ở mọi dataset, horizon và nhóm. Theo chuỗi: đúng ở M5 h = 3; ngang HistGradientBoosting ở M5 h = 13; trên VN1 ngang TSB-NB (h = 3) hoặc kém TSB/TSB-NB (h = 13) | Ủng hộ ở M5; một phần ở VN1 |
-| H2: Phân vị trực tiếp cần ít tồn kho hơn dự báo điểm + safety stock | M5: đúng (−4,8% ở 0,94; −7,7% ở 0,96). VN1: ngang ở 0,90–0,92; đúng từ 0,94; Tweedie không đạt 0,96 | Ủng hộ, rõ nhất ở mức phục vụ cao |
-| H3: ML có lợi rõ ở smooth/erratic; TSB đủ tốt ở intermittent | M5: ML tốt nhất ở mọi nhóm. VN1: TSB-NB tốt nhất ở smooth và ở mức phục vụ trung bình của intermittent; ML tốt hơn ở erratic, lumpy và mức phục vụ cao | Ủng hộ một phần, phụ thuộc dataset và mức phục vụ |
+| H2: Phân vị trực tiếp cần ít tồn kho hơn dự báo điểm + safety stock | M5: đúng ở cả hai cửa sổ (−4,8% / −6,3% ở 0,94). VN1: cửa sổ chính ngang ở 0,90–0,92 và đúng từ 0,94; cửa sổ thứ hai ngang ở 0,90–0,92 và Tweedie cần ít tồn kho hơn ở 0,94–0,96 | Ủng hộ ở M5; không vững ở VN1 |
+| H3: ML có lợi rõ ở smooth/erratic; TSB đủ tốt ở intermittent | M5: ML tốt nhất ở mọi nhóm. VN1 (vững qua hai cửa sổ): **ngược với giả thuyết**: TSB-NB tốt nhất ở smooth, LightGBM quantile tốt nhất ở intermittent và lumpy (đường đánh đổi); theo SQL từng chuỗi, TSB-NB tốt ở intermittent | Không ủng hộ dạng ban đầu; kết luận phụ thuộc dataset |
 | H4: Thanh lý theo phân vị giảm tồn kho mà mất ít fill rate hơn quy tắc cố định | Đúng trên VN1, rõ nhất ở lumpy; trên M5 hầu như không kích hoạt. Về kinh tế, s\* ≈ 0,91–1,04 | Ủng hộ về KPI; lợi ích kinh tế chưa chứng minh |
 | (bổ sung) Dead-stock tốt hơn quy tắc phân vị cho hàng tồn chết | VN1: giảm tồn kho intermittent nhiều hơn nhưng tăng tuần hết hàng 67%; M5: làm mất fill rate. s\* > 1 | Không ủng hộ trong cửa sổ 26 tuần |
 
 ## 10. Độ vững: cửa sổ kiểm thử thứ hai (việc 2)
 
-*Đang chạy; sẽ cập nhật khi có kết quả* (`code/outputs/logs/rerun_w26.sh`).
+**Cách làm:**
+
+- Bỏ 26 tuần cuối của panel, rồi chạy lại toàn bộ (8 mô hình dự báo lại từ đầu) trên 26 tuần liền trước (`run_pipeline.py --offset 26`).
+- Cửa sổ kiểm thử:
+  - M5: 2015-05-23 → 2015-11-14, 29.917 chuỗi;
+  - VN1: 2023-04-10 → 2023-10-02, 11.442 chuỗi. Cửa sổ này nằm hoàn toàn trong Phase 0, nên không dùng đáp án chính thức.
+- Chạy kịch bản mặc định + lưới τ và 5 chính sách thanh lý; **không** chạy lưới L, H và ngưỡng hòa vốn cho cửa sổ này.
+- Nguồn: `tables/comparison_w26.md`, `tables/stat_tests_w26.md`, `figures/fig_tradeoff_M5_w26.png`, `figures/fig_tradeoff_VN1_w26.png`.
+
+**Bảng 11.** So sánh hai cửa sổ.
+
+| Kết quả | Cửa sổ chính | Cửa sổ thứ hai | Vững? |
+|---|---|---|---|
+| SQL trung bình h = 3, LightGBM quantile (M5 / VN1) | 0,208 / 0,336, tốt nhất | 0,215 / 0,539, tốt nhất | ✅ |
+| Hạng theo chuỗi, M5 h = 3: lgb_quantile / hgb_quantile | 3,40 / 3,66 | 3,50 / 3,72 | ✅ |
+| Hạng theo chuỗi, M5 h = 13: lgb_quantile / hgb_quantile | 3,81 / 3,72 | 3,80 / 3,82 | ✅ ngang nhau |
+| Hạng theo chuỗi, VN1 h = 3, ba mô hình đầu | tsb_nb 3,62; lgb_quantile 3,68; hgb 3,73 | lgb_quantile 3,62; hgb 3,68; tsb_nb 3,72 (chênh < CD 0,098) | ✅ ngang nhau |
+| Hạng theo chuỗi, VN1 h = 13, đứng đầu | tsb_nb 3,36 | tsb_nb 3,45 | ✅ |
+| Hạng theo đường đánh đổi, M5: lgb_quantile / hgb_quantile | 1,0 / 2,0 | 1,2 / 1,8 | ✅ |
+| Hạng theo đường đánh đổi, VN1 (toàn bộ) | **lgb_quantile 1,4**; conformal 3,0; tweedie 3,3; tsb_nb 4,8 | **tsb_nb 1,8**; conformal 2,0; tweedie 3,5; lgb_quantile 3,8 | ❌ |
+| Đứng đầu đường đánh đổi theo nhóm, VN1 | smooth tsb_nb; erratic lgb_quantile; intermittent lgb_quantile; lumpy lgb_quantile | smooth tsb_nb; erratic conformal; intermittent lgb_quantile; lumpy lgb_quantile | ✅ trừ erratic |
+| Spearman M5–VN1 theo đường đánh đổi (toàn bộ / intermittent) | 0,88 / 0,90 | 0,50 (p 0,21) / 0,95 | ❌ toàn bộ; ✅ intermittent |
+| Spearman M5–VN1 theo fill rate ở τ = 0,9 (toàn bộ / intermittent) | 0,69 / 0,83 | 0,93 / 0,93 | Không ổn định |
+| Quy tắc phân vị, VN1, lgb_quantile: tồn kho / Δfill | −4,2% / −0,02 | −1,7% / −0,02 | ✅ ít mất fill; mức giảm nhỏ hơn |
+| dead13, VN1 intermittent: tỷ lệ tuần hết hàng | 0,081 → 0,135 | 0,087 → 0,140 | ✅ |
+| dead13, M5, lgb_quantile: Δfill | −0,66 | −0,46 | ✅ |
+
+**Tồn kho cần để đạt fill rate, cửa sổ thứ hai** (toàn bộ chuỗi):
+
+| | fill 0,92 | fill 0,94 | fill 0,96 |
+|---|---|---|---|
+| M5 | lgb_quantile 1,24; hgb 1,25; tsb_nb, tweedie 1,31 | lgb_quantile 1,49; hgb 1,51; tweedie 1,59 | lgb_quantile 1,80; hgb 1,85; tweedie 1,98 |
+| VN1 | **tsb_nb 1,22**; conformal 1,30; tweedie 1,37; lgb_quantile 1,38 | **tsb_nb 1,63**; tweedie 1,65; conformal 1,71; lgb_quantile 1,79 | **tweedie 2,13**; conformal 2,23; tsb_nb 2,27; lgb_quantile 2,33 |
+
+**Kết luận về độ vững:**
+
+1. **M5 vững.** LightGBM quantile chính xác nhất và cần ít tồn kho nhất ở cả hai cửa sổ. Ở fill rate 0,94–0,96, nó cần ít hơn Tweedie, TSB-NB, ETS và conformal 4–13% (tùy cửa sổ và mức fill); HistGradientBoosting bám sát.
+2. **VN1 — độ chính xác vững.** LightGBM quantile có SQL trung bình thấp nhất. Nhưng xét từng chuỗi, nó chỉ ngang TSB-NB (h = 3) và kém TSB-NB (h = 13) ở cả hai cửa sổ.
+3. **VN1 — hiệu quả tồn kho không vững.**
+   - Ở cửa sổ chính, TSB-NB cần nhiều tồn kho hơn LightGBM quantile 5–10% (fill rate 0,92–0,94).
+   - Ở cửa sổ thứ hai thì ngược lại: LightGBM quantile cần nhiều hơn 10–13%.
+   - [Nhận định nhóm] Trên VN1, chưa có phương pháp nào hiệu quả nhất một cách ổn định; SQL tốt hơn **không** chắc chắn chuyển thành ít tồn kho hơn. Nguyên nhân khác nhau giữa hai cửa sổ chưa được kiểm chứng. Hai giả thuyết:
+     - khác biệt mùa vụ;
+     - Phase 2 không có giá (cửa sổ chính dùng giá điền tiếp từ tuần trước).
+4. **Theo nhóm, VN1:** hai kết luận giữ ở cả hai cửa sổ:
+   - TSB-NB hiệu quả nhất ở nhóm smooth;
+   - LightGBM quantile hiệu quả nhất ở intermittent và lumpy.
+5. **Thanh lý:**
+   - Quy tắc phân vị luôn mất rất ít fill rate.
+   - Dead13 luôn làm tăng mạnh số tuần hết hàng của nhóm intermittent (+61% đến +67%), và luôn làm mất fill rate trên M5.
+6. **Độ nhất quán giữa dataset:** chỉ nhóm intermittent có thứ hạng nhất quán ở cả hai cửa sổ và cả hai cách xếp hạng (ρ = 0,83–0,95). Nhận định "xếp theo đường đánh đổi nhất quán hơn" ở mục 6 **không lặp lại** ở cửa sổ thứ hai.
+
+**Hệ quả khi viết bài** [Nhận định nhóm]:
+
+- Kết luận chính nên dựa trên những điểm vững qua hai cửa sổ: M5; kết quả theo chuỗi của VN1; kết quả theo nhóm smooth / intermittent / lumpy; và các quy tắc thanh lý.
+- Kết quả hiệu quả tồn kho tổng thể của VN1 phải trình bày là **phụ thuộc giai đoạn**.
+
+Thời gian dự báo của cửa sổ thứ hai (VN1, h = 3 / 13, `code/outputs/logs/run_VN1_w26.log`):
+
+- Empirical 28 / 17 s; TSB 14 / 13 s; ETS 1 / 1 s;
+- TSB-NB 29 / 26 s; Tweedie 12 / 11 s; conformal 11 / 13 s;
+- HistGradientBoosting 77 / 129 s; LightGBM quantile 264 / 109 s.
 
 ## 11. Hạn chế và việc còn lại
 
 **Hạn chế**
 
 1. Kiểm định thống kê đã chạy cho SQL và KPI theo chuỗi (mục 2). Chưa có kiểm định cho KPI ở **cùng fill rate**, vì fill rate của từng chuỗi rời rạc và không nội suy ổn định được.
-2. **Một cửa sổ kiểm thử** cho kết quả chính; cửa sổ thứ hai ở mục 10.
+2. **Hai cửa sổ kiểm thử** (mục 10). Kết quả VN1 về hiệu quả tồn kho tổng thể đổi giữa hai cửa sổ; cần thêm cửa sổ nữa nếu muốn kết luận chắc chắn.
 3. **M5 chưa chạy lưới L, H, q_L, k.**
 4. **Nhu cầu bị kiểm duyệt; siêu tham số cố định; HistGradientBoosting dùng mẫu con và early stopping khác.**
 5. **Tầm nhìn 26 tuần quá ngắn** để thấy lợi ích của thanh lý hàng lỗi thời (mục 7.2).
@@ -404,6 +474,6 @@ Ghi chú cho Bảng 9:
 - [x] Xếp hạng theo đường đánh đổi (mục 4, 6).
 - [x] Sửa lỗi Tweedie (mục 1.1).
 - [x] Quy tắc dead-stock (mục 7.1).
-- [ ] Cửa sổ kiểm thử thứ hai (mục 10).
+- [x] Cửa sổ kiểm thử thứ hai (mục 10).
 - [ ] (Tùy chọn) lưới L, H cho M5.
 - [ ] Đọc W3 và bài 20 để định vị lại phần "độ chính xác theo chuỗi ≠ hiệu quả tồn kho" trước khi đưa vào bài (`03_problem_and_gap/research_gap.md` mục 6).
