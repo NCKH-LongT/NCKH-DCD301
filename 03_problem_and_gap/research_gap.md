@@ -68,6 +68,6 @@
 
 - **Không** viết "no study has examined…". Bài 20 và W3 có thể đã làm một phần (benchmark quyết định trên M5). Dùng "limited attention" / "to the best of our knowledge".
 - Trước khi nộp, **cố đọc W3** (SSRN) và bài 20; nếu W3 đã có thanh lý hoặc phân tích theo nhóm nhu cầu thì phải định vị lại.
-- Bài 08, 09, 11, 12, 13 và W3 chưa qua phản biện; kiểm tra xem đã được xuất bản chính thức chưa trước khi nộp.
+- Bài 08, 09, 11, 12, 13 và W3 chưa qua phản biện; kiểm tra xem đã được xuất bản chính thức chưa trước khi nộp. (Kiểm tra 09/10/2026: bài 08, 09, 11, 12, 13 vẫn là preprint; W3 chưa đọc được.)
 - VN1: trích dẫn Vandeput (2024), *VN1 Forecasting – Accuracy Challenge*, DataSource.ai (như bài 08). Lưu ý "VN1" **không** phải dữ liệu Việt Nam.
 - Dataset Việt Nam (phụ lục): nêu rõ nghi ngờ dữ liệu doanh số chưa đầy đủ ("split_1") và giấy phép chưa rõ. Tìm "Vietnam Datathon 2023" trên OpenAlex (06/10/2026) không ra bài nào dùng dataset này.

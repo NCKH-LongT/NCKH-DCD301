@@ -78,6 +78,7 @@ Cách đọc s\*:
 | Thứ hạng giữa dataset theo đường đánh đổi | Spearman ρ giữa **hạng theo đường đánh đổi** (hạng trung bình của lượng tồn kho cần trên các mức fill rate 0,90–0,98; chỉ tính mức có ít nhất 2 phương pháp đạt; phương pháp không đạt thì chia nhau các hạng cuối) | ✅ đã chạy |
 | Cửa sổ kiểm thử thứ hai | Lặp lại toàn bộ trên 26 tuần trước giai đoạn kiểm thử chính | ✅ đã chạy (`06_experiment_results/results.md` mục 10) |
 | Độ ổn định theo kịch bản | Spearman ρ giữa thứ hạng ở L = 2 và L = 1 hoặc 4 (VN1) | ✅ đã tính (`06_experiment_results/results.md`) |
+| Loss theo từng phân vị | Pinball loss chuẩn hóa (như SQL) tính riêng cho từng q, theo chuỗi; trung bình, trung vị và tỷ lệ chuỗi LightGBM quantile tốt hơn TSB-NB, theo nhóm và cửa sổ (`code/per_quantile_loss.py`) | ✅ đã chạy (`06_experiment_results/results.md` mục 2.1) |
 | Kiểm định khác biệt giữa phương pháp | Friedman + Nemenyi CD (q_α từ phân phối studentized range, k = 8 → 3,031) trên SQL, fill rate, tồn kho theo chuỗi; Wilcoxon signed-rank so với LightGBM quantile, hiệu chỉnh Holm; kèm trung vị chênh lệch và tỷ lệ chuỗi thắng/thua (`code/stat_tests.py`) | ✅ đã chạy |
 
 ## 6. Metric hệ thống

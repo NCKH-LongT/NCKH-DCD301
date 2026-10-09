@@ -21,7 +21,7 @@ Quy ước:
    - Kiểm định theo chuỗi xác nhận điều này trên M5 (h = 3).
    - Trên VN1 thì không: xét từng chuỗi, TSB negative binomial ngang (h = 3) hoặc tốt hơn (h = 13). Lợi thế của LightGBM quantile là **ít khi sai rất nặng**.
 2. **Hiệu quả tồn kho ở cùng fill rate:**
-   - M5, **vững qua hai cửa sổ:** LightGBM quantile cần ít tồn kho nhất (hạng theo đường đánh đổi 1,0 và 1,2). Ở fill rate 0,94–0,98, nó cần ít hơn các baseline mạnh 3–13%.
+   - M5, **vững qua hai cửa sổ:** LightGBM quantile cần ít tồn kho nhất (hạng theo đường đánh đổi 1,0 và 1,2). Ở fill rate 0,94–0,96, nó cần ít hơn các baseline mạnh (Tweedie, conformal, TSB-NB, ETS) 4–13% ở cả hai cửa sổ; HistGradientBoosting bám sát (chênh dưới 3%).
    - VN1, **không vững** (mục 10):
      - Cửa sổ chính: LightGBM quantile hạng 1,4; Tweedie nhỉnh hơn ở fill rate 0,90–0,92.
      - Cửa sổ thứ hai: TSB-NB hạng 1,8, conformal 2,0, LightGBM quantile chỉ 3,8.
@@ -157,7 +157,7 @@ Các nhóm khác:
 
 [Nhận định nhóm] Với chuỗi intermittent điển hình, phân vị cao của TSB-NB **không** kém, mà còn tốt hơn LightGBM quantile. Lợi thế của LightGBM quantile ở phân vị cao chỉ là lợi thế **trung bình**, đến từ việc TSB-NB thỉnh thoảng sai rất nặng. Vì vậy, hạng tốt của LightGBM quantile theo đường đánh đổi ở nhóm intermittent (mục 4–5) không thể giải thích bằng "đuôi tốt hơn ở chuỗi điển hình". Một giả thuyết **chưa kiểm chứng**: KPI cộng gộp theo đơn vị nên bị chi phối bởi các chuỗi mà TSB-NB sai nặng.
 
-Kiểm định KPI theo chuỗi ở τ = 0,9 (`tables/stat_tests.md`) cũng cho khác biệt có ý nghĩa thống kê. Tuy vậy, các khác biệt này chủ yếu phản ánh mức phục vụ khác nhau giữa các phương pháp; ví dụ TSB có tồn kho thấp nhất ở 97% chuỗi nhưng fill rate kém nhất. Vì vậy so sánh hiệu quả tồn kho dùng đường đánh đổi (mục 4).
+Kiểm định KPI theo chuỗi ở τ = 0,9 (`tables/stat_tests.md`) cũng cho khác biệt có ý nghĩa thống kê. Tuy vậy, các khác biệt này chủ yếu phản ánh mức phục vụ khác nhau giữa các phương pháp; ví dụ TSB Poisson có tồn kho thấp hơn LightGBM quantile ở 97% chuỗi nhưng có fill rate kém nhất. Vì vậy so sánh hiệu quả tồn kho dùng đường đánh đổi (mục 4).
 
 ## 3. RQ1 — KPI tồn kho ở kịch bản mặc định (không thanh lý)
 
@@ -300,7 +300,7 @@ Nhận xét:
 - M5: gần như không kích hoạt với các mô hình ML, ETS và Empirical (≤ 0,02% nhu cầu). Nó chỉ kích hoạt với TSB và TSB-NB (khoảng 1,1%), làm mất khoảng 0,5 điểm % fill rate.
 - VN1: với các mô hình ML, giảm tồn kho 0,6–12%, mất ≤ 0,1 điểm % fill rate, chạm 2–12% số chuỗi.
 
-**Quy tắc cố định:** trên VN1 mất 0,2–0,7 điểm % fill rate và chạm 42–51% số chuỗi.
+**Quy tắc cố định:** trên VN1, với 4 mô hình ML, mất 0,2–0,7 điểm % fill rate và chạm 42–51% số chuỗi (với các mô hình thống kê: mất 0,02–0,19 điểm %, chạm 16–42% số chuỗi).
 
 **Nhóm lumpy, VN1, LightGBM quantile:**
 
@@ -321,11 +321,11 @@ Kết quả với LightGBM quantile (toàn bộ / intermittent):
 | | VN1 dead13 | VN1 dead26 | M5 dead13 |
 |---|---|---|---|
 | % chuỗi bị thanh lý | 19,3 | 11,2 | 6,2 |
-| Tồn kho so với không thanh lý | −4,0% / −19,3% | −1,3% / −9,9% | −2,5% / −7,1% |
+| Tồn kho so với không thanh lý | −4,0% / −19,4% | −1,3% / −9,9% | −2,5% / −7,1% |
 | Fill rate | 0,948 → 0,947 / 0,950 → 0,942 | 0,948 → 0,948 / 0,950 → 0,947 | 0,956 → 0,949 / 0,944 → 0,927 |
 | Tỷ lệ tuần hết hàng (trên tuần có nhu cầu) | 0,066 → 0,081 / 0,081 → 0,135 | 0,066 → 0,071 / 0,081 → 0,101 | 0,072 → 0,081 / 0,072 → 0,089 |
 
-- Trên VN1, dead13 giảm tồn kho nhóm intermittent mạnh hơn quy tắc phân vị (−19,3% so với −5,9%). Đổi lại, số tuần hết hàng của nhóm này tăng 67%.
+- Trên VN1, dead13 giảm tồn kho nhóm intermittent mạnh hơn quy tắc phân vị (−19,4% so với −5,9%). Đổi lại, tỷ lệ tuần hết hàng của nhóm này tăng 68% (0,081 → 0,135).
 - Trên M5, sản phẩm "ngủ" 13 tuần thường bán lại, nên dead13 làm mất 0,66 điểm % fill rate.
 
 ### 7.2 Ngưỡng giá thu hồi hòa vốn
@@ -351,7 +351,7 @@ Ghi chú cho Bảng 9:
 | Quy tắc | VN1 | M5 |
 |---|---|---|
 | quantile | 0,91–1,04 | — (*) |
-| fixed | 1,00–1,22 | 1,07–1,32 |
+| fixed | 1,00–1,22 | 1,06–1,32 |
 | dead13 | 1,03–1,37 | 1,35–2,08 |
 | dead26 | 1,16–1,47 | 1,76–3,12 |
 
@@ -360,8 +360,8 @@ Ghi chú cho Bảng 9:
 | Quy tắc | Phải đặt lại | Mất doanh số | Lẽ ra còn tồn ở cuối kỳ |
 |---|---|---|---|
 | VN1, quantile | 0,04–0,50 | 0,02–0,06 | 0,44–0,90 |
-| VN1, fixed | 0,35–0,63 | 0,12–0,24 | 0,24–0,42 |
-| VN1, dead13 | 0,02–0,12 | 0,08–0,13 | 0,93–1,05 |
+| VN1, fixed | 0,35–0,63 | 0,12–0,23 | 0,24–0,42 |
+| VN1, dead13 | 0,01–0,12 | 0,08–0,13 | 0,93–1,05 |
 | M5, fixed | 0,57–0,63 | 0,30–0,32 | 0,07–0,11 |
 | M5, dead13 | 0,07–0,22 | 0,86–0,97 | 0,07–0,08 |
 
@@ -420,7 +420,7 @@ Ghi chú cho Bảng 9:
 | H2: Phân vị trực tiếp cần ít tồn kho hơn dự báo điểm + safety stock | M5: đúng ở cả hai cửa sổ (−4,8% / −6,3% ở 0,94). VN1: cửa sổ chính ngang ở 0,90–0,92 và đúng từ 0,94; cửa sổ thứ hai ngang ở 0,90–0,92 và Tweedie cần ít tồn kho hơn ở 0,94–0,96 | Ủng hộ ở M5; không vững ở VN1 |
 | H3: ML có lợi rõ ở smooth/erratic; TSB đủ tốt ở intermittent | M5: ML tốt nhất ở mọi nhóm. VN1 (vững qua hai cửa sổ): **ngược với giả thuyết**: TSB-NB tốt nhất ở smooth, LightGBM quantile tốt nhất ở intermittent và lumpy (đường đánh đổi); theo SQL từng chuỗi, TSB-NB tốt ở intermittent | Không ủng hộ dạng ban đầu; kết luận phụ thuộc dataset |
 | H4: Thanh lý theo phân vị giảm tồn kho mà mất ít fill rate hơn quy tắc cố định | Đúng trên VN1, rõ nhất ở lumpy; trên M5 hầu như không kích hoạt. Về kinh tế, s\* ≈ 0,91–1,04 | Ủng hộ về KPI; lợi ích kinh tế chưa chứng minh |
-| (bổ sung) Dead-stock tốt hơn quy tắc phân vị cho hàng tồn chết | VN1: giảm tồn kho intermittent nhiều hơn nhưng tăng tuần hết hàng 67%; M5: làm mất fill rate. s\* > 1 | Không ủng hộ trong cửa sổ 26 tuần |
+| (bổ sung) Dead-stock tốt hơn quy tắc phân vị cho hàng tồn chết | VN1: giảm tồn kho intermittent nhiều hơn nhưng tăng tuần hết hàng 68%; M5: làm mất fill rate. s\* > 1 | Không ủng hộ trong cửa sổ 26 tuần |
 
 ## 10. Độ vững: cửa sổ kiểm thử thứ hai (việc 2)
 
@@ -473,7 +473,7 @@ Ghi chú cho Bảng 9:
    - LightGBM quantile hiệu quả nhất ở intermittent và lumpy.
 5. **Thanh lý:**
    - Quy tắc phân vị luôn mất rất ít fill rate.
-   - Dead13 luôn làm tăng mạnh số tuần hết hàng của nhóm intermittent (+61% đến +67%), và luôn làm mất fill rate trên M5.
+   - Dead13 luôn làm tăng mạnh số tuần hết hàng của nhóm intermittent (+61% đến +68%), và luôn làm mất fill rate trên M5.
 6. **Độ nhất quán giữa dataset:** chỉ nhóm intermittent có thứ hạng nhất quán ở cả hai cửa sổ và cả hai cách xếp hạng (ρ = 0,83–0,95). Nhận định "xếp theo đường đánh đổi nhất quán hơn" ở mục 6 **không lặp lại** ở cửa sổ thứ hai.
 
 **Hệ quả khi viết bài** [Nhận định nhóm]:

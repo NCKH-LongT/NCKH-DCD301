@@ -28,6 +28,7 @@ data/
 | `profile_datasets.py` | `outputs/data_profile.md`, `data/cache/*.parquet` | Size, sparsity and ADI–CV² classes of M5, VN1 and the Vietnam footwear dataset (appendix); inventory vs sales check |
 | `liquidation_breakeven.py` | `outputs/<DATASET>/{breakeven,series_inventory}.csv` | RQ3: break-even salvage ratio of liquidation (upper/lower bound) over a holding-rate × margin grid; series-level weeks of supply |
 | `stat_tests.py` | `outputs/stat_tests.md`, `outputs/<DATASET>/stat_tests.csv` | Per-series Friedman–Nemenyi and Wilcoxon–Holm tests (SQL, fill rate, inventory) |
+| `per_quantile_loss.py` | `outputs/per_quantile_loss.csv` | Scaled pinball loss per quantile and demand class (lgb_quantile vs tsb_nb), both test windows |
 | `analyze_results.py` | `outputs/comparison.md`, `outputs/fig_tradeoff_<D>.png` | Cross-dataset tables, inventory–fill-rate trade-off, ranking consistency |
 | `run_pipeline.py` | `outputs/<DATASET>/{classes,forecast_metrics,kpi}.csv`, `summary.md` | Full benchmark: panel → ADI–CV² → forecasts → Decision Engine → lost-sales simulation → KPIs |
 

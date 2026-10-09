@@ -14,7 +14,7 @@ This study benchmarked eight probabilistic demand forecasting methods inside one
   - Only the intermittent class had consistent method rankings between M5 and VN1 in both windows (ρ = 0.83–0.95) [R §10].
 - **RQ3 (liquidation).**
   - A quantile-based liquidation rule reduced inventory at almost no loss of fill rate.
-  - Fixed weeks-of-supply and dead-stock rules lost fill rate or raised stockout weeks; the 13-week dead-stock rule raised them by 61–67% for VN1 intermittent series.
+  - Fixed weeks-of-supply and dead-stock rules lost fill rate or raised stockout weeks; the 13-week dead-stock rule raised them by 61–68% for VN1 intermittent series.
   - Within 26 weeks, liquidation paid off only at salvage prices near or above unit cost (s\* ≈ 0.91–1.04 for the quantile rule on VN1) [R §7.2].
 - **RQ4 (sensitivity).**
   - On VN1, fill-rate rankings were stable across lead times (ρ ≥ 0.96), and inventory grew roughly with L + R [R §8].

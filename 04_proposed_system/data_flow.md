@@ -81,12 +81,14 @@ Chuẩn hóa: lag, trung bình và độ lệch trượt được chia cho `scal
 | | M5 (277 tuần) | VN1 (196 tuần) |
 |---|---|---|
 | Kiểm thử | 26 tuần cuối | 26 tuần cuối = Phase 1 + **Phase 2 (đáp án chính thức)** |
-| Kiểm định | 13 tuần ngay trước test | 13 tuần ngay trước test |
-| Huấn luyện | Phần còn lại | Phần còn lại |
+| Validation (ML) | 13 origin cuối có mục tiêu kết thúc trước mỗi mốc cắt | Như M5 |
+| Huấn luyện (ML) | Tối đa 104 origin trước validation (≤ 3 triệu dòng) | Như M5 |
 | Huấn luyện lại | Mỗi 13 tuần (2 khối test) | Mỗi 13 tuần (2 khối, trùng ranh giới Phase 1/Phase 2) |
 | Dự báo | Mỗi tuần, dùng dữ liệu mới nhất | Mỗi tuần |
 
 Huấn luyện lại mỗi 13 tuần thay vì mỗi tuần: theo bài 08, giảm tần suất huấn luyện lại tiết kiệm nhiều chi phí mà ít mất độ chính xác (abstract).
+
+**Cửa sổ kiểm thử thứ hai** (độ vững): bỏ 26 tuần cuối của panel rồi chạy lại toàn bộ trên 26 tuần liền trước (`run_pipeline.py --offset 26`). M5: 2015-05-23 → 2015-11-14; VN1: 2023-04-10 → 2023-10-02 (nằm trong Phase 0). Chi tiết: `06_experiment_results/results.md` mục 10.
 
 ## 7. Mô phỏng tồn kho (mỗi tuần, mỗi chuỗi)
 
@@ -122,7 +124,7 @@ Lưới thay đổi **từng tham số một** quanh kịch bản mặc định.
 | Thanh lý | Số đơn vị thanh lý / tổng nhu cầu; tỷ lệ chuỗi có thanh lý; thay đổi fill rate so với không thanh lý |
 | Ngưỡng hòa vốn thanh lý | Tỷ lệ giá thu hồi / giá vốn tối thiểu để thanh lý có lợi, trên lưới chi phí lưu kho {10, 25, 40}%/năm × biên lợi nhuận {30, 50, 100}%, có cận trên và cận dưới |
 
-Tổng hợp theo dataset × phương pháp × nhóm ADI–CV² (cộng gộp theo đơn vị, nên chuỗi bán nhiều có trọng số lớn hơn); kèm khoảng tin cậy bootstrap 95% theo chuỗi (200 lần). **Chưa làm:** KPI theo giá trị (số lượng × giá) và kiểm định Friedman–Nemenyi (`06_experiment_results/results.md` mục 9). Định nghĩa chính xác: `05_methodology/evaluation_metrics.md`.
+Tổng hợp theo dataset × phương pháp × nhóm ADI–CV² (cộng gộp theo đơn vị, nên chuỗi bán nhiều có trọng số lớn hơn); kèm khoảng tin cậy bootstrap 95% theo chuỗi (200 lần). Kiểm định Friedman–Nemenyi và Wilcoxon–Holm theo chuỗi đã chạy (`06_experiment_results/results.md` mục 2). **Chưa làm:** KPI theo giá trị (số lượng × giá) và kiểm định ở **cùng fill rate** (`results.md` mục 11). Định nghĩa chính xác: `05_methodology/evaluation_metrics.md`.
 
 ## 9. Output lưu trữ
 
@@ -136,6 +138,9 @@ Tổng hợp theo dataset × phương pháp × nhóm ADI–CV² (cộng gộp th
 | `code/outputs/<D>/forecast_metrics.csv` | SQL, RMSSE, độ phủ theo mô hình × horizon × nhóm |
 | `code/outputs/<D>/kpi.csv` | KPI theo mô hình × chính sách × kịch bản × nhóm |
 | `code/outputs/<D>/breakeven.csv`, `series_inventory.csv` | Ngưỡng hòa vốn thanh lý; phân bố số tuần tồn kho theo chuỗi |
+| `code/outputs/<D>/stat_tests.csv`, `code/outputs/stat_tests.md` | Kiểm định theo chuỗi (Friedman–Nemenyi, Wilcoxon–Holm) |
+| `code/outputs/per_quantile_loss.csv` | Loss theo từng phân vị, theo nhóm (LightGBM quantile so với TSB-NB) |
+| `code/outputs/<D>_w26/` | Toàn bộ kết quả của cửa sổ kiểm thử thứ hai |
 
 **Thiết kế cho prototype** (chưa cài đặt; bảng log quyết định theo tuần hiện chỉ nằm trong bộ nhớ khi mô phỏng):
 

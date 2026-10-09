@@ -37,6 +37,7 @@ Phương pháp: `05_methodology/methodology.md`. Bảng và hình trong file nà
 | Ngưỡng hòa vốn thanh lý + phân rã (kịch bản mặc định) | ✅ | ✅ |
 | Bootstrap 95% (200 lần) cho fill rate, tồn kho | ✅ | ✅ |
 | Kiểm định Friedman–Nemenyi / Wilcoxon theo chuỗi (`stat_tests.py`) | ✅ | ✅ |
+| Loss theo từng phân vị, h = 3 (`per_quantile_loss.py`; LightGBM quantile, HistGradientBoosting, TSB, TSB-NB) | ✅ hai cửa sổ | ✅ hai cửa sổ |
 | Cửa sổ kiểm thử thứ hai (`--offset 26`, lưới τ, 5 chính sách; không có lưới L/H và ngưỡng hòa vốn) | ✅ 29.917 chuỗi, 2015-05-23 → 2015-11-14 | ✅ 11.442 chuỗi, 2023-04-10 → 2023-10-02 |
 
 **Lịch sử chạy:**

@@ -63,7 +63,7 @@ Thus, on VN1 the global ML models are **not** more accurate than TSB for a typic
 
 ## 5.3 Inventory efficiency at equal fill rate (RQ1)
 
-At τ = 0.9 the methods do not reach the same fill rate. For example, on M5 the fill rate ranges from 0.891 (TSB-P) to 0.967 (LGB-C) [R §3 T3]. Per-series KPI tests at τ = 0.9 are significant but mostly reflect these different service levels; for instance, TSB-P holds the least inventory on 97% of the series but has the lowest fill rate [R §2]. The default-scenario KPIs are therefore given in the Appendix, and the comparison below uses the trade-off curves.
+At τ = 0.9 the methods do not reach the same fill rate. For example, on M5 the fill rate ranges from 0.891 (TSB-P) to 0.967 (LGB-C) [R §3 T3]. Per-series KPI tests at τ = 0.9 are significant but mostly reflect these different service levels; for instance, TSB-P holds less inventory than LGB-Q on 97% of the series but has the lowest fill rate [R §2]. The default-scenario KPIs are therefore given in the Appendix, and the comparison below uses the trade-off curves.
 
 ![Figure 1a](../06_experiment_results/figures/fig_tradeoff_M5.png)
 ![Figure 1b](../06_experiment_results/figures/fig_tradeoff_VN1.png)
@@ -169,7 +169,7 @@ Thus, whether a method ranking transfers from M5 to VN1 depends on the class and
 |---|---|---|---|---|---|---|
 | M5 | none | 1.581 | 0 | 0.956 | 0.072 | — |
 | M5 | quantile | 1.579 | 0.02 | 0.956 | 0.072 | unstable (\*) |
-| M5 | fixed (k = 26) | 1.545 | 0.79 | 0.953 | 0.077 | 1.07–1.32 |
+| M5 | fixed (k = 26) | 1.545 | 0.79 | 0.953 | 0.077 | 1.06–1.32 |
 | M5 | dead13 | 1.542 | 0.67 | 0.949 | 0.081 | 1.35–2.08 |
 | VN1 | none | 3.405 | 0 | 0.948 | 0.066 | — |
 | VN1 | quantile | 3.261 | 1.18 | 0.948 | 0.066 | 0.91–1.04 |
@@ -180,7 +180,7 @@ Thus, whether a method ranking transfers from M5 to VN1 depends on the class and
 
 **Quantile rule.** On M5 the rule almost never triggers for the ML models, ETS and EMP (≤ 0.02% of demand). It triggers only for TSB-P and TSB-NB (about 1.1% of demand) and then costs about 0.5 percentage points (pp) of fill rate [R §7]. On VN1, with the ML models, it reduces inventory by 0.6–12%, costs at most 0.1 pp of fill rate, and touches 2–12% of the series [R §7].
 
-**Fixed rule.** On VN1 the fixed rule costs 0.2–0.7 pp of fill rate and touches 42–51% of the series [R §7].
+**Fixed rule.** On VN1, with the four ML forecasts, the fixed rule costs 0.2–0.7 pp of fill rate and touches 42–51% of the series [R §7].
 
 **Lumpy series** show the largest effects (VN1, LGB-Q):
 
@@ -193,7 +193,7 @@ Thus, whether a method ranking transfers from M5 to VN1 depends on the class and
 
 **Dead-stock rule.** We added the dead-stock rule because 28.2% of VN1 series have no demand in the 22 KPI weeks, while the quantile rule touches only 5.4% of the series [R §7.1].
 
-- On VN1 intermittent series, dead13 cuts inventory more than the quantile rule (−19.3% vs. −5.9%) but raises the stockout rate from 0.081 to 0.135 (+67%).
+- On VN1 intermittent series, dead13 cuts inventory more than the quantile rule (−19.4% vs. −5.9%) but raises the stockout rate from 0.081 to 0.135 (+68%).
 - On M5, products that have not sold for 13 weeks usually sell again, so dead13 costs 0.66 pp of fill rate [R §7.1].
 
 **Break-even salvage ratio.** For every rule and both datasets, s\* is close to or above 1. Liquidation pays off within the 26-week window only if stock is sold at roughly unit cost or more [R §7.2]. The decomposition per liquidated unit explains why [R §7.2 T10]:
@@ -247,7 +247,7 @@ The comparison of the two windows [R §10 T11] separates robust from period-depe
 - VN1 per-series ranks: TSB-NB, LGB-Q and HGB-Q are within the CD at h = 3; TSB-NB leads at h = 13 (3.36 / 3.45).
 - M5 frontier ranks: LGB-Q 1.0 / 1.2, HGB-Q 2.0 / 1.8.
 - VN1 frontier leaders by class: TSB-NB on smooth series; LGB-Q on intermittent and lumpy series.
-- Liquidation: the quantile rule loses almost no fill rate (VN1, LGB-Q: inventory −4.2% / −1.7%, Δfill −0.02 pp in both windows). Dead13 raises the stockout rate of VN1 intermittent series (0.081 → 0.135 and 0.087 → 0.140, i.e. +61% to +67%) and always costs fill rate on M5 (−0.66 / −0.46 pp).
+- Liquidation: the quantile rule loses almost no fill rate (VN1, LGB-Q: inventory −4.2% / −1.7%, Δfill −0.02 pp in both windows). Dead13 raises the stockout rate of VN1 intermittent series (0.081 → 0.135 and 0.087 → 0.140, i.e. +61% to +68%) and always costs fill rate on M5 (−0.66 / −0.46 pp).
 - Cross-dataset consistency of the intermittent class (ρ = 0.90 / 0.95 by frontier rank).
 
 **Not robust:**

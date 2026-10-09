@@ -8,7 +8,7 @@
 
 **Mean errors hide what happens to a typical series.** The VN1 results show how mean SQL and per-series ranks can disagree: the global ML models avoid very large errors, while TSB-NB is better on a typical intermittent series (Section 5.2). A benchmark that reports only mean scaled errors would conclude that LGB-Q dominates VN1. Reporting medians, ranks and win shares alongside means changes that conclusion [Nhận định nhóm].
 
-**Equal-τ comparisons are misleading.** At τ = 0.9, the methods reach fill rates between 0.891 and 0.967 on M5 [R §3 T3], because each calibrates its quantiles differently (Table 3). Comparing inventory at equal τ would reward under-covering methods such as TSB-P, which holds the least stock on 97% of the series but has the lowest fill rate [R §2]. Trade-off curves and the inventory needed at a target fill rate remove this calibration effect. Neither requires a cost assumption [Nhận định nhóm].
+**Equal-τ comparisons are misleading.** At τ = 0.9, the methods reach fill rates between 0.891 and 0.967 on M5 [R §3 T3], because each calibrates its quantiles differently (Table 3). Comparing inventory at equal τ would reward under-covering methods such as TSB-P, which holds less stock than LGB-Q on 97% of the series but has the lowest fill rate [R §2]. Trade-off curves and the inventory needed at a target fill rate remove this calibration effect. Neither requires a cost assumption [Nhận định nhóm].
 
 **Direct quantiles beat point forecast plus safety stock where tails matter.** LGB-T and LGB-Q share data, features and training. On M5, LGB-Q needs 4.8% (main) and 6.3% (second window) less inventory than LGB-T at fill rate 0.94 (computed from Table 5). On VN1, LGB-T cannot exceed fill rate 0.952 even at τ = 0.99 [R §4]. The normal safety stock is adequate at moderate service levels but fails at high ones on intermittent data, where only learned or over-dispersed tails reach fill rates of 0.96–0.98 [Nhận định nhóm].
 
@@ -21,7 +21,7 @@ The following recommendations are [Nhận định nhóm], conditional on the sce
 3. **Service targets should be set with the steep end of the trade-off curve in view.** On VN1, moving the fill rate from 0.971 to 0.992 more than doubles inventory (4.77 → 10.37 weeks) [R §8].
 4. **Liquidation rules should be forecast-based and conservative.** Two rules lose service:
    - the fixed weeks-of-supply rule clears stock that is later re-ordered or would have been sold;
-   - the dead-stock rule raises stockout weeks for intermittent series by 61–67% and loses fill rate on M5, where "dormant" items often sell again [R §7.1, §10].
+   - the dead-stock rule raises stockout weeks for intermittent series by 61–68% and loses fill rate on M5, where "dormant" items often sell again [R §7.1, §10].
 
    The quantile rule loses almost no fill rate. Even so, within 26 weeks it pays off only if stock can be salvaged near unit cost (s\* ≈ 0.91–1.04 on VN1) [R §7.2]. Liquidation should therefore be justified by factors outside this simulation, such as obsolescence, space or product discontinuation, not by holding cost alone.
 5. **Transparency.** Every recommendation (ORDER / HOLD / LIQUIDATE) follows from comparing the inventory position with two forecast quantiles, so it can be explained to a planner. This contrasts with reinforcement-learning policies, whose authors note limited interpretability [P21 p. 19].

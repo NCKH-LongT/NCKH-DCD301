@@ -4,7 +4,7 @@
 
 | Nội dung | Trả lời |
 |---|---|
-| **Model dùng là gì?** | **LightGBM hồi quy phân vị** (global model). Baseline: 3 phương pháp thống kê (Empirical, ETS, TSB với Poisson và negative binomial) và 3 phương pháp machine learning (LightGBM-Tweedie + safety stock chuẩn, LightGBM-Tweedie + conformal, HistGradientBoosting quantile). **Không dùng deep learning** (mục 4) |
+| **Model dùng là gì?** | **LightGBM hồi quy phân vị** (global model). Baseline: 4 phương pháp thống kê (Empirical, ETS, TSB với Poisson, TSB với negative binomial) và 3 phương pháp machine learning (LightGBM-Tweedie + safety stock chuẩn, LightGBM-Tweedie + conformal, HistGradientBoosting quantile). **Không dùng deep learning** (mục 4) |
 | **Vì sao chọn?** | LightGBM được cả top 50 M5 Accuracy dùng (bài 02, tr. 1). Lời giải hạng nhất M5 Uncertainty huấn luyện LightGBM **riêng cho từng phân vị** (bài 03, tr. 14). Mô hình nhẹ, chạy trên CPU, dùng được đặc trưng ngoại sinh (giá, sự kiện, thuộc tính) |
 | **Model lấy từ đâu?** | Thư viện mã nguồn mở `lightgbm` và `scikit-learn`; các phương pháp thống kê được cài đặt vector hóa bằng numpy/scipy trong `code/f2d/models.py`. Không có model đóng hay API trả phí |
 | **Input?** | Bảng đặc trưng theo chuỗi × tuần: 27 đặc trưng (M5), 21 (VN1), 19 đặc trưng chung (`data_flow.md` mục 5) |
@@ -17,7 +17,7 @@
 - **Dự báo trực tiếp tổng nhu cầu** D_h = Σ qty(o … o+h−1) với h = L + R (nhập hàng) và h = H (thanh lý). **Không cộng phân vị theo tuần**, vì phân vị của tổng khác tổng các phân vị.
 - **Một mô hình cho mỗi (dataset, horizon, phân vị, khối huấn luyện)**; hàm mục tiêu `objective="quantile"`, `alpha` = phân vị. Mục tiêu được chuẩn hóa D_h / `scale` và cắt ở phân vị 99,9 của tập huấn luyện (`data_flow.md` mục 5).
 - **Chống chồng chéo phân vị:** sắp xếp lại các phân vị của mỗi dự báo cho tăng dần.
-- **Siêu tham số cố định** (`LGB_PARAMS` trong `code/f2d/models.py`: learning rate 0,05; 63 lá; tối thiểu 200 mẫu mỗi lá; feature/bagging fraction 0,8; λ₂ = 1), tối đa 1.000 vòng với **early stopping** 50 vòng trên 13 origin validation ngay trước mốc cắt. LightGBM-Tweedie và LightGBM-conformal dùng cùng tham số, cùng đặc trưng, cùng các origin huấn luyện/validation. HistGradientBoosting dùng cùng đặc trưng và mục tiêu nhưng khác ở ba điểm do tốc độ (mục 3). Không tinh chỉnh siêu tham số riêng cho mô hình nào.
+- **Siêu tham số cố định** (`LGB_PARAMS` trong `code/f2d/models.py`: learning rate 0,05; 63 lá; tối thiểu 200 mẫu mỗi lá; feature/bagging fraction 0,8; λ₂ = 1), tối đa 1.000 vòng với **early stopping** 50 vòng trên 13 origin validation ngay trước mốc cắt. LightGBM-Tweedie và LightGBM-conformal dùng cùng tham số, cùng đặc trưng, cùng các origin huấn luyện/validation. HistGradientBoosting dùng cùng đặc trưng và mục tiêu nhưng khác ở bốn điểm (dữ liệu huấn luyện, learning rate, early stopping, horizon đã chạy; mục 3). Không tinh chỉnh siêu tham số riêng cho mô hình nào.
 - **Rủi ro đã biết:** bài 12 (tr. 13, 19) cho thấy LightGBM **dạng distributional** kém trên dữ liệu rời rạc. Đề tài dùng **quantile regression** (cách khác), và kiểm chứng bằng hai đối chứng ML: conformal (dự báo điểm + hiệu chỉnh phân phối) và HistGradientBoosting (một thư viện boosting khác).
 
 ## 3. Baseline
@@ -27,7 +27,7 @@
 | Thống kê | **Empirical** | Phân vị thực nghiệm của các tổng h tuần trong 104 tuần gần nhất của chuỗi | Mốc tối thiểu |
 | Thống kê | **ETS(A,N,N)** (α chọn theo từng chuỗi trên lưới) | Phân phối chuẩn quanh tổng dự báo; phương sai của tổng h tuần theo công thức ETS(A,N,N) | Exponential smoothing vẫn cạnh tranh ở cấp product–store (bài 02, tr. 2) |
 | Thống kê | **TSB + Poisson** | Trung bình tuần p·z từ TSB → Poisson cho tổng | Chuẩn cho nhu cầu rời rạc, xử lý hàng lỗi thời (bài 16, abstract; bài 23, tr. 2) |
-| Thống kê | **TSB + negative binomial** (`tsb_nb`) | Tổng h tuần có trung bình h·p·z, phương sai h·(p·(var_z + z²) − (p·z)²) với var_z là phương sai lượng bán của chuỗi → negative binomial | Poisson cho khoảng dự báo quá hẹp với nhu cầu lumpy |
+| Thống kê | **TSB + negative binomial** (`tsb_nb`) | Tổng h tuần có trung bình h·p·z, phương sai h·(p·(var_z + z²) − (p·z)²) với var_z là phương sai cỡ đơn trên các tuần có bán trước mốc cắt → negative binomial (Poisson nếu không quá phân tán) | Poisson cho khoảng dự báo quá hẹp với nhu cầu lumpy |
 | ML | **LightGBM-Tweedie + safety stock chuẩn** | Dự báo điểm (mục tiêu D_h / s như mô hình quantile, từ v2.4) → μ + z_q·σ, σ từ phần dư validation của từng chuỗi | Cách của đội thắng M5 Accuracy (bài 02, tr. 9) + safety stock truyền thống. **Ablation chính**: phân vị so với dự báo điểm + safety stock |
 | ML | **LightGBM-Tweedie + conformal** (`lgb_conformal`) | μ + scale · phân vị của phần dư chuẩn hóa trên validation, tách theo nhóm ADI–CV² | Cách hiện đại để có khoảng dự báo từ mô hình điểm, không giả định phân phối chuẩn |
 | ML | **HistGradientBoosting quantile** (`hgb_quantile`, scikit-learn) | Cùng mục tiêu chuẩn hóa như LightGBM quantile; huấn luyện trên mẫu ngẫu nhiên **tối đa 300.000 dòng**, learning rate 0,1, tối đa 300 vòng, early stopping trên 10% dữ liệu huấn luyện (không phải 13 origin validation); chỉ chạy ở horizon mặc định (h = 3, 13) | Kiểm tra kết quả **không phụ thuộc riêng vào LightGBM** |

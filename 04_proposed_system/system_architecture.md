@@ -18,7 +18,7 @@ Trạng thái: ✅ đã cài đặt trong `code/`; 🔲 mới ở mức thiết 
 | ✅ **AI Forecasting Service** | Huấn luyện và dự báo phân vị bằng nhiều mô hình | LightGBM, scikit-learn (HistGradientBoosting); ETS, TSB, Empirical cài vector hóa bằng numpy/scipy; chỉ dùng CPU |
 | ✅ **Decision Engine** | Order-up-to + thanh lý từ phân vị; tính xác suất hết hàng | Python |
 | ✅ **Inventory Simulator** | Mô phỏng nhiều kỳ (lost sales, lead time) để backtest chính sách | Python (numpy, vector hóa theo chuỗi) |
-| ✅ **Evaluator** | Sai số dự báo, KPI tồn kho không đơn vị tiền, đường đánh đổi, ngưỡng hòa vốn thanh lý; kiểm định thống kê **chưa cài đặt** | numpy, scipy, matplotlib |
+| ✅ **Evaluator** | Sai số dự báo, KPI tồn kho không đơn vị tiền, đường đánh đổi, ngưỡng hòa vốn thanh lý, kiểm định theo chuỗi (Friedman–Nemenyi, Wilcoxon–Holm; `stat_tests.py`), loss theo từng phân vị (`per_quantile_loss.py`) | numpy, scipy, matplotlib |
 | 🔲 **Backend API** | Trả khuyến nghị và KPI dạng JSON | FastAPI |
 | 🔲 **Frontend Dashboard** | Danh sách đặt hàng/thanh lý, KPI, bảng benchmark | Streamlit |
 | ✅ **Experiment tracking** | Lưu cấu hình, tham số, kết quả mỗi lần chạy | Tham số dòng lệnh + log trong `code/outputs/logs/` |

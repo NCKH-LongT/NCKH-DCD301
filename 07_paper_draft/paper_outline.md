@@ -35,7 +35,7 @@ Source: `results.md` §0 and §10 (Table 11).
 | M2 | **VN1 accuracy:** LGB-Q has the lowest **mean** SQL, but **per series** TSB with negative-binomial demand (TSB-NB) is on par (h = 3) or better (h = 13). The advantage of the ML models is robustness (fewer very large errors). Report mean **and** median / ranks | [R §2], [R §10 T11] | Robust |
 | M3 | **VN1 aggregate inventory efficiency is period-dependent:** LGB-Q is best in the main window, TSB-NB in the second window. No method wins consistently | [R §4], [R §10] | Robust *as a finding of instability* |
 | M4 | **VN1 by demand class (robust):** TSB-NB is most inventory-efficient for smooth series; LGB-Q for intermittent and lumpy series. Erratic: winner changes between windows | [R §5], [R §10 T11] | Robust (except erratic) |
-| M5 | **Liquidation:** the quantile rule barely reduces fill rate; the fixed weeks-of-supply rule and the dead-stock rule lose fill rate or add stockout weeks (dead13: +61–67% stockout weeks for VN1 intermittent series). Break-even salvage ratio s\* ≈ 0.91–1.04 of unit cost for the quantile rule (VN1): within 26 weeks **no economic benefit of liquidation is demonstrated** | [R §7], [R §10] | Robust |
+| M5 | **Liquidation:** the quantile rule barely reduces fill rate; the fixed weeks-of-supply rule and the dead-stock rule lose fill rate or add stockout weeks (dead13: +61–68% stockout weeks for VN1 intermittent series). Break-even salvage ratio s\* ≈ 0.91–1.04 of unit cost for the quantile rule (VN1): within 26 weeks **no economic benefit of liquidation is demonstrated** | [R §7], [R §10] | Robust |
 | M6 | **Cross-dataset consistency:** only the intermittent class has consistent method rankings between M5 and VN1 in both windows (ρ = 0.83–0.95). Do **not** claim that frontier-based rankings are more consistent in general | [R §6 T7], [R §10] | Robust (intermittent only) |
 
 **Do not claim:** (i) LGB-Q is uniformly best on VN1; (ii) "better SQL implies less inventory" or its negation as a general law (may overlap with Theodorou et al., 2025, unread); (iii) liquidation is profitable; (iv) frontier rankings are more consistent across datasets.
@@ -70,7 +70,7 @@ From `03_problem_and_gap/research_questions.md` (unchanged wording).
 | 6 | `discussion.md` | Practical implications; comparison with papers 11, 12, 21, 22; limitations | 1,300 | — |
 | 7 | `conclusion.md` | Answers to RQs; future work | 500 | — |
 | — | References | Below (§6) | — | — |
-| App. | (later) | Default-scenario KPIs at τ = 0.9 ([R §3 T3]); full trade-off tables ([CF], [CW26]); Vietnamese footwear dataset (description only) | — | — |
+| App. | (not yet written; referenced from `methodology.md` §3.4 and `results.md` §5.3) | A1 Default-scenario KPIs at τ = 0.9 ([R §3 T3]); A2 Tweedie fix before/after ([R §1.1], `tables/tweedie_fix_before_after.csv`); A3 per-quantile loss by class ([R §2.1]); A4 full trade-off tables by class ([CF], [CW26]); A5 Vietnamese footwear dataset (description only) | — | — |
 
 ## 5. Main tables and figures (8)
 
@@ -134,4 +134,7 @@ Method references (not in `02_related_work/`; cited in `methodology.md`):
 - [x] Verify the references previously marked [Chưa kiểm chứng] (09/10/2026, see §6).
 - [ ] Read Goltsos et al. (2022) and Kourentzes et al. (2020) in full before citing beyond the abstract / repository description.
 - [ ] Add 2–3 papers from the target journal.
+- [ ] Draw the pipeline figure referenced as "Fig. X" in `methodology.md` §3.1 (from `04_proposed_system/diagrams/architecture.mmd`) and renumber figures.
+- [ ] Write the Appendix (A1–A5, §4 above).
+- [x] Cross-check of all draft numbers against `06_experiment_results/tables/` (09/10/2026). Five rounding errors were corrected in `06_experiment_results/results.md` (and in the draft where used): M5 fixed s\* lower end 1.06; VN1 fixed lost sales 0.12–0.23; VN1 dead13 re-orders 0.01–0.12; VN1 dead13 stockout +68% and inventory −19.4%. The "TSB-P 97%" statement now says "less inventory than LGB-Q", and the fixed-rule range is restricted to the ML forecasts.
 - [ ] Optional experiments (not run): L, H grid for M5; break-even for the second window; a third test window.

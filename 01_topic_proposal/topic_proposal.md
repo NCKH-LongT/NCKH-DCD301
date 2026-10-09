@@ -1,6 +1,6 @@
 # Topic Proposal
 
-> Phiên bản v2.2 (09/10/2026). Lịch sử thay đổi: `topic_revision_log.md`. Thiết kế chi tiết: `05_methodology/`; kết quả: `06_experiment_results/`.
+> Phiên bản v2.5 (09/10/2026); nội dung đề tài không đổi từ v2.2, các bản sau bổ sung thực nghiệm và bản nháp bài báo. Lịch sử thay đổi: `topic_revision_log.md`. Thiết kế chi tiết: `05_methodology/`; kết quả: `06_experiment_results/`.
 
 ## 1. Group Information
 

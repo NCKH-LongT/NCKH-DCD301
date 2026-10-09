@@ -82,4 +82,4 @@ Về mô hình, có hai bằng chứng trái chiều về LightGBM xác suất:
 
 - Bài 03 (tr. 14): lời giải hạng nhất M5 Uncertainty là LightGBM **theo từng phân vị**.
 - Bài 12 (tr. 13, 19): LightGBM **dạng distributional** không cạnh tranh; TiDE + Tweedie tốt nhất.
-- Đề tài dùng cách giống bài 03, và nên có TiDE hoặc DeepAR làm baseline.
+- Đề tài dùng cách giống bài 03 (LightGBM theo từng phân vị). **Không** đưa TiDE/DeepAR vào benchmark vì chi phí tính toán (`04_proposed_system/ai_model_integration.md` mục 4); đây là hạn chế được nêu trong bài (`07_paper_draft/discussion.md` mục 6.4).
