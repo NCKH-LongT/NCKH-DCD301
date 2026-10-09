@@ -127,6 +127,36 @@ Ghi chú cho Bảng 2:
 - Trên M5, LightGBM quantile và HistGradientBoosting cũng tốt nhất theo trung vị, ở mọi nhóm và cả hai horizon.
 - [Nhận định nhóm] Trên VN1, mô hình ML global **không** chính xác hơn TSB ở chuỗi rời rạc điển hình. Lợi thế của nó là **độ vững**: ít khi sai rất nặng. Điều này phù hợp với nhận xét của bài 12 rằng chưa có kiến trúc global model được thiết lập cho chuỗi rời rạc (tr. 2). Khi viết bài, cần báo cáo cả trung bình và trung vị/hạng.
 
+### 2.1 Loss theo từng phân vị (h = 3)
+
+Cách làm (`code/per_quantile_loss.py`, kết quả `tables/per_quantile_loss.csv`):
+
+- Với mỗi chuỗi, tính pinball loss ở từng phân vị q, trung bình trên các origin, chia cho h · mean|Δy| như SQL.
+- So sánh LightGBM quantile với TSB-NB theo nhóm, ở cả hai cửa sổ.
+
+**VN1, nhóm intermittent:**
+
+| q | Cửa sổ | Trung bình lgb_q / tsb_nb | Trung vị lgb_q / tsb_nb | % chuỗi lgb_q tốt hơn |
+|---|---|---|---|---|
+| 0,9 | chính | 0,441 / 0,492 | 0,142 / 0,122 | 29,7 |
+| 0,99 | chính | 0,206 / 0,321 | 0,064 / 0,025 | 24,1 |
+| 0,9 | thứ hai | 0,978 / 1,434 | 0,147 / 0,134 | 33,1 |
+| 0,99 | thứ hai | 0,678 / 1,241 | 0,052 / 0,027 | 29,4 |
+
+Ở mọi phân vị của nhóm intermittent VN1:
+
+- LightGBM quantile chỉ tốt hơn TSB-NB ở 24–33% chuỗi (cửa sổ chính) và 29–34% chuỗi (cửa sổ thứ hai).
+- Theo trung vị, lợi thế của TSB-NB **lớn nhất ở phân vị cao** (q = 0,99).
+- Theo trung bình, LightGBM quantile tốt hơn ở mọi phân vị, chênh lệch cũng lớn nhất ở q = 0,99.
+
+Các nhóm khác:
+
+- VN1 lumpy: lgb_q tốt hơn ở 41–46% (chính) và 46–53% (thứ hai) số chuỗi.
+- VN1 erratic: 60–76%.
+- M5 toàn bộ: 53–64% (chính) và 51–61% (thứ hai); ở q = 0,99 chỉ khoảng 51–53%.
+
+[Nhận định nhóm] Với chuỗi intermittent điển hình, phân vị cao của TSB-NB **không** kém, mà còn tốt hơn LightGBM quantile. Lợi thế của LightGBM quantile ở phân vị cao chỉ là lợi thế **trung bình**, đến từ việc TSB-NB thỉnh thoảng sai rất nặng. Vì vậy, hạng tốt của LightGBM quantile theo đường đánh đổi ở nhóm intermittent (mục 4–5) không thể giải thích bằng "đuôi tốt hơn ở chuỗi điển hình". Một giả thuyết **chưa kiểm chứng**: KPI cộng gộp theo đơn vị nên bị chi phối bởi các chuỗi mà TSB-NB sai nặng.
+
 Kiểm định KPI theo chuỗi ở τ = 0,9 (`tables/stat_tests.md`) cũng cho khác biệt có ý nghĩa thống kê. Tuy vậy, các khác biệt này chủ yếu phản ánh mức phục vụ khác nhau giữa các phương pháp; ví dụ TSB có tồn kho thấp nhất ở 97% chuỗi nhưng fill rate kém nhất. Vì vậy so sánh hiệu quả tồn kho dùng đường đánh đổi (mục 4).
 
 ## 3. RQ1 — KPI tồn kho ở kịch bản mặc định (không thanh lý)

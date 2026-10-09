@@ -1,0 +1,118 @@
+D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\evaluate.py:13: RuntimeWarning: Mean of empty slice
+  return np.nanmean(np.abs(d), 1), np.nanmean(d ** 2, 1)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\per_quantile_loss.py:48: RuntimeWarning: Mean of empty slice
+  l = np.nanmean(pin, axis=1) / (h * s_abs[:, None])          # series × quantile
+D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\evaluate.py:13: RuntimeWarning: Mean of empty slice
+  return np.nanmean(np.abs(d), 1), np.nanmean(d ** 2, 1)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\per_quantile_loss.py:48: RuntimeWarning: Mean of empty slice
+  l = np.nanmean(pin, axis=1) / (h * s_abs[:, None])          # series × quantile
+D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\evaluate.py:13: RuntimeWarning: Mean of empty slice
+  return np.nanmean(np.abs(d), 1), np.nanmean(d ** 2, 1)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\per_quantile_loss.py:48: RuntimeWarning: Mean of empty slice
+  l = np.nanmean(pin, axis=1) / (h * s_abs[:, None])          # series × quantile
+D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\evaluate.py:13: RuntimeWarning: Mean of empty slice
+  return np.nanmean(np.abs(d), 1), np.nanmean(d ** 2, 1)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\per_quantile_loss.py:48: RuntimeWarning: Mean of empty slice
+  l = np.nanmean(pin, axis=1) / (h * s_abs[:, None])          # series × quantile
+dataset window        group    q  mean_lgb_quantile  mean_tsb_nb  median_lgb_quantile  median_tsb_nb  lgbq_better_than_tsbnb_share
+     M5   main          all 0.50              0.357        0.389                0.275          0.291                         0.639
+     M5   main          all 0.80              0.289        0.333                0.208          0.219                         0.626
+     M5   main          all 0.90              0.204        0.252                0.135          0.144                         0.608
+     M5   main          all 0.95              0.137        0.185                0.082          0.088                         0.593
+     M5   main          all 0.99              0.054        0.096                0.023          0.023                         0.527
+     M5   main       smooth 0.50              0.287        0.306                0.260          0.273                         0.643
+     M5   main       smooth 0.80              0.219        0.238                0.191          0.198                         0.619
+     M5   main       smooth 0.90              0.147        0.166                0.123          0.128                         0.600
+     M5   main       smooth 0.95              0.093        0.109                0.073          0.077                         0.583
+     M5   main       smooth 0.99              0.029        0.040                0.020          0.021                         0.512
+     M5   main      erratic 0.50              0.279        0.323                0.238          0.283                         0.781
+     M5   main      erratic 0.80              0.225        0.255                0.185          0.206                         0.704
+     M5   main      erratic 0.90              0.158        0.188                0.123          0.148                         0.698
+     M5   main      erratic 0.95              0.103        0.130                0.075          0.099                         0.710
+     M5   main      erratic 0.99              0.035        0.048                0.021          0.032                         0.723
+     M5   main intermittent 0.50              0.473        0.521                0.309          0.322                         0.595
+     M5   main intermittent 0.80              0.401        0.489                0.239          0.254                         0.611
+     M5   main intermittent 0.90              0.296        0.393                0.156          0.170                         0.591
+     M5   main intermittent 0.95              0.209        0.310                0.095          0.103                         0.571
+     M5   main intermittent 0.99              0.096        0.194                0.027          0.026                         0.487
+     M5   main        lumpy 0.50              0.387        0.427                0.298          0.330                         0.696
+     M5   main        lumpy 0.80              0.326        0.367                0.239          0.263                         0.676
+     M5   main        lumpy 0.90              0.233        0.274                0.163          0.188                         0.667
+     M5   main        lumpy 0.95              0.155        0.196                0.099          0.122                         0.668
+     M5   main        lumpy 0.99              0.059        0.087                0.029          0.037                         0.664
+    VN1   main          all 0.50              0.428        0.487                0.220          0.244                         0.459
+    VN1   main          all 0.80              0.445        0.512                0.208          0.213                         0.436
+    VN1   main          all 0.90              0.371        0.442                0.156          0.152                         0.411
+    VN1   main          all 0.95              0.289        0.367                0.113          0.101                         0.401
+    VN1   main          all 0.99              0.147        0.247                0.048          0.032                         0.346
+    VN1   main       smooth 0.50              0.430        0.493                0.341          0.370                         0.678
+    VN1   main       smooth 0.80              0.364        0.412                0.272          0.274                         0.532
+    VN1   main       smooth 0.90              0.264        0.313                0.192          0.184                         0.481
+    VN1   main       smooth 0.95              0.178        0.232                0.126          0.117                         0.461
+    VN1   main       smooth 0.99              0.066        0.120                0.044          0.034                         0.361
+    VN1   main      erratic 0.50              0.391        0.526                0.265          0.342                         0.759
+    VN1   main      erratic 0.80              0.358        0.465                0.227          0.276                         0.668
+    VN1   main      erratic 0.90              0.272        0.361                0.162          0.192                         0.654
+    VN1   main      erratic 0.95              0.191        0.272                0.107          0.132                         0.657
+    VN1   main      erratic 0.99              0.076        0.139                0.038          0.046                         0.595
+    VN1   main intermittent 0.50              0.417        0.438                0.125          0.140                         0.294
+    VN1   main intermittent 0.80              0.495        0.532                0.165          0.162                         0.325
+    VN1   main intermittent 0.90              0.441        0.492                0.142          0.122                         0.297
+    VN1   main intermittent 0.95              0.364        0.431                0.119          0.081                         0.280
+    VN1   main intermittent 0.99              0.206        0.321                0.064          0.025                         0.241
+    VN1   main        lumpy 0.50              0.478        0.570                0.174          0.186                         0.435
+    VN1   main        lumpy 0.80              0.463        0.587                0.165          0.178                         0.447
+    VN1   main        lumpy 0.90              0.372        0.499                0.124          0.132                         0.449
+    VN1   main        lumpy 0.95              0.281        0.406                0.086          0.091                         0.455
+    VN1   main        lumpy 0.99              0.134        0.262                0.036          0.033                         0.411
+     M5    w26          all 0.50              0.365        0.400                0.274          0.287                         0.607
+     M5    w26          all 0.80              0.298        0.349                0.206          0.213                         0.574
+     M5    w26          all 0.90              0.212        0.267                0.134          0.139                         0.569
+     M5    w26          all 0.95              0.144        0.199                0.081          0.084                         0.569
+     M5    w26          all 0.99              0.058        0.107                0.023          0.023                         0.513
+     M5    w26       smooth 0.50              0.289        0.305                0.258          0.269                         0.611
+     M5    w26       smooth 0.80              0.221        0.236                0.189          0.194                         0.574
+     M5    w26       smooth 0.90              0.147        0.163                0.121          0.124                         0.570
+     M5    w26       smooth 0.95              0.092        0.107                0.072          0.075                         0.570
+     M5    w26       smooth 0.99              0.028        0.039                0.020          0.020                         0.516
+     M5    w26      erratic 0.50              0.292        0.330                0.241          0.277                         0.753
+     M5    w26      erratic 0.80              0.237        0.265                0.187          0.204                         0.683
+     M5    w26      erratic 0.90              0.166        0.195                0.124          0.148                         0.686
+     M5    w26      erratic 0.95              0.108        0.135                0.076          0.100                         0.712
+     M5    w26      erratic 0.99              0.037        0.050                0.021          0.031                         0.723
+     M5    w26 intermittent 0.50              0.482        0.546                0.306          0.318                         0.569
+     M5    w26 intermittent 0.80              0.414        0.522                0.238          0.246                         0.552
+     M5    w26 intermittent 0.90              0.307        0.428                0.156          0.161                         0.546
+     M5    w26 intermittent 0.95              0.220        0.344                0.095          0.098                         0.539
+     M5    w26 intermittent 0.99              0.103        0.221                0.027          0.025                         0.457
+     M5    w26        lumpy 0.50              0.408        0.448                0.298          0.323                         0.647
+     M5    w26        lumpy 0.80              0.352        0.396                0.238          0.256                         0.592
+     M5    w26        lumpy 0.90              0.258        0.303                0.159          0.175                         0.587
+     M5    w26        lumpy 0.95              0.179        0.222                0.098          0.114                         0.591
+     M5    w26        lumpy 0.99              0.074        0.107                0.029          0.034                         0.594
+    VN1    w26          all 0.50              0.606        0.731                0.219          0.243                         0.455
+    VN1    w26          all 0.80              0.663        0.857                0.199          0.210                         0.445
+    VN1    w26          all 0.90              0.580        0.815                0.142          0.150                         0.438
+    VN1    w26          all 0.95              0.495        0.751                0.099          0.101                         0.449
+    VN1    w26          all 0.99              0.350        0.633                0.039          0.033                         0.406
+    VN1    w26       smooth 0.50              0.396        0.419                0.324          0.339                         0.574
+    VN1    w26       smooth 0.80              0.325        0.339                0.253          0.256                         0.488
+    VN1    w26       smooth 0.90              0.230        0.246                0.169          0.172                         0.465
+    VN1    w26       smooth 0.95              0.151        0.171                0.106          0.109                         0.461
+    VN1    w26       smooth 0.99              0.053        0.075                0.035          0.031                         0.360
+    VN1    w26      erratic 0.50              0.329        0.397                0.222          0.281                         0.755
+    VN1    w26      erratic 0.80              0.288        0.329                0.185          0.219                         0.688
+    VN1    w26      erratic 0.90              0.211        0.249                0.128          0.165                         0.672
+    VN1    w26      erratic 0.95              0.146        0.182                0.082          0.121                         0.681
+    VN1    w26      erratic 0.99              0.055        0.082                0.029          0.043                         0.662
+    VN1    w26 intermittent 0.50              0.884        1.099                0.161          0.171                         0.310
+    VN1    w26 intermittent 0.80              1.058        1.429                0.192          0.187                         0.341
+    VN1    w26 intermittent 0.90              0.978        1.434                0.147          0.134                         0.331
+    VN1    w26 intermittent 0.95              0.876        1.379                0.112          0.089                         0.337
+    VN1    w26 intermittent 0.99              0.678        1.241                0.052          0.027                         0.294
+    VN1    w26        lumpy 0.50              0.374        0.430                0.153          0.172                         0.456
+    VN1    w26        lumpy 0.80              0.355        0.432                0.146          0.167                         0.472
+    VN1    w26        lumpy 0.90              0.277        0.360                0.107          0.125                         0.491
+    VN1    w26        lumpy 0.95              0.206        0.290                0.073          0.092                         0.530
+    VN1    w26        lumpy 0.99              0.100        0.182                0.030          0.035                         0.526
+written: D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\per_quantile_loss.csv
