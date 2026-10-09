@@ -15,6 +15,11 @@ holding. h = weekly holding cost rate (annual rate / 52), m = gross margin (pric
 s* < 0 means liquidating pays off even at zero salvage; s* > 1 means it
 only pays off when stock can be sold above cost.
 
+For the Vietnam footwear case study (--dataset VNF) the panel carries each series' median unit cost c_i and unit net
+price p_i, so s* is also computed with the actual costs and prices (salvage as a fraction of cost, summed over series):
+    s*_actual = [Σ c·ΔOrders − Σ c·ΔEndPosition + h·Σ c·ΔInventoryUnitWeeks − Σ p·ΔSales] / Σ c·LiquidatedUnits
+(columns s_star_actual_h<rate>; upper bound, end position valued at cost).
+
 Writes code/outputs/<DATASET>/breakeven.csv and series_inventory.csv.
 
 Usage:
@@ -33,7 +38,7 @@ from f2d.features import Builder  # noqa: E402
 
 ANNUAL_HOLDING = (0.10, 0.25, 0.40)
 MARGINS = (0.3, 0.5, 1.0)
-MODELS = ["empirical", "tsb", "tsb_nb", "ets", "lgb_tweedie", "lgb_conformal", "hgb_quantile", "lgb_quantile"]
+MODELS = ["empirical", "tsb", "tsb_nb", "ets", "lgb_tweedie", "lgb_conformal", "hgb_quantile", "lgb_quantile", "chronos2"]
 
 
 def end_position(sim, L):
@@ -44,7 +49,7 @@ def end_position(sim, L):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dataset", required=True, choices=["M5", "VN1"])
+    ap.add_argument("--dataset", required=True, choices=["M5", "VN1", "VNF"])
     a = ap.parse_args()
     d = config.DEFAULT
     R, L, tau, H, ql, kf = d["R"], d["L"], d["tau"], d["H"], d["q_liq"], d["k_fixed"]
@@ -65,6 +70,10 @@ def main():
     avg26 = np.stack([b.window_sum(b.C, o - 26, o) / np.maximum(b.window_sum(b.A, o - 26, o), 1) for o in origins], 1)[idx]
     since = np.stack([b.since_sale(o) for o in origins], 1)[idx]
     fc = os.path.join(config.CACHE, "forecasts", a.dataset)
+    actual = "unit_cost" in p["attrs"].columns
+    if actual:
+        uc = p["attrs"]["unit_cost"].to_numpy(float)[idx]
+        up = p["attrs"]["unit_price"].to_numpy(float)[idx]
 
     rows, inv_rows = [], []
     for m in MODELS:
@@ -110,6 +119,13 @@ def main():
                         r[f"s_star_{tag}"] = (base_num - r["d_end_position"]) / Xg if Xg > 0 else np.nan
                         # (b) end position eventually salvaged at the same ratio s -> lower bound of s*
                         r[f"s_star_endsalv_{tag}"] = base_num / disposed if disposed > 0 else np.nan
+                if actual:
+                    cX = (uc * X)[msk].sum()
+                    r["liquidated_cost_value"] = cX
+                    for hy in ANNUAL_HOLDING:
+                        num = ((uc * d_orders)[msk].sum() - (uc * d_end)[msk].sum()
+                               + (hy / 52) * (uc * d_inv)[msk].sum() - (up * d_sales)[msk].sum())
+                        r[f"s_star_actual_h{int(hy * 100)}"] = num / cX if cX > 0 else np.nan
                 rows.append(r)
 
     out = os.path.join(config.OUTPUTS, a.dataset)

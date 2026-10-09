@@ -6,7 +6,9 @@ share of series where lgb_quantile has a lower loss than tsb_nb. Writes code/out
 
 Usage:
     python code/per_quantile_loss.py
+    python code/per_quantile_loss.py --runs M5:0,VN1:0,M5:26,VN1:26,M5:52,VN1:52,VNF:0
 """
+import argparse
 import os
 import sys
 
@@ -67,8 +69,11 @@ def run(name, offset, h):
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--runs", default="M5:0,VN1:0,M5:26,VN1:26", help="dataset:offset pairs")
+    a = ap.parse_args()
     h = config.DEFAULT["L"] + config.DEFAULT["R"]
-    out = pd.concat([run("M5", 0, h), run("VN1", 0, h), run("M5", 26, h), run("VN1", 26, h)])
+    out = pd.concat([run(r.split(":")[0], int(r.split(":")[1]), h) for r in a.runs.split(",")])
     path = os.path.join(config.OUTPUTS, "per_quantile_loss.csv")
     out.to_csv(path, index=False)
     cols = ["dataset", "window", "group", "q", "mean_lgb_quantile", "mean_tsb_nb", "median_lgb_quantile",

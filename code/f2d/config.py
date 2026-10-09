@@ -8,6 +8,7 @@ OUTPUTS = os.path.join(ROOT, "code", "outputs")
 
 M5_DIR = os.path.join(DATA, "m5-forecasting-accuracy")
 VN1_DIR = os.path.join(DATA, "Vn1 forcasting")
+VNF_DIR = os.path.join(DATA, "vietnamsaleandinventory", "InventoryAndSale_snapshot_data")   # case study (Vietnam footwear)
 
 # Quantile levels forecast by every model.
 QUANTILES = (0.5, 0.8, 0.9, 0.95, 0.99)

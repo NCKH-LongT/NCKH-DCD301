@@ -8,6 +8,7 @@ BLOCK_WEEKS at the block cutoff c (the first test week of the block) using targe
 between cutoffs the statistical models update their state every week, the ML models are re-applied to
 the newest features.
 """
+import os
 import time
 
 import lightgbm as lgb
@@ -366,5 +367,45 @@ def hgb_quantile(b: Builder, origins, h, qs, series, log=print):
     return _sort(Q)
 
 
+# ------------------------------------------------------------------------------------------------
+# Chronos-2 (time-series foundation model), zero-shot
+# ------------------------------------------------------------------------------------------------
+CHRONOS2_DIR = os.path.join(config.DATA, "models", "chronos-2")     # amazon/chronos-2 weights (not in git)
+CHRONOS2_HISTORY_WEEKS = HISTORY_WEEKS                             # same look-back as the empirical baseline
+
+
+def chronos2(b: Builder, origins, h, qs, series, log=print):
+    """Zero-shot Chronos-2 forecast of the quantiles of D_h.
+
+    To forecast the total demand directly (as every other method does), the context of series i at origin o is
+    the sequence of non-overlapping h-week totals ending at o (…, Σ Y[o−2h:o−h], Σ Y[o−h:o]) over at most
+    CHRONOS2_HISTORY_WEEKS weeks since the series start, and the model predicts one step ahead. No covariates,
+    no cross-series learning, no fine-tuning. Requested quantiles must be among the model's training levels
+    (0.01 … 0.99), so no inter/extrapolation is involved. Torch threads: env F2D_TORCH_THREADS.
+    """
+    import torch
+    from chronos import Chronos2Pipeline
+
+    if os.environ.get("F2D_TORCH_THREADS"):
+        torch.set_num_threads(int(os.environ["F2D_TORCH_THREADS"]))
+    pipe = Chronos2Pipeline.from_pretrained(CHRONOS2_DIR, device_map="cpu")
+    Q = np.full((b.n, len(origins), len(qs)), np.nan, np.float32)
+    idx = np.flatnonzero(series)
+    t0 = time.time()
+    for j, o in enumerate(origins):
+        first = np.maximum(b.start[idx], o - CHRONOS2_HISTORY_WEEKS)
+        K = np.maximum((o - first) // h, 1)
+        ctx = []
+        for i, k in zip(idx, K):
+            ends = o - h * np.arange(k - 1, -1, -1)
+            ctx.append((b.C[i, ends] - b.C[i, ends - h]).astype(np.float32))
+        with torch.inference_mode():
+            q, _ = pipe.predict_quantiles(ctx, prediction_length=1, quantile_levels=list(qs), batch_size=512)
+        Q[idx, j] = np.stack([x.numpy()[0, 0] for x in q])
+        log(f"      origin {j + 1}/{len(origins)} ({time.time() - t0:.0f}s)")
+    return _sort(Q)
+
+
 MODELS = {"empirical": empirical, "tsb": tsb, "tsb_nb": tsb_nb, "ets": ets, "lgb_tweedie": lgb_tweedie,
-          "lgb_conformal": lgb_conformal, "hgb_quantile": hgb_quantile, "lgb_quantile": lgb_quantile}
+          "lgb_conformal": lgb_conformal, "hgb_quantile": hgb_quantile, "lgb_quantile": lgb_quantile,
+          "chronos2": chronos2}

@@ -51,7 +51,7 @@ def scenarios(grid):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dataset", required=True, choices=["M5", "VN1"])
+    ap.add_argument("--dataset", required=True, choices=["M5", "VN1", "VNF"])
     ap.add_argument("--models", default=",".join(ALL_MODELS))
     ap.add_argument("--grid", default="default", choices=["default", "tau", "full"])
     ap.add_argument("--boot", type=int, default=0, help="bootstrap resamples for KPI CIs")
@@ -59,7 +59,9 @@ def main():
     ap.add_argument("--tag", default="", help="suffix of the output folder")
     ap.add_argument("--offset", type=int, default=0,
                     help="earlier test window: drop the last OFFSET weeks of the panel (output tag defaults to w<OFFSET>)")
-    ap.add_argument("--default-only-models", default="hgb_quantile",
+    ap.add_argument("--out-suffix", default="",
+                    help="extra suffix of the output folder only (forecast cache is shared), e.g. c2 for runs with chronos2")
+    ap.add_argument("--default-only-models", default="hgb_quantile,chronos2",
                     help="models forecast only at the default horizons (L+R, H) even with --grid full")
     a = ap.parse_args()
     names = a.models.split(",")
@@ -81,7 +83,7 @@ def main():
     print(f"{a.dataset}: {n:,} series x {T} weeks; test weeks {p['weeks'][test0].date()} .. {p['weeks'][-1].date()}; "
           f"evaluated series {sel.sum():,}")
 
-    out_dir = os.path.join(config.OUTPUTS, a.dataset + (f"_{a.tag}" if a.tag else ""))
+    out_dir = os.path.join(config.OUTPUTS, a.dataset + (f"_{a.tag}" if a.tag else "") + (f"_{a.out_suffix}" if a.out_suffix else ""))
     fc_dir = os.path.join(config.CACHE, "forecasts", a.dataset + (f"_{a.tag}" if a.tag else ""))
     os.makedirs(out_dir, exist_ok=True)
     os.makedirs(fc_dir, exist_ok=True)
