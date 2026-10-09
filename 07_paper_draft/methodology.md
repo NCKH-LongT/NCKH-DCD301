@@ -60,19 +60,19 @@ and every method forecasts the quantiles Q_q(D_h) for q ∈ {0.5, 0.8, 0.9, 0.95
 | Label | Family | How the quantiles of D_h are produced | Role |
 |---|---|---|---|
 | EMP | Statistical | Empirical quantiles of rolling h-week sums over the last 104 weeks | Model-free floor |
-| ETS | Statistical | ETS(A,N,N): normal with mean h·ℓ and variance σ²·Σ_{j=0}^{h−1}(1 + jα)² | Exponential smoothing remains competitive at product–store level [P02 p. 2] |
+| ETS | Statistical | ETS(A,N,N) (Hyndman et al., 2008): normal with mean h·ℓ and variance σ²·Σ_{j=0}^{h−1}(1 + jα)² | Exponential smoothing remains competitive at product–store level [P02 p. 2] |
 | TSB-P | Statistical | TSB (Teunter et al., 2011); Poisson(h·p·z) | Standard method for intermittent demand and obsolescence [P16 (abstract)] |
 | TSB-NB | Statistical | TSB; negative binomial matched to mean h·p·z and variance h·(p(var_z + z²) − (pz)²); Poisson if not over-dispersed | Wider intervals for lumpy demand |
 | LGB-T | ML | LightGBM-Tweedie point forecast μ + normal safety stock: μ + z_q·σ_i | Approach of the M5 Accuracy winner [P02 p. 9] + classical safety stock; main ablation |
-| LGB-C | ML | Same Tweedie model + split conformal: μ + s·F⁻¹_g(q), residuals pooled by demand class g | Intervals from a point model without a normal assumption |
+| LGB-C | ML | Same Tweedie model + split conformal (Lei et al., 2018): μ + s·F⁻¹_g(q), residuals pooled by demand class g | Intervals from a point model without a normal assumption |
 | HGB-Q | ML | scikit-learn HistGradientBoosting, quantile loss, one model per q | Checks that results do not depend on one library |
-| **LGB-Q** | ML (main) | LightGBM quantile regression, one global model per q | The M5 Uncertainty winner trained LightGBM per quantile [P03 p. 14] |
+| **LGB-Q** | ML (main) | LightGBM quantile regression (Koenker & Bassett, 1978), one global model per q | The M5 Uncertainty winner trained LightGBM per quantile [P03 p. 14] |
 
 *Statistical models.* Parameters are chosen per series at each cut-off by the in-sample sum of squared one-step errors, computed from the 14th week of the series: TSB α_d, α_p ∈ {0.05, 0.1, 0.2, 0.3}; SES α ∈ {0.02, 0.05, 0.1, 0.2, 0.3, 0.5}. States are updated every week up to the origin. For ETS, σ is the root of the in-sample one-step MSE. For TSB-NB, var_z is the variance of non-zero demand sizes before the cut-off.
 
 *ML models.* All four ML models are **global** models trained on the target D_h / s and clipped at the 99.9th percentile of the training set. Predictions are multiplied back by s. Because the pinball loss is scale-equivariant, scaling does not bias the quantile objective. LightGBM models (Ke et al., 2017) use fixed hyper-parameters with no tuning: learning rate 0.05, 63 leaves, at least 200 samples per leaf, feature and bagging fraction 0.8, λ₂ = 1, up to 1,000 rounds, early stopping after 50 rounds on the validation origins, seed 2026. The Tweedie models use power 1.1. For LGB-T, σ_i is the root mean squared validation residual of series i, or √μ if the series has no validation rows. For LGB-C, scaled validation residuals (D_h − μ)/s are pooled by demand class; classes with fewer than 200 residuals use the pooled distribution.
 
-LGB-T, LGB-C and LGB-Q share features, target and training data and differ **only in how quantiles are produced**, which makes LGB-T vs. LGB-Q a clean ablation of "point forecast + safety stock" against "direct quantiles". In an earlier run, the Tweedie model was trained on unscaled D_h and produced very large forecasts for near-zero VN1 series; training it on D_h / s removed this problem ([R §1.1]; Appendix). HGB-Q (Pedregosa et al., 2011 **[Chưa kiểm chứng]**) differs from LGB-Q in four respects: it is trained on a random sample of at most 300,000 rows (LGB models: at most 3 million), uses learning rate 0.1 and at most 300 rounds, stops early on 10% of the training data, and was run only for h = 3 and 13. It is therefore a **robustness check**, not a like-for-like comparison.
+LGB-T, LGB-C and LGB-Q share features, target and training data and differ **only in how quantiles are produced**, which makes LGB-T vs. LGB-Q a clean ablation of "point forecast + safety stock" against "direct quantiles". In an earlier run, the Tweedie model was trained on unscaled D_h and produced very large forecasts for near-zero VN1 series; training it on D_h / s reduced these errors (VN1 RMSSE at h = 13 from 1.131 to 0.896). The remaining gap to EMP (0.64) comes mainly from bulk-order spikes that all models miss [R §1.1]. HGB-Q (Pedregosa et al., 2011) differs from LGB-Q in four respects: it is trained on a random sample of at most 300,000 rows (LGB models: at most 3 million), uses learning rate 0.1 and at most 300 rounds, stops early on 10% of the training data, and was run only for h = 3 and 13. It is therefore a **robustness check**, not a like-for-like comparison.
 
 *Features* (M5 27, VN1 21, 19 shared): lags 1, 2, 3, 4, 8, 13, 26, 52; rolling mean and standard deviation over 4, 13 and 26 weeks; share of zero weeks in the last 13 weeks; weeks since the last sale; week of year and month; last week's price and price change over 4 weeks; the scale s. M5 adds the number of events and SNAP days inside the h-week target window (known in advance) and the categorical attributes dept, cat, store and state. Level features are divided by s. VN1 client and warehouse codes are not used.
 
@@ -146,8 +146,8 @@ s\* is computed on a grid of holding cost {10, 25, 40}% per year × margin {30, 
 **Per-series statistical tests.** For SQL and for per-series KPIs at τ = 0.9 we report:
 
 - a Friedman test over the 8 methods;
-- mean ranks compared with the Nemenyi critical difference (CD, α = 0.05; Demšar, 2006 **[Chưa kiểm chứng]**);
-- pairwise Wilcoxon signed-rank tests against LGB-Q with Holm correction (Holm, 1979 **[Chưa kiểm chứng]**);
+- mean ranks compared with the Nemenyi critical difference (CD, α = 0.05; Demšar, 2006);
+- pairwise Wilcoxon signed-rank tests against LGB-Q with Holm correction (Holm, 1979);
 - the share of series on which each method wins.
 
 With tens of thousands of series almost every difference has p < 0.001, so conclusions rest on effect sizes: rank differences relative to the CD and win shares.

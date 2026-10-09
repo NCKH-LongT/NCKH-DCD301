@@ -88,22 +88,22 @@ From `03_problem_and_gap/research_questions.md` (unchanged wording).
 
 ## 6. References (draft)
 
-Verified entries (Crossref / arXiv / publisher page, `02_related_work/paper_list.md`). Format to be adapted to the target journal.
+Format to be adapted to the target journal. **Status 09/10/2026:** every entry below was checked against Crossref, the arXiv abstract page, or the publisher page (JMLR, NeurIPS). The source of each check is given in brackets; entries without brackets were checked earlier (`02_related_work/paper_list.md`).
 
 - [P01] Makridakis, S., Spiliotis, E., & Assimakopoulos, V. (2022a). The M5 competition: Background, organization, and implementation. *International Journal of Forecasting, 38*(4), 1325–1336. https://doi.org/10.1016/j.ijforecast.2021.07.007
 - [P02] Makridakis, S., Spiliotis, E., & Assimakopoulos, V. (2022b). M5 accuracy competition: Results, findings, and conclusions. *International Journal of Forecasting, 38*(4), 1346–1364. https://doi.org/10.1016/j.ijforecast.2021.11.013
 - [P03] Makridakis, S., Spiliotis, E., Assimakopoulos, V., Chen, Z., Gaba, A., Tsetlin, I., & Winkler, R. L. (2022c). The M5 uncertainty competition: Results, findings and conclusions. *International Journal of Forecasting, 38*(4), 1365–1385. https://doi.org/10.1016/j.ijforecast.2021.10.009
-- [P04] Feddersen, ?., & Cleophas, C. (2026). *(first author's initial to complete)* Interpretability and control in forecasting support systems. *Proceedings of HICSS 2026*. https://doi.org/10.24251/HICSS.2026.172
-- [P06] Yang, Cao, & Liu (2025). Foundation models for demand forecasting via dual-strategy ensembling. KDD 2025 Workshop "AI for Supply Chain". arXiv:2507.22053. *(first names to complete)*
-- [P08] Zanotti, M. (2025). The cost of ensembling: Is it always worth combining? arXiv:2506.04677.
-- [P09] Salatiello, Birr, & Kunz (2025). Hierarchical time series forecasting via latent mean encoding. arXiv:2506.19633. *(first names to complete)*
-- [P11] Wang, S., Kang, Y., Spiliotis, E., & Petropoulos, F. (2026). Multi-objective probabilistic forecast combination for inventory demand. arXiv:2606.04900.
-- [P12] Damato, S., Rubattu, N., Azzimonti, D., & Corani, G. (2026). Intermittent time series forecasting: Local vs global models. arXiv:2601.14031.
-- [P13] Zambon, Azzimonti, & Corani (2026). End-to-end probabilistic hierarchical forecasting of large hierarchies via probabilistic top-down. arXiv:2606.26774. *(first names to complete)*
-- [P14] Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q., & Liu, T.-Y. (2017). LightGBM: A highly efficient gradient boosting decision tree. *Advances in Neural Information Processing Systems 30*. **[Chưa kiểm chứng: full author list — paper_list.md only gives "Ke et al."]**
+- [P04] Feddersen, L., & Cleophas, C. (2026). Interpretability and control in forecasting support systems. In *Proceedings of the 59th Hawaii International Conference on System Sciences*. https://doi.org/10.24251/HICSS.2026.172 [Crossref]
+- [P06] Yang, W., Cao, D., & Liu, Y. (2025). Foundation models for demand forecasting via dual-strategy ensembling. KDD 2025 Workshop "AI for Supply Chain: Today and Future". arXiv:2507.22053. [arXiv, v1 only, no journal-ref]
+- [P08] Zanotti, M. (2025). The cost of ensembling: Is it always worth combining? arXiv:2506.04677. [arXiv v2, 9 Jul 2025, no journal-ref]
+- [P09] Salatiello, A., Birr, S., & Kunz, M. (2025). Hierarchical time series forecasting via latent mean encoding. arXiv:2506.19633. [arXiv, v1 only, no journal-ref]
+- [P11] Wang, S., Kang, Y., Spiliotis, E., & Petropoulos, F. (2026). Multi-objective probabilistic forecast combination for inventory demand. arXiv:2606.04900. [arXiv, v1 only, no journal-ref]
+- [P12] Damato, S., Rubattu, N., Azzimonti, D., & Corani, G. (2026). Intermittent time series forecasting: Local vs global models. arXiv:2601.14031. [arXiv v2, 10 Jun 2026; comment "Submitted to the Journal of the Operational Research Society"]
+- [P13] Zambon, L., Azzimonti, D., & Corani, G. (2026). End-to-end probabilistic hierarchical forecasting of large hierarchies via probabilistic top-down. arXiv:2606.26774. [arXiv v2, 30 Jul 2026, no journal-ref]
+- [P14] Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q., & Liu, T.-Y. (2017). LightGBM: A highly efficient gradient boosting decision tree. In *Advances in Neural Information Processing Systems 30* (NIPS 2017). [NeurIPS proceedings page]
 - [P15] Croston, J. D. (1972). Forecasting and stock control for intermittent demands. *Operational Research Quarterly, 23*(3), 289–303. https://doi.org/10.1057/jors.1972.50
 - [P16] Teunter, R. H., Syntetos, A. A., & Babai, M. Z. (2011). Intermittent demand: Linking forecasting to inventory obsolescence. *European Journal of Operational Research, 214*(3), 606–615. https://doi.org/10.1016/j.ejor.2011.05.018
-- [P17] Salinas, D., Flunkert, V., Gasthaus, J., & Januschowski, T. (2020). DeepAR: Probabilistic forecasting with autoregressive recurrent networks. *International Journal of Forecasting, 36*(3), 1181–1191. https://doi.org/10.1016/j.ijforecast.2019.07.001 **[Chưa kiểm chứng: author list — paper_list.md only gives "Salinas et al."]**
+- [P17] Salinas, D., Flunkert, V., Gasthaus, J., & Januschowski, T. (2020). DeepAR: Probabilistic forecasting with autoregressive recurrent networks. *International Journal of Forecasting, 36*(3), 1181–1191. https://doi.org/10.1016/j.ijforecast.2019.07.001 [Crossref]
 - [P18] Syntetos, A. A., Boylan, J. E., & Croston, J. D. (2005). On the categorization of demand patterns. *Journal of the Operational Research Society, 56*(5), 495–503. https://doi.org/10.1057/palgrave.jors.2601841
 - [P19] Kourentzes, N., Trapero, J. R., & Barrow, D. K. (2020). Optimising forecasting models for inventory planning. *International Journal of Production Economics, 225*, 107597. https://doi.org/10.1016/j.ijpe.2019.107597
 - [P20] Theodorou, E., Spiliotis, E., & Assimakopoulos, V. (2025). Forecast accuracy and inventory performance: Insights on their relationship from the M5 competition data. *European Journal of Operational Research, 322*(2), 414–426. https://doi.org/10.1016/j.ejor.2024.12.033 *(cited by title only)*
@@ -111,26 +111,27 @@ Verified entries (Crossref / arXiv / publisher page, `02_related_work/paper_list
 - [P22] Mohammed, Z., Anas, C., & El Hammoumi, M. (2026). A hybrid learning framework for forecasting uncertainty and adaptive inventory planning in retail supply chains. *Supply Chain Analytics, 13*, 100180. https://doi.org/10.1016/j.sca.2025.100180
 - [P23] Sfiris, D. S., & Koulouriotis, D. E. (2025). A new approach to forecast intermittent demand and stock-keeping-unit level optimization for spare parts management. *Applied Sciences, 15*(22), 12030. https://doi.org/10.3390/app152212030
 - [P24] El-Meehy, A. O., El-Kharbotly, A. K., & El-Beheiry, M. M. (2026). Feature engineering for intermittent demand forecasting: Zero-detection and forecast performance across GRU, LSTM, and TCN architectures. *Journal of Intelligent Manufacturing*. https://doi.org/10.1007/s10845-026-02964-7
-- [W1] van der Haar, J. F., Wellens, A. P., Boute, R. N., & Basten, R. J. I. (2024). Supervised learning for integrated forecasting and inventory control. *European Journal of Operational Research*. https://doi.org/10.1016/j.ejor.2024.07.004 **[Chưa kiểm chứng: author initials, volume/pages]**
+- [P25] Putra, B. Q. L., & Purnomo, J. D. T. (2026). Forecasting critical spare parts demand in combined cycle power plant using ensemble learning. *Engineering Proceedings, 143*, 30. https://doi.org/10.3390/engproc2026143030 [Crossref: authors, title, article 30, ETLTC 2026; volume 143 from `paper_list.md`]
+- [W1] van der Haar, J. F., Wellens, A. P., Boute, R. N., & Basten, R. J. I. (2024). Supervised learning for integrated forecasting and inventory control. *European Journal of Operational Research, 319*(2), 573–586. https://doi.org/10.1016/j.ejor.2024.07.004 [Crossref]
 - [W2] de Sousa, A. G. P. (2026). *From demand forecasting to replenishment simulation: A data-driven machine learning approach for fashion retail* (Master's thesis). University of Porto.
 - [W3] Li, P. (2026). Forecasting for inventory decisions: A decision-regret benchmark for perishability-aware multi-echelon retail replenishment using the M5/Walmart data. SSRN. https://doi.org/10.2139/ssrn.7051299 *(cited by title only; not peer-reviewed)*
 - [G22] Goltsos, T. E., Syntetos, A. A., Glock, C. H., & Ioannou, G. (2022). Inventory–forecasting: Mind the gap. *European Journal of Operational Research, 299*(2), 397–419. https://doi.org/10.1016/j.ejor.2021.07.040 *(abstract only)*
-- [VN1] Vandeput, N. (2024). *VN1 Forecasting – Accuracy Challenge*. DataSource.ai. **[Chưa kiểm chứng: exact URL]**
+- [VN1] Vandeput, N. (2024). *VN1 Forecasting – Accuracy Challenge*. DataSource.ai. https://www.datasource.ai/en/home/data-science-competitions-for-startups/phase-2-vn1-forecasting-accuracy-challenge/description [entry as given by Zanotti (2025), P08 p. 31]
 
-Method references **not** in `02_related_work/` — all **[Chưa kiểm chứng]**, check on Crossref before use:
+Method references (not in `02_related_work/`; cited in `methodology.md`):
 
-- Koenker, R., & Bassett, G. (1978). Regression quantiles. *Econometrica, 46*(1), 33–50.
-- Hyndman, R. J., Koehler, A. B., Ord, J. K., & Snyder, R. D. (2008). *Forecasting with exponential smoothing: The state space approach*. Springer.
-- Pedregosa, F., et al. (2011). Scikit-learn: Machine learning in Python. *Journal of Machine Learning Research, 12*, 2825–2830.
-- Lei, J., G'Sell, M., Rinaldo, A., Tibshirani, R. J., & Wasserman, L. (2018). Distribution-free predictive inference for regression. *Journal of the American Statistical Association, 113*(523), 1094–1111.
-- Demšar, J. (2006). Statistical comparisons of classifiers over multiple data sets. *Journal of Machine Learning Research, 7*, 1–30.
-- Holm, S. (1979). A simple sequentially rejective multiple test procedure. *Scandinavian Journal of Statistics, 6*(2), 65–70.
+- Demšar, J. (2006). Statistical comparisons of classifiers over multiple data sets. *Journal of Machine Learning Research, 7*, 1–30. [JMLR page]
+- Holm, S. (1979). A simple sequentially rejective multiple test procedure. *Scandinavian Journal of Statistics, 6*(2), 65–70. [Not in Crossref. Volume, issue and pages agree across several catalogues found by web search. The DOI 10.2307/4615733 that they give returns 404 at doi.org, so no DOI is listed.]
+- Hyndman, R., Koehler, A., Ord, K., & Snyder, R. (2008). *Forecasting with exponential smoothing*. Springer Series in Statistics. Springer. https://doi.org/10.1007/978-3-540-71918-2 [Crossref. The subtitle "The state space approach" is not in Crossref and is omitted.]
+- Koenker, R., & Bassett, G. (1978). Regression quantiles. *Econometrica, 46*(1), 33–50. https://doi.org/10.2307/1913643 [Crossref; pages 33–50 from the Econometric Society page. The Econometric Society page lists Bassett first, while Crossref and JSTOR list Koenker first; we follow Crossref.]
+- Lei, J., G'Sell, M., Rinaldo, A., Tibshirani, R. J., & Wasserman, L. (2018). Distribution-free predictive inference for regression. *Journal of the American Statistical Association, 113*(523), 1094–1111. https://doi.org/10.1080/01621459.2017.1307116 [Crossref]
+- Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., Vanderplas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, M., & Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. *Journal of Machine Learning Research, 12*, 2825–2830. [JMLR page]
 
 ## 7. Open items before submission
 
 - [ ] Read Li (2026) and Theodorou et al. (2025). If either already covers liquidation or demand-class KPIs, re-position contributions 2–3.
-- [ ] Check whether arXiv papers 08, 09, 11, 12, 13 have been formally published; cite the published version.
-- [ ] Verify the [Chưa kiểm chứng] references above.
+- [x] Check whether arXiv papers 06, 08, 09, 11, 12, 13 have been formally published. As of 09/10/2026 none has a journal-ref; recheck just before submission.
+- [x] Verify the references previously marked [Chưa kiểm chứng] (09/10/2026, see §6).
 - [ ] Read Goltsos et al. (2022) and Kourentzes et al. (2020) in full before citing beyond the abstract / repository description.
 - [ ] Add 2–3 papers from the target journal.
 - [ ] Optional experiments (not run): L, H grid for M5; break-even for the second window; a third test window.

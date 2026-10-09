@@ -93,4 +93,4 @@ Thời gian huấn luyện + dự báo của mỗi mô hình cho một horizon, 
 | H3: Lợi thế của ML lớn hơn ở nhóm smooth/erratic; TSB đủ tốt ở nhóm intermittent | KPI theo nhóm |
 | H4: Thanh lý theo phân vị giảm tồn kho mà mất ít fill rate hơn quy tắc cố định | Bảng thanh lý, s\* |
 
-Kết quả kiểm tra từng giả thuyết: `06_experiment_results/results.md` mục 8.
+Kết quả kiểm tra từng giả thuyết: `06_experiment_results/results.md` mục 9.

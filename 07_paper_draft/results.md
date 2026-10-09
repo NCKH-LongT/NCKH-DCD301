@@ -143,7 +143,15 @@ VN1 cells show main / second window.
 
 The erratic class changes leader between windows (LGB-Q in the main window, LGB-C in the second).
 
-This contradicts our initial hypothesis H3, which expected ML to help most on smooth and erratic series and TSB to suffice for intermittent ones. On VN1 the opposite holds for the frontier: TSB-NB is best on smooth series and LGB-Q on intermittent and lumpy series. However, per-series SQL still favours TSB-NB on intermittent series (Section 5.2) [R §9]. We read this as follows: on intermittent series the TSB methods give a better typical forecast, while the ML quantiles give a better upper tail, and the tail is what drives the order-up-to level [Nhận định nhóm] — **[Chưa kiểm chứng]: not tested directly; would require per-quantile loss by class.**
+This contradicts our initial hypothesis H3, which expected ML to help most on smooth and erratic series and TSB to suffice for intermittent ones. On VN1 the opposite holds for the frontier: TSB-NB is best on smooth series and LGB-Q on intermittent and lumpy series. However, per-series SQL still favours TSB-NB on intermittent series (Section 5.2) [R §9].
+
+To see whether the frontier advantage of LGB-Q on intermittent series comes from better upper quantiles, we computed the scaled pinball loss separately for each quantile (h = 3) [R §2.1], `tables/per_quantile_loss.csv`. On VN1 intermittent series:
+
+- LGB-Q beats TSB-NB on only 24–33% of the series at every quantile in the main window, and on 29–34% in the second window.
+- TSB-NB's per-series advantage is **largest** at the highest quantile. At q = 0.99 the median loss is 0.025 vs. 0.064 in the main window, and 0.027 vs. 0.052 in the second.
+- By the mean, LGB-Q is better at every quantile (q = 0.99: 0.206 vs. 0.321 main; 0.678 vs. 1.241 second), because TSB-NB occasionally makes very large errors.
+
+The frontier advantage of LGB-Q on intermittent series therefore does not come from a better upper tail on a typical series. It matches the pattern of a smaller *mean* loss: fewer very large errors [Nhận định nhóm]. One possible mechanism is that unit-weighted KPIs are dominated by the series on which TSB-NB fails badly; this link was not tested **[Chưa kiểm chứng]**.
 
 **Cross-dataset consistency.** The Spearman correlation between the rankings of the 8 methods on M5 and on VN1 is unstable:
 
