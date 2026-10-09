@@ -1,18 +1,30 @@
 D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\evaluate.py:13: RuntimeWarning: Mean of empty slice
   return np.nanmean(np.abs(d), 1), np.nanmean(d ** 2, 1)
-D:\Term 8\Research Capstone\NCKH-DCD301\code\per_quantile_loss.py:48: RuntimeWarning: Mean of empty slice
+D:\Term 8\Research Capstone\NCKH-DCD301\code\per_quantile_loss.py:50: RuntimeWarning: Mean of empty slice
   l = np.nanmean(pin, axis=1) / (h * s_abs[:, None])          # series × quantile
 D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\evaluate.py:13: RuntimeWarning: Mean of empty slice
   return np.nanmean(np.abs(d), 1), np.nanmean(d ** 2, 1)
-D:\Term 8\Research Capstone\NCKH-DCD301\code\per_quantile_loss.py:48: RuntimeWarning: Mean of empty slice
+D:\Term 8\Research Capstone\NCKH-DCD301\code\per_quantile_loss.py:50: RuntimeWarning: Mean of empty slice
   l = np.nanmean(pin, axis=1) / (h * s_abs[:, None])          # series × quantile
 D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\evaluate.py:13: RuntimeWarning: Mean of empty slice
   return np.nanmean(np.abs(d), 1), np.nanmean(d ** 2, 1)
-D:\Term 8\Research Capstone\NCKH-DCD301\code\per_quantile_loss.py:48: RuntimeWarning: Mean of empty slice
+D:\Term 8\Research Capstone\NCKH-DCD301\code\per_quantile_loss.py:50: RuntimeWarning: Mean of empty slice
   l = np.nanmean(pin, axis=1) / (h * s_abs[:, None])          # series × quantile
 D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\evaluate.py:13: RuntimeWarning: Mean of empty slice
   return np.nanmean(np.abs(d), 1), np.nanmean(d ** 2, 1)
-D:\Term 8\Research Capstone\NCKH-DCD301\code\per_quantile_loss.py:48: RuntimeWarning: Mean of empty slice
+D:\Term 8\Research Capstone\NCKH-DCD301\code\per_quantile_loss.py:50: RuntimeWarning: Mean of empty slice
+  l = np.nanmean(pin, axis=1) / (h * s_abs[:, None])          # series × quantile
+D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\evaluate.py:13: RuntimeWarning: Mean of empty slice
+  return np.nanmean(np.abs(d), 1), np.nanmean(d ** 2, 1)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\per_quantile_loss.py:50: RuntimeWarning: Mean of empty slice
+  l = np.nanmean(pin, axis=1) / (h * s_abs[:, None])          # series × quantile
+D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\evaluate.py:13: RuntimeWarning: Mean of empty slice
+  return np.nanmean(np.abs(d), 1), np.nanmean(d ** 2, 1)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\per_quantile_loss.py:50: RuntimeWarning: Mean of empty slice
+  l = np.nanmean(pin, axis=1) / (h * s_abs[:, None])          # series × quantile
+D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\evaluate.py:13: RuntimeWarning: Mean of empty slice
+  return np.nanmean(np.abs(d), 1), np.nanmean(d ** 2, 1)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\per_quantile_loss.py:50: RuntimeWarning: Mean of empty slice
   l = np.nanmean(pin, axis=1) / (h * s_abs[:, None])          # series × quantile
 dataset window        group    q  mean_lgb_quantile  mean_tsb_nb  median_lgb_quantile  median_tsb_nb  lgbq_better_than_tsbnb_share
      M5   main          all 0.50              0.357        0.389                0.275          0.291                         0.639
@@ -115,4 +127,79 @@ dataset window        group    q  mean_lgb_quantile  mean_tsb_nb  median_lgb_qua
     VN1    w26        lumpy 0.90              0.277        0.360                0.107          0.125                         0.491
     VN1    w26        lumpy 0.95              0.206        0.290                0.073          0.092                         0.530
     VN1    w26        lumpy 0.99              0.100        0.182                0.030          0.035                         0.526
+     M5    w52          all 0.50              0.363        0.398                0.265          0.281                         0.623
+     M5    w52          all 0.80              0.305        0.351                0.204          0.212                         0.591
+     M5    w52          all 0.90              0.222        0.272                0.133          0.140                         0.587
+     M5    w52          all 0.95              0.154        0.207                0.081          0.085                         0.577
+     M5    w52          all 0.99              0.067        0.120                0.023          0.023                         0.505
+     M5    w52       smooth 0.50              0.279        0.300                0.251          0.266                         0.653
+     M5    w52       smooth 0.80              0.214        0.231                0.186          0.193                         0.604
+     M5    w52       smooth 0.90              0.143        0.159                0.120          0.124                         0.591
+     M5    w52       smooth 0.95              0.090        0.104                0.072          0.075                         0.577
+     M5    w52       smooth 0.99              0.028        0.037                0.020          0.020                         0.502
+     M5    w52      erratic 0.50              0.289        0.331                0.234          0.274                         0.759
+     M5    w52      erratic 0.80              0.240        0.266                0.187          0.206                         0.679
+     M5    w52      erratic 0.90              0.170        0.198                0.124          0.146                         0.709
+     M5    w52      erratic 0.95              0.115        0.139                0.077          0.099                         0.694
+     M5    w52      erratic 0.99              0.042        0.055                0.022          0.032                         0.697
+     M5    w52 intermittent 0.50              0.491        0.547                0.296          0.307                         0.556
+     M5    w52 intermittent 0.80              0.441        0.535                0.236          0.244                         0.557
+     M5    w52 intermittent 0.90              0.339        0.447                0.156          0.164                         0.562
+     M5    w52 intermittent 0.95              0.250        0.369                0.096          0.101                         0.554
+     M5    w52 intermittent 0.99              0.127        0.255                0.028          0.026                         0.463
+     M5    w52        lumpy 0.50              0.396        0.432                0.292          0.321                         0.625
+     M5    w52        lumpy 0.80              0.350        0.385                0.239          0.258                         0.604
+     M5    w52        lumpy 0.90              0.260        0.294                0.161          0.180                         0.597
+     M5    w52        lumpy 0.95              0.183        0.217                0.102          0.116                         0.605
+     M5    w52        lumpy 0.99              0.075        0.110                0.030          0.036                         0.594
+    VN1    w52          all 0.50              2.330        2.881                0.285          0.307                         0.466
+    VN1    w52          all 0.80              2.304        3.782                0.262          0.265                         0.449
+    VN1    w52          all 0.90              2.071        3.814                0.189          0.185                         0.442
+    VN1    w52          all 0.95              1.836        3.681                0.127          0.121                         0.436
+    VN1    w52          all 0.99              1.498        3.323                0.049          0.037                         0.382
+    VN1    w52       smooth 0.50              0.612        0.651                0.431          0.458                         0.546
+    VN1    w52       smooth 0.80              0.535        0.564                0.351          0.356                         0.443
+    VN1    w52       smooth 0.90              0.392        0.440                0.240          0.240                         0.436
+    VN1    w52       smooth 0.95              0.268        0.337                0.152          0.148                         0.415
+    VN1    w52       smooth 0.99              0.105        0.198                0.049          0.040                         0.331
+    VN1    w52      erratic 0.50              0.552        0.726                0.358          0.465                         0.763
+    VN1    w52      erratic 0.80              0.517        0.660                0.305          0.367                         0.700
+    VN1    w52      erratic 0.90              0.394        0.529                0.212          0.244                         0.677
+    VN1    w52      erratic 0.95              0.288        0.412                0.137          0.155                         0.661
+    VN1    w52      erratic 0.99              0.134        0.244                0.046          0.051                         0.592
+    VN1    w52 intermittent 0.50              4.343        5.437                0.191          0.196                         0.324
+    VN1    w52 intermittent 0.80              4.351        7.433                0.209          0.197                         0.349
+    VN1    w52 intermittent 0.90              3.990        7.643                0.161          0.142                         0.343
+    VN1    w52 intermittent 0.95              3.613        7.485                0.117          0.093                         0.341
+    VN1    w52 intermittent 0.99              3.068        6.899                0.055          0.028                         0.300
+    VN1    w52        lumpy 0.50              0.741        0.850                0.236          0.259                         0.512
+    VN1    w52        lumpy 0.80              0.698        0.946                0.216          0.241                         0.522
+    VN1    w52        lumpy 0.90              0.591        0.847                0.156          0.170                         0.525
+    VN1    w52        lumpy 0.95              0.479        0.728                0.102          0.114                         0.535
+    VN1    w52        lumpy 0.99              0.302        0.529                0.039          0.040                         0.494
+    VNF   main          all 0.50              0.178        0.189                0.123          0.129                         0.397
+    VNF   main          all 0.80              0.187        0.198                0.120          0.127                         0.516
+    VNF   main          all 0.90              0.181        0.172                0.104          0.104                         0.551
+    VNF   main          all 0.95              0.143        0.141                0.078          0.075                         0.494
+    VNF   main          all 0.99              0.084        0.090                0.036          0.029                         0.315
+    VNF   main       smooth 0.50              0.219        0.245                0.207          0.229                         0.540
+    VNF   main       smooth 0.80              0.177        0.195                0.161          0.184                         0.578
+    VNF   main       smooth 0.90              0.126        0.139                0.114          0.135                         0.695
+    VNF   main       smooth 0.95              0.091        0.091                0.084          0.088                         0.540
+    VNF   main       smooth 0.99              0.037        0.028                0.036          0.028                         0.128
+    VNF   main      erratic 0.50              0.181        0.205                0.154          0.178                         0.660
+    VNF   main      erratic 0.80              0.156        0.182                0.135          0.162                         0.744
+    VNF   main      erratic 0.90              0.116        0.139                0.097          0.126                         0.754
+    VNF   main      erratic 0.95              0.086        0.099                0.073          0.091                         0.730
+    VNF   main      erratic 0.99              0.035        0.038                0.031          0.035                         0.579
+    VNF   main intermittent 0.50              0.183        0.179                0.017          0.000                         0.143
+    VNF   main intermittent 0.80              0.266        0.261                0.075          0.027                         0.305
+    VNF   main intermittent 0.90              0.334        0.269                0.120          0.047                         0.279
+    VNF   main intermittent 0.95              0.277        0.254                0.094          0.048                         0.210
+    VNF   main intermittent 0.99              0.192        0.216                0.053          0.018                         0.085
+    VNF   main        lumpy 0.50              0.117        0.117                0.060          0.031                         0.200
+    VNF   main        lumpy 0.80              0.119        0.122                0.068          0.064                         0.400
+    VNF   main        lumpy 0.90              0.103        0.105                0.064          0.065                         0.485
+    VNF   main        lumpy 0.95              0.079        0.084                0.048          0.057                         0.503
+    VNF   main        lumpy 0.99              0.042        0.043                0.028          0.025                         0.448
 written: D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\per_quantile_loss.csv

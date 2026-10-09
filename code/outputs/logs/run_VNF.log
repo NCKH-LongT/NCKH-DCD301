@@ -1,0 +1,153 @@
+VNF: 1,001 series x 82 weeks; test weeks 2023-01-30 .. 2023-07-24; evaluated series 909
+  classes: {'all': 909, 'smooth': 187, 'erratic': 285, 'intermittent': 272, 'lumpy': 165}
+  forecasting empirical, h=3 ...
+    done in 4s
+  forecasting empirical, h=13 ...
+    done in 4s
+  forecasting tsb, h=3 ...
+    done in 2s
+  forecasting tsb, h=13 ...
+    done in 1s
+  forecasting tsb_nb, h=3 ...
+    done in 4s
+  forecasting tsb_nb, h=13 ...
+    done in 4s
+  forecasting ets, h=3 ...
+    done in 0s
+  forecasting ets, h=13 ...
+    done in 0s
+  forecasting lgb_tweedie, h=3 ...
+    block cutoff 56: train 21,465 rows, valid 11,407, predict 11,817
+      tweedie: 65 rounds (2s)
+    block cutoff 69: train 32,872 rows, valid 11,803, predict 11,817
+      tweedie: 165 rounds (4s)
+    done in 5s
+  forecasting lgb_tweedie, h=13 ...
+    block cutoff 56: train 13,286 rows, valid 10,730, predict 11,817
+      tweedie: 162 rounds (2s)
+    block cutoff 69: train 24,016 rows, valid 11,569, predict 11,817
+      tweedie: 193 rounds (4s)
+    done in 6s
+  forecasting lgb_conformal, h=3 ...
+    block cutoff 56: conformal on 11,407 validation residuals (2s)
+    block cutoff 69: conformal on 11,803 validation residuals (4s)
+    done in 6s
+  forecasting lgb_conformal, h=13 ...
+    block cutoff 56: conformal on 10,730 validation residuals (3s)
+    block cutoff 69: conformal on 11,569 validation residuals (2s)
+    done in 5s
+  forecasting hgb_quantile, h=3 ...
+    block cutoff 56: train 21,465 rows, predict 11,817
+      q=0.5: 300 iterations (7s)
+      q=0.8: 300 iterations (12s)
+      q=0.9: 180 iterations (14s)
+      q=0.95: 119 iterations (19s)
+      q=0.99: 79 iterations (22s)
+    block cutoff 69: train 32,872 rows, predict 11,817
+      q=0.5: 300 iterations (14s)
+      q=0.8: 300 iterations (27s)
+      q=0.9: 241 iterations (38s)
+      q=0.95: 147 iterations (44s)
+      q=0.99: 78 iterations (48s)
+    done in 71s
+  forecasting hgb_quantile, h=13 ...
+    block cutoff 56: train 13,286 rows, predict 11,817
+      q=0.5: 300 iterations (9s)
+      q=0.8: 300 iterations (18s)
+      q=0.9: 300 iterations (26s)
+      q=0.95: 300 iterations (34s)
+      q=0.99: 109 iterations (37s)
+    block cutoff 69: train 24,016 rows, predict 11,817
+      q=0.5: 300 iterations (12s)
+      q=0.8: 300 iterations (24s)
+      q=0.9: 300 iterations (36s)
+      q=0.95: 280 iterations (47s)
+      q=0.99: 89 iterations (50s)
+    done in 87s
+  forecasting lgb_quantile, h=3 ...
+    block cutoff 56: train 21,465 rows, valid 11,407, predict 11,817
+      q=0.5: 289 rounds (5s)
+      q=0.8: 109 rounds (7s)
+      q=0.9: 61 rounds (8s)
+      q=0.95: 46 rounds (9s)
+      q=0.99: 56 rounds (10s)
+    block cutoff 69: train 32,872 rows, valid 11,803, predict 11,817
+      q=0.5: 47 rounds (2s)
+      q=0.8: 185 rounds (5s)
+      q=0.9: 846 rounds (19s)
+      q=0.95: 740 rounds (31s)
+      q=0.99: 247 rounds (35s)
+    done in 45s
+  forecasting lgb_quantile, h=13 ...
+    block cutoff 56: train 13,286 rows, valid 10,730, predict 11,817
+      q=0.5: 66 rounds (1s)
+      q=0.8: 38 rounds (2s)
+      q=0.9: 18 rounds (2s)
+      q=0.95: 4 rounds (3s)
+      q=0.99: 86 rounds (4s)
+    block cutoff 69: train 24,016 rows, valid 11,569, predict 11,817
+      q=0.5: 70 rounds (2s)
+      q=0.8: 199 rounds (5s)
+      q=0.9: 61 rounds (7s)
+      q=0.95: 58 rounds (8s)
+      q=0.99: 362 rounds (14s)
+    done in 18s
+  forecasting chronos2, h=3 ...
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 6114.04it/s]
+      origin 1/26 (13s)
+      origin 2/26 (26s)
+      origin 3/26 (38s)
+      origin 4/26 (51s)
+      origin 5/26 (64s)
+      origin 6/26 (76s)
+      origin 7/26 (89s)
+      origin 8/26 (102s)
+      origin 9/26 (115s)
+      origin 10/26 (128s)
+      origin 11/26 (140s)
+      origin 12/26 (153s)
+      origin 13/26 (165s)
+      origin 14/26 (178s)
+      origin 15/26 (191s)
+      origin 16/26 (204s)
+      origin 17/26 (217s)
+      origin 18/26 (230s)
+      origin 19/26 (243s)
+      origin 20/26 (265s)
+      origin 21/26 (282s)
+      origin 22/26 (299s)
+      origin 23/26 (315s)
+      origin 24/26 (323s)
+      origin 25/26 (332s)
+      origin 26/26 (342s)
+    done in 373s
+  forecasting chronos2, h=13 ...
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 3443.00it/s]
+      origin 1/26 (8s)
+      origin 2/26 (17s)
+      origin 3/26 (24s)
+      origin 4/26 (37s)
+      origin 5/26 (51s)
+      origin 6/26 (65s)
+      origin 7/26 (79s)
+      origin 8/26 (92s)
+      origin 9/26 (105s)
+      origin 10/26 (120s)
+      origin 11/26 (131s)
+      origin 12/26 (148s)
+      origin 13/26 (161s)
+      origin 14/26 (175s)
+      origin 15/26 (188s)
+      origin 16/26 (202s)
+      origin 17/26 (215s)
+      origin 18/26 (228s)
+      origin 19/26 (241s)
+      origin 20/26 (254s)
+      origin 21/26 (267s)
+      origin 22/26 (279s)
+      origin 23/26 (292s)
+      origin 24/26 (305s)
+      origin 25/26 (318s)
+      origin 26/26 (330s)
+    done in 331s
+finished in 1051s -> D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\VNF

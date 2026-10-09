@@ -1,0 +1,7 @@
+M5: simulating τ grid ...
+VN1: simulating τ grid ...
+D:\Term 8\Research Capstone\NCKH-DCD301\code\equal_fill_ci.py:110: RuntimeWarning: All-NaN slice encountered
+  best = (fr[1:] == np.nanmin(fr[1:], axis=1, keepdims=True)).mean(0)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\equal_fill_ci.py:110: RuntimeWarning: All-NaN slice encountered
+  best = (fr[1:] == np.nanmin(fr[1:], axis=1, keepdims=True)).mean(0)
+written code/outputs/equal_fill_ci_w52.md

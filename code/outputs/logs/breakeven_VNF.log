@@ -1,0 +1,52 @@
+D:\Term 8\Research Capstone\NCKH-DCD301\code\liquidation_breakeven.py:93: RuntimeWarning: divide by zero encountered in divide
+  wos = np.where(md > 0, base["on_hand_end"][:, w].mean(1) / md, np.nan)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\liquidation_breakeven.py:93: RuntimeWarning: invalid value encountered in divide
+  wos = np.where(md > 0, base["on_hand_end"][:, w].mean(1) / md, np.nan)
+        model   policy group  liquidated_share_of_demand  d_sales  s_star_h25_m50  s_star_endsalv_h25_m50
+    empirical quantile   all                       0.000      0.0             NaN                     NaN
+    empirical    fixed   all                       0.113   -202.0           0.988                   0.986
+    empirical   dead13   all                       0.013   -167.0           1.233                   1.811
+    empirical   dead26   all                       0.005    -47.0           1.065                   1.584
+          tsb quantile   all                       0.004    -49.0           1.012                   1.027
+          tsb    fixed   all                       0.003    -29.0           1.009                   1.021
+          tsb   dead13   all                       0.003   -104.0           1.209                   1.774
+          tsb   dead26   all                       0.001    -23.0           1.083                   1.665
+       tsb_nb quantile   all                       0.004    -42.0           1.008                   1.024
+       tsb_nb    fixed   all                       0.004    -31.0           1.002                   1.006
+       tsb_nb   dead13   all                       0.003    -93.0           1.161                   1.667
+       tsb_nb   dead26   all                       0.001    -23.0           1.081                   1.647
+          ets quantile   all                       0.000      0.0           0.913                     NaN
+          ets    fixed   all                       0.030    -98.0           0.996                   0.995
+          ets   dead13   all                       0.006   -156.0           1.389                   3.560
+          ets   dead26   all                       0.003    -46.0           1.248                     NaN
+  lgb_tweedie quantile   all                       0.000      0.0           0.944                   0.910
+  lgb_tweedie    fixed   all                       0.018    -89.0           0.998                   0.998
+  lgb_tweedie   dead13   all                       0.006   -148.0           1.362                   4.395
+  lgb_tweedie   dead26   all                       0.003    -43.0           1.260                     NaN
+lgb_conformal quantile   all                       0.001     -3.0           0.984                   0.850
+lgb_conformal    fixed   all                       0.017    -79.0           0.995                   0.993
+lgb_conformal   dead13   all                       0.005   -141.0           1.364                   8.486
+lgb_conformal   dead26   all                       0.002    -40.0           1.299                     NaN
+ hgb_quantile quantile   all                       0.002     -2.0           0.979                   0.751
+ hgb_quantile    fixed   all                       0.025   -106.0           0.992                   0.989
+ hgb_quantile   dead13   all                       0.007   -158.0           1.411                  15.891
+ hgb_quantile   dead26   all                       0.003    -52.0           1.292                     NaN
+ lgb_quantile quantile   all                       0.000      0.0           0.981                   0.751
+ lgb_quantile    fixed   all                       0.022   -122.0           0.998                   0.997
+ lgb_quantile   dead13   all                       0.007   -156.0           1.361                   4.758
+ lgb_quantile   dead26   all                       0.003    -48.0           1.222                     NaN
+     chronos2 quantile   all                       0.000    -11.0           1.075                   1.125
+     chronos2    fixed   all                       0.029   -144.0           0.996                   0.995
+     chronos2   dead13   all                       0.007   -160.0           1.302                   3.142
+     chronos2   dead26   all                       0.003    -46.0           1.208                     NaN
+
+        model group  median_weeks_of_supply   p75   p90  zero_demand_series_share
+    empirical   all                   13.77 41.00 97.52                      0.24
+          tsb   all                    3.91 11.61 25.88                      0.24
+       tsb_nb   all                    6.73 16.77 33.63                      0.24
+          ets   all                    8.35 22.22 51.00                      0.24
+  lgb_tweedie   all                    8.54 20.05 48.70                      0.24
+lgb_conformal   all                    7.94 20.81 42.41                      0.24
+ hgb_quantile   all                    7.03 22.18 57.50                      0.24
+ lgb_quantile   all                    7.00 21.88 57.70                      0.24
+     chronos2   all                   10.68 27.91 63.20                      0.24
