@@ -35,7 +35,7 @@ Phương pháp: `05_methodology/methodology.md`. Bảng và hình trong file nà
 | Lưới q_L ∈ {0,9; 0,95; 0,99}, k ∈ {13, 26, 52} | ❌ | ✅ 8 phương pháp |
 | Ngưỡng hòa vốn thanh lý (kịch bản mặc định) | ✅ | ✅ |
 | Bootstrap 95% (200 lần) cho fill rate, tồn kho | ✅ | ✅ |
-| Kiểm định Friedman–Nemenyi / Wilcoxon | ❌ | ❌ |
+| Kiểm định Friedman–Nemenyi / Wilcoxon theo chuỗi (`stat_tests.py`) | ✅ | ✅ |
 
 Lệnh tái lập (dự báo được cache trong `data/cache/forecasts/<D>/`, nên lần chạy lại chỉ mất vài phút):
 
@@ -57,6 +57,10 @@ python code/liquidation_breakeven.py --dataset VN1
 
 ```bash
 python code/analyze_results.py
+```
+
+```bash
+python code/stat_tests.py
 ```
 
 Log: `code/outputs/logs/`:
@@ -88,4 +92,4 @@ Ghi chú:
 | TiDE / DeepAR | Bỏ; thay bằng 2 baseline ML | Phần cứng; `04_proposed_system/ai_model_integration.md` mục 4 |
 | Tổng chi phí với c_u, c_o giả định | KPI không đơn vị tiền + ngưỡng hòa vốn | Không có chi phí thực; giả định không đủ tin cậy |
 | Dashboard FastAPI + Streamlit | Chưa cài đặt | Ưu tiên benchmark |
-| Kiểm định Friedman–Nemenyi | Chưa chạy | Cần lưu kết quả theo chuỗi (`results.md` mục 9) |
+| Kiểm định Friedman–Nemenyi | Đã chạy cho SQL và KPI theo chuỗi | `results.md` mục 1b |

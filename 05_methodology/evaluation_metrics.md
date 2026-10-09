@@ -75,7 +75,7 @@ Cách đọc s\*:
 |---|---|---|
 | Thứ hạng giữa dataset | Spearman ρ giữa fill rate (kịch bản mặc định, không thanh lý) của 8 phương pháp trên M5 và VN1, theo nhóm | ✅ đã chạy |
 | Độ ổn định theo kịch bản | Spearman ρ giữa thứ hạng ở L = 2 và L = 1 hoặc 4 (VN1) | ✅ đã tính (`06_experiment_results/results.md`) |
-| Kiểm định khác biệt giữa phương pháp | Friedman + Nemenyi trên SQL theo chuỗi; Wilcoxon theo cặp với hiệu chỉnh Holm cho KPI theo chuỗi | 🔲 **chưa chạy**; cần lưu kết quả theo chuỗi |
+| Kiểm định khác biệt giữa phương pháp | Friedman + Nemenyi CD (q_α từ phân phối studentized range, k = 8 → 3,031) trên SQL, fill rate, tồn kho theo chuỗi; Wilcoxon signed-rank so với LightGBM quantile, hiệu chỉnh Holm; kèm trung vị chênh lệch và tỷ lệ chuỗi thắng/thua (`code/stat_tests.py`) | ✅ đã chạy |
 
 ## 6. Metric hệ thống
 

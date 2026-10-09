@@ -9,12 +9,14 @@ Quy ước:
 
 - Kịch bản mặc định: τ = 0,9; L = 2; R = 1; H = 13; q_L = 0,95; k = 26.
 - Tồn kho tính bằng **tuần nhu cầu**.
-- **Chưa có kiểm định thống kê** giữa các phương pháp (mục 9). Vì vậy các chênh lệch nhỏ (dưới khoảng 0,01 SQL hoặc 0,005 fill rate) chỉ được mô tả, không kết luận là khác biệt.
+- Kiểm định thống kê theo chuỗi (Friedman–Nemenyi, Wilcoxon + Holm) ở mục 1b; bảng đầy đủ: `tables/stat_tests.md`. Với hàng chục nghìn chuỗi, gần như mọi chênh lệch đều có p < 0,001, nên kết luận dựa thêm vào **độ lớn hiệu ứng** (chênh lệch hạng trung bình so với CD, trung vị chênh lệch, tỷ lệ chuỗi thắng).
 - [Nhận định nhóm] đánh dấu phần diễn giải, không phải số đo.
 
 ## 0. Tóm tắt
 
-1. **Độ chính xác:** LightGBM quantile có SQL thấp nhất trên cả hai dataset, ở cả hai horizon và cả 4 nhóm nhu cầu. HistGradientBoosting quantile sát ngay sau.
+1. **Độ chính xác:** LightGBM quantile có SQL **trung bình** thấp nhất trên cả hai dataset, ở cả hai horizon và cả 4 nhóm nhu cầu; HistGradientBoosting quantile sát ngay sau.
+   - M5: kiểm định theo chuỗi xác nhận ở h = 3 (hạng tốt nhất ở mọi nhóm, p < 0,001); ở h = 13 LightGBM quantile và HistGradientBoosting gần như ngang nhau (Wilcoxon p = 0,055).
+   - VN1: **không** xác nhận. Xét theo từng chuỗi, TSB negative binomial ngang hoặc tốt hơn ở nhóm intermittent (h = 3) và ở toàn bộ chuỗi khi h = 13. Lợi thế về SQL trung bình đến từ việc LightGBM quantile tránh được các chuỗi mà TSB sai rất nặng.
 2. **Hiệu quả tồn kho ở cùng fill rate:**
    - M5: LightGBM quantile cần ít tồn kho nhất để đạt fill rate 0,94–0,96, ít hơn khoảng 8–12% so với các baseline mạnh.
    - VN1: lợi thế này **không còn**. LightGBM-Tweedie + safety stock chuẩn ngang hoặc tốt hơn ở fill rate 0,90–0,94; chỉ các mô hình phân vị trực tiếp đạt được 0,96.
@@ -48,6 +50,55 @@ Quy ước:
   - [Nhận định nhóm] Mô hình Tweedie học D_h không chuẩn hóa, nên có thể bị một số chuỗi quy mô lớn chi phối. Chưa xác minh.
   - Ảnh hưởng: chỉ đến ngưỡng thanh lý của hai mô hình này (dùng h = 13), không ảnh hưởng đến đặt hàng (h = 3).
 - **Hiệu chỉnh:** trên M5, các phân vị 0,9 của mọi mô hình đều phủ dưới 0,9 (0,79–0,90), tức hơi lệch thấp. Trên VN1, phần lớn phủ 0,90–0,92; riêng TSB Poisson chỉ phủ 0,849, do khoảng Poisson quá hẹp.
+
+## 1b. RQ1–RQ2 — Kiểm định thống kê theo chuỗi
+
+Cách làm (`code/stat_tests.py`):
+
+- Tính SQL của từng chuỗi, cho từng mô hình.
+- Kiểm định Friedman trên 8 mô hình, so hạng trung bình với Nemenyi CD (α = 0,05).
+- Wilcoxon theo cặp so với LightGBM quantile, hiệu chỉnh Holm.
+
+Friedman có p < 0,001 ở mọi dataset × nhóm × metric.
+
+**Bảng 1b.** Hạng trung bình theo SQL (1 = tốt nhất; ba mô hình đứng đầu mỗi cột). CD = khoảng cách hạng tối thiểu để khác biệt có ý nghĩa.
+
+| | M5 h = 3 (CD 0,06) | M5 h = 13 (CD 0,06) | VN1 h = 3 (CD 0,09) | VN1 h = 13 (CD 0,09) |
+|---|---|---|---|---|
+| 1 | lgb_quantile 3,42 | hgb_quantile 3,71 | tsb_nb 3,59 | tsb_nb 3,33 |
+| 2 | hgb_quantile 3,69 | lgb_quantile 3,80 | lgb_quantile 3,64 | tsb 3,71 |
+| 3 | lgb_tweedie 4,21 | lgb_tweedie 4,07 | hgb_quantile 3,69 | hgb_quantile 4,46 |
+
+Ghi chú cho Bảng 1b:
+
+- VN1 h = 3: ba mô hình đầu chênh nhau dưới CD, nên **không khác biệt có ý nghĩa** theo Nemenyi.
+- M5 h = 13: HistGradientBoosting có hạng tốt hơn LightGBM quantile 0,09 (> CD), nhưng Wilcoxon p = 0,055 và nó chỉ tốt hơn ở 53% chuỗi. Hai mô hình gần như ngang nhau.
+- VN1 h = 13: LightGBM quantile chỉ xếp hạng 4,64, kém TSB-NB ở 69% chuỗi.
+
+**VN1 theo nhóm** (h = 3, hạng trung bình):
+
+| Mô hình | smooth | erratic | intermittent | lumpy |
+|---|---|---|---|---|
+| lgb_quantile | 3,70 | 3,04 | 3,94 | 3,30 |
+| hgb_quantile | 3,65 | 3,06 | 4,02 | 3,37 |
+| tsb_nb | 4,08 | 4,79 | **3,04** | 3,59 |
+| tsb | 5,40 | 5,46 | 3,35 | 4,27 |
+
+**SQL trung vị theo chuỗi** (VN1, h = 3 / h = 13):
+
+| Mô hình | Toàn bộ | Intermittent |
+|---|---|---|
+| lgb_quantile | 0,152 / 0,175 | 0,133 / 0,181 |
+| tsb_nb | 0,152 / 0,107 | 0,112 / 0,080 |
+| tsb | 0,151 / 0,110 | 0,111 / 0,079 |
+
+So với SQL trung bình (Bảng 1: lgb_quantile 0,336 / 0,410; tsb_nb 0,411 / 0,458):
+
+- M5: LightGBM quantile và HistGradientBoosting cũng tốt nhất theo trung vị, ở mọi nhóm và cả hai horizon.
+- So với HistGradientBoosting, LightGBM quantile tốt hơn ở 57,3% chuỗi M5 (h = 3) nhưng chỉ ở 50,6% chuỗi VN1. Hai thư viện gần như tương đương.
+- [Nhận định nhóm] Trên VN1, mô hình ML global **không** chính xác hơn TSB ở chuỗi rời rạc điển hình. Lợi thế của nó là **độ vững**: ít khi sai rất nặng. Điều này phù hợp với nhận xét của bài 12 rằng chưa có kiến trúc global model được thiết lập cho chuỗi rời rạc (tr. 2). Khi viết bài, cần báo cáo cả trung bình và trung vị/hạng.
+
+**KPI theo chuỗi ở τ = 0,9** (`tables/stat_tests.md`): các khác biệt về fill rate và tồn kho cũng có ý nghĩa thống kê. Tuy vậy, chúng chủ yếu phản ánh việc mỗi phương pháp đạt mức phục vụ khác nhau; ví dụ TSB có tồn kho thấp nhất ở 97% chuỗi nhưng fill rate kém nhất. Vì vậy so sánh hiệu quả tồn kho dùng đường đánh đổi (mục 3).
 
 ## 2. RQ1 — KPI tồn kho ở kịch bản mặc định (không thanh lý)
 
@@ -248,7 +299,7 @@ TSB Poisson gần như không phản ứng với τ trên VN1 (fill 0,813 → 0,
 
 | Giả thuyết | Kết quả | Mức độ |
 |---|---|---|
-| H1: LightGBM quantile có SQL thấp nhất | Đúng trên cả hai dataset, cả hai horizon, cả 4 nhóm; HistGradientBoosting rất sát | Ủng hộ (chưa kiểm định) |
+| H1: LightGBM quantile có SQL thấp nhất | SQL trung bình: đúng ở mọi dataset, horizon và nhóm. Theo chuỗi: đúng ở M5 h = 3; ngang HistGradientBoosting ở M5 h = 13; trên VN1 ngang hoặc kém TSB/TSB-NB (intermittent, h = 13) | Ủng hộ ở M5; một phần ở VN1 |
 | H2: Phân vị trực tiếp cần ít tồn kho hơn dự báo điểm + safety stock | M5: đúng (−8 đến −10%). VN1: sai ở fill rate 0,90–0,94; chỉ đúng ở mức cao (0,96 chỉ mô hình phân vị đạt được) | Ủng hộ một phần |
 | H3: ML có lợi rõ ở smooth/erratic; TSB đủ tốt ở intermittent | M5: ML tốt nhất ở mọi nhóm. VN1: TSB-NB tốt nhất ở intermittent **và** smooth; ML tốt hơn ở erratic, lumpy | Ủng hộ một phần, phụ thuộc dataset |
 | H4: Thanh lý theo phân vị giảm tồn kho mà mất ít fill rate hơn quy tắc cố định | Đúng trên VN1, rõ nhất ở nhóm lumpy; trên M5 quy tắc phân vị hầu như không kích hoạt. Về kinh tế, s\* cao | Ủng hộ về KPI; lợi ích kinh tế hạn chế |
@@ -257,7 +308,7 @@ TSB Poisson gần như không phản ứng với τ trên VN1 (fill 0,813 → 0,
 
 **Hạn chế của kết quả hiện tại**
 
-1. **Chưa có kiểm định thống kê.** Cần lưu SQL và KPI theo từng chuỗi, rồi chạy Friedman–Nemenyi (SQL) và Wilcoxon + Holm (KPI). Chênh lệch giữa LightGBM quantile và HistGradientBoosting (0,002–0,013 SQL) cần kiểm định trước khi kết luận.
+1. ~~Chưa có kiểm định thống kê.~~ Đã chạy (mục 1b). Còn lại: kiểm định cho KPI ở **cùng fill rate** (chưa có cách làm theo chuỗi, vì fill rate từng chuỗi rời rạc).
 2. **Một cửa sổ kiểm thử 26 tuần** cho mỗi dataset. Nên thêm một cửa sổ kiểm thử sớm hơn (ví dụ dời lùi 26 tuần) để kiểm tra độ ổn định.
 3. **M5 chưa chạy lưới L, H, q_L, k.** Nếu cần, chạy cho các mô hình nhanh và LightGBM quantile (khoảng 1 giờ).
 4. **Bất thường RMSSE của LightGBM-Tweedie ở VN1, h = 13** (mục 1) cần tìm nguyên nhân. Một hướng: huấn luyện Tweedie trên mục tiêu chuẩn hóa D_h / s.
@@ -267,7 +318,7 @@ TSB Poisson gần như không phản ứng với τ trên VN1 (fill 0,813 → 0,
 
 **Việc nên làm trước khi viết bài (Bước 11)**
 
-- [ ] Kiểm định thống kê (mục 9.1).
+- [x] Kiểm định thống kê (mục 1b).
 - [ ] Cửa sổ kiểm thử thứ hai.
 - [ ] Sửa hoặc giải thích bất thường Tweedie ở VN1, h = 13.
 - [ ] (Tùy chọn) lưới L, H cho M5; quy tắc thanh lý dead-stock.
