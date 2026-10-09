@@ -447,7 +447,7 @@ Ghi chú cho Bảng 9:
 | Đứng đầu đường đánh đổi theo nhóm, VN1 | smooth tsb_nb; erratic lgb_quantile; intermittent lgb_quantile; lumpy lgb_quantile | smooth tsb_nb; erratic conformal; intermittent lgb_quantile; lumpy lgb_quantile | ✅ trừ erratic |
 | Spearman M5–VN1 theo đường đánh đổi (toàn bộ / intermittent) | 0,88 / 0,90 | 0,50 (p 0,21) / 0,95 | ❌ toàn bộ; ✅ intermittent |
 | Spearman M5–VN1 theo fill rate ở τ = 0,9 (toàn bộ / intermittent) | 0,69 / 0,83 | 0,93 / 0,93 | Không ổn định |
-| Quy tắc phân vị, VN1, lgb_quantile: tồn kho / Δfill | −4,2% / −0,02 | −1,7% / −0,02 | ✅ ít mất fill; mức giảm nhỏ hơn |
+| Quy tắc phân vị, VN1, lgb_quantile: tồn kho / Δfill | −4,3% / −0,02 | −1,7% / −0,02 | ✅ ít mất fill; mức giảm nhỏ hơn |
 | dead13, VN1 intermittent: tỷ lệ tuần hết hàng | 0,081 → 0,135 | 0,087 → 0,140 | ✅ |
 | dead13, M5, lgb_quantile: Δfill | −0,66 | −0,46 | ✅ |
 
@@ -487,16 +487,129 @@ Thời gian dự báo của cửa sổ thứ hai (VN1, h = 3 / 13, `code/outputs
 - TSB-NB 29 / 26 s; Tweedie 12 / 11 s; conformal 11 / 13 s;
 - HistGradientBoosting 77 / 129 s; LightGBM quantile 264 / 109 s.
 
+### 10.1 Cửa sổ kiểm thử thứ ba (w52)
+
+**Cách làm:** như mục 10, nhưng bỏ 52 tuần cuối (`run_pipeline.py --offset 52`, `code/outputs/logs/rerun_w52.sh`). Cửa sổ kiểm thử:
+
+- M5: 2014-11-22 → 2015-05-16, 28.824 chuỗi;
+- VN1: 2022-10-10 → 2023-04-03, 9.383 chuỗi (nằm trong Phase 0).
+
+Nguồn: `code/outputs/comparison_w52.md`, `stat_tests_w52.md`, `equal_fill_ci_w52.md`, `fig_tradeoff_*_w52.png`.
+
+**Bảng 12.** Các kết quả chính qua ba cửa sổ (chính / thứ hai / thứ ba).
+
+| Kết quả | Chính | Thứ hai | Thứ ba | Vững qua 3 cửa sổ? |
+|---|---|---|---|---|
+| SQL trung bình h = 3, M5: tốt nhất | lgb_quantile 0,208 | lgb_quantile 0,215 | lgb_quantile 0,222 | ✅ |
+| Hạng theo chuỗi M5 h = 3: lgb_quantile / hgb_quantile | 3,40 / 3,66 | 3,50 / 3,72 | 3,48 / 3,62 | ✅ |
+| Hạng theo chuỗi VN1 h = 3, ba mô hình đầu (chênh < CD) | tsb_nb, lgb_q, hgb | lgb_q, hgb, tsb_nb | lgb_q 3,60; tsb_nb 3,65; hgb 3,66 (CD 0,108) | ✅ ngang nhau |
+| Hạng theo chuỗi VN1 h = 13: đứng đầu | tsb_nb 3,36 | tsb_nb 3,45 | tsb_nb 3,75 | ✅ |
+| Trung vị SQL theo chuỗi VN1 h = 3, lgb_quantile / tsb_nb | 0,152 / 0,152 | 0,140 / 0,150 | 0,184 / 0,186 | ✅ ngang nhau |
+| Hạng theo đường đánh đổi, M5: lgb_quantile / hgb_quantile | 1,0 / 2,0 | 1,2 / 1,8 | 1,0 / 2,0 | ✅ |
+| Hạng theo đường đánh đổi, VN1 (toàn bộ): đứng đầu | lgb_quantile 1,4 | tsb_nb 1,8 (lgb_q 3,8) | lgb_quantile 1,25 (conformal 2,25; hgb 2,5; tsb_nb 5,5) | ❌ (lgb_q 2/3 cửa sổ) |
+| VN1 smooth: đứng đầu | tsb_nb 2,4 | tsb_nb 2,0 | conformal 1,8 (tsb_nb 2,6; lgb_q 3,6) | ❌ |
+| VN1 intermittent: đứng đầu | lgb_quantile 1,4 | lgb_quantile 2,0 | không xác định (\*) | ✅ ở 2 cửa sổ có số liệu |
+| VN1 lumpy: đứng đầu | lgb_quantile 1,0 | lgb_quantile 2,0 | lgb_quantile 1,33 | ✅ |
+| VN1 erratic: đứng đầu | lgb_quantile 1,2 | conformal 2,2 | lgb_quantile 1,0 | ❌ |
+| VN1 intermittent, % chuỗi lgb_q có pinball loss thấp hơn tsb_nb (mọi q) | 24–33% | 29–34% | 30–34% | ✅ |
+| Quy tắc phân vị, VN1, lgb_q: tồn kho / Δfill | −4,3% / −0,02 | −1,7% / −0,02 | −7,4% / −0,02 | ✅ |
+| dead13, VN1 intermittent: thay đổi tỷ lệ tuần hết hàng | +68% | +61% | +43% | ✅ luôn tăng |
+| dead13, M5, lgb_q: Δfill (điểm %) | −0,66 | −0,46 | −0,54 | ✅ |
+| Spearman M5–VN1, hạng đường đánh đổi: toàn bộ | 0,88 | 0,50 | 0,67 | ❌ |
+| Spearman M5–VN1, fill rate ở τ = 0,9: intermittent | 0,83 | 0,93 | 0,83 | ✅ |
+
+(\*) Ở cửa sổ thứ ba, nhóm intermittent của VN1 không phương pháp nào đạt fill rate 0,90 trong lưới τ (lgb_quantile chỉ đạt 0,84 ở τ = 0,9), nên không xếp hạng được theo đường đánh đổi.
+
+**Nhận xét:**
+
+- **M5 vững qua cả ba cửa sổ.**
+- **VN1 tổng thể:** lgb_quantile hiệu quả nhất ở 2/3 cửa sổ; TSB-NB ở cửa sổ thứ hai. Kết luận "phụ thuộc giai đoạn" vẫn đúng, nhưng nghiêng về lgb_quantile.
+- **VN1 theo nhóm:** chỉ còn **lumpy** (và intermittent ở hai cửa sổ có số liệu) là vững cho lgb_quantile. Nhận định "TSB-NB tốt nhất ở nhóm smooth" của mục 10 **không lặp lại** ở cửa sổ thứ ba.
+- **SQL trung bình của VN1 không ổn định:** 0,336 / 0,539 / 2,008 cho lgb_quantile, trong khi trung vị gần như không đổi (0,152 / 0,140 / 0,184). Ở cửa sổ thứ ba, 10 chuỗi tệ nhất chiếm 29% tổng SQL của lgb_quantile (giá trị lớn nhất 895); bỏ 1% chuỗi tệ nhất thì trung bình còn 0,550 (`data/cache/series_metrics_VN1_w52.parquet`). [Nhận định nhóm] Trên VN1, SQL trung bình bị chi phối bởi một số ít chuỗi có quy mô naive rất nhỏ; cần báo cáo trung vị và hạng theo chuỗi.
+- Dead13 luôn làm tăng tỷ lệ tuần hết hàng của nhóm intermittent VN1 (+43% đến +68%) và luôn làm mất fill rate trên M5.
+
+### 10.2 Khoảng tin cậy bootstrap cho tồn kho ở cùng fill rate
+
+Cách làm (`code/equal_fill_ci.py`): với mỗi lần lấy mẫu lại chuỗi (B = 200, seed 2026), dựng lại đường đánh đổi của từng phương pháp và nội suy lượng tồn kho cần để đạt fill rate mục tiêu như mục 4. Chênh lệch tương đối Δ = I_phương pháp / I_lgb_quantile − 1 (dương = lgb_quantile cần ít tồn kho hơn). Khoảng tin cậy chỉ báo cáo khi mục tiêu đạt được trong ≥ 95% số lần lấy mẫu. Đây là kiểm định còn thiếu ở mục 11 (hạn chế 1).
+
+**Bảng 13.** Toàn bộ chuỗi, fill rate 0,94: hạng theo đường đánh đổi của lgb_quantile [KTC 95%], xác suất lgb_quantile có hạng tốt nhất P(best), và Δ của từng baseline [KTC 95%]. "Giá trị" = KPI trọng số theo giá bán (mục 10.3). Nguồn: `code/outputs/equal_fill_ci*.csv`.
+
+| Dataset | Cửa sổ | KPI | Hạng lgb_q | P(best) | hgb_quantile | lgb_tweedie | lgb_conformal | tsb_nb | ets |
+|---|---|---|---|---|---|---|---|---|---|
+| M5 | chính | đơn vị | 1,0 [1,0; 1,0] | 1,00 | +1,2% [+0,9; +1,6] | +5,1% [+4,4; +5,9] | +4,5% [+3,2; +5,8] | +10,0% [+9,1; +11,0] | +10,6% [+9,8; +11,5] |
+| VN1 | chính | đơn vị | 1,4 [1,0; 2,6] | 0,93 | +4,5% [+2,9; +6,7] | +0,9% [-7,5; +9,9] | +1,7% [-6,3; +8,7] | +10,5% [-0,5; +19,8] | +12,0% [+3,8; +19,7] |
+| M5 | chính | giá trị | 1,0 [1,0; 1,0] | 1,00 | +1,2% [+0,9; +1,6] | +4,8% [+4,1; +5,4] | +6,6% [+5,3; +7,8] | +7,7% [+6,9; +8,5] | +9,7% [+8,9; +10,5] |
+| VN1 | chính | giá trị | 1,8 [1,0; 2,4] | 0,98 | +5,0% [+2,4; +9,6] | -1,4% [-18,0; +13,0] | +7,2% [-0,0; +19,1] | +15,3% [-1,2; +27,7] | +17,1% [+0,3; +30,1] |
+| M5 | thứ hai | đơn vị | 1,2 [1,0; 1,4] | 1,00 | +1,4% [+1,2; +1,7] | +6,8% [+6,2; +7,6] | +8,2% [+6,8; +9,3] | +7,5% [+6,7; +8,3] | +8,0% [+7,1; +8,9] |
+| VN1 | thứ hai | đơn vị | 3,8 [2,8; 4,8] | 0,00 | -1,2% [-2,5; +0,2] | -7,7% [-11,8; -3,8] | -4,1% [-7,3; -0,9] | -8,8% [-12,8; -4,9] | -0,4% [-5,7; +4,2] |
+| M5 | thứ hai | giá trị | 1,0 [1,0; 1,4] | 1,00 | +1,2% [+1,0; +1,4] | +5,3% [+4,7; +6,1] | +6,7% [+5,4; +8,0] | +5,7% [+5,0; +6,4] | +7,2% [+6,4; +8,0] |
+| VN1 | thứ hai | giá trị | 4,8 [3,6; 5,2] | 0,00 | -1,7% [-3,1; +0,5] | -12,5% [-26,2; -6,1] | -9,7% [-18,4; -6,5] | -13,0% [-23,0; -7,2] | -2,6% [-16,1; +3,7] |
+| M5 | thứ ba | đơn vị | 1,0 [1,0; 1,2] | 1,00 | +0,2% [-0,2; +0,5] | +3,3% [+2,7; +4,0] | +7,5% [+6,3; +8,4] | +4,9% [+4,2; +5,7] | +5,9% [+5,0; +6,6] |
+| VN1 | thứ ba | đơn vị | 1,2 [1,0; 2,0] | 0,95 | +1,3% [-0,7; +3,5] | — | +11,5% [+1,6; +116,5] | — | — |
+| M5 | thứ ba | giá trị | 1,0 [1,0; 1,2] | 1,00 | +0,3% [-0,0; +0,5] | +4,4% [+3,7; +5,2] | +9,2% [+7,5; +11,2] | +4,4% [+3,5; +5,3] | +6,6% [+5,7; +7,6] |
+| VN1 | thứ ba | giá trị | 1,5 [1,2; 3,0] | 0,59 | +0,4% [-4,1; +3,4] | — | +1,8% [-7,6; +79,9] | — | — |
+
+**Nhận xét:**
+
+- **M5:** ở cả ba cửa sổ, lgb_quantile có hạng tốt nhất ở mọi lần lấy mẫu (P(best) = 1,00) và cần ít tồn kho hơn Tweedie, conformal, TSB-NB, ETS với KTC không chứa 0. Chênh lệch với HistGradientBoosting nhỏ (0–1,5%) và ở cửa sổ thứ ba không có ý nghĩa.
+- **VN1, cửa sổ chính:** lgb_quantile đứng đầu với P(best) = 0,93, nhưng chênh lệch với Tweedie, conformal và TSB-NB ở fill rate 0,94 đều có KTC chứa 0. Nhận định "TSB-NB cần nhiều hơn 5–10%" (mục 10) **không có ý nghĩa thống kê**.
+- **VN1, cửa sổ thứ hai:** TSB-NB, Tweedie và conformal cần ít tồn kho hơn lgb_quantile với KTC không chứa 0.
+- **VN1, cửa sổ thứ ba:** lgb_quantile đứng đầu (P(best) = 0,95); TSB-NB, ETS và Tweedie không đạt fill rate 0,94.
+
+### 10.3 KPI theo giá trị
+
+KPI được tính lại với trọng số là giá bán của tuần đó (giá điền tiếp; M5: `sell_prices.csv`; VN1: giá Phase 0–1, Phase 2 dùng giá điền tiếp). Fill rate theo giá trị = Σ giá·bán / Σ giá·nhu cầu; tồn kho theo giá trị = Σ giá·tồn / Σ giá·nhu cầu (tuần nhu cầu). Kết quả trong Bảng 13 (dòng "giá trị") và `equal_fill_ci*.md`.
+
+- Kết luận theo giá trị **trùng** với theo đơn vị ở cả hai dataset và ba cửa sổ: M5 lgb_quantile luôn đứng đầu với P(best) = 1,00; VN1 đổi giữa các cửa sổ như theo đơn vị.
+- [Nhận định nhóm] Việc cộng gộp theo đơn vị (hạn chế 6) không làm thay đổi kết luận chính.
+
+### 10.4 Case study: chuỗi bán lẻ giày dép Việt Nam (VNF)
+
+**Dữ liệu** (`f2d.data.load_vnf`): Vietnam Datathon 2023 (Kaggle `tienanh2003/sales-and-inventory-snapshot-data`), kênh bán lẻ, chuỗi mẫu–màu × toàn chuỗi cửa hàng, theo tuần.
+
+- Mã tuần trong dữ liệu là năm + tuần ISO của năm giao dịch, nên gán sai ở ranh giới năm: 202153 chứa ngày 1–2/1/2022 (phần đuôi của tuần ISO 2021-W52) → bỏ; 202352 chứa ngày 1/1/2023 (thuộc tuần ISO 2022-W52) → gộp vào 202252. Tuần 202331 chỉ có ngày 31/7/2023 → bỏ. Không trừ hàng trả lại vào nhu cầu.
+- Panel: 1.001 chuỗi × 82 tuần (2022-01-03 → 2023-07-24); 909 chuỗi được đánh giá (smooth 187, erratic 285, intermittent 272, lumpy 165); tỷ lệ tuần bằng 0: 35,4%.
+- Cửa sổ kiểm thử: 2023-01-30 → 2023-07-24. Một cửa sổ, vì panel chỉ có 82 tuần.
+- Giá vốn và giá bán thực tế: trung vị biên lợi nhuận (giá bán ròng / giá vốn − 1) là 45,5%.
+- **Cảnh báo dữ liệu:** (1) mức bán toàn chuỗi giảm từ khoảng 8–17 nghìn đơn vị/tuần trong năm 2022 xuống khoảng 5 nghìn từ tuần 202304 (Tết 2023) và giữ ở mức đó trong toàn bộ cửa sổ kiểm thử; chưa xác định được đây là thay đổi thực hay dữ liệu thiếu; (2) như `05_methodology/dataset.md` đã nêu, nghi ngờ file doanh số (`*_split_1`) chỉ chứa một phần giao dịch; (3) giấy phép "Unknown". Vì vậy case study chỉ dùng để **minh họa** và đánh giá bằng tiền, không dùng để xếp hạng chung.
+
+**Kết quả** (9 phương pháp, có Chronos-2; nguồn: `code/outputs/comparison_VNF.md`, `equal_fill_ci_VNF.md`, `stat_tests_VNF.md`, `VNF/breakeven.csv`):
+
+| | SQL h = 3 | RMSSE h = 3 | Độ phủ q = 0,8 | Hạng đường đánh đổi (toàn bộ) |
+|---|---|---|---|---|
+| tsb | **0,150** | 0,325 | 0,882 | 4,2 |
+| lgb_quantile | 0,154 | **0,292** | 0,890 | **2,6** (P(best) = 0,91) |
+| hgb_quantile | 0,154 | 0,299 | 0,880 | 4,2 |
+| tsb_nb | 0,158 | 0,321 | 0,882 | 4,0 |
+| chronos2 | 0,170 | 0,324 | 0,940 | 5,8 |
+| ets | 0,171 | 0,319 | 0,961 | 3,0 |
+| lgb_conformal | 0,175 | 0,359 | 0,855 | 7,6 |
+| lgb_tweedie | 0,187 | 0,358 | 0,960 | 5,4 |
+| empirical | 0,268 | 0,466 | 0,972 | 8,2 |
+
+- Hầu hết phương pháp **dự báo dư**: độ phủ của phân vị 0,8 là 0,86–0,97, fill rate ở τ = 0,9 là 0,93–0,99. [Nhận định nhóm] Phù hợp với việc mức bán giảm ngay trước cửa sổ kiểm thử.
+- lgb_quantile hiệu quả tồn kho nhất (hạng 2,6, P(best) = 0,91), dù TSB Poisson có SQL trung bình thấp nhất. Chronos-2 xếp 5,8, cần nhiều hơn lgb_quantile 11–26% ở fill rate 0,90–0,96 (KTC không chứa 0).
+- Nhóm intermittent: fill rate ở τ = 0,9 chỉ 0,58–0,75, không phương pháp nào đạt 0,90 nên không xếp hạng được.
+- **Thanh lý tính bằng tiền** (giá vốn và giá bán thực của từng chuỗi, chi phí lưu kho 10–40%/năm, cận trên): với 4 mô hình ML, quy tắc phân vị và quy tắc cố định có s\* ≈ 0,90–1,01 lần giá vốn; dead13 ≈ 1,26–1,43; dead26 ≈ 1,15–1,33. Với Chronos-2: quy tắc phân vị 1,04–1,09; dead13 1,21–1,30; dead26 1,14–1,22. Lượng thanh lý nhỏ (≤ 3% nhu cầu). Kết luận giống M5 và VN1: trong cửa sổ 26 tuần, thanh lý chỉ có lợi khi bán thanh lý gần bằng giá vốn.
+
+### 10.5 Chronos-2 (foundation model, zero-shot) — đang chạy
+
+- Mô hình: `amazon/chronos-2` (120 triệu tham số, Apache-2.0), chạy trên CPU, không fine-tune, không dùng biến ngoại sinh. Để dự báo trực tiếp phân vị của D_h như các phương pháp khác, ngữ cảnh là chuỗi các tổng h tuần không chồng lấn kết thúc ngay trước origin (tối đa 104 tuần), dự báo 1 bước; các phân vị 0,5–0,99 nằm trong tập phân vị huấn luyện của mô hình (`f2d.models.chronos2`).
+- **Rò rỉ dữ liệu:** tập huấn luyện của Chronos-2 gồm một phần `autogluon/chronos_datasets` và `Salesforce/GiftEvalPretrain` (model card); **cả hai đều có M5**, không có VN1. Kết quả trên M5 vì vậy không phải zero-shot "sạch"; VN1 và VNF thì sạch.
+- Kết quả 9 phương pháp ghi vào `code/outputs/<D>[_wN]_c2/` để không thay đổi kết quả 8 phương pháp ở trên (`code/outputs/logs/rerun_c2.sh`). Sẽ cập nhật khi chạy xong.
+
 ## 11. Hạn chế và việc còn lại
 
 **Hạn chế**
 
-1. Kiểm định thống kê đã chạy cho SQL và KPI theo chuỗi (mục 2). Chưa có kiểm định cho KPI ở **cùng fill rate**, vì fill rate của từng chuỗi rời rạc và không nội suy ổn định được.
-2. **Hai cửa sổ kiểm thử** (mục 10). Kết quả VN1 về hiệu quả tồn kho tổng thể đổi giữa hai cửa sổ; cần thêm cửa sổ nữa nếu muốn kết luận chắc chắn.
+1. Kiểm định thống kê đã chạy cho SQL và KPI theo chuỗi (mục 2). KPI ở **cùng fill rate** không kiểm định được theo từng chuỗi (fill rate của từng chuỗi rời rạc); thay vào đó dùng khoảng tin cậy bootstrap theo chuỗi (mục 10.2).
+2. **Ba cửa sổ kiểm thử** (mục 10, 10.1). Kết quả VN1 về hiệu quả tồn kho tổng thể và theo nhóm smooth/erratic đổi giữa các cửa sổ.
 3. **M5 chưa chạy lưới L, H, q_L, k.**
 4. **Nhu cầu bị kiểm duyệt; siêu tham số cố định; HistGradientBoosting dùng mẫu con và early stopping khác.**
 5. **Tầm nhìn 26 tuần quá ngắn** để thấy lợi ích của thanh lý hàng lỗi thời (mục 7.2).
-6. KPI được cộng gộp theo đơn vị, nên chuỗi lớn chi phối kết quả. Kiểm định theo chuỗi (mục 2) bổ sung góc nhìn không trọng số.
+6. KPI được cộng gộp theo đơn vị, nên chuỗi lớn chi phối kết quả. Kiểm định theo chuỗi (mục 2) bổ sung góc nhìn không trọng số; KPI theo giá trị (mục 10.3) cho cùng kết luận.
+7. **Case study VNF** chỉ có một cửa sổ, có dấu hiệu dữ liệu thiếu và mức bán giảm đột ngột trước cửa sổ kiểm thử (mục 10.4).
+8. **Chronos-2 trên M5 có rủi ro rò rỉ dữ liệu** (mục 10.5).
 
 **Việc còn lại trước khi viết bài (Bước 11)**
 
@@ -505,5 +618,9 @@ Thời gian dự báo của cửa sổ thứ hai (VN1, h = 3 / 13, `code/outputs
 - [x] Sửa lỗi Tweedie (mục 1.1).
 - [x] Quy tắc dead-stock (mục 7.1).
 - [x] Cửa sổ kiểm thử thứ hai (mục 10).
+- [x] Cửa sổ kiểm thử thứ ba (mục 10.1).
+- [x] Khoảng tin cậy bootstrap ở cùng fill rate; KPI theo giá trị (mục 10.2, 10.3).
+- [x] Case study VNF (mục 10.4).
+- [ ] Chronos-2 (mục 10.5, đang chạy).
 - [ ] (Tùy chọn) lưới L, H cho M5.
 - [ ] Đọc W3 và bài 20 để định vị lại phần "độ chính xác theo chuỗi ≠ hiệu quả tồn kho" trước khi đưa vào bài (`03_problem_and_gap/research_gap.md` mục 6).

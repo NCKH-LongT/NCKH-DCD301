@@ -247,7 +247,7 @@ The comparison of the two windows [R §10 T11] separates robust from period-depe
 - VN1 per-series ranks: TSB-NB, LGB-Q and HGB-Q are within the CD at h = 3; TSB-NB leads at h = 13 (3.36 / 3.45).
 - M5 frontier ranks: LGB-Q 1.0 / 1.2, HGB-Q 2.0 / 1.8.
 - VN1 frontier leaders by class: TSB-NB on smooth series; LGB-Q on intermittent and lumpy series.
-- Liquidation: the quantile rule loses almost no fill rate (VN1, LGB-Q: inventory −4.2% / −1.7%, Δfill −0.02 pp in both windows). Dead13 raises the stockout rate of VN1 intermittent series (0.081 → 0.135 and 0.087 → 0.140, i.e. +61% to +68%) and always costs fill rate on M5 (−0.66 / −0.46 pp).
+- Liquidation: the quantile rule loses almost no fill rate (VN1, LGB-Q: inventory −4.3% / −1.7%, Δfill −0.02 pp in both windows). Dead13 raises the stockout rate of VN1 intermittent series (0.081 → 0.135 and 0.087 → 0.140, i.e. +61% to +68%) and always costs fill rate on M5 (−0.66 / −0.46 pp).
 - Cross-dataset consistency of the intermittent class (ρ = 0.90 / 0.95 by frontier rank).
 
 **Not robust:**
