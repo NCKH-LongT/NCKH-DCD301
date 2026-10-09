@@ -44,7 +44,7 @@ Căn cứ: gap 2, 4.
 Mục tiêu:
 
 - Quy tắc: thanh lý phần tồn vượt Q_q của tổng nhu cầu trong H tuần tới.
-- Baseline: không thanh lý; thanh lý theo ngưỡng cố định (tồn > k tuần bán trung bình).
+- Baseline: không thanh lý; thanh lý theo ngưỡng cố định (tồn > k tuần bán trung bình); thanh lý hàng tồn chết (không bán trong 13 hoặc 26 tuần).
 - Đo: số đơn vị và số tuần tồn kho được giảm; số tuần hết hàng tăng thêm.
 - **Ngưỡng giá thu hồi hòa vốn** s*: tỷ lệ giá thu hồi / giá vốn tối thiểu để thanh lý có lợi hơn việc giữ lại. Không chọn một con số cố định: s* được tính trên lưới chi phí lưu kho {10, 25, 40}%/năm × biên lợi nhuận gộp {30, 50, 100}%, kèm cận trên và cận dưới (`05_methodology/evaluation_metrics.md` mục 4).
 
@@ -56,7 +56,7 @@ Căn cứ: gap 3. Giả định: không mô hình hóa phản ứng của nhu c�
 
 Mục tiêu:
 
-- Lưới kịch bản: τ ∈ {0,8; 0,9; 0,95} (tương đương c_o = 1, c_u ∈ {4, 9, 19} như bài 11, tr. 16); L ∈ {1, 2, 4} tuần; H ∈ {8, 13, 26} tuần.
+- Lưới kịch bản: τ ∈ {0,5; 0,8; 0,9; 0,95; 0,99}, trong đó 0,8 / 0,9 / 0,95 (tương đương c_o = 1, c_u ∈ {4, 9, 19} như bài 11, tr. 16); L ∈ {1, 2, 4} tuần; H ∈ {8, 13, 26} tuần.
 - Kiểm tra độ ổn định qua nhiều mốc dự báo (rolling origin) và giữa hai dataset.
 - **Phạm vi đã chạy:** lưới τ cho cả hai dataset và cả 8 phương pháp; lưới L, H, q_L, k đầy đủ **chỉ cho VN1** (7 phương pháp; HistGradientBoosting chỉ ở horizon mặc định). M5 chưa chạy lưới L, H vì chi phí tính toán (`06_experiment_results/experimental_setup.md`).
 

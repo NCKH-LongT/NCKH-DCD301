@@ -63,6 +63,7 @@ def main():
     qs = list(config.QUANTILES)
     D = np.nan_to_num(Y[:, test0:T]).astype(np.float64)[idx]
     avg26 = np.stack([b.window_sum(b.C, o - 26, o) / np.maximum(b.window_sum(b.A, o - 26, o), 1) for o in origins], 1)[idx]
+    since = np.stack([b.since_sale(o) for o in origins], 1)[idx]
     fc = os.path.join(config.CACHE, "forecasts", a.dataset)
 
     rows, inv_rows = [], []
@@ -73,7 +74,8 @@ def main():
             print(f"  skip {m}: forecasts not cached")
             continue
         S = np.load(f_lr)["Q"][idx][:, :, qs.index(tau)]
-        thr = {"quantile": np.load(f_h)["Q"][idx][:, :, qs.index(ql)], "fixed": kf * avg26}
+        thr = {"quantile": (S, np.load(f_h)["Q"][idx][:, :, qs.index(ql)]), "fixed": (S, kf * avg26),
+               **{f"dead{N}": policy.deadstock(S, since, N) for N in config.DEAD_WEEKS}}
         base = policy.simulate(D, S, np.full_like(S, np.inf), L)
 
         # series-level weeks of supply (KPI weeks), no liquidation
@@ -86,8 +88,8 @@ def main():
                                  p75=np.nanpercentile(v, 75), p90=np.nanpercentile(v, 90),
                                  zero_demand_series_share=float(np.mean(md[msk] == 0))))
 
-        for pol, T_liq in thr.items():
-            liq = policy.simulate(D, S, T_liq, L)
+        for pol, (S_pol, T_liq) in thr.items():
+            liq = policy.simulate(D, S_pol, T_liq, L)
             d_orders = liq["order"].sum(1) - base["order"].sum(1)
             d_end = end_position(liq, L) - end_position(base, L)
             d_inv = liq["on_hand_end"].sum(1) - base["on_hand_end"].sum(1)

@@ -38,9 +38,9 @@ def scenarios(grid):
     out = []
     vary = {"tau": [d["tau"]], "L": [d["L"]], "H": [d["H"]], "q_liq": [d["q_liq"]], "k": [d["k_fixed"]]}
     if grid == "full":
-        vary = {"tau": [0.8, 0.9, 0.95], "L": [1, 2, 4], "H": [8, 13, 26], "q_liq": [0.9, 0.95, 0.99], "k": [13, 26, 52]}
+        vary = {"tau": list(config.TAU_GRID), "L": [1, 2, 4], "H": [8, 13, 26], "q_liq": [0.9, 0.95, 0.99], "k": [13, 26, 52]}
     elif grid == "tau":          # trade-off curves only: same horizons as the default scenario
-        vary = {**vary, "tau": [0.8, 0.9, 0.95]}
+        vary = {**vary, "tau": list(config.TAU_GRID)}
     for key, vals in vary.items():
         for v in vals:
             s = {**base, key: v}
@@ -57,6 +57,8 @@ def main():
     ap.add_argument("--boot", type=int, default=0, help="bootstrap resamples for KPI CIs")
     ap.add_argument("--stores", default="", help="M5 only: comma-separated store_id subset")
     ap.add_argument("--tag", default="", help="suffix of the output folder")
+    ap.add_argument("--offset", type=int, default=0,
+                    help="earlier test window: drop the last OFFSET weeks of the panel (output tag defaults to w<OFFSET>)")
     ap.add_argument("--default-only-models", default="hgb_quantile",
                     help="models forecast only at the default horizons (L+R, H) even with --grid full")
     a = ap.parse_args()
@@ -64,6 +66,9 @@ def main():
     t_all = time.time()
 
     p = data.load(a.dataset)
+    if a.offset:
+        p = data.truncate(p, p["Y"].shape[1] - a.offset)
+        a.tag = a.tag or f"w{a.offset}"
     Y = p["Y"]
     n, T = Y.shape
     test0 = T - config.TEST_WEEKS
@@ -120,6 +125,7 @@ def main():
     D = np.nan_to_num(Y[:, test0:T]).astype(np.float64)
     avg26 = np.stack([b.window_sum(b.C, o - 26, o) / np.maximum(b.window_sum(b.A, o - 26, o), 1) for o in origins], 1)
     idx = np.flatnonzero(sel)
+    since = np.stack([b.since_sale(o) for o in origins], 1)[idx]
     sub = {g: m[idx] for g, m in groups.items()}
     kpi_rows = []
     for m in names:
@@ -127,11 +133,12 @@ def main():
             if (m, s["L"] + R) not in F or (m, s["H"]) not in F:
                 continue
             S = F[m, s["L"] + R][idx][:, :, qs.index(s["tau"])]
-            pols = {"none": np.full_like(S, np.inf),
-                    "quantile": F[m, s["H"]][idx][:, :, qs.index(s["q_liq"])],
-                    "fixed": s["k"] * avg26[idx]}
-            for pol, thr in pols.items():
-                sim = policy.simulate(D[idx], S, thr, s["L"])
+            pols = {"none": (S, np.full_like(S, np.inf)),
+                    "quantile": (S, F[m, s["H"]][idx][:, :, qs.index(s["q_liq"])]),
+                    "fixed": (S, s["k"] * avg26[idx]),
+                    **{f"dead{N}": policy.deadstock(S, since, N) for N in config.DEAD_WEEKS}}
+            for pol, (S_pol, thr) in pols.items():
+                sim = policy.simulate(D[idx], S_pol, thr, s["L"])
                 tot = evaluate.series_kpis(sim, D[idx], s["H"])
                 k = evaluate.kpi_table(tot, sub, n_boot=a.boot)
                 for c, v in [("model", m), ("policy", pol), *[(kk, s[kk]) for kk in ("tau", "L", "H", "q_liq", "k")]][::-1]:

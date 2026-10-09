@@ -25,4 +25,10 @@ WARMUP_WEEKS = 4         # simulation weeks excluded from KPIs
 # Default scenario (grid in data_flow.md, section 7).
 DEFAULT = dict(R=1, L=2, tau=0.9, H=13, q_liq=0.95, k_fixed=26)
 
+# Target service levels of the trade-off curves (0.5 and 0.99 extend the curves; every model forecasts them).
+TAU_GRID = (0.5, 0.8, 0.9, 0.95, 0.99)
+
+# Dead-stock liquidation rule: weeks without any sale before a series is cleared and no longer replenished.
+DEAD_WEEKS = (13, 26)
+
 SEED = 2026

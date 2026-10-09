@@ -249,6 +249,15 @@ def _fit(params, Xt, yt, Xv, yv, b):
                      callbacks=[lgb.early_stopping(EARLY_STOP, verbose=False)])
 
 
+def _fit_tweedie(Xt, St, Dt, Xv, Sv, Dv, b):
+    """Tweedie point model on the same scaled, winsorised target D_h / s as the quantile model; predictions are
+    multiplied back by s. (Fitting the raw D_h with scale-free features produced very large forecasts for
+    near-dormant VN1 series: 06_experiment_results/results.md §1.)"""
+    cap = np.percentile(Dt / St, TARGET_CLIP_PCT)
+    return _fit({**LGB_PARAMS, "objective": "tweedie", "tweedie_variance_power": 1.1},
+                Xt, np.minimum(Dt / St, cap), Xv, np.minimum(Dv / Sv, cap), b)
+
+
 def _lgb_model(kind, b: Builder, origins, h, qs, series, log=print):
     Q = np.full((b.n, len(origins), len(qs)), np.nan, np.float32)
     cut = block_cutoffs(origins)
@@ -268,13 +277,13 @@ def _lgb_model(kind, b: Builder, origins, h, qs, series, log=print):
                 Q[Ip, jp, k] = m.predict(Xp, num_iteration=m.best_iteration) * Sp
                 log(f"      q={q}: {m.best_iteration} rounds ({time.time() - t0:.0f}s)")
         else:
-            m = _fit({**LGB_PARAMS, "objective": "tweedie", "tweedie_variance_power": 1.1}, Xt, Dt, Xv, Dv, b)
-            mu_v = m.predict(Xv, num_iteration=m.best_iteration)
+            m = _fit_tweedie(Xt, St, Dt, Xv, Sv, Dv, b)
+            mu_v = m.predict(Xv, num_iteration=m.best_iteration) * Sv
             # σ per series from validation residuals of the h-week total
             sq = np.bincount(Iv, (Dv - mu_v) ** 2, b.n)
             nv = np.bincount(Iv, minlength=b.n)
             sigma = np.sqrt(sq / np.maximum(nv, 1))
-            mu = m.predict(Xp, num_iteration=m.best_iteration)
+            mu = m.predict(Xp, num_iteration=m.best_iteration) * Sp
             sig = np.where(nv[Ip] > 0, sigma[Ip], np.sqrt(np.maximum(mu, 0)))
             z = stats.norm.ppf(np.array(qs))
             Q[Ip, jp] = mu[:, None] + sig[:, None] * z[None, :]
@@ -312,10 +321,10 @@ def lgb_conformal(b: Builder, origins, h, qs, series, log=print):
         (Xt, St, Dt, It), (Xv, Sv, Dv, Iv) = _train_valid(b, c, h, series, rng)
         Xp, Sp, _, Ip, Op = b.rows(orig, h, series, min_history=0)
         jp = np.searchsorted(origins, Op)
-        m = _fit({**LGB_PARAMS, "objective": "tweedie", "tweedie_variance_power": 1.1}, Xt, Dt, Xv, Dv, b)
+        m = _fit_tweedie(Xt, St, Dt, Xv, Sv, Dv, b)
         cls, _, _ = _classify(b.Y, b.start, c)
-        r = (Dv - m.predict(Xv, num_iteration=m.best_iteration)) / Sv
-        mu = m.predict(Xp, num_iteration=m.best_iteration)
+        r = (Dv - m.predict(Xv, num_iteration=m.best_iteration) * Sv) / Sv
+        mu = m.predict(Xp, num_iteration=m.best_iteration) * Sp
         q_all = np.quantile(r, qs)
         for g in np.unique(cls[Ip]):
             rv = r[cls[Iv] == g]

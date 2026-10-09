@@ -63,6 +63,11 @@ class Builder:
         d = self.C[:, o + h] - self.C[:, o]
         return np.where(self.start < o + h, d, np.nan)
 
+    def since_sale(self, o):
+        """Weeks since the last positive sale before week o (o − start if the series never sold)."""
+        ls = self.last_sale[:, o - 1]
+        return np.where(ls >= 0, o - 1 - ls, o - self.start)
+
     def scale(self, o):
         cnt = self.window_sum(self.A, o - SCALE_WEEKS, o)
         s = self.window_sum(self.C, o - SCALE_WEEKS, o) / np.maximum(cnt, 1)

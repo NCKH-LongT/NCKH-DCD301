@@ -1,0 +1,17 @@
+dataset,model,horizon,version,SQL,RMSSE,cov_0.9
+M5,lgb_tweedie,3,before (raw D_h target),0.226,0.567,0.86
+M5,lgb_tweedie,13,before (raw D_h target),0.215,0.46,0.828
+M5,lgb_conformal,3,before (raw D_h target),0.229,0.574,0.899
+M5,lgb_conformal,13,before (raw D_h target),0.231,0.461,0.909
+M5,lgb_tweedie,3,after (D_h / s target),0.229,0.565,0.858
+M5,lgb_tweedie,13,after (D_h / s target),0.223,0.456,0.837
+M5,lgb_conformal,3,after (D_h / s target),0.232,0.572,0.901
+M5,lgb_conformal,13,after (D_h / s target),0.241,0.458,0.91
+VN1,lgb_tweedie,3,before (raw D_h target),0.496,0.819,0.922
+VN1,lgb_tweedie,13,before (raw D_h target),0.664,1.131,0.91
+VN1,lgb_conformal,3,before (raw D_h target),0.436,0.8,0.907
+VN1,lgb_conformal,13,before (raw D_h target),0.59,1.074,0.921
+VN1,lgb_tweedie,3,after (D_h / s target),0.439,0.651,0.913
+VN1,lgb_tweedie,13,after (D_h / s target),0.575,0.896,0.908
+VN1,lgb_conformal,3,after (D_h / s target),0.405,0.633,0.906
+VN1,lgb_conformal,13,after (D_h / s target),0.507,0.825,0.915

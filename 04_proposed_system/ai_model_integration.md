@@ -28,7 +28,7 @@
 | Thống kê | **ETS(A,N,N)** (α chọn theo từng chuỗi trên lưới) | Phân phối chuẩn quanh tổng dự báo; phương sai của tổng h tuần theo công thức ETS(A,N,N) | Exponential smoothing vẫn cạnh tranh ở cấp product–store (bài 02, tr. 2) |
 | Thống kê | **TSB + Poisson** | Trung bình tuần p·z từ TSB → Poisson cho tổng | Chuẩn cho nhu cầu rời rạc, xử lý hàng lỗi thời (bài 16, abstract; bài 23, tr. 2) |
 | Thống kê | **TSB + negative binomial** (`tsb_nb`) | Tổng h tuần có trung bình h·p·z, phương sai h·(p·(var_z + z²) − (p·z)²) với var_z là phương sai lượng bán của chuỗi → negative binomial | Poisson cho khoảng dự báo quá hẹp với nhu cầu lumpy |
-| ML | **LightGBM-Tweedie + safety stock chuẩn** | Dự báo điểm → μ + z_q·σ, σ từ phần dư validation của từng chuỗi | Cách của đội thắng M5 Accuracy (bài 02, tr. 9) + safety stock truyền thống. **Ablation chính**: phân vị so với dự báo điểm + safety stock |
+| ML | **LightGBM-Tweedie + safety stock chuẩn** | Dự báo điểm (mục tiêu D_h / s như mô hình quantile, từ v2.4) → μ + z_q·σ, σ từ phần dư validation của từng chuỗi | Cách của đội thắng M5 Accuracy (bài 02, tr. 9) + safety stock truyền thống. **Ablation chính**: phân vị so với dự báo điểm + safety stock |
 | ML | **LightGBM-Tweedie + conformal** (`lgb_conformal`) | μ + scale · phân vị của phần dư chuẩn hóa trên validation, tách theo nhóm ADI–CV² | Cách hiện đại để có khoảng dự báo từ mô hình điểm, không giả định phân phối chuẩn |
 | ML | **HistGradientBoosting quantile** (`hgb_quantile`, scikit-learn) | Cùng mục tiêu chuẩn hóa như LightGBM quantile; huấn luyện trên mẫu ngẫu nhiên **tối đa 300.000 dòng**, learning rate 0,1, tối đa 300 vòng, early stopping trên 10% dữ liệu huấn luyện (không phải 13 origin validation); chỉ chạy ở horizon mặc định (h = 3, 13) | Kiểm tra kết quả **không phụ thuộc riêng vào LightGBM** |
 
@@ -66,8 +66,8 @@ Thời gian dự báo cho một horizon (2 khối huấn luyện, 26 origin), l�
 | TSB Poisson | — (*) | — (*) | — (*) | — (*) |
 | TSB negative binomial | 68 s | 55 s | 30 s | 27 s |
 | ETS(A,N,N) | — (*) | — (*) | — (*) | — (*) |
-| LightGBM-Tweedie | 240 s | 147 s | 42 s | 44 s |
-| LightGBM-conformal | 131 s | 114 s | 39 s | 38 s |
+| LightGBM-Tweedie (v2.4, mục tiêu D_h / s) | 133 s | 50 s | 10 s | 7 s |
+| LightGBM-conformal (v2.4) | 98 s | 35 s | 9 s | 8 s |
 | HistGradientBoosting quantile | 105 s | 126 s | 85 s | 99 s |
 | **LightGBM quantile** (5 phân vị) | **1.251 s** | **686 s** | 146 s | 314 s |
 

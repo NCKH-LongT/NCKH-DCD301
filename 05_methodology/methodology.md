@@ -66,7 +66,7 @@ Chi tiết và lý do chọn: `baseline.md`. Tóm tắt:
 | `ets` | ETS(A,N,N) | Chuẩn: h·ℓ ± z_q·σ·√Σ_{j=0}^{h−1}(1 + jα)² |
 | `tsb` | TSB + Poisson | Poisson(h·p·z) |
 | `tsb_nb` | TSB + negative binomial | NB khớp trung bình h·p·z và phương sai h·(p(var_z + z²) − (pz)²) |
-| `lgb_tweedie` | LightGBM-Tweedie + safety stock chuẩn | μ + z_q·σ_i |
+| `lgb_tweedie` | LightGBM-Tweedie (mục tiêu D_h/s) + safety stock chuẩn | μ + z_q·σ_i |
 | `lgb_conformal` | LightGBM-Tweedie + split conformal | μ + s·F⁻¹_class(q) |
 | `hgb_quantile` | HistGradientBoosting quantile | Một mô hình mỗi phân vị, mục tiêu D_h/s |
 | **`lgb_quantile`** | **LightGBM quantile (mô hình chính)** | Một mô hình mỗi phân vị, mục tiêu D_h/s |
@@ -107,13 +107,14 @@ Quy ước của bước 3–5:
 - S và T_liq được làm tròn lên số nguyên.
 - Tồn ban đầu = S của tuần kiểm thử đầu tiên, chưa có hàng đang về.
 
-**Ba chính sách thanh lý**, chạy trên cùng dự báo đặt hàng:
+**Năm chính sách thanh lý**, chạy trên cùng dự báo đặt hàng:
 
 | Chính sách | Ngưỡng T_liq | Ghi chú |
 |---|---|---|
 | `none` | ∞ | Chỉ đặt hàng |
 | `quantile` (đề xuất) | Q_{q_L}(D_H) của cùng phương pháp dự báo | Mặc định q_L = 0,95, H = 13 |
 | `fixed` (baseline) | k × trung bình tuần của 26 tuần trước o | Mặc định k = 26 |
+| `dead13`, `dead26` (baseline hàng tồn chết) | 0 khi chuỗi không bán trong N = 13 / 26 tuần trước o; ngược lại ∞ | Khi "chết": thanh lý toàn bộ tồn hiện có **và** S = 0 (ngừng đặt hàng) cho đến khi bán lại (`policy.deadstock`) |
 
 **Nhãn khuyến nghị:** THANH LÝ nếu x > 0; ĐẶT HÀNG nếu q > 0; ngược lại GIỮ. **Rủi ro hết hàng** P(D_{L+R} > IP) được nội suy tuyến tính từ các phân vị (`policy.stockout_risk`); hiện chỉ dùng cho đầu ra khuyến nghị, không dùng trong KPI.
 
@@ -123,7 +124,7 @@ Hai dataset không có lead time, chi phí hay tồn kho thực, nên các tham 
 
 | Tham số | Mặc định | Lưới (thay đổi từng tham số một) |
 |---|---|---|
-| τ | 0,9 | 0,8; 0,9; 0,95 (≈ c_o = 1, c_u ∈ {4, 9, 19}; bài 11, tr. 16) |
+| τ | 0,9 | 0,5; 0,8; 0,9; 0,95; 0,99 (0,8 / 0,9 / 0,95 ≈ c_o = 1, c_u ∈ {4, 9, 19}; bài 11, tr. 16; 0,5 và 0,99 để kéo dài đường đánh đổi) |
 | L | 2 | 1, 2, 4 |
 | H | 13 | 8, 13, 26 |
 | q_L | 0,95 | 0,9; 0,95; 0,99 |
@@ -135,10 +136,12 @@ Phạm vi đã chạy: `06_experiment_results/experimental_setup.md` mục 3.
 
 1. **Độ chính xác dự báo** (SQL, RMSSE, độ phủ) theo mô hình × horizon × nhóm ADI–CV².
 2. **KPI tồn kho** ở kịch bản mặc định, theo nhóm, kèm khoảng tin cậy bootstrap.
-3. **Đường đánh đổi** tồn kho – fill rate khi τ thay đổi, và **lượng tồn kho cần để đạt fill rate** 0,90/0,92/0,94/0,96 (nội suy tuyến tính trên đường τ). So sánh theo cách này không phụ thuộc vào việc mỗi phương pháp hiệu chỉnh phân vị tốt hay kém ở một τ cụ thể.
-4. **Thanh lý:** so sánh `none` / `quantile` / `fixed`; tính **ngưỡng giá thu hồi hòa vốn** s* (`evaluation_metrics.md` mục 4).
+3. **Đường đánh đổi** tồn kho – fill rate khi τ thay đổi, **lượng tồn kho cần để đạt fill rate** 0,90/0,92/0,94/0,96/0,98 (nội suy tuyến tính trên đường τ), và **hạng theo đường đánh đổi** (hạng trung bình của lượng tồn kho cần trên các mức fill rate). So sánh theo cách này không phụ thuộc vào việc mỗi phương pháp hiệu chỉnh phân vị tốt hay kém ở một τ cụ thể.
+4. **Thanh lý:** so sánh `none` / `quantile` / `fixed` / `dead13` / `dead26`; tính **ngưỡng giá thu hồi hòa vốn** s* và phân rã mỗi đơn vị thanh lý (`evaluation_metrics.md` mục 4).
 5. **Độ nhạy** theo L, H, q_L, k.
-6. **Độ nhất quán giữa dataset:** hệ số Spearman giữa thứ hạng fill rate của 8 phương pháp trên M5 và VN1, theo nhóm.
+6. **Độ nhất quán giữa dataset:** hệ số Spearman giữa thứ hạng của 8 phương pháp trên M5 và VN1, theo nhóm (theo fill rate ở τ = 0,9 và theo đường đánh đổi).
+7. **Kiểm định theo chuỗi:** Friedman–Nemenyi và Wilcoxon–Holm (`code/stat_tests.py`).
+8. **Cửa sổ kiểm thử thứ hai:** bỏ 26 tuần cuối của panel và chạy lại toàn bộ trên 26 tuần liền trước (`run_pipeline.py --offset 26`); mô hình không thấy dữ liệu sau điểm cắt.
 
 ## 9. Giả định và hạn chế của phương pháp
 
@@ -146,5 +149,5 @@ Phạm vi đã chạy: `06_experiment_results/experimental_setup.md` mục 3.
 - **Không có phản ứng giá:** thanh lý không làm thay đổi nhu cầu trong mô phỏng.
 - **Lost sales, không backorder; không giới hạn sức chứa; không có số lượng đặt tối thiểu.**
 - **Siêu tham số cố định** cho mọi mô hình ML (không tinh chỉnh); HistGradientBoosting được huấn luyện trên mẫu con (`baseline.md`).
-- **Một cửa sổ kiểm thử** (26 tuần) cho mỗi dataset.
+- **Hai cửa sổ kiểm thử** 26 tuần (kết quả chính + cửa sổ kiểm tra độ vững).
 - KPI được cộng gộp theo đơn vị, nên chuỗi bán nhiều có trọng số lớn hơn.

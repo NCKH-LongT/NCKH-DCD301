@@ -30,59 +30,48 @@ Phương pháp: `05_methodology/methodology.md`. Bảng và hình trong file nà
 | Thí nghiệm | M5 | VN1 |
 |---|---|---|
 | 8 phương pháp, kịch bản mặc định (τ = 0,9; L = 2; H = 13; q_L = 0,95; k = 26) | ✅ | ✅ |
-| Lưới τ ∈ {0,8; 0,9; 0,95} (đường đánh đổi) | ✅ 8 phương pháp | ✅ 8 phương pháp |
+| Lưới τ ∈ {0,5; 0,8; 0,9; 0,95; 0,99} (đường đánh đổi) | ✅ 8 phương pháp | ✅ 8 phương pháp |
 | Lưới L ∈ {1, 2, 4}, H ∈ {8, 13, 26} | ❌ chưa chạy (chi phí: LightGBM quantile M5 mất khoảng 21 phút cho h = 3) | ✅ 7 phương pháp (không có `hgb_quantile`) |
 | Lưới q_L ∈ {0,9; 0,95; 0,99}, k ∈ {13, 26, 52} | ❌ | ✅ 8 phương pháp |
-| Ngưỡng hòa vốn thanh lý (kịch bản mặc định) | ✅ | ✅ |
+| Chính sách thanh lý none / quantile / fixed / dead13 / dead26 | ✅ | ✅ |
+| Ngưỡng hòa vốn thanh lý + phân rã (kịch bản mặc định) | ✅ | ✅ |
 | Bootstrap 95% (200 lần) cho fill rate, tồn kho | ✅ | ✅ |
 | Kiểm định Friedman–Nemenyi / Wilcoxon theo chuỗi (`stat_tests.py`) | ✅ | ✅ |
+| Cửa sổ kiểm thử thứ hai (`--offset 26`, lưới τ) | 🔄 đang chạy | 🔄 đang chạy |
 
-Lệnh tái lập (dự báo được cache trong `data/cache/forecasts/<D>/`, nên lần chạy lại chỉ mất vài phút):
+**Lịch sử chạy:**
+
+| Phiên bản | Thay đổi | Log |
+|---|---|---|
+| v2.2–v2.3 | 8 mô hình; lưới τ {0,8; 0,9; 0,95}; Tweedie học D_h chưa chuẩn hóa | `run_M5.log`, `run_M5_v2.log`, `run_M5_tau.log`, `run_VN1.log`, `run_VN1_v2.log` |
+| **v2.4 (kết quả hiện tại)** | Tweedie/conformal học D_h / s (dự báo lại); lưới τ 5 mức; thêm dead13/dead26; hạng theo đường đánh đổi; kiểm định theo chuỗi | `rerun_v24.sh` → `run_M5_v24.log`, `run_VN1_v24.log`, `breakeven_*.log`, `stat_tests.log`, `analyze.log` |
+| v2.4, cửa sổ thứ hai | Bỏ 26 tuần cuối, chạy lại 8 mô hình ở h = 3, 13 với lưới τ | `rerun_w26.sh` → `run_M5_w26.log`, `run_VN1_w26.log`, `stat_tests_w26.log`, `analyze_w26.log` |
+
+Lệnh tái lập toàn bộ kết quả v2.4. Dự báo được cache trong `data/cache/forecasts/<D>/`, nên khi đã có cache, mỗi script chỉ mất vài phút.
 
 ```bash
-python -u code/run_pipeline.py --dataset VN1 --grid full --boot 200
+sh code/outputs/logs/rerun_v24.sh
 ```
 
 ```bash
-python -u code/run_pipeline.py --dataset M5 --grid tau --boot 200
+sh code/outputs/logs/rerun_w26.sh
 ```
-
-```bash
-python code/liquidation_breakeven.py --dataset M5
-```
-
-```bash
-python code/liquidation_breakeven.py --dataset VN1
-```
-
-```bash
-python code/analyze_results.py
-```
-
-```bash
-python code/stat_tests.py
-```
-
-Log: `code/outputs/logs/`:
-
-- `run_M5.log`, `run_M5_v2.log`, `run_M5_tau.log`;
-- `run_VN1.log`, `run_VN1_v2.log`;
-- `breakeven_*.log`, `analyze.log`.
 
 ## 4. Thời gian chạy (một horizon, 2 khối, 26 origin)
 
 | Mô hình | M5 h = 3 | M5 h = 13 | VN1 h = 3 | VN1 h = 13 |
 |---|---|---|---|---|
 | TSB negative binomial | 68 s | 55 s | 30 s | 27 s |
-| LightGBM-Tweedie | 240 s | 147 s | 42 s | 44 s |
-| LightGBM-conformal | 131 s | 114 s | 39 s | 38 s |
+| LightGBM-Tweedie (v2.4) | 133 s | 50 s | 10 s | 7 s |
+| LightGBM-conformal (v2.4) | 98 s | 35 s | 9 s | 8 s |
 | HistGradientBoosting quantile (≤ 300.000 dòng) | 105 s | 126 s | 85 s | 99 s |
 | LightGBM quantile (5 phân vị) | 1.251 s | 686 s | 146 s | 314 s |
 
 Ghi chú:
 
 - Empirical, TSB Poisson và ETS đã được cache từ lần chạy trước nên không có thời gian cho h = 3, 13. Ở các horizon khác của VN1, chúng mất 1–38 s.
-- Mô phỏng + KPI cho lưới τ của M5 (8 mô hình × 3 τ × 3 chính sách, bootstrap 200): 65 s.
+- Tweedie v2.4 nhanh hơn v2.3 (M5 h = 3: 240 s → 133 s), vì với mục tiêu chuẩn hóa, early stopping dừng sớm hơn.
+- Mô phỏng + KPI (5 chính sách, bootstrap 200): lưới τ của M5 khoảng 2 phút; lưới đầy đủ của VN1 khoảng 3 phút.
 
 ## 5. Sai lệch so với kế hoạch ban đầu
 
@@ -92,4 +81,5 @@ Ghi chú:
 | TiDE / DeepAR | Bỏ; thay bằng 2 baseline ML | Phần cứng; `04_proposed_system/ai_model_integration.md` mục 4 |
 | Tổng chi phí với c_u, c_o giả định | KPI không đơn vị tiền + ngưỡng hòa vốn | Không có chi phí thực; giả định không đủ tin cậy |
 | Dashboard FastAPI + Streamlit | Chưa cài đặt | Ưu tiên benchmark |
-| Kiểm định Friedman–Nemenyi | Đã chạy cho SQL và KPI theo chuỗi | `results.md` mục 1b |
+| Kiểm định Friedman–Nemenyi | Đã chạy cho SQL và KPI theo chuỗi | `results.md` mục 2 |
+| Một cửa sổ kiểm thử | Hai cửa sổ | Kiểm tra độ vững (`results.md` mục 10) |

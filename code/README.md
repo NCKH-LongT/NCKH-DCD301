@@ -40,7 +40,7 @@ data/
 | `classify.py` | 4. ADI–CV² classes on the training period |
 | `features.py` | 5. Lags, rolling stats, calendar/events, price, static attributes, scale |
 | `models.py` | 6. Quantiles of D_{L+R} and D_H. Statistical: `empirical`, `ets` (ETS(A,N,N), normal), `tsb` (Poisson), `tsb_nb` (negative binomial). ML: `lgb_tweedie` (+ normal safety stock), `lgb_conformal` (+ split conformal by demand class), `hgb_quantile` (scikit-learn), `lgb_quantile` (main). No deep learning |
-| `policy.py` | 7–8. Order-up-to + liquidation rules, multi-period lost-sales simulator, stock-out risk |
+| `policy.py` | 7–8. Order-up-to + liquidation rules (quantile, fixed weeks of supply, dead stock), multi-period lost-sales simulator, stock-out risk |
 | `evaluate.py` | 9. SQL, RMSSE, coverage; fill rate, CSL, inventory and excess in weeks of demand, liquidation share, bootstrap CIs |
 
 Design: last 26 weeks are the test period (2 blocks of 13 weeks); every model is refitted at each block cutoff
@@ -63,4 +63,6 @@ python -u code/run_pipeline.py --dataset VN1 --boot 200
 python -u code/run_pipeline.py --dataset M5 --boot 200
 ```
 
-Quick check on one M5 store (a few minutes): `--stores CA_1 --tag smoke`. Scenario grid for RQ4: `--grid full`.
+Quick check on one M5 store (a few minutes): `--stores CA_1 --tag smoke`. Scenario grid for RQ4: `--grid full`; τ grid only: `--grid tau`.
+Earlier test window (robustness): `--offset 26` (outputs and forecasts go to `<DATASET>_w26`), then `stat_tests.py --offset 26` and `analyze_results.py --tag w26`.
+Full reruns of the reported results: `sh code/outputs/logs/rerun_v24.sh` and `sh code/outputs/logs/rerun_w26.sh`.

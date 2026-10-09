@@ -56,3 +56,12 @@ def stockout_risk(Q, qs, ip):
         fp = np.r_[0.0 if x[0] > 0 else qs[0], qs]
         risk[i] = 1 - np.interp(ip[i], np.r_[0.0, x], fp, right=1.0)
     return risk
+
+
+def deadstock(S, since_sale, N):
+    """Dead-stock rule: a series without any sale in the last N weeks (since_sale >= N, known at the review)
+    liquidates all on-hand stock and is not replenished until it sells again.
+
+    S, since_sale: [n, W]. Returns (S_eff, T_liq) for simulate()."""
+    dead = since_sale >= N
+    return np.where(dead, 0.0, S), np.where(dead, 0.0, np.inf)

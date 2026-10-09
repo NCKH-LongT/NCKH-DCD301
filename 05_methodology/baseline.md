@@ -39,7 +39,7 @@ Mọi phương pháp dùng **cùng panel, cùng origin, cùng mốc huấn luy�
 
 | | `lgb_quantile` | `lgb_tweedie` | `lgb_conformal` | `hgb_quantile` |
 |---|---|---|---|---|
-| Mục tiêu | D_h / s, cắt ở phân vị 99,9 | D_h | D_h | D_h / s, cắt ở phân vị 99,9 |
+| Mục tiêu | D_h / s, cắt ở phân vị 99,9 | D_h / s, cắt ở phân vị 99,9 (từ v2.4) | Như cột 2 | D_h / s, cắt ở phân vị 99,9 |
 | Hàm mất mát | quantile (5 mô hình) | Tweedie, power 1,1 | Tweedie, power 1,1 | quantile (5 mô hình) |
 | Tham số | `LGB_PARAMS` (lr 0,05; 63 lá; ≥ 200 mẫu/lá; fraction 0,8; λ₂ 1) | Như cột 1 | Như cột 1 | lr 0,1; 63 lá; ≥ 200 mẫu/lá; L2 1; tối đa 300 vòng |
 | Early stopping | 50 vòng trên 13 origin validation | Như cột 1 | Như cột 1 | 30 vòng trên 10% dữ liệu huấn luyện |
@@ -49,6 +49,7 @@ Mọi phương pháp dùng **cùng panel, cùng origin, cùng mốc huấn luy�
 
 Ghi chú cho bảng:
 
+- **`lgb_tweedie` (v2.4):** mô hình học D_h / s rồi nhân lại với s, giống mô hình quantile. Bản v2.3 học D_h chưa chuẩn hóa, cho dự báo rất lớn ở các chuỗi gần như không bán trên VN1 (`06_experiment_results/results.md` mục 1.1). Như vậy ablation chỉ còn khác nhau ở cách tạo phân vị.
 - **`lgb_tweedie`:** σ_i = căn bậc hai của trung bình bình phương phần dư validation của chuỗi i. Nếu chuỗi không có dòng validation thì σ_i = √μ.
 - **`lgb_conformal`:** phần dư validation (D_h − μ) / s được gộp theo nhóm ADI–CV² g. Nhóm được tính trên giai đoạn trước mốc cắt. Nhóm có dưới 200 phần dư dùng phân phối gộp của tất cả nhóm.
 - **`hgb_quantile`** khác ba mô hình LightGBM ở bốn điểm: dữ liệu huấn luyện, learning rate, early stopping và horizon đã chạy. Vì vậy nó là **kiểm tra độ vững**, không phải so sánh "cùng điều kiện" tuyệt đối với `lgb_quantile`.
@@ -61,6 +62,7 @@ Ghi chú cho bảng:
 | `none` | Không thanh lý | Mốc gốc |
 | `fixed` | Thanh lý phần vị trí tồn kho vượt k × trung bình tuần của 26 tuần trước (k = 26 mặc định) | Quy tắc "số tuần cung ứng" thường dùng trong thực tế [Nhận định nhóm] |
 | `quantile` (đề xuất) | Thanh lý phần vị trí tồn kho vượt Q_{q_L}(D_H) | Dùng chính dự báo xác suất |
+| `dead13`, `dead26` | Chuỗi không bán trong 13 / 26 tuần: thanh lý toàn bộ tồn hiện có và ngừng đặt hàng đến khi bán lại | Quy tắc hàng tồn chết (dead stock), không cần dự báo [Nhận định nhóm] |
 
 ## 4. Không đưa vào
 

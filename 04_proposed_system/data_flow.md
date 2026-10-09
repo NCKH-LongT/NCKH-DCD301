@@ -102,10 +102,11 @@ Huấn luyện lại mỗi 13 tuần thay vì mỗi tuần: theo bài 08, giảm
 |---|---|---|
 | R (chu kỳ xem xét) | 1 tuần | — |
 | L (lead time) | 2 tuần | 1, 2, 4 |
-| τ (mức phục vụ mục tiêu) | 0,9 | 0,8; 0,9; 0,95 (≈ c_o = 1, c_u ∈ {4, 9, 19}, như bài 11, tr. 16) |
+| τ (mức phục vụ mục tiêu) | 0,9 | 0,5; 0,8; 0,9; 0,95; 0,99 (0,8 / 0,9 / 0,95 ≈ c_o = 1, c_u ∈ {4, 9, 19}, như bài 11, tr. 16) |
 | H (tầm nhìn thanh lý) | 13 tuần | 8, 13, 26 |
 | q_L (phân vị thanh lý) | 0,95 | 0,9; 0,95; 0,99 |
 | k (ngưỡng baseline thanh lý cố định) | 26 tuần bán trung bình | 13, 26, 52 |
+| N (quy tắc dead-stock) | 13 và 26 tuần không bán | — |
 
 Lưới thay đổi **từng tham số một** quanh kịch bản mặc định. Đã chạy: lưới τ cho M5 và VN1; lưới L, H, q_L, k chỉ cho VN1 (`06_experiment_results/experimental_setup.md` mục 3).
 

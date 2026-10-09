@@ -10,6 +10,7 @@
 | v2.1 | 2026-10-08 | Dataset chính đổi thành **M5 + VN1** (VN1 Forecasting – Accuracy Challenge, 15.053 chuỗi tuần); dataset Datathon Việt Nam chuyển sang **phụ lục mô tả**; bỏ chi phí tuyệt đối, đánh giá bằng **KPI không đơn vị tiền**, đường đánh đổi tồn kho – fill rate và ngưỡng hòa vốn thanh lý | Không xác minh được độ đầy đủ và giấy phép của dữ liệu Datathon; giả định chi phí không đủ tin cậy cho tạp chí Q3–Q4; VN1 công khai, có đáp án chính thức, đã có tiền lệ học thuật (bài 08) |
 | v2.2 | 2026-10-09 | **Bỏ deep learning** (TiDE/DeepAR); thêm baseline ML: LightGBM + conformal, HistGradientBoosting quantile; thêm TSB negative binomial; sửa lỗi đặc trưng `price_observed` của VN1; thêm phân tích ngưỡng hòa vốn thanh lý | Phần cứng (CPU, GPU 4 GB) không đủ cho mô hình sâu; LightGBM là lời giải mạnh nhất ở M5 (bài 02, 03); bài 12 cho thấy mô hình lớn không chắc tốt hơn |
 | v2.3 | 2026-10-09 | Rà soát tài liệu Bước 1–7 theo code và kết quả: viết lại `topic_proposal.md`; sửa tỷ lệ nhóm nhu cầu của chuỗi được đánh giá, mô tả KPI, thứ tự mô phỏng, ngưỡng hòa vốn, thời gian chạy, trạng thái cài đặt; viết Bước 5 (`05_methodology/`) và Bước 6 (`06_experiment_results/`) từ kết quả đã chạy | Tài liệu phải khớp với những gì đã cài đặt và đo được |
+| v2.4 | 2026-10-09 | Kiểm định Friedman–Nemenyi/Wilcoxon theo chuỗi; xếp hạng theo đường đánh đổi (τ mở rộng thành {0,5; …; 0,99}); sửa LightGBM-Tweedie/conformal để học mục tiêu D_h / s; thêm quy tắc thanh lý dead-stock (13/26 tuần); thêm cửa sổ kiểm thử thứ hai; cập nhật Bước 5–6 | Rà soát độ vững trước khi viết bài: SQL trung bình che khuất kết quả theo chuỗi trên VN1; Tweedie học mục tiêu chưa chuẩn hóa cho dự báo sai lớn trên VN1 |
 
 ## Việc cần làm tiếp
 
@@ -18,4 +19,5 @@
 - [x] Kiểm tra năm, venue, DOI của bài 14–19 (Crossref).
 - [x] Kiểm tra chính sách tồn kho và metric của bài 11 (newsvendor từng kỳ; total cost / holding / stockout).
 - [ ] Đọc toàn văn bài 11 và bổ sung Goltsos et al. (2022) vào Related Work.
-- [ ] Kiểm định thống kê, cửa sổ kiểm thử thứ hai, bất thường Tweedie VN1 h = 13 (`06_experiment_results/results.md` mục 9).
+- [x] Kiểm định thống kê, cửa sổ kiểm thử thứ hai, sửa Tweedie, dead-stock (`06_experiment_results/results.md`).
+- [ ] (Tùy chọn) lưới L, H cho M5; đọc W3 và bài 20.

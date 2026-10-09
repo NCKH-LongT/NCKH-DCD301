@@ -94,5 +94,15 @@ def load_vn1():
                 events=np.zeros((len(weeks), 0), np.float32), event_names=[], name="VN1")
 
 
+def truncate(panel, T):
+    """Keep the first T weeks (a panel that ends T weeks after its start), e.g. for an earlier test window."""
+    q = dict(panel)
+    for k in ("Y", "P", "Pobs"):
+        q[k] = panel[k][:, :T]
+    q["weeks"] = panel["weeks"][:T]
+    q["events"] = panel["events"][:T]
+    return q
+
+
 def load(name):
     return {"M5": load_m5, "VN1": load_vn1}[name.upper()]()

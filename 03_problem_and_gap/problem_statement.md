@@ -54,7 +54,7 @@ Mỗi kỳ, với mỗi chuỗi sản phẩm, người quản lý cần quyết 
 
 Hai dataset đều **không có tồn kho, lead time hay giá vốn thực**. Thay vì giả định các con số chi phí, nghiên cứu:
 
-1. **Chạy theo mức phục vụ mục tiêu** τ ∈ {0,8; 0,9; 0,95}. Cách này tương đương với tỷ lệ chi phí chuẩn hóa c_o = 1, c_u ∈ {4, 9, 19}, giống bài 11 (tr. 16).
+1. **Chạy theo mức phục vụ mục tiêu** τ ∈ {0,5; 0,8; 0,9; 0,95; 0,99}. Các mức 0,8 / 0,9 / 0,95 tương đương với tỷ lệ chi phí chuẩn hóa c_o = 1, c_u ∈ {4, 9, 19}, giống bài 11 (tr. 16).
 2. **Báo cáo KPI không có đơn vị tiền:** fill rate, mức phục vụ đạt được so với mục tiêu, tỷ lệ tuần hết hàng, tồn kho trung bình tính bằng số tuần nhu cầu.
 3. **Vẽ đường đánh đổi tồn kho – fill rate** của từng phương pháp. Phương pháp có đường tốt hơn thì tốt hơn với **mọi** mức chi phí.
 4. **Thanh lý:** báo cáo lượng tồn kho giảm được so với fill rate mất đi, và **ngưỡng giá thu hồi hòa vốn** theo từng nhóm nhu cầu, trên lưới chi phí lưu kho × biên lợi nhuận, không chọn một con số cố định.

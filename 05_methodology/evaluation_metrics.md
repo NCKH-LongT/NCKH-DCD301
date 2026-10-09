@@ -1,6 +1,6 @@
 # Evaluation Metrics
 
-Cài đặt: `code/f2d/evaluate.py` (sai số dự báo, KPI), `code/analyze_results.py` (đường đánh đổi, Spearman), `code/liquidation_breakeven.py` (ngưỡng hòa vốn).
+Cài đặt: `code/f2d/evaluate.py` (sai số dự báo, KPI), `code/analyze_results.py` (đường đánh đổi, hạng theo đường đánh đổi, Spearman), `code/liquidation_breakeven.py` (ngưỡng hòa vốn), `code/stat_tests.py` (kiểm định theo chuỗi).
 
 ## 1. Mục tiêu đánh giá
 
@@ -42,12 +42,12 @@ Tính trên 22 tuần kiểm thử sau 4 tuần khởi động. Tổng được 
 
 ## 4. Đánh giá không phụ thuộc chi phí
 
-**Đường đánh đổi tồn kho – fill rate.** Chạy τ ∈ {0,8; 0,9; 0,95} và vẽ (tồn kho, fill rate) của từng phương pháp. Phương pháp nằm phía trên – bên trái tốt hơn với mọi tỷ lệ chi phí trong khoảng này.
+**Đường đánh đổi tồn kho – fill rate.** Chạy τ ∈ {0,5; 0,8; 0,9; 0,95; 0,99} và vẽ (tồn kho, fill rate) của từng phương pháp. Phương pháp nằm phía trên – bên trái tốt hơn với mọi tỷ lệ chi phí trong khoảng này.
 
-**Tồn kho cần để đạt fill rate mục tiêu** (0,90; 0,92; 0,94; 0,96):
+**Tồn kho cần để đạt fill rate mục tiêu** (0,90; 0,92; 0,94; 0,96; 0,98):
 
 - Được tính bằng nội suy tuyến tính trên đường τ của từng phương pháp.
-- Bỏ trống ("—") nếu mục tiêu nằm ngoài khoảng fill rate đạt được với τ ∈ [0,8; 0,95]. Không ngoại suy.
+- Bỏ trống ("—") nếu mục tiêu nằm ngoài khoảng fill rate đạt được với τ ∈ [0,5; 0,99]. Không ngoại suy.
 - Cho phép so sánh ở **cùng mức phục vụ**, loại bỏ khác biệt do phương pháp phân vị lệch cao hoặc lệch thấp.
 
 **Ngưỡng giá thu hồi hòa vốn s\*** của thanh lý (`liquidation_breakeven.py`):
@@ -68,12 +68,15 @@ Cách đọc s\*:
 - s\* > 1: chỉ có lợi khi bán thanh lý cao hơn giá vốn.
 - s\* được tính trên lưới chi phí lưu kho {10, 25, 40}%/năm × biên lợi nhuận {30, 50, 100}%, không chọn một con số cố định.
 - Khi X rất nhỏ, hoặc khi X + ΔVịTríCuối gần 0 ở cận (b), s\* không ổn định; kết quả này được đánh dấu khi báo cáo.
+- **Phân rã mỗi đơn vị thanh lý** (ΔĐặt hàng / X, −ΔBán / X, −ΔVịTríCuối / X): phần phải đặt lại, phần mất doanh số và phần lẽ ra vẫn còn tồn ở cuối kỳ. Phân rã này giải thích vì sao s\* cao hay thấp.
 
 ## 5. Độ nhất quán và kiểm định
 
 | Phân tích | Cách làm | Trạng thái |
 |---|---|---|
 | Thứ hạng giữa dataset | Spearman ρ giữa fill rate (kịch bản mặc định, không thanh lý) của 8 phương pháp trên M5 và VN1, theo nhóm | ✅ đã chạy |
+| Thứ hạng giữa dataset theo đường đánh đổi | Spearman ρ giữa **hạng theo đường đánh đổi** (hạng trung bình của lượng tồn kho cần trên các mức fill rate 0,90–0,98; chỉ tính mức có ít nhất 2 phương pháp đạt; phương pháp không đạt thì chia nhau các hạng cuối) | ✅ đã chạy |
+| Cửa sổ kiểm thử thứ hai | Lặp lại toàn bộ trên 26 tuần trước giai đoạn kiểm thử chính | 🔄 đang chạy (`06_experiment_results/results.md` mục 10) |
 | Độ ổn định theo kịch bản | Spearman ρ giữa thứ hạng ở L = 2 và L = 1 hoặc 4 (VN1) | ✅ đã tính (`06_experiment_results/results.md`) |
 | Kiểm định khác biệt giữa phương pháp | Friedman + Nemenyi CD (q_α từ phân phối studentized range, k = 8 → 3,031) trên SQL, fill rate, tồn kho theo chuỗi; Wilcoxon signed-rank so với LightGBM quantile, hiệu chỉnh Holm; kèm trung vị chênh lệch và tỷ lệ chuỗi thắng/thua (`code/stat_tests.py`) | ✅ đã chạy |
 

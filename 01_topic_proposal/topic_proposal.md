@@ -89,8 +89,9 @@ Nhà bán lẻ phải cân bằng hai rủi ro ngược chiều: **hết hàng**
 - **Chia dữ liệu:** 26 tuần cuối là kiểm thử (2 khối 13 tuần, huấn luyện lại mỗi khối); 13 tuần validation ngay trước mỗi mốc cắt; dự báo mỗi tuần (rolling origin).
 - **Metric dự báo:** scaled quantile loss (SQL), RMSSE, độ phủ của từng phân vị. Không dùng MAPE (nhiều số 0; bài 24, tr. 4).
 - **Metric tồn kho (không đơn vị tiền):** fill rate, tỷ lệ tuần hết hàng, tồn kho trung bình tính bằng tuần nhu cầu, tồn dư, tỷ lệ thanh lý; khoảng tin cậy bootstrap 95%.
-- **Kịch bản:** τ ∈ {0,8; 0,9; 0,95}; L ∈ {1, 2, 4}; H ∈ {8, 13, 26}; q_L ∈ {0,9; 0,95; 0,99}; k ∈ {13, 26, 52}.
-- **Kiểm định thống kê:** Friedman–Nemenyi hoặc Wilcoxon trên kết quả theo chuỗi (**chưa chạy**, `06_experiment_results/results.md` mục 9).
+- **Kịch bản:** τ ∈ {0,5; 0,8; 0,9; 0,95; 0,99}; L ∈ {1, 2, 4}; H ∈ {8, 13, 26}; q_L ∈ {0,9; 0,95; 0,99}; k ∈ {13, 26, 52}.
+- **Kiểm định thống kê:** Friedman–Nemenyi và Wilcoxon–Holm trên kết quả theo chuỗi (`06_experiment_results/results.md` mục 2).
+- **Độ vững:** cửa sổ kiểm thử thứ hai (26 tuần trước giai đoạn kiểm thử chính).
 - **Hệ thống:** thời gian chạy của từng mô hình.
 
 ## 11. Related Papers
