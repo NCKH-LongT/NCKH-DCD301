@@ -57,12 +57,12 @@ Hai dataset đều **không có tồn kho, lead time hay giá vốn thực**. Th
 1. **Chạy theo mức phục vụ mục tiêu** τ ∈ {0,8; 0,9; 0,95}. Cách này tương đương với tỷ lệ chi phí chuẩn hóa c_o = 1, c_u ∈ {4, 9, 19}, giống bài 11 (tr. 16).
 2. **Báo cáo KPI không có đơn vị tiền:** fill rate, mức phục vụ đạt được so với mục tiêu, tỷ lệ tuần hết hàng, tồn kho trung bình tính bằng số tuần nhu cầu.
 3. **Vẽ đường đánh đổi tồn kho – fill rate** của từng phương pháp. Phương pháp có đường tốt hơn thì tốt hơn với **mọi** mức chi phí.
-4. **Thanh lý:** báo cáo lượng tồn dư giảm được so với số tuần hết hàng tăng thêm, và **ngưỡng giá thu hồi hòa vốn** theo từng nhóm nhu cầu, dưới dạng đường cong theo chi phí lưu kho, không chọn một con số cố định.
+4. **Thanh lý:** báo cáo lượng tồn kho giảm được so với fill rate mất đi, và **ngưỡng giá thu hồi hòa vốn** theo từng nhóm nhu cầu, trên lưới chi phí lưu kho × biên lợi nhuận, không chọn một con số cố định.
 5. **Lead time** L ∈ {1, 2, 4} tuần được trình bày là **kịch bản**.
 
 ## 6. Giả định và hạn chế còn lại
 
 - **Doanh số không hoàn toàn bằng nhu cầu**: khi hết hàng, doanh số bằng 0 dù nhu cầu khác 0 (nhận định nhóm). Áp dụng cho cả hai dataset.
 - **VN1:** mã sản phẩm đã ẩn danh, không có thuộc tính sản phẩm hay lịch sự kiện; giá chỉ có ở 29,3% số ô [DP].
-- **M5:** dùng giá bán để quy đổi KPI theo giá trị khi cần; không giả định giá vốn.
+- **M5:** có giá bán nhưng không có giá vốn; KPI hiện tính theo **đơn vị**, chưa quy đổi theo giá trị.
 - **Không mô hình hóa phản ứng của nhu cầu khi giảm giá**; thanh lý chỉ so sánh giữa các chính sách trong mô phỏng.

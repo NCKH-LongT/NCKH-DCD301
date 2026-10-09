@@ -56,6 +56,7 @@ Bản nguồn sơ đồ: `diagrams/workflow.mmd`. Dataset giày dép Việt Nam 
   - ADI = số tuần / số tuần có bán;
   - CV² = (độ lệch chuẩn / trung bình)² của các tuần có bán.
 - Ngưỡng **ADI = 4/3, CV² = 0,5** (bài 01, tr. 7–8) → smooth / erratic / intermittent / lumpy.
+- Chuỗi được đánh giá: bắt đầu ít nhất 13 tuần trước giai đoạn kiểm thử và có ít nhất một tuần có bán trong giai đoạn huấn luyện → M5 30.381 chuỗi, VN1 13.844 chuỗi. Phân bố nhóm của các chuỗi này: `05_methodology/dataset.md` mục 4.
 
 ## 5. Đặc trưng (input của mô hình ML)
 
@@ -90,10 +91,10 @@ Huấn luyện lại mỗi 13 tuần thay vì mỗi tuần: theo bài 08, giảm
 ## 7. Mô phỏng tồn kho (mỗi tuần, mỗi chuỗi)
 
 1. Nhận hàng đã đặt từ L tuần trước.
-2. Nhu cầu `qty` xảy ra; bán min(tồn, nhu cầu); phần thiếu là **mất doanh số**.
-3. Ghi nhận: tồn cuối kỳ, lượng bán, lượng thiếu.
-4. Mỗi R tuần, gọi Decision Engine → đặt hàng, hoặc thanh lý ngay từ tồn hiện có.
-5. Tồn ban đầu = S của lần xem xét đầu tiên; **4 tuần đầu là khởi động**, không tính KPI.
+2. Đầu tuần (mỗi R tuần), gọi Decision Engine với dự báo lập từ dữ liệu trước tuần này → thanh lý ngay từ tồn hiện có, hoặc đặt hàng (không đặt hàng trong tuần có thanh lý).
+3. Nhu cầu `qty` xảy ra; bán min(tồn, nhu cầu); phần thiếu là **mất doanh số**.
+4. Ghi nhận: tồn cuối kỳ, lượng bán, lượng thiếu, lượng đặt, lượng thanh lý.
+5. Tồn ban đầu = S của lần xem xét đầu tiên, chưa có hàng đang về; **4 tuần đầu là khởi động**, không tính KPI.
 
 **Kịch bản (không phải giả định về thực tế):**
 
@@ -106,22 +107,36 @@ Huấn luyện lại mỗi 13 tuần thay vì mỗi tuần: theo bài 08, giảm
 | q_L (phân vị thanh lý) | 0,95 | 0,9; 0,95; 0,99 |
 | k (ngưỡng baseline thanh lý cố định) | 26 tuần bán trung bình | 13, 26, 52 |
 
+Lưới thay đổi **từng tham số một** quanh kịch bản mặc định. Đã chạy: lưới τ cho M5 và VN1; lưới L, H, q_L, k chỉ cho VN1 (`06_experiment_results/experimental_setup.md` mục 3).
+
 ## 8. KPI (không có đơn vị tiền)
 
 | KPI | Định nghĩa |
 |---|---|
 | Fill rate | Tổng lượng bán / tổng nhu cầu |
 | Mức phục vụ đạt được (CSL) | Tỷ lệ tuần không hết hàng; so với τ mục tiêu |
-| Tỷ lệ tuần hết hàng | Số tuần có thiếu hàng / số tuần |
+| Tỷ lệ tuần hết hàng | Số tuần có thiếu hàng / số tuần có nhu cầu > 0 |
 | Tồn kho (tuần nhu cầu) | Tồn trung bình / nhu cầu trung bình mỗi tuần |
-| Tồn dư | Lượng tồn vượt Q_{q_L}(D_H), tính bằng tuần nhu cầu |
-| Thanh lý | Số đơn vị thanh lý / tổng nhu cầu; số tuần hết hàng tăng thêm so với không thanh lý |
-| Ngưỡng hòa vốn thanh lý | Tỷ lệ giá thu hồi tối thiểu để thanh lý có lợi, vẽ theo chi phí lưu kho từ 10% đến 40%/năm |
-| Bản theo giá trị | Các KPI trên tính theo giá trị (số lượng × giá) khi có giá |
+| Tồn dư (hậu nghiệm) | Phần tồn cuối tuần vượt **nhu cầu thực tế** của H tuần tiếp theo, tính bằng tuần nhu cầu |
+| Thanh lý | Số đơn vị thanh lý / tổng nhu cầu; tỷ lệ chuỗi có thanh lý; thay đổi fill rate so với không thanh lý |
+| Ngưỡng hòa vốn thanh lý | Tỷ lệ giá thu hồi / giá vốn tối thiểu để thanh lý có lợi, trên lưới chi phí lưu kho {10, 25, 40}%/năm × biên lợi nhuận {30, 50, 100}%, có cận trên và cận dưới |
 
-Tổng hợp theo dataset × phương pháp × nhóm ADI–CV²; kèm khoảng tin cậy bootstrap và kiểm định Friedman–Nemenyi.
+Tổng hợp theo dataset × phương pháp × nhóm ADI–CV² (cộng gộp theo đơn vị, nên chuỗi bán nhiều có trọng số lớn hơn); kèm khoảng tin cậy bootstrap 95% theo chuỗi (200 lần). **Chưa làm:** KPI theo giá trị (số lượng × giá) và kiểm định Friedman–Nemenyi (`06_experiment_results/results.md` mục 9). Định nghĩa chính xác: `05_methodology/evaluation_metrics.md`.
 
 ## 9. Output lưu trữ
+
+**Đã cài đặt** (`code/`):
+
+| File | Nội dung |
+|---|---|
+| `data/cache/panel_m5.npz` | Panel tuần M5 đã chuẩn hóa |
+| `data/cache/forecasts/<D>/<model>_h<h>.npz` | Phân vị dự báo [chuỗi × origin × phân vị] |
+| `code/outputs/<D>/classes.csv` | ADI, CV², nhóm nhu cầu |
+| `code/outputs/<D>/forecast_metrics.csv` | SQL, RMSSE, độ phủ theo mô hình × horizon × nhóm |
+| `code/outputs/<D>/kpi.csv` | KPI theo mô hình × chính sách × kịch bản × nhóm |
+| `code/outputs/<D>/breakeven.csv`, `series_inventory.csv` | Ngưỡng hòa vốn thanh lý; phân bố số tuần tồn kho theo chuỗi |
+
+**Thiết kế cho prototype** (chưa cài đặt; bảng log quyết định theo tuần hiện chỉ nằm trong bộ nhớ khi mô phỏng):
 
 | Bảng | Khóa | Nội dung |
 |---|---|---|

@@ -32,7 +32,7 @@ Căn cứ: LightGBM được cả top 50 M5 Accuracy dùng (bài 02, tr. 1); l�
 Mục tiêu:
 
 - Phân loại theo ADI–CV² với ngưỡng **ADI = 4/3, CV² = 0,5** (bài 01, tr. 7–8).
-- Phân bố nhóm hai dataset khác nhau rõ: M5 có 30% smooth, 10% lumpy; VN1 có 6% smooth, **31% lumpy** [DP]. Điều này cho phép kiểm tra kết luận theo nhóm có lặp lại không.
+- Phân bố nhóm hai dataset khác nhau rõ. Trên các chuỗi được đánh giá (tính trên giai đoạn huấn luyện, từ tuần bắt đầu của chuỗi): M5 có 53,0% smooth, 33,9% intermittent, 7,3% lumpy, 5,8% erratic; VN1 có 18,8% smooth, 47,2% intermittent, **20,3% lumpy**, 13,7% erratic (`code/outputs/<D>/summary.md`). Điều này cho phép kiểm tra kết luận theo nhóm có lặp lại không. (Tỷ lệ trong [DP] khác vì [DP] tính trên toàn lưới thời gian, kể cả các tuần trước khi sản phẩm bắt đầu bán.)
 - Xác định nhóm nào dự báo xác suất bằng ML có lợi rõ nhất, nhóm nào baseline thống kê (TSB) vẫn đủ tốt.
 
 Căn cứ: gap 2, 4.
@@ -46,7 +46,7 @@ Mục tiêu:
 - Quy tắc: thanh lý phần tồn vượt Q_q của tổng nhu cầu trong H tuần tới.
 - Baseline: không thanh lý; thanh lý theo ngưỡng cố định (tồn > k tuần bán trung bình).
 - Đo: số đơn vị và số tuần tồn kho được giảm; số tuần hết hàng tăng thêm.
-- **Ngưỡng giá thu hồi hòa vốn**: tỷ lệ giá thu hồi / giá trị hàng tối thiểu để thanh lý có lợi hơn việc giữ lại. Ngưỡng được trình bày dưới dạng **đường cong theo chi phí lưu kho**, không chọn một con số cố định.
+- **Ngưỡng giá thu hồi hòa vốn** s*: tỷ lệ giá thu hồi / giá vốn tối thiểu để thanh lý có lợi hơn việc giữ lại. Không chọn một con số cố định: s* được tính trên lưới chi phí lưu kho {10, 25, 40}%/năm × biên lợi nhuận gộp {30, 50, 100}%, kèm cận trên và cận dưới (`05_methodology/evaluation_metrics.md` mục 4).
 
 Căn cứ: gap 3. Giả định: không mô hình hóa phản ứng của nhu cầu khi giảm giá (`problem_statement.md`, mục 6).
 
@@ -58,6 +58,7 @@ Mục tiêu:
 
 - Lưới kịch bản: τ ∈ {0,8; 0,9; 0,95} (tương đương c_o = 1, c_u ∈ {4, 9, 19} như bài 11, tr. 16); L ∈ {1, 2, 4} tuần; H ∈ {8, 13, 26} tuần.
 - Kiểm tra độ ổn định qua nhiều mốc dự báo (rolling origin) và giữa hai dataset.
+- **Phạm vi đã chạy:** lưới τ cho cả hai dataset và cả 8 phương pháp; lưới L, H, q_L, k đầy đủ **chỉ cho VN1** (7 phương pháp; HistGradientBoosting chỉ ở horizon mặc định). M5 chưa chạy lưới L, H vì chi phí tính toán (`06_experiment_results/experimental_setup.md`).
 
 Căn cứ: cả hai dataset không có lead time hay chi phí thực, nên chúng được trình bày là **kịch bản**, không phải giả định về thực tế (`problem_statement.md`, mục 5).
 

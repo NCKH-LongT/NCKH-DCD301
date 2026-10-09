@@ -9,7 +9,7 @@
 | **Model lấy từ đâu?** | Thư viện mã nguồn mở `lightgbm` và `scikit-learn`; các phương pháp thống kê được cài đặt vector hóa bằng numpy/scipy trong `code/f2d/models.py`. Không có model đóng hay API trả phí |
 | **Input?** | Bảng đặc trưng theo chuỗi × tuần: 27 đặc trưng (M5), 21 (VN1), 19 đặc trưng chung (`data_flow.md` mục 5) |
 | **Output?** | Phân vị {0,5; 0,8; 0,9; 0,95; 0,99} của **tổng nhu cầu trong L + R tuần** và **trong H tuần** |
-| **Tích hợp vào app?** | Python batch job hằng tuần → ghi dự báo và khuyến nghị vào Parquet/DuckDB → FastAPI đọc và trả JSON → Streamlit hiển thị |
+| **Tích hợp vào app?** | Đã cài đặt: Python batch (`code/run_pipeline.py`) → dự báo (NPZ) và KPI (CSV). Thiết kế, chưa cài đặt: ghi khuyến nghị vào Parquet/DuckDB → FastAPI trả JSON → Streamlit hiển thị |
 | **Có baseline không?** | Có, 7 baseline (mục 3); tất cả đi qua **cùng một Decision Engine** để so sánh công bằng |
 
 ## 2. Mô hình chính: LightGBM quantile
@@ -17,7 +17,7 @@
 - **Dự báo trực tiếp tổng nhu cầu** D_h = Σ qty(o … o+h−1) với h = L + R (nhập hàng) và h = H (thanh lý). **Không cộng phân vị theo tuần**, vì phân vị của tổng khác tổng các phân vị.
 - **Một mô hình cho mỗi (dataset, horizon, phân vị, khối huấn luyện)**; hàm mục tiêu `objective="quantile"`, `alpha` = phân vị. Mục tiêu được chuẩn hóa D_h / `scale` và cắt ở phân vị 99,9 của tập huấn luyện (`data_flow.md` mục 5).
 - **Chống chồng chéo phân vị:** sắp xếp lại các phân vị của mỗi dự báo cho tăng dần.
-- **Siêu tham số cố định** (`LGB_PARAMS` trong `code/f2d/models.py`: learning rate 0,05; 63 lá; tối thiểu 200 mẫu mỗi lá; feature/bagging fraction 0,8; λ₂ = 1), tối đa 1.000 vòng với **early stopping** 50 vòng trên 13 origin validation ngay trước mốc cắt. Các baseline ML dùng cùng đặc trưng, cùng mục tiêu và cùng cách chia dữ liệu. Không tinh chỉnh riêng cho mô hình nào, để so sánh công bằng.
+- **Siêu tham số cố định** (`LGB_PARAMS` trong `code/f2d/models.py`: learning rate 0,05; 63 lá; tối thiểu 200 mẫu mỗi lá; feature/bagging fraction 0,8; λ₂ = 1), tối đa 1.000 vòng với **early stopping** 50 vòng trên 13 origin validation ngay trước mốc cắt. LightGBM-Tweedie và LightGBM-conformal dùng cùng tham số, cùng đặc trưng, cùng các origin huấn luyện/validation. HistGradientBoosting dùng cùng đặc trưng và mục tiêu nhưng khác ở ba điểm do tốc độ (mục 3). Không tinh chỉnh siêu tham số riêng cho mô hình nào.
 - **Rủi ro đã biết:** bài 12 (tr. 13, 19) cho thấy LightGBM **dạng distributional** kém trên dữ liệu rời rạc. Đề tài dùng **quantile regression** (cách khác), và kiểm chứng bằng hai đối chứng ML: conformal (dự báo điểm + hiệu chỉnh phân phối) và HistGradientBoosting (một thư viện boosting khác).
 
 ## 3. Baseline
@@ -30,7 +30,7 @@
 | Thống kê | **TSB + negative binomial** (`tsb_nb`) | Tổng h tuần có trung bình h·p·z, phương sai h·(p·(var_z + z²) − (p·z)²) với var_z là phương sai lượng bán của chuỗi → negative binomial | Poisson cho khoảng dự báo quá hẹp với nhu cầu lumpy |
 | ML | **LightGBM-Tweedie + safety stock chuẩn** | Dự báo điểm → μ + z_q·σ, σ từ phần dư validation của từng chuỗi | Cách của đội thắng M5 Accuracy (bài 02, tr. 9) + safety stock truyền thống. **Ablation chính**: phân vị so với dự báo điểm + safety stock |
 | ML | **LightGBM-Tweedie + conformal** (`lgb_conformal`) | μ + scale · phân vị của phần dư chuẩn hóa trên validation, tách theo nhóm ADI–CV² | Cách hiện đại để có khoảng dự báo từ mô hình điểm, không giả định phân phối chuẩn |
-| ML | **HistGradientBoosting quantile** (`hgb_quantile`, scikit-learn) | Cùng mục tiêu chuẩn hóa như LightGBM quantile; huấn luyện trên mẫu ngẫu nhiên tối đa 1 triệu dòng | Kiểm tra kết quả **không phụ thuộc riêng vào LightGBM** |
+| ML | **HistGradientBoosting quantile** (`hgb_quantile`, scikit-learn) | Cùng mục tiêu chuẩn hóa như LightGBM quantile; huấn luyện trên mẫu ngẫu nhiên **tối đa 300.000 dòng**, learning rate 0,1, tối đa 300 vòng, early stopping trên 10% dữ liệu huấn luyện (không phải 13 origin validation); chỉ chạy ở horizon mặc định (h = 3, 13) | Kiểm tra kết quả **không phụ thuộc riêng vào LightGBM** |
 
 Trong cùng một dataset, mọi phương pháp dùng **cùng dữ liệu, cùng mốc chia, cùng Decision Engine và cùng các kịch bản (τ, L, H)**.
 
@@ -58,14 +58,20 @@ AI chỉ nằm ở **tầng dự báo**. Tầng quyết định là **quy tắc 
 
 ## 6. Ngân sách tính toán (đo thực tế, CPU i5-12450H)
 
-| Phần | Thời gian |
-|---|---|
-| VN1, toàn bộ pipeline, lưới kịch bản đầy đủ (5 mô hình đầu tiên, 6 horizon) | khoảng 30 phút (`code/outputs/logs/run_VN1.log`) |
-| VN1, LightGBM quantile, 1 horizon (5 phân vị × 2 khối) | khoảng 3–6 phút |
-| VN1, TSB negative binomial, 1 horizon | khoảng 1 phút |
-| VN1, LightGBM conformal, 1 horizon | khoảng 2 phút |
-| M5, LightGBM-Tweedie, 1 khối (khoảng 2,9 triệu dòng huấn luyện) | khoảng 2,5 phút (`code/outputs/logs/run_M5.log`) |
-| Mô phỏng tồn kho | Vài giây cho mỗi mô hình × kịch bản (vector hóa theo chuỗi) |
+Thời gian dự báo cho một horizon (2 khối huấn luyện, 26 origin), lấy từ `code/outputs/logs/`:
+
+| Mô hình | M5, h = 3 | M5, h = 13 | VN1, h = 3 | VN1, h = 13 |
+|---|---|---|---|---|
+| Empirical | — (*) | — (*) | — (*) | — (*) |
+| TSB Poisson | — (*) | — (*) | — (*) | — (*) |
+| TSB negative binomial | 68 s | 55 s | 30 s | 27 s |
+| ETS(A,N,N) | — (*) | — (*) | — (*) | — (*) |
+| LightGBM-Tweedie | 240 s | 147 s | 42 s | 44 s |
+| LightGBM-conformal | 131 s | 114 s | 39 s | 38 s |
+| HistGradientBoosting quantile | 105 s | 126 s | 85 s | 99 s |
+| **LightGBM quantile** (5 phân vị) | **1.251 s** | **686 s** | 146 s | 314 s |
+
+(*) Dự báo đã được cache từ lần chạy trước nên log không ghi thời gian. Ở các horizon khác của VN1 (h = 2, 5, 8, 26): Empirical 24–38 s, TSB Poisson 12–15 s, ETS khoảng 1 s. Toàn bộ pipeline VN1 với lưới kịch bản đầy đủ: khoảng 30 phút (`run_VN1.log`) + 11 phút cho 3 baseline bổ sung (`run_VN1_v2.log`). Mô phỏng tồn kho và tính KPI cho lưới τ của M5: 65 s (`run_M5_tau.log`).
 
 ## 7. Phiên bản và tái lập
 

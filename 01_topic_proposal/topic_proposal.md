@@ -1,9 +1,11 @@
 # Topic Proposal
 
+> Phiên bản v2.2 (09/10/2026). Lịch sử thay đổi: `topic_revision_log.md`. Thiết kế chi tiết: `05_methodology/`; kết quả: `06_experiment_results/`.
+
 ## 1. Group Information
 
-- Class: SE1930
-- Group: G06
+- Class: SE1926 (nhánh `FA26_BDT301_SE1926_G01`)
+- Group: G01
 - Leader: <điền tên>
 - Members: <điền tên các thành viên>
 
@@ -11,116 +13,100 @@
 
 English title:
 
-**From Forecasts to Decisions: A Probabilistic Demand Forecasting Framework for Replenishment and Liquidation Recommendations in Retail Inventory Management — Evidence from the M5 Dataset**
+**From Forecasts to Decisions: Benchmarking Probabilistic Demand Forecasts for Replenishment and Liquidation on Two Public Retail Datasets (M5 and VN1)**
 
 Vietnamese title:
 
-**Từ dự báo đến quyết định: Khung dự báo nhu cầu xác suất hỗ trợ khuyến nghị nhập hàng và thanh lý nhằm giảm tồn kho và hết hàng trong quản lý kho bán lẻ — thực nghiệm trên bộ dữ liệu M5**
+**Từ dự báo đến quyết định: Đánh giá các phương pháp dự báo nhu cầu xác suất cho quyết định nhập hàng và thanh lý trên hai bộ dữ liệu bán lẻ công khai (M5 và VN1)**
 
 ## 3. Application Domain
 
-**Quản lý kho (Inventory / Warehouse Management) trong bán lẻ.**
+**Quản lý kho (Inventory Management) trong bán lẻ.**
 
-Bài toán cụ thể: với mỗi sản phẩm tại mỗi cửa hàng (SKU–store), hệ thống dự báo nhu cầu trong tương lai và đưa ra một trong ba khuyến nghị:
+Với mỗi chuỗi sản phẩm (M5: sản phẩm × cửa hàng; VN1: nhà bán × kho × sản phẩm), mỗi tuần hệ thống dự báo phân phối nhu cầu và đưa ra một trong ba khuyến nghị:
 
 | Khuyến nghị | Điều kiện | Mục tiêu |
 |---|---|---|
-| **NHẬP HÀNG (Replenish)** | Tồn kho dự kiến không đủ đáp ứng nhu cầu trong thời gian chờ hàng (lead time) | Tránh hết hàng (stockout) |
-| **GIỮ NGUYÊN (Hold)** | Tồn kho nằm trong vùng an toàn | Không phát sinh chi phí |
-| **THANH LÝ / GIẢM GIÁ (Liquidate / Markdown)** | Tồn kho vượt xa nhu cầu dự báo ở mức cao trong một khoảng thời gian dài | Giảm tồn kho dư thừa (overstock) và chi phí lưu kho |
+| **ĐẶT HÀNG (Order)** | Vị trí tồn kho thấp hơn mức order-up-to S = Q_τ(D_{L+R}) | Tránh hết hàng |
+| **GIỮ (Hold)** | Vị trí tồn kho nằm giữa S và ngưỡng thanh lý | Không hành động |
+| **THANH LÝ (Liquidate)** | Vị trí tồn kho vượt Q_{q_L}(D_H), phân vị cao của nhu cầu trong H tuần tới | Giảm tồn kho dư |
 
 ## 4. Problem Statement
 
-Các nhà bán lẻ thường phải đối mặt cùng lúc với hai rủi ro ngược chiều: **hết hàng** (mất doanh thu và khách hàng) và **tồn kho dư thừa** (tốn chi phí lưu kho, hàng quá hạn, phải giảm giá). Nguyên nhân chính là nhu cầu biến động mạnh theo mùa vụ, giá bán, sự kiện, chương trình SNAP. Ngoài ra, rất nhiều sản phẩm có **nhu cầu rời rạc (intermittent demand)**: nhiều ngày liên tiếp không bán được cái nào, rồi bất ngờ bán được vài cái.
-
-Bộ dữ liệu M5 (Walmart, 42.840 chuỗi thời gian phân cấp, 30.490 SKU–store, 1.941 ngày) đã trở thành benchmark chuẩn cho dự báo bán lẻ. Tuy vậy, **phần lớn nghiên cứu trên M5 chỉ tối ưu độ chính xác dự báo** (WRMSSE, WSPL), còn câu hỏi "độ chính xác cao hơn có thực sự giúp **quyết định nhập/thanh lý tốt hơn** hay không" thì ít được đánh giá. Bài này nhằm lấp khoảng trống giữa **dự báo** và **quyết định tồn kho**.
+Nhà bán lẻ phải cân bằng hai rủi ro ngược chiều: **hết hàng** và **tồn kho dư**. Phần lớn nghiên cứu trên các benchmark bán lẻ công khai (M5, VN1) chỉ tối ưu **độ chính xác dự báo**; câu hỏi "phương pháp dự báo nào cho **quyết định tồn kho** tốt hơn, và ở nhóm sản phẩm nào" ít được đánh giá trên cùng một chính sách và nhiều loại hình bán lẻ. Chi tiết: `03_problem_and_gap/problem_statement.md`.
 
 ## 5. Motivation
 
-- Ở M5 Accuracy, LightGBM được **tất cả 50 đội đứng đầu** sử dụng (bài 02, tr. 1), và đội thắng tốt hơn benchmark tốt nhất 22,4% (bài 02, tr. 6). Ở M5 Uncertainty, lời giải hạng nhất huấn luyện LightGBM riêng cho từng phân vị (bài 03, tr. 14). Tuy vậy, đánh giá chỉ dừng ở sai số dự báo (WRMSSE/WSPL), chưa gắn với chi phí vận hành kho.
-- Dự báo điểm (point forecast) chỉ cho một con số. Muốn quyết định lượng tồn kho an toàn thì cần biết **độ bất định**, tức là cần dự báo xác suất / phân vị (quantile).
-- Khoảng 60,1% quan sát của M5 bằng 0 (bài 11, tr. 16). Bài 12 (tr. 2) chỉ ra rằng chưa có kiến trúc global model được thiết lập cho chuỗi nhu cầu rời rạc, tức **SKU có nhu cầu thưa/bằng 0** vẫn là bài toán mở. Trong khi đó, đây chính là nhóm dễ gây tồn kho chết nhất.
-- Doanh nghiệp vừa và nhỏ cần một pipeline **đơn giản, tái lập được, chạy được trên máy thường**, không cần ensemble hàng chục mô hình (bài 8: ensemble không phải lúc nào cũng đáng chi phí).
+- Ở M5 Accuracy, LightGBM được cả 50 đội đứng đầu sử dụng (bài 02, tr. 1). Ở M5 Uncertainty, lời giải hạng nhất huấn luyện LightGBM riêng cho từng phân vị (bài 03, tr. 14). Cả hai cuộc thi chỉ đánh giá sai số dự báo.
+- Muốn đặt mức tồn kho an toàn cần biết **độ bất định**, tức là cần dự báo phân vị.
+- Phần lớn chuỗi bán lẻ có **nhu cầu rời rạc**: 39,7% tuần của M5 và 69,9% tuần của VN1 bằng 0 (`code/outputs/data_profile.md`). Bài 12 (tr. 2) cho rằng chưa có kiến trúc global model được thiết lập cho chuỗi rời rạc.
+- Hai dataset không có chi phí hay tồn kho thực, nên kết quả phải được trình bày bằng **KPI không đơn vị tiền** và **kịch bản**, không dựa trên chi phí giả định.
+- Pipeline cần **tái lập được, chạy trên máy tính thông thường** (CPU, RAM 16 GB), không cần GPU.
 
 ## 6. Target Users
 
 | Người dùng | Nhu cầu |
 |---|---|
-| Nhân viên / quản lý kho cửa hàng | Biết hôm nay cần đặt thêm SKU nào, bao nhiêu |
-| Bộ phận mua hàng (Procurement / Replenishment planner) | Lập kế hoạch đặt hàng theo lead time |
-| Quản lý ngành hàng / Marketing | Danh sách hàng tồn cần giảm giá hoặc thanh lý |
-| Quản lý cấp cao | Dashboard KPI: fill rate, tỷ lệ hết hàng, giá trị tồn kho dư |
+| Nhân viên kế hoạch nhập hàng | Tuần này đặt chuỗi nào, bao nhiêu |
+| Quản lý ngành hàng | Danh sách hàng tồn dư cần thanh lý |
+| Quản lý cấp cao | KPI: fill rate, tỷ lệ hết hàng, tồn kho tính bằng tuần nhu cầu |
+| Nhà nghiên cứu | Benchmark có thể tái lập trên hai dataset công khai |
 
 ## 7. Proposed AI Model / Method
 
-**Lý do cần AI:** mỗi ngày có hàng chục nghìn SKU–store, mỗi SKU chịu tác động phi tuyến của giá, ngày lễ, SNAP, thứ trong tuần. Làm quy tắc thủ công hoặc dùng trung bình động không nắm bắt được các tác động này và cũng không định lượng được độ bất định.
+**Mô hình chính:** LightGBM hồi quy phân vị (global model), dự báo **trực tiếp** phân vị {0,5; 0,8; 0,9; 0,95; 0,99} của tổng nhu cầu trong h tuần (h = L + R cho nhập hàng, h = H cho thanh lý).
 
-**Mô hình chính (AI):**
+**Baseline (7):**
 
-- **LightGBM global model** (Ke et al., 2017). LightGBM được cả top 50 M5 Accuracy sử dụng (bài 02, tr. 1), và lời giải hạng nhất M5 Uncertainty dùng LightGBM theo từng phân vị (bài 03, tr. 14):
-  - Dự báo điểm với hàm mất mát **Tweedie** (phù hợp dữ liệu nhiều số 0).
-  - Dự báo **phân vị (quantile regression)** ở các mức τ ∈ {0.5, 0.75, 0.9, 0.95, 0.99}. Các phân vị này dùng làm đầu vào cho lớp ra quyết định.
-- **Phân loại nhu cầu theo ADI và CV²** (Syntetos, Boylan & Croston, 2005), dùng ngưỡng **CV² = 0,5 và ADI = 4/3** như bài 01 (tr. 7–8). Theo bài 01, M5 gồm 73% intermittent, 17% lumpy, 3% erratic, 7% smooth. Phân loại này dùng để phân tích kết quả theo từng nhóm.
+- Thống kê: Empirical (phân vị thực nghiệm), ETS(A,N,N), TSB + Poisson, TSB + negative binomial.
+- ML: LightGBM-Tweedie + safety stock chuẩn (ablation "dự báo điểm + safety stock"), LightGBM-Tweedie + split conformal theo nhóm nhu cầu, HistGradientBoosting quantile (scikit-learn).
+- **Không dùng deep learning** (lý do: `04_proposed_system/ai_model_integration.md` mục 4).
 
-**Lớp ra quyết định (Decision layer), không phải model mới mà là chính sách tồn kho cổ điển được "cấp dữ liệu" bởi dự báo xác suất:**
+**Phân loại nhu cầu** ADI–CV² với ngưỡng ADI = 4/3, CV² = 0,5 (bài 01, tr. 7–8; bài 18).
 
-- Mức đặt hàng tối đa (order-up-to) theo **newsvendor**: `S = Q_τ*(nhu cầu trong L + R ngày)`, với `τ* = c_u / (c_u + c_o)` (c_u: chi phí thiếu hàng, c_o: chi phí thừa hàng).
-- Lượng nhập = `max(0, S − tồn kho hiện tại)` → **NHẬP HÀNG**.
-- Nếu tồn kho > `Q_0.95(nhu cầu trong H ngày)` → phần dư được đề xuất **THANH LÝ / GIẢM GIÁ**.
-
-**Baseline để so sánh:**
-
-- Seasonal Naive (tuần trước), Moving Average 28 ngày, ETS.
-- Croston / TSB (chuẩn cho nhu cầu rời rạc).
-- LightGBM dự báo điểm + safety stock giả định phân phối chuẩn. Đây là ablation quan trọng nhất: trả lời câu hỏi dự báo xác suất có tốt hơn cách truyền thống hay không.
-- **Đối chứng ML** (cập nhật 10/2026, thay cho TiDE/DeepAR): LightGBM-Tweedie + conformal và HistGradientBoosting quantile. Bài 12 (tr. 13, 19) cho thấy LightGBM dạng distributional không cạnh tranh trên dữ liệu rời rạc; nhóm dùng LightGBM **quantile regression** (cùng cách với lời giải hạng nhất M5 Uncertainty, bài 03 tr. 14) và kiểm chứng bằng hai đối chứng này. Deep learning nằm ngoài phạm vi vì chi phí tính toán (xem `04_proposed_system/ai_model_integration.md` mục 4).
-- *(Tùy chọn)* Chronos zero-shot, đại diện cho foundation model (bài 6, 7).
+**Lớp quyết định** (quy tắc minh bạch, không phải AI): order-up-to S = Q_τ(D_{L+R}); thanh lý phần vị trí tồn kho vượt Q_{q_L}(D_H); so sánh với thanh lý theo ngưỡng cố định k tuần bán trung bình. Mô tả đầy đủ: `05_methodology/methodology.md`.
 
 ## 8. System Features
 
-1. **Nạp & xử lý dữ liệu:** đọc `sales_train`, `calendar`, `sell_prices` của M5, tạo đặc trưng (lag, rolling mean, giá, sự kiện, SNAP).
-2. **Dự báo nhu cầu xác suất** 28 ngày cho từng SKU–store (các phân vị + giá trị kỳ vọng).
-3. **Engine khuyến nghị** NHẬP / GIỮ / THANH LÝ, kèm số lượng và mức độ rủi ro hết hàng.
-4. **Mô phỏng tồn kho (inventory simulator):** chạy lại lịch sử (rolling-origin backtest) để đo chi phí và fill rate của từng chính sách.
-5. **Dashboard:** danh sách SKU cần nhập, danh sách SKU tồn dư cần thanh lý, KPI tổng hợp. Có thể làm bằng Streamlit + FastAPI.
+1. Nạp M5 và VN1, đưa về **panel tuần** dùng chung (đã cài đặt, `code/f2d/data.py`).
+2. Phân loại ADI–CV² và tạo đặc trưng (đã cài đặt).
+3. Dự báo phân vị bằng 8 phương pháp (đã cài đặt).
+4. Decision Engine ĐẶT HÀNG / GIỮ / THANH LÝ, kèm rủi ro hết hàng (đã cài đặt, `code/f2d/policy.py`).
+5. Mô phỏng tồn kho nhiều kỳ, mất doanh số khi hết hàng (đã cài đặt).
+6. Báo cáo benchmark, đường đánh đổi, ngưỡng hòa vốn thanh lý (đã cài đặt, `code/analyze_results.py`, `code/liquidation_breakeven.py`).
+7. API + dashboard (FastAPI, Streamlit): **mới ở mức thiết kế** (`04_proposed_system/system_architecture.md`).
 
 ## 9. Expected Contribution
 
-1. **Khung "forecast-to-decision"** trên M5: nối dự báo phân vị bằng LightGBM với chính sách nhập hàng và thanh lý trong một **mô phỏng tồn kho nhiều kỳ** (có lead time và tồn kho mang sang), đánh giá bằng **KPI tồn kho** (fill rate, stockout, overstock, tổng chi phí) thay vì chỉ sai số dự báo.
-2. **Phân tích thực nghiệm theo loại nhu cầu (ADI–CV²):** chỉ ra ở nhóm SKU nào thì AI mang lại lợi ích rõ nhất, và ở nhóm nào baseline thống kê (TSB) vẫn đủ tốt.
-3. **Phân tích độ nhạy theo tỷ lệ chi phí** c_u/c_o: cho thấy khuyến nghị thay đổi thế nào theo chiến lược doanh nghiệp (ưu tiên không hết hàng hay ưu tiên ít tồn kho).
-4. Pipeline và mã nguồn **mở, tái lập được** (khắc phục hạn chế "khó tái lập" của bài 2 và 3).
+1. **Benchmark "từ dự báo đến quyết định"** trên hai dataset bán lẻ công khai khác loại hình (cửa hàng vật lý và thương mại điện tử), với cùng một chính sách nhập hàng + thanh lý trong **mô phỏng nhiều kỳ có lead time**.
+2. **Giữ toàn bộ chuỗi rời rạc** và báo cáo kết quả **theo nhóm ADI–CV²**.
+3. **Đánh giá không phụ thuộc chi phí**: fill rate, tồn kho tính bằng tuần nhu cầu, đường đánh đổi theo τ, lượng tồn kho cần để đạt một fill rate, và **ngưỡng giá thu hồi hòa vốn** của thanh lý.
+4. Mã nguồn mở, tái lập được trên CPU.
 
 ## 10. Evaluation Plan
 
-- **Dataset:** M5 Forecasting (Kaggle/Walmart), gồm 3 bang, 10 cửa hàng, 3 ngành hàng, 30.490 SKU–store, 1.941 ngày. Giai đoạn thử nghiệm: dùng 3 cửa hàng đại diện (CA_1, TX_1, WI_1 ≈ 9.147 chuỗi), sau đó mở rộng ra toàn bộ nếu tài nguyên cho phép. Chia dữ liệu theo đúng thiết kế gốc (28 ngày validation, 28 ngày test) và thêm rolling-origin backtest.
-- **Baseline:** Empirical, ETS, TSB (Poisson, negative binomial), LightGBM point + normal safety stock, LightGBM + conformal, HistGradientBoosting quantile.
-- **Metrics:**
-  - *Dự báo:* RMSSE / WRMSSE, MAE, RMSE, Pinball loss / WSPL. Không dùng MAPE vì dữ liệu có nhiều số 0 nên MAPE không xác định.
-  - *Tồn kho (quan trọng nhất):* Fill rate, tỷ lệ ngày hết hàng, số lượng tồn dư, chi phí lưu kho, tổng chi phí (thiếu + thừa), giá trị hàng đề xuất thanh lý.
-  - *Hệ thống:* thời gian huấn luyện, thời gian suy luận cho toàn bộ SKU.
-- **Kiểm định thống kê:** Diebold–Mariano hoặc kiểm định Friedman–Nemenyi giữa các phương pháp.
-- **Expert evaluation:** *(tùy chọn)* nhờ 2–3 người làm vận hành bán lẻ đánh giá tính hợp lý của danh sách khuyến nghị.
-- **User survey:** *(tùy chọn)* SUS cho dashboard.
-- **Giả định mô phỏng (phải ghi rõ trong bài):** M5 **không có dữ liệu tồn kho thực**. Vì vậy tồn kho ban đầu, lead time (ví dụ L = 7 ngày), chu kỳ đặt hàng (R = 7 ngày) và chi phí c_u, c_o được **giả lập có tham số** và phân tích độ nhạy.
+- **Dataset:** M5 (30.490 chuỗi, 277 tuần đủ 7 ngày) và VN1 (15.053 chuỗi, 196 tuần, Phase 2 là đáp án chính thức). Dataset giày dép Việt Nam chỉ ở **phụ lục mô tả**.
+- **Chia dữ liệu:** 26 tuần cuối là kiểm thử (2 khối 13 tuần, huấn luyện lại mỗi khối); 13 tuần validation ngay trước mỗi mốc cắt; dự báo mỗi tuần (rolling origin).
+- **Metric dự báo:** scaled quantile loss (SQL), RMSSE, độ phủ của từng phân vị. Không dùng MAPE (nhiều số 0; bài 24, tr. 4).
+- **Metric tồn kho (không đơn vị tiền):** fill rate, tỷ lệ tuần hết hàng, tồn kho trung bình tính bằng tuần nhu cầu, tồn dư, tỷ lệ thanh lý; khoảng tin cậy bootstrap 95%.
+- **Kịch bản:** τ ∈ {0,8; 0,9; 0,95}; L ∈ {1, 2, 4}; H ∈ {8, 13, 26}; q_L ∈ {0,9; 0,95; 0,99}; k ∈ {13, 26, 52}.
+- **Kiểm định thống kê:** Friedman–Nemenyi hoặc Wilcoxon trên kết quả theo chuỗi (**chưa chạy**, `06_experiment_results/results.md` mục 9).
+- **Hệ thống:** thời gian chạy của từng mô hình.
 
 ## 11. Related Papers
 
-Danh sách đầy đủ gồm 19 bài, xem `02_related_work/paper_list.md`. Các bài trụ cột (đánh số theo `paper_list.md`):
+Danh sách đầy đủ: `02_related_work/paper_list.md` (24 bài chính thức + bài 20 và W1–W3 ở danh sách theo dõi). Các bài trụ cột:
 
 | No | Title | Year | Source | Link / DOI |
 |---|---|---|---|---|
+| 01 | The M5 competition: Background, organization, and implementation | 2022 | Int. J. Forecasting | https://doi.org/10.1016/j.ijforecast.2021.07.007 |
 | 02 | M5 accuracy competition: Results, findings, and conclusions | 2022 | Int. J. Forecasting | https://doi.org/10.1016/j.ijforecast.2021.11.013 |
 | 03 | The M5 uncertainty competition: Results, findings and conclusions | 2022 | Int. J. Forecasting | https://doi.org/10.1016/j.ijforecast.2021.10.009 |
+| 08 | The cost of ensembling: is it always worth combining? (dùng M5 + VN1) | 2025 | arXiv | https://arxiv.org/abs/2506.04677 |
 | 11 | Multi-objective probabilistic forecast combination for inventory demand | 2026 | arXiv | https://arxiv.org/abs/2606.04900 |
 | 12 | Intermittent time series forecasting: local vs global models | 2026 | arXiv | https://arxiv.org/abs/2601.14031 |
 | 16 | Intermittent demand: Linking forecasting to inventory obsolescence | 2011 | EJOR | https://doi.org/10.1016/j.ejor.2011.05.018 |
 | 18 | On the categorization of demand patterns | 2005 | JORS | https://doi.org/10.1057/palgrave.jors.2601841 |
 | 19 | Optimising forecasting models for inventory planning | 2020 | IJPE | https://doi.org/10.1016/j.ijpe.2019.107597 |
 
-> **Lưu ý định vị:** Bài 11 (Wang, Kang, Spiliotis & Petropoulos, 2026) là bài gần nhất: cũng dùng M5, cũng đặt mức order-up-to bằng phân vị τ theo newsvendor, và cũng đo chi phí tồn/thiếu hàng. Đã kiểm tra PDF: họ đánh giá **từng kỳ độc lập** (không lead time, không mang tồn kho sang kỳ sau), **không có thanh lý**, **không phân tích theo loại nhu cầu** và **không dùng LightGBM**. Đề tài của nhóm khác biệt ở bốn điểm: (1) mô phỏng tồn kho nhiều kỳ có lead time; (2) quyết định **hai chiều** nhập hàng + thanh lý; (3) phân tích theo nhóm ADI–CV²; (4) một mô hình LightGBM quantile gọn thay vì kết hợp nhiều mô hình.
->
-> **Cập nhật 29/09/2026 sau khi đọc bài 21–22:**
-> - Điểm (1) **không còn là điểm mới**: bài 21 (Zabraoui et al., 2025) đã mô phỏng tồn kho 365 ngày trên M5.
-> - Điểm mới chính của đề tài nên chuyển sang: **giữ lại toàn bộ chuỗi rời rạc** (73% M5, bài 01 tr. 8), trong khi bài 21 và 22 đều chọn lọc bỏ; **quyết định thanh lý**; **KPI tồn kho theo nhóm ADI–CV²**.
-> - Bài 20 (Theodorou et al., 2025, EJOR) **không đọc được toàn văn** nên không dùng làm căn cứ. Để tránh trùng, đề tài **không** đặt RQ kiểu "độ chính xác dự báo có tương quan với hiệu quả tồn kho trên M5 không"; RQ tập trung vào chuỗi rời rạc, quyết định thanh lý và KPI theo nhóm ADI–CV². Khi viết bài chỉ trích bài 20 ở mức tên bài.
+> **Định vị:** bài 11 gần nhất (M5, order-up-to theo phân vị, newsvendor từng kỳ, không thanh lý, không phân tích theo nhóm nhu cầu). Bài 21 đã mô phỏng tồn kho nhiều kỳ trên tập con M5, nên "mô phỏng nhiều kỳ" **không** phải điểm mới riêng. Điểm khác biệt của đề tài: hai dataset khác loại hình, giữ toàn bộ chuỗi rời rạc, quyết định thanh lý và ngưỡng hòa vốn, KPI theo nhóm ADI–CV². Bài 20 và W3 chưa đọc được toàn văn, nên không đặt RQ "độ chính xác có tương quan với hiệu quả tồn kho" (`03_problem_and_gap/research_gap.md` mục 6).

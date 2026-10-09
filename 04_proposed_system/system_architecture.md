@@ -6,20 +6,22 @@ Hệ thống chạy theo **lô hằng tuần (weekly batch)**: mỗi tuần nạ
 
 ## 2. Thành phần chính
 
+Trạng thái: ✅ đã cài đặt trong `code/`; 🔲 mới ở mức thiết kế.
+
 | Thành phần | Vai trò | Công nghệ dự kiến |
 |---|---|---|
-| **Data Ingestion** | Đọc M5 và VN1 (CSV); dữ liệu Việt Nam ở phụ lục (Excel); cache sang Parquet | Python, pandas, `python-calamine`, `pyarrow` |
-| **Harmonizer** | Làm sạch, gộp theo tuần, đưa về **schema panel chung** (xem `data_flow.md`) | pandas |
-| **Database / Storage** | Lưu panel, đặc trưng, dự báo, khuyến nghị, KPI | Parquet + **DuckDB** (truy vấn SQL trên file, không cần server) |
-| **Demand Classifier** | Tính ADI, CV², gán nhóm nhu cầu cho mỗi chuỗi | Python (numpy) |
-| **Feature Builder** | Lag, thống kê trượt, lịch, giá, thuộc tính tĩnh | pandas |
-| **AI Forecasting Service** | Huấn luyện và dự báo phân vị bằng nhiều mô hình | LightGBM, scikit-learn (HistGradientBoosting); ETS, TSB, Empirical cài vector hóa bằng numpy/scipy; chỉ dùng CPU |
-| **Decision Engine** | Order-up-to + thanh lý từ phân vị; tính xác suất hết hàng | Python |
-| **Inventory Simulator** | Mô phỏng nhiều kỳ (lost sales, lead time) để backtest chính sách | Python (numpy, vector hóa theo chuỗi) |
-| **Evaluator** | Sai số dự báo, KPI tồn kho không đơn vị tiền, đường đánh đổi, ngưỡng hòa vốn thanh lý, kiểm định thống kê | numpy, scipy, matplotlib |
-| **Backend API** | Trả khuyến nghị và KPI dạng JSON | FastAPI |
-| **Frontend Dashboard** | Danh sách đặt hàng/thanh lý, KPI, bảng benchmark | Streamlit |
-| **Experiment tracking** | Lưu cấu hình, tham số, kết quả mỗi lần chạy | File YAML + log (MLflow nếu cần) |
+| ✅ **Data Ingestion** | Đọc M5 và VN1 (CSV); dữ liệu Việt Nam ở phụ lục (Excel); cache sang Parquet | Python, pandas, `python-calamine`, `pyarrow` |
+| ✅ **Harmonizer** | Làm sạch, gộp theo tuần, đưa về **schema panel chung** (xem `data_flow.md`) | pandas |
+| 🔲 **Database / Storage** | Lưu panel, đặc trưng, dự báo, khuyến nghị, KPI | Parquet + **DuckDB** (truy vấn SQL trên file, không cần server). Hiện tại: NPZ (panel, dự báo) + CSV (KPI) |
+| ✅ **Demand Classifier** | Tính ADI, CV², gán nhóm nhu cầu cho mỗi chuỗi | Python (numpy) |
+| ✅ **Feature Builder** | Lag, thống kê trượt, lịch, giá, thuộc tính tĩnh | pandas |
+| ✅ **AI Forecasting Service** | Huấn luyện và dự báo phân vị bằng nhiều mô hình | LightGBM, scikit-learn (HistGradientBoosting); ETS, TSB, Empirical cài vector hóa bằng numpy/scipy; chỉ dùng CPU |
+| ✅ **Decision Engine** | Order-up-to + thanh lý từ phân vị; tính xác suất hết hàng | Python |
+| ✅ **Inventory Simulator** | Mô phỏng nhiều kỳ (lost sales, lead time) để backtest chính sách | Python (numpy, vector hóa theo chuỗi) |
+| ✅ **Evaluator** | Sai số dự báo, KPI tồn kho không đơn vị tiền, đường đánh đổi, ngưỡng hòa vốn thanh lý; kiểm định thống kê **chưa cài đặt** | numpy, scipy, matplotlib |
+| 🔲 **Backend API** | Trả khuyến nghị và KPI dạng JSON | FastAPI |
+| 🔲 **Frontend Dashboard** | Danh sách đặt hàng/thanh lý, KPI, bảng benchmark | Streamlit |
+| ✅ **Experiment tracking** | Lưu cấu hình, tham số, kết quả mỗi lần chạy | Tham số dòng lệnh + log trong `code/outputs/logs/` |
 
 ## 3. Sơ đồ kiến trúc
 

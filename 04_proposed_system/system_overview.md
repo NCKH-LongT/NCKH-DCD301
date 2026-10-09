@@ -7,7 +7,7 @@
 Hệ thống có hai vai trò:
 
 1. **Công cụ nghiên cứu (benchmark):** chạy nhiều phương pháp dự báo trên hai dataset công khai (M5, VN1), đưa dự báo qua cùng một lớp quyết định, mô phỏng tồn kho và tính KPI để trả lời RQ1–RQ4.
-2. **Hệ thống hỗ trợ ra quyết định (prototype):** mỗi tuần đưa ra khuyến nghị **ĐẶT HÀNG / GIỮ / THANH LÝ** cho từng chuỗi sản phẩm, kèm số lượng và rủi ro hết hàng, hiển thị trên dashboard.
+2. **Hệ thống hỗ trợ ra quyết định (prototype):** mỗi tuần đưa ra khuyến nghị **ĐẶT HÀNG / GIỮ / THANH LÝ** cho từng chuỗi sản phẩm, kèm số lượng và rủi ro hết hàng, hiển thị trên dashboard (Decision Engine đã cài đặt; API và dashboard mới ở mức thiết kế).
 
 ## 2. Người dùng chính
 
