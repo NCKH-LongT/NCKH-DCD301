@@ -1,0 +1,61 @@
+M5: 30,490 series x 277 weeks; test weeks 2015-11-21 .. 2016-05-14; evaluated series 30,381
+  classes: {'all': 30381, 'smooth': 16102, 'erratic': 1777, 'intermittent': 10285, 'lumpy': 2217}
+  forecasting chronos2, h=3 ...
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 4928.78it/s]
+      origin 1/26 (145s)
+      origin 2/26 (290s)
+      origin 3/26 (435s)
+      origin 4/26 (581s)
+      origin 5/26 (726s)
+      origin 6/26 (872s)
+      origin 7/26 (1018s)
+      origin 8/26 (1164s)
+      origin 9/26 (1309s)
+      origin 10/26 (1453s)
+      origin 11/26 (1597s)
+      origin 12/26 (1740s)
+      origin 13/26 (1887s)
+      origin 14/26 (2032s)
+      origin 15/26 (12330s)
+      origin 16/26 (17894s)
+      origin 17/26 (18036s)
+      origin 18/26 (18177s)
+      origin 19/26 (18320s)
+      origin 20/26 (18460s)
+      origin 21/26 (18602s)
+      origin 22/26 (18742s)
+      origin 23/26 (18885s)
+      origin 24/26 (19028s)
+      origin 25/26 (19171s)
+      origin 26/26 (19313s)
+    done in 19324s
+  forecasting chronos2, h=13 ...
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 7185.28it/s]
+      origin 1/26 (87s)
+      origin 2/26 (175s)
+      origin 3/26 (262s)
+      origin 4/26 (350s)
+      origin 5/26 (438s)
+      origin 6/26 (525s)
+      origin 7/26 (613s)
+      origin 8/26 (701s)
+      origin 9/26 (789s)
+      origin 10/26 (877s)
+      origin 11/26 (966s)
+      origin 12/26 (1054s)
+      origin 13/26 (1143s)
+      origin 14/26 (14601s)
+      origin 15/26 (14685s)
+      origin 16/26 (14776s)
+      origin 17/26 (14865s)
+      origin 18/26 (14953s)
+      origin 19/26 (21830s)
+      origin 20/26 (28060s)
+      origin 21/26 (28155s)
+      origin 22/26 (28247s)
+      origin 23/26 (28341s)
+      origin 24/26 (28431s)
+      origin 25/26 (28526s)
+      origin 26/26 (28617s)
+    done in 28618s
+finished in 48060s -> D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\M5_c2

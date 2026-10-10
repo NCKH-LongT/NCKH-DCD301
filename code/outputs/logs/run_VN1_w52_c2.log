@@ -1,0 +1,61 @@
+VN1: 15,053 series x 144 weeks; test weeks 2022-10-10 .. 2023-04-03; evaluated series 9,383
+  classes: {'all': 9383, 'smooth': 2094, 'erratic': 1202, 'intermittent': 4278, 'lumpy': 1809}
+  forecasting chronos2, h=3 ...
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 10371.82it/s]
+      origin 1/26 (45s)
+      origin 2/26 (90s)
+      origin 3/26 (134s)
+      origin 4/26 (179s)
+      origin 5/26 (223s)
+      origin 6/26 (268s)
+      origin 7/26 (313s)
+      origin 8/26 (357s)
+      origin 9/26 (402s)
+      origin 10/26 (446s)
+      origin 11/26 (491s)
+      origin 12/26 (535s)
+      origin 13/26 (580s)
+      origin 14/26 (624s)
+      origin 15/26 (667s)
+      origin 16/26 (711s)
+      origin 17/26 (755s)
+      origin 18/26 (801s)
+      origin 19/26 (851s)
+      origin 20/26 (896s)
+      origin 21/26 (940s)
+      origin 22/26 (985s)
+      origin 23/26 (1748s)
+      origin 24/26 (1794s)
+      origin 25/26 (1838s)
+      origin 26/26 (1884s)
+    done in 1895s
+  forecasting chronos2, h=13 ...
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 9463.68it/s]
+      origin 1/26 (27s)
+      origin 2/26 (55s)
+      origin 3/26 (83s)
+      origin 4/26 (110s)
+      origin 5/26 (139s)
+      origin 6/26 (166s)
+      origin 7/26 (194s)
+      origin 8/26 (221s)
+      origin 9/26 (249s)
+      origin 10/26 (276s)
+      origin 11/26 (303s)
+      origin 12/26 (331s)
+      origin 13/26 (358s)
+      origin 14/26 (386s)
+      origin 15/26 (413s)
+      origin 16/26 (440s)
+      origin 17/26 (467s)
+      origin 18/26 (494s)
+      origin 19/26 (522s)
+      origin 20/26 (549s)
+      origin 21/26 (577s)
+      origin 22/26 (604s)
+      origin 23/26 (632s)
+      origin 24/26 (659s)
+      origin 25/26 (686s)
+      origin 26/26 (714s)
+    done in 714s
+finished in 2642s -> D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\VN1_w52_c2

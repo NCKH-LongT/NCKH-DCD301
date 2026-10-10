@@ -592,11 +592,29 @@ KPI được tính lại với trọng số là giá bán của tuần đó (gi�
 - Nhóm intermittent: fill rate ở τ = 0,9 chỉ 0,58–0,75, không phương pháp nào đạt 0,90 nên không xếp hạng được.
 - **Thanh lý tính bằng tiền** (giá vốn và giá bán thực của từng chuỗi, chi phí lưu kho 10–40%/năm, cận trên): với 4 mô hình ML, quy tắc phân vị và quy tắc cố định có s\* ≈ 0,90–1,01 lần giá vốn; dead13 ≈ 1,26–1,43; dead26 ≈ 1,15–1,33. Với Chronos-2: quy tắc phân vị 1,04–1,09; dead13 1,21–1,30; dead26 1,14–1,22. Lượng thanh lý nhỏ (≤ 3% nhu cầu). Kết luận giống M5 và VN1: trong cửa sổ 26 tuần, thanh lý chỉ có lợi khi bán thanh lý gần bằng giá vốn.
 
-### 10.5 Chronos-2 (foundation model, zero-shot) — đang chạy
+### 10.5 Chronos-2 (foundation model, zero-shot)
 
 - Mô hình: `amazon/chronos-2` (120 triệu tham số, Apache-2.0), chạy trên CPU, không fine-tune, không dùng biến ngoại sinh. Để dự báo trực tiếp phân vị của D_h như các phương pháp khác, ngữ cảnh là chuỗi các tổng h tuần không chồng lấn kết thúc ngay trước origin (tối đa 104 tuần), dự báo 1 bước; các phân vị 0,5–0,99 nằm trong tập phân vị huấn luyện của mô hình (`f2d.models.chronos2`).
 - **Rò rỉ dữ liệu:** tập huấn luyện của Chronos-2 gồm một phần `autogluon/chronos_datasets` và `Salesforce/GiftEvalPretrain` (model card); **cả hai đều có M5**, không có VN1. Kết quả trên M5 vì vậy không phải zero-shot "sạch"; VN1 và VNF thì sạch.
-- Kết quả 9 phương pháp ghi vào `code/outputs/<D>[_wN]_c2/` để không thay đổi kết quả 8 phương pháp ở trên (`code/outputs/logs/rerun_c2.sh`). Sẽ cập nhật khi chạy xong.
+- Kết quả 9 phương pháp ghi vào `code/outputs/<D>[_wN]_c2/` để không thay đổi kết quả 8 phương pháp ở trên (`code/outputs/logs/rerun_c2.sh`). Đã chạy: M5 cửa sổ chính; VN1 ba cửa sổ; VNF (mục 10.4). M5 ở cửa sổ thứ hai, thứ ba **không** chạy (khoảng 13 giờ CPU mỗi cửa sổ). Nguồn: `comparison_c2.md`, `comparison_w26_c2_VN1.md`, `comparison_w52_c2_VN1.md`, `stat_tests_c2.md`, `stat_tests_w26_c2_VN1.md`, `stat_tests_w52_c2_VN1.md`, `equal_fill_ci*_c2.md`.
+
+**Bảng 14.** Chronos-2 so với LightGBM quantile (h = 3; hạng theo chuỗi trong 9 phương pháp; Δ tồn kho = I_chronos2 / I_lgb_quantile − 1 ở cùng fill rate, KTC 95% bootstrap).
+
+| | SQL TB chronos2 / lgb_q | Hạng theo chuỗi chronos2 (CD) | % chuỗi lgb_q có SQL thấp hơn | Hạng đường đánh đổi chronos2 (9 PP) | Δ tồn kho ở fill 0,90 | Δ ở fill 0,94 |
+|---|---|---|---|---|---|---|
+| M5, chính (\*) | 0,242 / 0,208 | 5,56 (0,069) | 72,8% | 5,6 | +14,3% [+13,5; +14,9] | +12,8% [+12,0; +13,6] |
+| VN1, chính | 0,620 / 0,336 | 5,45 (0,102) | 68,8% | 6,2 | +41,5% [+29,0; +55,2] | +56,4% [+29,4; +97,8] |
+| VN1, thứ hai | 0,653 / 0,539 | 5,61 (0,112) | 72,6% | 4,0 | −0,6% [−3,8; +3,0] | −3,2% [−7,5; +1,7] |
+| VN1, thứ ba | 2,404 / 2,008 | 5,37 (0,124) | 69,4% | 5,25 | +46,5% [+32,7; +63,9] | +73,9% [+51,2; +101,0] |
+| VNF | 0,170 / 0,154 | — | — | 5,8 | +12,9% [+1,3; +21,8] | +26,0% [+17,6; +30,3] |
+
+(\*) M5 có trong tập huấn luyện của Chronos-2.
+
+- **Độ chính xác:** Chronos-2 kém lgb_quantile ở mọi dataset và cửa sổ, cả theo trung bình lẫn theo chuỗi (lgb_quantile tốt hơn ở 64–79% chuỗi, h = 3 và 13). Trên M5, dù có thể đã thấy dữ liệu khi huấn luyện, SQL của Chronos-2 (0,242) chỉ ngang ETS (0,246). Trên VN1, SQL trung bình của Chronos-2 rất cao ở nhóm lumpy (1,471 ở cửa sổ chính).
+- **Hiệu quả tồn kho:** Chronos-2 không đứng đầu ở bất kỳ dataset, cửa sổ hay nhóm nào; P(best) = 0 ở mọi trường hợp tổng thể. Ở cửa sổ thứ hai của VN1, Chronos-2 ngang lgb_quantile (KTC chứa 0) và đứng thứ hai ở nhóm smooth (3,0, sau TSB-NB 2,4).
+- **Thời gian chạy** (CPU, có lúc chạy song song với tiến trình khác): VN1 cửa sổ chính 2.692 s (h = 3) và 2.360 s (h = 13); M5 19.324 s và 28.618 s; VNF 373 s và 331 s. So với lgb_quantile (VN1 146 / 314 s; M5 1.251 / 686 s, mục 4 của `experimental_setup.md`), Chronos-2 chậm hơn khoảng 8–42 lần.
+- [Nhận định nhóm] Với cách dùng zero-shot, không biến ngoại sinh, một foundation model tổng quát chưa vượt được mô hình boosting toàn cục không tinh chỉnh ở tầng quyết định tồn kho trên dữ liệu bán lẻ rời rạc. **[Chưa kiểm chứng]** Cách tạo ngữ cảnh bằng tổng h tuần (để dự báo trực tiếp D_h) làm ngữ cảnh ngắn (khoảng 8 điểm với h = 13); dùng chuỗi tuần với biến ngoại sinh hoặc cross-learning có thể cho kết quả khác.
+- Thêm Chronos-2 làm thay đổi nhẹ hạng của các phương pháp khác. Ví dụ ở VN1 cửa sổ thứ hai, TSB-NB từ 1,8 thành 2,0 và đồng hạng với conformal. Các kết luận về phương pháp đứng đầu ở Bảng 12 không thay đổi, trừ trường hợp đồng hạng này.
 
 ## 11. Hạn chế và việc còn lại
 
@@ -621,6 +639,6 @@ KPI được tính lại với trọng số là giá bán của tuần đó (gi�
 - [x] Cửa sổ kiểm thử thứ ba (mục 10.1).
 - [x] Khoảng tin cậy bootstrap ở cùng fill rate; KPI theo giá trị (mục 10.2, 10.3).
 - [x] Case study VNF (mục 10.4).
-- [ ] Chronos-2 (mục 10.5, đang chạy).
+- [x] Chronos-2 (mục 10.5).
 - [ ] (Tùy chọn) lưới L, H cho M5.
 - [ ] Đọc W3 và bài 20 để định vị lại phần "độ chính xác theo chuỗi ≠ hiệu quả tồn kho" trước khi đưa vào bài (`03_problem_and_gap/research_gap.md` mục 6).
