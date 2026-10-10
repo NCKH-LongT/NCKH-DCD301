@@ -1,6 +1,6 @@
 # 2. Related Work
 
-> Draft v0.1, English. Sources: `02_related_work/literature_review_matrix.md`, `paper_summaries/`, `03_problem_and_gap/research_gap.md`. Every claim about another paper carries a page or "(abstract)". Papers 20 (Theodorou et al., 2025) and W3 (Li, 2026) are cited **by title only**. Tag conventions: `paper_outline.md`.
+> Draft v0.2, English. Sources: `02_related_work/literature_review_matrix.md`, `paper_summaries/`, `03_problem_and_gap/research_gap.md`. Every claim about another paper carries a page or "(abstract)". Papers 20 (Theodorou et al., 2025) and W3 (Li, 2026) are cited **by title only**. Tag conventions: `paper_outline.md`.
 
 ## 2.1 Probabilistic forecasting on public retail benchmarks
 
@@ -18,6 +18,8 @@ These results motivate our choice of LightGBM quantile regression as the main mo
 - end-to-end probabilistic top-down reconciliation with ETS on a few aggregate series (Zambon et al., 2026). This method would have ranked 11th of 892 teams in the uncertainty track and runs in under five minutes on a laptop [P13 p. 25].
 
 **VN1.** VN1 is a weekly e-commerce dataset of 15,053 products [P08 p. 7]. Zanotti (2025) used M5 and VN1 to study the cost of ensembling ten global models with point and quantile losses. Small ensembles of two or three models were often near-optimal, and less frequent retraining cut cost with little loss of accuracy [P08 (abstract)]. That study evaluates accuracy (RMSSE, scaled quantile loss) and computational cost, not inventory outcomes [P08 p. 13–14].
+
+**Foundation models.** Pretrained time-series models are now used in demand forecasting. Yang et al. (2025) include Chronos and TEMPO among the backbones of their ensembles on M5 and three other retail datasets [P06 p. 4]. They note that the interpretability of ensemble results remains an open challenge for decision making [P06 p. 7]. Damato et al. (2026) leave the comparison with pretrained models on intermittent data to future work [P12 p. 2]. Chronos-2 is a recent pretrained model with quantile outputs and native covariate support (Ansari et al., 2025; model card) **[Chưa kiểm chứng: technical report not read]**. To our knowledge, such models have not been evaluated inside an inventory decision layer on intermittent retail data [Nhận định nhóm].
 
 In short, the main public retail benchmarks rank methods by forecast error. The M5 organisers note that the competition did not target a specific decision problem [P03 p. 2–3], and that its conclusions are limited in how far they generalise beyond the data it represents [P01 p. 11].
 
@@ -77,13 +79,18 @@ Excess stock is a recurring practical problem. For example, Putra and Purnomo (2
 | Results by ADI–CV² class | ✗ | ✗ | ✗ (shares only) | — | ✓ |
 | Cost-free KPIs / trade-off | cost ratios ↔ τ | costs | costs | — | ✓ (frontier, break-even salvage) |
 | Policy transparency | quantile policy | RL (low interpretability, p. 19) | quantile + GARCH | — | quantile policy |
+| Test periods | one evaluation period (28 days) | 365-day simulation | one 75/25 split | — (accuracy only) | three 26-week windows, rolling weekly origins |
+| Foundation model in the comparison | ✗ | ✗ | ✗ | ✗ | ✓ (Chronos-2, zero-shot) |
+| Actual unit costs from data | ✗ (cost ratios) | ✗ (assumed cost parameters) | ✗ (assumed cost parameters) | — | ✓ in the case study (VNF) |
 
-Sources: [P11 p. 11, 16, 17, 26], [P21 p. 8, 19], [P22 p. 4, 15, 18], [P08 p. 4, 13–14].
+Sources: [P11 p. 11, 16, 17, 26], [P21 p. 5, 8, 19], [P22 p. 4, 15, 18], [P08 p. 4, 13–14]. Test periods: P11 p. 16 (evaluation on the last 28 days), P22 p. 4 (75:25 split), P21 p. 8 (365-day simulation). Cost parameters: P21 p. 5 (cost function), P22 p. 15 (holding 0.50, shortage 5.00), P11 p. 16 (c₂ ∈ {4, 9, 19}).
 
 Multi-period simulation alone is not new (Zabraoui et al., 2025; van der Haar et al., 2024), nor is decision-level evaluation (Wang et al., 2026). Our contribution lies in combining the following elements [Nhận định nhóm]:
 
 - two public retail settings;
 - all demand classes, reported by class;
 - a two-sided decision layer (replenishment and liquidation);
-- a cost-free evaluation;
-- a second test window.
+- a cost-free evaluation with bootstrap uncertainty;
+- three test windows;
+- a foundation-model check;
+- a case study with actual unit costs.

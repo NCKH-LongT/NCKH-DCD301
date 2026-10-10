@@ -12,6 +12,7 @@
 | v2.3 | 2026-10-09 | Rà soát tài liệu Bước 1–7 theo code và kết quả: viết lại `topic_proposal.md`; sửa tỷ lệ nhóm nhu cầu của chuỗi được đánh giá, mô tả KPI, thứ tự mô phỏng, ngưỡng hòa vốn, thời gian chạy, trạng thái cài đặt; viết Bước 5 (`05_methodology/`) và Bước 6 (`06_experiment_results/`) từ kết quả đã chạy | Tài liệu phải khớp với những gì đã cài đặt và đo được |
 | v2.4 | 2026-10-09 | Kiểm định Friedman–Nemenyi/Wilcoxon theo chuỗi; xếp hạng theo đường đánh đổi (τ mở rộng thành {0,5; …; 0,99}); sửa LightGBM-Tweedie/conformal để học mục tiêu D_h / s; thêm quy tắc thanh lý dead-stock (13/26 tuần); thêm cửa sổ kiểm thử thứ hai; cập nhật Bước 5–6 | Rà soát độ vững trước khi viết bài: SQL trung bình che khuất kết quả theo chuỗi trên VN1; Tweedie học mục tiêu chưa chuẩn hóa cho dự báo sai lớn trên VN1 |
 | v2.5 | 2026-10-09 | Viết bản nháp bài báo tiếng Anh (Bước 11, `07_paper_draft/`); thêm phân tích loss theo từng phân vị (`code/per_quantile_loss.py`, `results.md` mục 2.1), qua đó sửa diễn giải "phân vị trên của LightGBM quantile tốt hơn ở chuỗi intermittent"; kiểm tra lại toàn bộ reference; rà soát nhất quán các tài liệu Bước 1–11 với kết quả và sửa sai số làm tròn | Chuẩn bị viết bài: mọi số liệu và nhận định trong bản nháp phải khớp với kết quả đã chạy |
+| v2.6 | 2026-10-10 | Thêm cửa sổ kiểm thử thứ ba; khoảng tin cậy bootstrap ở cùng fill rate; KPI theo giá trị; foundation model Chronos-2 (zero-shot) làm phương pháp thứ 9; case study chuỗi giày dép Việt Nam (VNF) với giá vốn thật; viết lại toàn bộ bản nháp bài báo (`07_paper_draft/`, có hình pipeline, phụ lục và bản ghép `full_draft.md`) | Trả lời trước các phản biện dự kiến cho tạp chí Q3–Q4: độ vững theo giai đoạn, ý nghĩa thống kê, foundation model, đánh giá bằng tiền |
 
 ## Việc cần làm tiếp
 
@@ -21,7 +22,7 @@
 - [x] Kiểm tra chính sách tồn kho và metric của bài 11 (newsvendor từng kỳ; total cost / holding / stockout).
 - [x] Đọc toàn văn bài 11 (bản arXiv) và bổ sung Goltsos et al. (2022) vào Related Work (mức abstract).
 - [x] Kiểm định thống kê, cửa sổ kiểm thử thứ hai, sửa Tweedie, dead-stock (`06_experiment_results/results.md`).
-- [x] Bản nháp bài báo tiếng Anh (`07_paper_draft/`).
+- [x] Bản nháp bài báo tiếng Anh (`07_paper_draft/`), v0.2 (10/10/2026).
 - [ ] Đọc toàn văn Goltsos et al. (2022) và Kourentzes et al. (2020) trước khi trích sâu hơn mức abstract/trang mô tả.
 - [ ] (Tùy chọn) lưới L, H cho M5; ngưỡng hòa vốn cho cửa sổ thứ hai; đọc W3 và bài 20.
 - [ ] Weekly reports (`weekly_reports/`) chưa phản ánh đề tài hiện tại.

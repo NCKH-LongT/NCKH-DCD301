@@ -16,6 +16,8 @@ Quy ước:
 
 ## 0. Tóm tắt
 
+> **Cập nhật 10/10/2026:** tóm tắt dưới đây viết cho hai cửa sổ. Kết luận cuối cùng (ba cửa sổ, khoảng tin cậy bootstrap, KPI theo giá trị, case study VNF, Chronos-2) ở mục 10.1–10.5; bản tiếng Anh: `07_paper_draft/results.md` Bảng 8. Thay đổi chính so với tóm tắt này: (1) VN1 tổng thể: lgb_quantile hiệu quả nhất ở 2/3 cửa sổ; (2) "TSB-NB tốt nhất ở nhóm smooth" không vững; (3) dead13 làm tăng tuần hết hàng nhóm intermittent VN1 +43% đến +68%; (4) lợi thế của lgb_quantile trên M5 có ý nghĩa thống kê, trên VN1 cửa sổ chính thì không.
+
 1. **Độ chính xác:**
    - LightGBM quantile có SQL **trung bình** thấp nhất trên cả hai dataset, ở cả hai horizon và cả 4 nhóm; HistGradientBoosting sát ngay sau.
    - Kiểm định theo chuỗi xác nhận điều này trên M5 (h = 3).
@@ -440,7 +442,7 @@ Ghi chú cho Bảng 9:
 | SQL trung bình h = 3, LightGBM quantile (M5 / VN1) | 0,208 / 0,336, tốt nhất | 0,215 / 0,539, tốt nhất | ✅ |
 | Hạng theo chuỗi, M5 h = 3: lgb_quantile / hgb_quantile | 3,40 / 3,66 | 3,50 / 3,72 | ✅ |
 | Hạng theo chuỗi, M5 h = 13: lgb_quantile / hgb_quantile | 3,81 / 3,72 | 3,80 / 3,82 | ✅ ngang nhau |
-| Hạng theo chuỗi, VN1 h = 3, ba mô hình đầu | tsb_nb 3,62; lgb_quantile 3,68; hgb 3,73 | lgb_quantile 3,62; hgb 3,68; tsb_nb 3,72 (chênh < CD 0,098) | ✅ ngang nhau |
+| Hạng theo chuỗi, VN1 h = 3, ba mô hình đầu | tsb_nb 3,62; lgb_quantile 3,68; hgb 3,73 | lgb_quantile 3,62; hgb 3,68; tsb_nb 3,72 (lgb_q–tsb_nb chênh 0,10, nhỉnh hơn CD 0,098) | ✅ ngang nhau |
 | Hạng theo chuỗi, VN1 h = 13, đứng đầu | tsb_nb 3,36 | tsb_nb 3,45 | ✅ |
 | Hạng theo đường đánh đổi, M5: lgb_quantile / hgb_quantile | 1,0 / 2,0 | 1,2 / 1,8 | ✅ |
 | Hạng theo đường đánh đổi, VN1 (toàn bộ) | **lgb_quantile 1,4**; conformal 3,0; tweedie 3,3; tsb_nb 4,8 | **tsb_nb 1,8**; conformal 2,0; tweedie 3,5; lgb_quantile 3,8 | ❌ |
@@ -502,7 +504,7 @@ Nguồn: `code/outputs/comparison_w52.md`, `stat_tests_w52.md`, `equal_fill_ci_w
 |---|---|---|---|---|
 | SQL trung bình h = 3, M5: tốt nhất | lgb_quantile 0,208 | lgb_quantile 0,215 | lgb_quantile 0,222 | ✅ |
 | Hạng theo chuỗi M5 h = 3: lgb_quantile / hgb_quantile | 3,40 / 3,66 | 3,50 / 3,72 | 3,48 / 3,62 | ✅ |
-| Hạng theo chuỗi VN1 h = 3, ba mô hình đầu (chênh < CD) | tsb_nb, lgb_q, hgb | lgb_q, hgb, tsb_nb | lgb_q 3,60; tsb_nb 3,65; hgb 3,66 (CD 0,108) | ✅ ngang nhau |
+| Hạng theo chuỗi VN1 h = 3: chênh lgb_q – tsb_nb (CD) | 0,06 (0,089) | 0,10 (0,098) | 0,05 (0,108) | ✅ gần như ngang nhau |
 | Hạng theo chuỗi VN1 h = 13: đứng đầu | tsb_nb 3,36 | tsb_nb 3,45 | tsb_nb 3,75 | ✅ |
 | Trung vị SQL theo chuỗi VN1 h = 3, lgb_quantile / tsb_nb | 0,152 / 0,152 | 0,140 / 0,150 | 0,184 / 0,186 | ✅ ngang nhau |
 | Hạng theo đường đánh đổi, M5: lgb_quantile / hgb_quantile | 1,0 / 2,0 | 1,2 / 1,8 | 1,0 / 2,0 | ✅ |
