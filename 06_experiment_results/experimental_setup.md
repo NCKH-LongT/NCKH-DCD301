@@ -31,10 +31,10 @@ Phương pháp: `05_methodology/methodology.md`. Bảng và hình trong file nà
 |---|---|---|
 | 8 phương pháp, kịch bản mặc định (τ = 0,9; L = 2; H = 13; q_L = 0,95; k = 26) | ✅ | ✅ |
 | Lưới τ ∈ {0,5; 0,8; 0,9; 0,95; 0,99} (đường đánh đổi) | ✅ 8 phương pháp | ✅ 8 phương pháp |
-| Lưới L ∈ {1, 2, 4}, H ∈ {8, 13, 26} | ❌ chưa chạy (chi phí: LightGBM quantile M5 mất khoảng 21 phút cho h = 3) | ✅ 7 phương pháp (không có `hgb_quantile`) |
-| Lưới q_L ∈ {0,9; 0,95; 0,99}, k ∈ {13, 26, 52} | ❌ | ✅ 8 phương pháp |
+| Lưới L ∈ {1, 2, 4}, H ∈ {8, 13, 26} | ✅ 7 phương pháp (bổ sung 10/10/2026; 53 phút) | ✅ 7 phương pháp (không có `hgb_quantile`) |
+| Lưới q_L ∈ {0,9; 0,95; 0,99}, k ∈ {13, 26, 52} | ✅ 8 phương pháp | ✅ 8 phương pháp |
 | Chính sách thanh lý none / quantile / fixed / dead13 / dead26 | ✅ | ✅ |
-| Ngưỡng hòa vốn thanh lý + phân rã (kịch bản mặc định) | ✅ | ✅ |
+| Ngưỡng hòa vốn thanh lý + phân rã (kịch bản mặc định) | ✅ ba cửa sổ | ✅ ba cửa sổ |
 | Bootstrap 95% (200 lần) cho fill rate, tồn kho | ✅ | ✅ |
 | Kiểm định Friedman–Nemenyi / Wilcoxon theo chuỗi (`stat_tests.py`) | ✅ | ✅ |
 | Loss theo từng phân vị, h = 3 (`per_quantile_loss.py`; LightGBM quantile, HistGradientBoosting, TSB, TSB-NB) | ✅ hai cửa sổ | ✅ hai cửa sổ |

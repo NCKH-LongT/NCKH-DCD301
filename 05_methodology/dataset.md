@@ -7,7 +7,7 @@
 | | M5 | VN1 | Phụ lục: giày dép Việt Nam |
 |---|---|---|---|
 | Nguồn | Kaggle *M5 Forecasting – Accuracy* (Walmart) | *VN1 Forecasting – Accuracy Challenge*, Vandeput (2024), DataSource.ai | Kaggle `tienanh2003/sales-and-inventory-snapshot-data` (Vietnam Datathon 2023) |
-| Loại hình | 1 nhà bán lẻ, 10 cửa hàng vật lý ở 3 bang (Mỹ) | 46 nhà bán hàng thương mại điện tử, 328 kho [DP]; chủ yếu Mỹ (bài 08, tr. 7) | Chuỗi bán lẻ giày dép Việt Nam |
+| Loại hình | 1 nhà bán lẻ, 10 cửa hàng vật lý ở 3 bang (Mỹ) | 46 nhà bán hàng thương mại điện tử, 328 kho [DP]; chủ yếu Mỹ (bài 08, tr. 7) | Dữ liệu bán lẻ giày dép Việt Nam, 4 thương hiệu ẩn danh, 221 điểm bán |
 | Cấp chuỗi | sản phẩm × cửa hàng | client × kho × sản phẩm | mẫu–màu × toàn chuỗi |
 | Số chuỗi | 30.490 | 15.053 | 1.006 |
 | Tần suất gốc → dùng | Ngày → tuần Walmart | Tuần | Giao dịch → tuần |
@@ -35,7 +35,7 @@ Lưu ý: "VN1" là tên cuộc thi, **không phải dữ liệu Việt Nam**.
 - Giá: Phase 0–1, điền bằng giá gần nhất trước đó; Phase 2 không có giá.
 - **Tuần bắt đầu** = tuần có bán đầu tiên.
 
-**Phụ lục — giày dép Việt Nam:** giữ kênh "Bán lẻ"; bỏ tuần bất thường 202352; không trừ trả hàng; gộp lên mẫu–màu × toàn chuỗi.
+**Phụ lục — giày dép Việt Nam:** giữ kênh "Bán lẻ"; bỏ tuần bất thường 202352; không trừ trả hàng; gộp lên mẫu–màu × toàn chuỗi. **Cập nhật 10/10/2026:** mã 202352 thực chất là ngày 1/1/2023 bị gán sai năm (thuộc tuần ISO 2022-W52), không phải tuần bất thường; case study (`f2d.data.load_vnf`, `06_experiment_results/results.md` mục 10.4) gộp nó vào 202252, bỏ 202153 (1–2/1/2022) và 202331 (chỉ có 31/7/2023). Dữ liệu gồm 4 thương hiệu ẩn danh (Brand1 khoảng 82% số đơn vị), 42 nhà cung cấp, 221 điểm bán ở kênh bán lẻ; "toàn chuỗi" ở đây là tổng trên mọi cửa hàng của bộ dữ liệu, không phải một chuỗi duy nhất.
 
 ## 3. Chia dữ liệu
 

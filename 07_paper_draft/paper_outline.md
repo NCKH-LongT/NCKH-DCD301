@@ -19,7 +19,7 @@
 
 **Keywords:** probabilistic forecasting; inventory management; intermittent demand; quantile regression; LightGBM; foundation models; liquidation; M5; VN1
 
-**Target:** Q3–Q4 journal in operations / supply-chain analytics, e.g. the journal of papers 21–22 (*Supply Chain Analytics*) — **[Chưa kiểm chứng]** quartile to be checked on Scimago. Length target: 9,000–11,000 words with about 10 main tables/figures; long tables go to the Appendix.
+**Target:** Q3–Q4 journal in operations / supply-chain analytics. Check on 10/10/2026: *Supply Chain Analytics* (journal of papers 21–22) is listed as Q1 (SJR 2024 = 0.896) by aggregator sites citing SCImago (resurchify.com, scijournal.org; SCImago itself not reached), so it is a stretch target, not Q3–Q4. Candidates whose scope includes demand forecasting and inventory control, quartile **[Chưa kiểm chứng]** on scimagojr.com: *Operations and Supply Chain Management: An International Journal* (ISSN 1979-3561; JCR Q3 per journalmetrics.org); *Journal of Industrial Engineering and Management* (ISSN 2013-0953; Q2 per resurchify.com). Final choice: group decision. Length target: 9,000–11,000 words with about 10 main tables/figures; long tables go to the Appendix.
 
 **Positioning sentence** (`04_proposed_system/system_overview.md` §7):
 
@@ -51,7 +51,7 @@ From `03_problem_and_gap/research_questions.md`, with "and test periods" added t
 - **RQ1:** accuracy and cost-free inventory KPIs on M5 and VN1; do rankings hold across datasets and test periods?
 - **RQ2:** variation across ADI–CV² classes; consistency of class-level patterns between M5 and VN1.
 - **RQ3:** how much excess inventory a quantile-based liquidation rule removes vs. no liquidation, a fixed weeks-of-supply rule and a dead-stock rule; cost in stockouts; break-even salvage ratio.
-- **RQ4:** sensitivity to τ, lead time L and liquidation horizon H (L, H grid on VN1 only).
+- **RQ4:** sensitivity to τ, lead time L and liquidation horizon H (L, H, q_L, k grid on the main window of M5 and VN1).
 
 ## 3. Contributions (as stated in the Introduction)
 
@@ -123,8 +123,9 @@ Format to be adapted to the target journal. **Status 09/10/2026:** every entry b
 - [W2] de Sousa, A. G. P. (2026). *From demand forecasting to replenishment simulation: A data-driven machine learning approach for fashion retail* (Master's thesis). University of Porto.
 - [W3] Li, P. (2026). Forecasting for inventory decisions: A decision-regret benchmark for perishability-aware multi-echelon retail replenishment using the M5/Walmart data. SSRN. https://doi.org/10.2139/ssrn.7051299 *(cited by title only; not peer-reviewed)*
 - [G22] Goltsos, T. E., Syntetos, A. A., Glock, C. H., & Ioannou, G. (2022). Inventory–forecasting: Mind the gap. *European Journal of Operational Research, 299*(2), 397–419. https://doi.org/10.1016/j.ejor.2021.07.040 *(abstract only)*
-- [C2] Ansari, A. F., Shchur, O., Küken, J., Auer, A., Han, B., Mercado, P., Rangapuram, S. S., Shen, H., Stella, L., Zhang, X., Goswami, M., Kapoor, S., Maddix, D. C., Guerron, P., Hu, T., Yin, J., Erickson, N., Desai, P. M., Wang, H., Rangwala, H., Karypis, G., Wang, Y., & Bohlke-Schneider, M. (2025). Chronos-2: From univariate to universal forecasting. arXiv:2510.15821. [authors and title as given in the citation block of the `amazon/chronos-2` model card; initials and full first names **[Chưa kiểm chứng]** against arXiv]
-- [VNF] Vietnam Datathon 2023 sales and inventory snapshot data. Kaggle dataset `tienanh2003/sales-and-inventory-snapshot-data`. **[Chưa kiểm chứng]** author, year, URL; licence listed as "Unknown".
+- [S1] Turgay, S., Demir, R., & Kavacık, M. (2026). A Monte Carlo-based approach to demand forecasting and stochastic optimization in supply chains. *Supply Chain Analytics, 14*, 100210. https://doi.org/10.1016/j.sca.2026.100210 [OpenAlex metadata and abstract; full text not read]
+- [C2] Ansari, A. F., Shchur, O., Küken, J., Auer, A., Han, B., Mercado, P., Rangapuram, S. S., Shen, H., Stella, L., Zhang, X., Goswami, M., Kapoor, S., Maddix, D. C., Guerron, P., Hu, T., Yin, J., Erickson, N., Desai, P. M., Wang, H., Rangwala, H., Karypis, G., Wang, Y., & Bohlke-Schneider, M. (2025). Chronos-2: From univariate to universal forecasting. arXiv:2510.15821. [arXiv page, v1 17 Oct 2025, no journal-ref; technical report not read — cited only for the model]
+- [VNF] Hoang Tien Anh (2023). *sales_and_inventory_snapshot_data: Sales and inventory data of Vietnam retailers — Dataset 2, Vietnam Datathon 2023* (version 1) [Data set]. Kaggle. https://www.kaggle.com/datasets/tienanh2003/sales-and-inventory-snapshot-data [Kaggle API: creator "Hoang Tien Anh", last updated 2023-11-13, licence "Unknown". Author name order (family name) to confirm with the owner]
 - [VN1] Vandeput, N. (2024). *VN1 Forecasting – Accuracy Challenge*. DataSource.ai. https://www.datasource.ai/en/home/data-science-competitions-for-startups/phase-2-vn1-forecasting-accuracy-challenge/description [entry as given by Zanotti (2025), P08 p. 31]
 
 Method references (not in `02_related_work/`; cited in `methodology.md`):
@@ -142,10 +143,10 @@ Method references (not in `02_related_work/`; cited in `methodology.md`):
 - [x] Check whether arXiv papers 06, 08, 09, 11, 12, 13 have been formally published. As of 09/10/2026 none has a journal-ref; recheck just before submission.
 - [x] Verify the references previously marked [Chưa kiểm chứng] (09/10/2026, see §6).
 - [ ] Read Goltsos et al. (2022) and Kourentzes et al. (2020) in full before citing beyond the abstract / repository description.
-- [ ] Add 2–3 papers from the target journal.
-- [ ] Verify [C2] on arXiv and resolve the VNF citation and licence (contact the dataset owner or the Datathon organiser).
+- [~] Papers from the target journal: one recent *Supply Chain Analytics* paper added ([S1], abstract level); an OpenAlex search of the journal (2024–2026) found no other close match beyond papers 21–22. Revisit once the target journal is chosen.
+- [x] [C2] verified on arXiv (10/10/2026). [VNF] citation completed from the Kaggle API; the licence is "Unknown" — **ask the owner (Hoang Tien Anh) or the Datathon organiser for permission before submission**.
 - [ ] Re-check against the PDFs: P21/P22 cost parameters (Table A) and that P11, P21 and P22 use a single test period (Introduction, difficulty 3).
 - [x] Pipeline figure drawn (`code/make_pipeline_figure.py`, Figure 1) and figures renumbered.
 - [x] Appendix written (`appendix.md`, A1–A6; tables from `code/paper_appendix_tables.py`).
 - [x] Cross-check of all draft numbers against `06_experiment_results/tables/` (09/10/2026). Five rounding errors were corrected in `06_experiment_results/results.md` (and in the draft where used): M5 fixed s\* lower end 1.06; VN1 fixed lost sales 0.12–0.23; VN1 dead13 re-orders 0.01–0.12; VN1 dead13 stockout +68% and inventory −19.4%. The "TSB-P 97%" statement now says "less inventory than LGB-Q", and the fixed-rule range is restricted to the ML forecasts.
-- [ ] Optional experiments (not run): L, H grid for M5; break-even for the earlier windows; Chronos-2 on the earlier M5 windows; Chronos-2 with weekly context or covariates.
+- [x] Optional experiments run on 10/10/2026: L/H/q_L/k grid for M5 (main window); break-even for the second and third windows. Not run (cost): Chronos-2 on the earlier M5 windows (about 13 CPU hours each); Chronos-2 with weekly context or covariates.

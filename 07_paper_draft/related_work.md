@@ -19,7 +19,7 @@ These results motivate our choice of LightGBM quantile regression as the main mo
 
 **VN1.** VN1 is a weekly e-commerce dataset of 15,053 products [P08 p. 7]. Zanotti (2025) used M5 and VN1 to study the cost of ensembling ten global models with point and quantile losses. Small ensembles of two or three models were often near-optimal, and less frequent retraining cut cost with little loss of accuracy [P08 (abstract)]. That study evaluates accuracy (RMSSE, scaled quantile loss) and computational cost, not inventory outcomes [P08 p. 13–14].
 
-**Foundation models.** Pretrained time-series models are now used in demand forecasting. Yang et al. (2025) include Chronos and TEMPO among the backbones of their ensembles on M5 and three other retail datasets [P06 p. 4]. They note that the interpretability of ensemble results remains an open challenge for decision making [P06 p. 7]. Damato et al. (2026) leave the comparison with pretrained models on intermittent data to future work [P12 p. 2]. Chronos-2 is a recent pretrained model with quantile outputs and native covariate support (Ansari et al., 2025; model card) **[Chưa kiểm chứng: technical report not read]**. To our knowledge, such models have not been evaluated inside an inventory decision layer on intermittent retail data [Nhận định nhóm].
+**Foundation models.** Pretrained time-series models are now used in demand forecasting. Yang et al. (2025) include Chronos and TEMPO among the backbones of their ensembles on M5 and three other retail datasets [P06 p. 4]. They note that the interpretability of ensemble results remains an open challenge for decision making [P06 p. 7]. Damato et al. (2026) leave the comparison with pretrained models on intermittent data to future work [P12 p. 2]. Chronos-2 is a recent pretrained model with quantile outputs and native covariate support (Ansari et al., 2025; model card). To our knowledge, such models have not been evaluated inside an inventory decision layer on intermittent retail data [Nhận định nhóm].
 
 In short, the main public retail benchmarks rank methods by forecast error. The M5 organisers note that the competition did not target a specific decision problem [P03 p. 2–3], and that its conclusions are limited in how far they generalise beyond the data it represents [P01 p. 11].
 
@@ -44,7 +44,7 @@ Our main model differs from theirs: it uses LightGBM *quantile regression*, as t
 **Reviews and integrated approaches.**
 
 - *Review.* A structured review of the inventory–forecasting interface proposes four levels of integration and observes that most forecasting studies ignore the step from forecast to replenishment decision (Goltsos et al., 2022) [G22 (abstract)].
-- *Inventory-based parameter tuning.* Kourentzes et al. (2020) optimise the parameters of forecasting models with inventory metrics instead of statistical error measures [P19 (repository description)].
+- *Inventory-based parameter tuning.* Kourentzes et al. (2020) set the parameters of exponential smoothing with a cost function built from inventory metrics instead of in-sample fitting error [P19 p. 1, 13]. On 229 weekly series with lead times of 3–5 weeks, this reduced forecast bias by 25–60% at the cost of up to 9% lower accuracy [P19 p. 13, 21], and they question whether forecast accuracy is a reasonable proxy for the decisions it supports [P19 p. 6].
 - *End-to-end learning.* van der Haar et al. (2024) learn order quantities directly with a supervised, end-to-end loss, for settings including lost sales [W1 (abstract)].
 
 In contrast, we keep forecast and decision separate and use a transparent quantile-based policy. This lets one decision layer be fed by any probabilistic forecast.
@@ -59,6 +59,7 @@ In contrast, we keep forecast and decision separate and use a transparent quanti
 
 **Other domains.**
 
+- Turgay et al. (2026) compare shipment and inventory planning based on deterministic demand forecasts with Monte Carlo-based stochastic optimisation. Forecast-based planning degrades as demand becomes more variable (36% higher stockout penalties), whereas the stochastic approach cuts stockout costs by 40–55% at a moderate increase in stock [S1 (abstract)]. This supports passing demand uncertainty, not only point forecasts, to the inventory decision [Nhận định nhóm].
 - Sfiris and Koulouriotis (2025) link intermittent-demand forecasts to an (R, Q) policy for 2,050 automotive spare parts. They report lower safety stock at the same service level [P23 p. 14, 26], with a fixed lead time as a stated limitation [P23 p. 25].
 - de Sousa (2026) simulates replenishment from LightGBM/XGBoost forecasts for one fashion retailer [W2 (abstract)].
 
@@ -79,11 +80,11 @@ Excess stock is a recurring practical problem. For example, Putra and Purnomo (2
 | Results by ADI–CV² class | ✗ | ✗ | ✗ (shares only) | — | ✓ |
 | Cost-free KPIs / trade-off | cost ratios ↔ τ | costs | costs | — | ✓ (frontier, break-even salvage) |
 | Policy transparency | quantile policy | RL (low interpretability, p. 19) | quantile + GARCH | — | quantile policy |
-| Test periods | one evaluation period (28 days) | 365-day simulation | one 75/25 split | — (accuracy only) | three 26-week windows, rolling weekly origins |
+| Test periods | last 28 days of M5 | time-aware split, 5-fold CV (GA, DL), 365-day simulation | one 75:25 split (test: June 2014) | — (accuracy only) | three 26-week windows, rolling weekly origins |
 | Foundation model in the comparison | ✗ | ✗ | ✗ | ✗ | ✓ (Chronos-2, zero-shot) |
 | Actual unit costs from data | ✗ (cost ratios) | ✗ (assumed cost parameters) | ✗ (assumed cost parameters) | — | ✓ in the case study (VNF) |
 
-Sources: [P11 p. 11, 16, 17, 26], [P21 p. 5, 8, 19], [P22 p. 4, 15, 18], [P08 p. 4, 13–14]. Test periods: P11 p. 16 (evaluation on the last 28 days), P22 p. 4 (75:25 split), P21 p. 8 (365-day simulation). Cost parameters: P21 p. 5 (cost function), P22 p. 15 (holding 0.50, shortage 5.00), P11 p. 16 (c₂ ∈ {4, 9, 19}).
+Sources: [P11 p. 11, 16, 17, 26], [P21 p. 5, 8, 19], [P22 p. 4, 15, 18], [P08 p. 4, 13–14]. Test periods: P11 p. 16 (evaluation on the last 28 days), P22 p. 4, 9 (75:25 split, test month June 2014), P21 p. 8 (time-aware split, 5-fold CV, 365-day simulation). Cost parameters: P21 p. 5 (cost function), P22 p. 15 (holding 0.50, shortage 5.00), P11 p. 16 (c₂ ∈ {4, 9, 19}).
 
 Multi-period simulation alone is not new (Zabraoui et al., 2025; van der Haar et al., 2024), nor is decision-level evaluation (Wang et al., 2026). Our contribution lies in combining the following elements [Nhận định nhóm]:
 

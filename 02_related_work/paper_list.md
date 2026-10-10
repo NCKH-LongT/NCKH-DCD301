@@ -60,6 +60,7 @@ Mức liên quan: ★★★ = trụ cột, ★★ = hỗ trợ, ★ = tham khả
 | W1 | Supervised learning for integrated forecasting and inventory control | van der Haar, Wellens, Boute, Basten | 2024 | EJOR | [doi](https://doi.org/10.1016/j.ejor.2024.07.004) | Abstract + mở đầu (preprint KU Leuven) |
 | W2 | From Demand Forecasting to Replenishment Simulation: A Data-Driven Machine Learning Approach for Fashion Retail | de Sousa | 2026 | Luận văn, Univ. of Porto | [pdf](https://repositorio-aberto.up.pt/bitstream/10216/175628/2/786426.pdf) | Abstract |
 | W3 | Forecasting for Inventory Decisions: A Decision-regret Benchmark for Perishability-aware Multi-Echelon Retail Replenishment using the M5/Walmart Data | Li | 2026 | SSRN (chưa phản biện) | [doi](https://doi.org/10.2139/ssrn.7051299) | ⛔ Chỉ tên bài |
+| S1 | A Monte Carlo-based approach to demand forecasting and stochastic optimization in supply chains | Turgay, Demir, Kavacık | 2026 | Supply Chain Analytics 14:100210 | [doi](https://doi.org/10.1016/j.sca.2026.100210) | Abstract (OpenAlex, 10/10/2026) |
 
 Khác biệt với đề tài: xem `03_problem_and_gap/research_gap.md`, mục 1.2.
 

@@ -6,7 +6,7 @@
 
 ### 3.1 Design of the benchmark
 
-This study does not propose a new forecasting model. It is a forecast-to-decision benchmark: eight probabilistic forecasting methods supply quantile forecasts to one common decision layer (replenishment plus liquidation), which is run in a multi-period inventory simulation. The benchmark uses two public retail datasets and is repeated on three test windows. All methods share the same weekly panel, forecast origins, retraining cut-offs, decision rules and scenarios, so differences in inventory outcomes can be attributed to the forecasts alone. Two extensions are reported separately: a time-series foundation model (Chronos-2) as a ninth method, and a case study on a Vietnamese footwear retail chain.
+This study does not propose a new forecasting model. It is a forecast-to-decision benchmark: eight probabilistic forecasting methods supply quantile forecasts to one common decision layer (replenishment plus liquidation), which is run in a multi-period inventory simulation. The benchmark uses two public retail datasets and is repeated on three test windows. All methods share the same weekly panel, forecast origins, retraining cut-offs, decision rules and scenarios, so differences in inventory outcomes can be attributed to the forecasts alone. Two extensions are reported separately: a time-series foundation model (Chronos-2) as a ninth method, and a case study on Vietnamese footwear retail data.
 
 The pipeline has six steps (Figure 1):
 
@@ -39,7 +39,7 @@ The public datasets contain no inventory positions, lead times or unit costs. We
 - A series starts at its first sale.
 - Despite its name, VN1 is **not** Vietnamese data.
 
-**Case study — Vietnamese footwear chain (VNF).** We use the retail-channel sales of a Vietnamese footwear chain released for the Vietnam Datathon 2023 (Kaggle dataset `tienanh2003/sales-and-inventory-snapshot-data`) **[Chưa kiểm chứng: exact citation and licence; the Kaggle page lists the licence as "Unknown"]**.
+**Case study — Vietnamese footwear retail data (VNF).** We use the retail-channel sales of the "Sales and Inventory Data of Vietnam Retailers" released as Dataset 2 of the Vietnam Datathon 2023 (Hoang Tien Anh, 2023; Kaggle dataset `tienanh2003/sales-and-inventory-snapshot-data`, licence listed as "Unknown"). Product codes, stores and brands are anonymised. The retail-channel sales cover four brands (one accounts for about 82% of units), 42 vendors and 221 stores; products are mainly slippers, sandals and shoes, with some accessories (`data/cache/vn_sales.parquet`, `Productmaster.xlsx`).
 
 - *Series:* style–colour (mold code × colour) over the whole chain, at weekly frequency. Returns (negative quantities) are excluded from demand.
 - *Week codes:* the data label weeks by the calendar year of the transaction plus the ISO week number. This mislabels days at the year boundary. Code 202153 contains 1–2 January 2022, a two-day remnant of ISO week 2021-W52, and is dropped. Code 202352 contains 1 January 2023, which belongs to ISO week 2022-W52, and is merged into 202252. The last week (202331) contains only 31 July 2023 and is dropped.
@@ -58,7 +58,7 @@ A series is evaluated if it starts at least 13 weeks before the test period and 
 
 | | M5 | VN1 | VNF (case study) |
 |---|---|---|---|
-| Setting | One retailer, 10 physical stores (US) | Multi-vendor e-commerce, 46 vendors, 328 warehouses | One footwear chain, physical stores (Vietnam) |
+| Setting | One retailer, 10 physical stores (US) | Multi-vendor e-commerce, 46 vendors, 328 warehouses | Footwear retail, 4 anonymised brands, 221 physical stores (Vietnam) |
 | Series level | product × store | client × warehouse × product | style–colour × chain |
 | Series in panel / evaluated | 30,490 / 30,381 | 15,053 / 13,844 | 1,001 / 909 |
 | Weeks | 277 | 196 | 82 |
@@ -139,7 +139,7 @@ It is therefore a **robustness check**, not a like-for-like comparison.
 
 M5 adds the number of events and SNAP days inside the h-week target window (known in advance) and the categorical attributes dept, cat, store and state. Level features are divided by s. VN1 client and warehouse codes are not used.
 
-*Chronos-2.* Chronos-2 is a 120-million-parameter pretrained time-series model that produces quantile forecasts (Ansari et al., 2025; model card `amazon/chronos-2`) **[Chưa kiểm chứng: technical report not read; claims limited to the model card]**. We use it zero-shot on CPU, without covariates, cross-series learning or fine-tuning (`code/f2d/models.py`, `chronos2`).
+*Chronos-2.* Chronos-2 is a 120-million-parameter pretrained time-series model that produces quantile forecasts (Ansari et al., 2025). The facts used here come from the model card and configuration of `amazon/chronos-2`; the technical report was not read. We use it zero-shot on CPU, without covariates, cross-series learning or fine-tuning (`code/f2d/models.py`, `chronos2`).
 
 - To forecast D_h directly, as all other methods do, the context of series i at origin o is the sequence of non-overlapping h-week totals ending at o, over at most 104 weeks. The model predicts one step ahead.
 - All requested quantiles (0.5–0.99) are among the model's training quantile levels (0.01–0.99, model configuration), so no interpolation or extrapolation of quantiles is involved.
@@ -258,12 +258,12 @@ Infrequent retraining follows the finding that reducing retraining frequency cut
 | Parameter | Default | Grid (one parameter varied at a time) | Run on |
 |---|---|---|---|
 | τ | 0.9 | 0.5, 0.8, 0.9, 0.95, 0.99 | M5, VN1 (all windows), VNF |
-| L (weeks) | 2 | 1, 2, 4 | VN1 main window only, 7 methods (no HGB-Q) |
-| H (weeks) | 13 | 8, 13, 26 | VN1 main window only, 7 methods |
-| q_L | 0.95 | 0.9, 0.95, 0.99 | VN1 main window, 8 methods |
-| k (weeks) | 26 | 13, 26, 52 | VN1 main window, 8 methods |
+| L (weeks) | 2 | 1, 2, 4 | M5 and VN1 main window, 7 methods (no HGB-Q) |
+| H (weeks) | 13 | 8, 13, 26 | M5 and VN1 main window, 7 methods |
+| q_L | 0.95 | 0.9, 0.95, 0.99 | M5 and VN1 main window, 8 methods |
+| k (weeks) | 26 | 13, 26, 52 | M5 and VN1 main window, 8 methods |
 
-The L and H grids were not run on M5 because LGB-Q would have to be retrained for each extra horizon (about 21 minutes for h = 3 on M5) [ES §3].
+For the L and H grids, LGB-Q and the other ML models are refitted for each extra horizon (h = 2, 5, 8, 26); on M5 this took 53 minutes in total (`code/outputs/logs/run_M5_grid.log`).
 
 ### 4.3 Robustness windows
 
@@ -273,7 +273,7 @@ To test robustness, we drop the last 26 and the last 52 weeks of each panel and 
 - Third window: 28,824 M5 and 9,383 VN1 series.
 - Both earlier VN1 windows lie in Phase 0, so the official answers are not used.
 
-The default scenario, the τ grid and the five liquidation policies were run in every window. The L/H grid and the break-even analysis were run in the main window only [R §10, §10.1].
+The default scenario, the τ grid, the five liquidation policies and the break-even analysis were run in every window; the L/H/q_L/k grid was run in the main window only [R §10, §10.1].
 
 ### 4.4 Environment and runtime
 

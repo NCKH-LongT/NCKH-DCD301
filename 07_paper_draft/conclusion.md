@@ -18,14 +18,14 @@ This study benchmarked eight probabilistic demand forecasting methods inside one
   - The fixed weeks-of-supply and dead-stock rules lost fill rate or raised stockout weeks; the 13-week dead-stock rule raised them by 43–68% for intermittent VN1 series.
   - Within 26 weeks, liquidation paid off only at salvage prices near unit cost: s\* ≈ 0.91–1.04 for the quantile rule on VN1, and 0.90–1.01 with actual costs in the case study [R §7.2, §10.4].
 - **RQ4 (sensitivity).**
-  - On VN1, fill-rate rankings were stable across lead times (ρ ≥ 0.96), and inventory grew roughly with L + R [R §8].
+  - On both datasets, fill-rate rankings were stable across lead times (ρ ≥ 0.96), and inventory grew roughly with L + R [R §8].
   - The quantile liquidation rule stayed the safer rule across the H, q_L, k and L grids.
   - The steep end of the trade-off curve dominates inventory: on VN1, raising the fill rate from 0.971 to 0.992 more than doubled inventory.
 
 **Extensions.**
 
 - Zero-shot Chronos-2 was never the most accurate or the most inventory-efficient method, even on M5, which is part of its training data, and it was 8–42 times slower on CPU.
-- In the footwear case study, LightGBM quantile was the most inventory-efficient method although TSB with Poisson demand had the lowest mean error.
+- In the Vietnamese footwear case study, LightGBM quantile was the most inventory-efficient method although TSB with Poisson demand had the lowest mean error.
 
 **Implications.** The most accurate forecast is not always the most inventory-efficient one. On intermittent data, methods should be compared at equal service level, by demand class, with per-series statistics and over more than one period [Nhận định nhóm].
 
@@ -34,6 +34,6 @@ This study benchmarked eight probabilistic demand forecasting methods inside one
 - Use pretrained models with weekly context, covariates or fine-tuning, and add deep global models such as TiDE.
 - Simulate a class-based or period-validated selection between TSB-NB and LightGBM quantile.
 - Identify the cause of the period dependence on VN1.
-- Extend the scenario grid and the break-even analysis to M5 and to the earlier windows.
+- Extend the scenario grid to the earlier test windows.
 - Use longer horizons, product-discontinuation data and price-responsive demand to assess the economic case for liquidation.
 - Validate the case-study findings on complete company data with actual inventory.

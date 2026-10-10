@@ -22,7 +22,7 @@ Three features of retail data make the step from forecast to decision difficult.
    - The M5 organisers acknowledge limits to generalising beyond the data it represents [P01 p. 11].
    - The decision-oriented M5 studies cited above use only Walmart data; Mohammed et al. (2026) name testing on a single US retail setting as a limitation [P22 p. 17].
    - The closest study evaluates probabilistic forecast combinations in a single-period, single-product newsvendor setting, which its authors list as a limitation [P11 p. 26].
-   - These studies evaluate a single test period [P11 p. 16], [P22 p. 4], [P21 p. 8] **[Chưa kiểm chứng: check that none of the three uses rolling or multiple test windows]**.
+   - Their evaluation designs differ: Wang et al. (2026) evaluate on the last 28 days of M5 [P11 p. 16], Mohammed et al. (2026) on one chronological 75:25 split with June 2014 as test period [P22 p. 4, 9], and Zabraoui et al. (2025) on a time-aware train–test split with 5-fold cross-validation for the GA and deep-learning models [P21 p. 8]. Whether conclusions on inventory performance hold across separate test periods is not the focus of these studies [Nhận định nhóm].
 
 Limited attention has therefore been given to benchmarking probabilistic forecasting methods under a common, transparent replenishment-and-liquidation policy across different retail settings and periods, while retaining intermittent and lumpy demand and reporting inventory KPIs by demand class (`research_gap.md` §5). A further practical obstacle is that public datasets contain neither inventory positions nor unit costs, so cost-based evaluations depend on assumed cost parameters.
 
@@ -42,7 +42,7 @@ We evaluate the methods without monetary units:
 All analyses are reported by ADI–CV² demand class and repeated on three 26-week test windows. Two extensions complete the benchmark:
 
 - a pretrained foundation model (Chronos-2) as a ninth method;
-- a case study on a Vietnamese footwear retail chain, whose actual costs and prices allow liquidation to be valued in money.
+- a case study on Vietnamese footwear retail data (four anonymised brands, 221 stores), whose actual costs and prices allow liquidation to be valued in money.
 
 This study does not propose a new forecasting model. It benchmarks existing probabilistic forecasting models inside a common, transparent replenishment-and-liquidation decision layer across retail settings, and evaluates them with inventory KPIs by demand class.
 
@@ -60,7 +60,7 @@ The contributions are as follows:
 3. **Robustness evidence.** All series are retained, results are reported by demand class with per-series statistical tests, and the whole benchmark is repeated on three test windows. This separates robust findings from period-dependent ones.
 4. **Two extensions.**
    - A zero-shot foundation model (Chronos-2) in the same decision layer.
-   - A case study on a Vietnamese footwear chain with actual unit costs, which values liquidation in money and illustrates the benchmark in an emerging-market retail setting.
+   - A case study on Vietnamese footwear retail data with actual unit costs, which values liquidation in money and illustrates the benchmark in an emerging-market retail setting.
 
 The main findings are as follows:
 

@@ -163,7 +163,7 @@ Whether a method ranking transfers from M5 to VN1 thus depends on the class and 
 - On VN1 intermittent series, dead13 cuts inventory more than the quantile rule in the main window (−19.4% vs. −5.9%), but raises the stockout rate in every window: by 68%, 61% and 43% [R §7.1, §10.1].
 - On M5, products that have not sold for 13 weeks usually sell again, so dead13 costs fill rate in every window (−0.66, −0.46 and −0.54 pp) [R §10.1].
 
-**Break-even salvage ratio.** For every rule and both datasets, s\* is close to or above 1. Within the 26-week window, liquidation pays off only if stock is sold at roughly unit cost or more [R §7.2]. The decomposition per liquidated unit explains why [R §7.2 T10]:
+**Break-even salvage ratio.** For every rule and both datasets, s\* is close to or above 1, in all three windows (the lowest value over all rules, windows and cost settings is 0.89; Table 8) [R §10.1].
 
 - *Fixed rule:* 0.35–0.63 (VN1) and 0.57–0.63 (M5) of each liquidated unit is ordered again later, and 0.12–0.32 becomes lost sales.
 - *Dead13 on VN1* targets truly unsold stock: 0.93–1.05 of each liquidated unit would still be on hand at the end. Yet 8–13 units of sales are lost per 100 liquidated, and within 26 weeks the holding cost saved does not cover this loss.
@@ -183,7 +183,7 @@ The case study with actual unit costs (Section 5.9) confirms this. Benefits such
 
 On VN1, raising the fill rate from 0.971 to 0.992 more than doubles inventory (4.77 → 10.37 weeks). TSB-P hardly reacts to τ on VN1 (fill rate 0.793 → 0.843 for τ from 0.5 to 0.99) [R §8].
 
-**Lead time** (VN1 only) [R §8]:
+**Lead time** (VN1; M5 below) [R §8]:
 
 - Fill-rate rankings are stable across L: the Spearman correlation between L = 2 and L = 1 is 0.96, and between L = 2 and L = 4 it is 1.00 (7 methods).
 - Inventory grows roughly in proportion to L + R; for LGB-Q it is 2.07, 3.41 and 6.01 weeks at L = 1, 2 and 4.
@@ -196,7 +196,14 @@ On VN1, raising the fill rate from 0.971 to 0.992 more than doubles inventory (4
 - The fixed rule with k = 13 / 26 / 52 liquidates 7.1 / 2.8 / 1.2% with fill rate 0.929 / 0.941 / 0.946.
 - At L = 4, the quantile rule liquidates 5.0% and loses 0.1 pp of fill rate, whereas the fixed rule liquidates 8.6% and loses 1.9 pp.
 
-Across the grid, the quantile rule is the safer liquidation rule in terms of fill rate [Nhận định nhóm].
+**M5** (same grid, main window) [R §8]:
+
+- Fill-rate rankings are again stable across L: Spearman ρ = 1.00 between L = 2 and L = 1, and 0.96 between L = 2 and L = 4 (7 methods).
+- Inventory for LGB-Q is 1.13, 1.58 and 2.43 weeks at L = 1, 2 and 4; TSB-NB and TSB-P lose the most fill rate from L = 2 to L = 4 (−1.9 pp each).
+- The quantile rule hardly triggers at any H or q_L (≤ 0.04% of demand). The fixed rule with k = 13 / 26 / 52 liquidates 1.8 / 0.8 / 0.5% with fill rate 0.948 / 0.953 / 0.954 (0.956 without liquidation).
+- At L = 4, the quantile rule liquidates 0.1% and loses 0.01 pp of fill rate, whereas the fixed rule liquidates 2.1% and loses 0.85 pp.
+
+Across both grids, the quantile rule is the safer liquidation rule in terms of fill rate [Nhận định nhóm].
 
 ## 5.7 Robustness across three test windows
 
@@ -227,6 +234,8 @@ The whole benchmark was rerun from scratch on two earlier 26-week windows (Secti
 | Quantile rule, VN1, LGB-Q: inventory / Δfill | −4.3% / −0.02 pp | −1.7% / −0.02 pp | −7.4% / −0.02 pp | ✓ |
 | dead13, VN1 intermittent: stockout rate | +68% | +61% | +43% | ✓ (always up) |
 | dead13, M5, LGB-Q: Δfill | −0.66 pp | −0.46 pp | −0.54 pp | ✓ |
+| Break-even s\*, quantile rule, VN1 (upper bound, 4 ML models) | 0.91–1.04 | 0.92–1.21 | 0.91–1.04 | ✓ (≈ unit cost) |
+| Break-even s\*, dead13, VN1 / M5 | 1.03–1.37 / 1.35–2.08 | 1.06–1.32 / 1.21–1.66 | 1.16–1.60 / 1.19–1.70 | ✓ (> 1) |
 | M5–VN1 rank consistency, intermittent (fill rate) | ρ = 0.83 | 0.93 | 0.83 | ✓ |
 | M5–VN1 rank consistency, all series (frontier) | ρ = 0.88 | 0.50 | 0.67 | ✗ |
 
@@ -254,9 +263,9 @@ To check whether a pretrained foundation model changes the picture, we added Chr
 
 Adding Chronos-2 changes the ranks of the other methods only slightly and does not change which method leads in Table 8, except that in the second VN1 window TSB-NB and LGB-C become tied (2.0) [R §10.5].
 
-## 5.9 Case study: a Vietnamese footwear retail chain
+## 5.9 Case study: Vietnamese footwear retail data
 
-We applied the same benchmark, with the nine methods, to the weekly retail sales of 1,001 style–colour series of a Vietnamese footwear chain (Section 3.2). Unlike M5 and VN1, the data contain actual unit costs and selling prices, so liquidation can be valued in money. The case study has one 26-week test window (2023-01-30 to 2023-07-24) and 909 evaluated series. Because of the data caveats in Section 3.2, we use it as an illustration, not for general rankings.
+We applied the same benchmark, with the nine methods, to the weekly retail sales of 1,001 style–colour series from Vietnamese footwear retail data (four anonymised brands, 221 stores; Section 3.2). Unlike M5 and VN1, the data contain actual unit costs and selling prices, so liquidation can be valued in money. The case study has one 26-week test window (2023-01-30 to 2023-07-24) and 909 evaluated series. Because of the data caveats in Section 3.2, we use it as an illustration, not for general rankings.
 
 **Table 10.** Case study (VNF): accuracy (h = 3), frontier rank and inventory at fill rate 0.94 (Δ vs. LGB-Q with 95% CI). Sources: [R §10.4], `comparison_VNF.md`, `equal_fill_ci_VNF.csv`.
 

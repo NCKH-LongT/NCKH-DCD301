@@ -1,7 +1,7 @@
 # Paper 19 Summary
 
 **Nhóm:** Domain (inventory)
-**Mức kiểm chứng (29/09/2026):** ⚠️ **Chỉ đọc được trang mô tả của kho Lancaster** (tóm tắt + keywords). Có thêm **bản tóm tắt do người dùng cung cấp** (29/09/2026); các ý lấy từ bản này được đánh dấu `[Theo tóm tắt người dùng cung cấp — CHƯA đối chiếu PDF]` và **cần đối chiếu PDF trước khi trích số liệu**. PDF mở: https://eprints.lancs.ac.uk/id/eprint/140119/
+**Mức kiểm chứng (cập nhật 10/10/2026):** ✅ đã đọc toàn văn bản accepted manuscript (xem mục cuối). Trước đó (29/09/2026): ⚠️ **Chỉ đọc được trang mô tả của kho Lancaster** (tóm tắt + keywords). Có thêm **bản tóm tắt do người dùng cung cấp** (29/09/2026); các ý lấy từ bản này được đánh dấu `[Theo tóm tắt người dùng cung cấp — CHƯA đối chiếu PDF]` và **cần đối chiếu PDF trước khi trích số liệu**. PDF mở: https://eprints.lancs.ac.uk/id/eprint/140119/
 
 > **Quy ước nguồn** (để đối chiếu khi giảng viên hỏi):
 > - `(tr. N)` = trang thứ N trong file PDF (đếm theo trang PDF, không phải số in trên trang); `(abstract)` = phần tóm tắt của bài.
@@ -53,3 +53,12 @@ DOI/Link: https://doi.org/10.1016/j.ijpe.2019.107597 · bản mở: https://epri
 ## Possible improvement
 
 [Nhận định nhóm] Mở rộng luận điểm sang mô hình ML trên M5.
+
+## Kiểm chứng toàn văn (10/10/2026)
+
+Đã đọc bản accepted manuscript trên kho Lancaster (35 trang; số trang dưới đây theo file PDF đó: https://eprints.lancs.ac.uk/id/eprint/140119/).
+
+- Phương pháp: tham số hóa mô hình dự báo bằng hàm chi phí lập từ chỉ số tồn kho và chính sách tồn kho hiện hành, thay vì tối ưu likelihood hoặc sai số (tr. 1); mô hình là exponential smoothing mức cục bộ (tr. 13).
+- Dữ liệu: 229 mặt hàng của một nhà sản xuất hàng tiêu dùng (vệ sinh) ở châu Âu, 173 tuần mỗi mặt hàng, chu kỳ kế hoạch tuần, lead time 3–5 tuần; 52 tuần cuối là tập kiểm thử; đánh giá rolling origin (tr. 13, 17).
+- Kết quả: giảm bias 25%–60% so với tối ưu theo MSE, đổi lại độ chính xác giảm tối đa 9% (tr. 21). **Con số "cải thiện bias khoảng 62%" trong tóm tắt người dùng cung cấp ở trên là không đúng; dùng 25–60%.**
+- Bài nêu rằng nghiên cứu dự báo thường coi độ chính xác là đại diện hợp lý cho quyết định mà dự báo phục vụ, và nhiều tác giả đã đặt câu hỏi về giả định này (tr. 6).

@@ -24,6 +24,7 @@ Writes code/outputs/<DATASET>/breakeven.csv and series_inventory.csv.
 
 Usage:
     python code/liquidation_breakeven.py --dataset VN1
+    python code/liquidation_breakeven.py --dataset VN1 --offset 26     # earlier test window (forecasts/outputs <D>_w26)
 """
 import argparse
 import os
@@ -50,11 +51,15 @@ def end_position(sim, L):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dataset", required=True, choices=["M5", "VN1", "VNF"])
+    ap.add_argument("--offset", type=int, default=0, help="earlier test window, as in run_pipeline.py --offset")
     a = ap.parse_args()
     d = config.DEFAULT
     R, L, tau, H, ql, kf = d["R"], d["L"], d["tau"], d["H"], d["q_liq"], d["k_fixed"]
 
     p = data.load(a.dataset)
+    if a.offset:
+        p = data.truncate(p, p["Y"].shape[1] - a.offset)
+    run_tag = a.dataset + (f"_w{a.offset}" if a.offset else "")
     Y = p["Y"]
     n, T = Y.shape
     test0 = T - config.TEST_WEEKS
@@ -69,7 +74,7 @@ def main():
     D = np.nan_to_num(Y[:, test0:T]).astype(np.float64)[idx]
     avg26 = np.stack([b.window_sum(b.C, o - 26, o) / np.maximum(b.window_sum(b.A, o - 26, o), 1) for o in origins], 1)[idx]
     since = np.stack([b.since_sale(o) for o in origins], 1)[idx]
-    fc = os.path.join(config.CACHE, "forecasts", a.dataset)
+    fc = os.path.join(config.CACHE, "forecasts", run_tag)
     actual = "unit_cost" in p["attrs"].columns
     if actual:
         uc = p["attrs"]["unit_cost"].to_numpy(float)[idx]
@@ -128,7 +133,7 @@ def main():
                         r[f"s_star_actual_h{int(hy * 100)}"] = num / cX if cX > 0 else np.nan
                 rows.append(r)
 
-    out = os.path.join(config.OUTPUTS, a.dataset)
+    out = os.path.join(config.OUTPUTS, run_tag)
     os.makedirs(out, exist_ok=True)
     be = pd.DataFrame(rows)
     be.to_csv(os.path.join(out, "breakeven.csv"), index=False)

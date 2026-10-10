@@ -33,7 +33,7 @@ Three features of retail data make the step from forecast to decision difficult.
    - The M5 organisers acknowledge limits to generalising beyond the data it represents [P01 p. 11].
    - The decision-oriented M5 studies cited above use only Walmart data; Mohammed et al. (2026) name testing on a single US retail setting as a limitation [P22 p. 17].
    - The closest study evaluates probabilistic forecast combinations in a single-period, single-product newsvendor setting, which its authors list as a limitation [P11 p. 26].
-   - These studies evaluate a single test period [P11 p. 16], [P22 p. 4], [P21 p. 8] **[Chưa kiểm chứng: check that none of the three uses rolling or multiple test windows]**.
+   - Their evaluation designs differ: Wang et al. (2026) evaluate on the last 28 days of M5 [P11 p. 16], Mohammed et al. (2026) on one chronological 75:25 split with June 2014 as test period [P22 p. 4, 9], and Zabraoui et al. (2025) on a time-aware train–test split with 5-fold cross-validation for the GA and deep-learning models [P21 p. 8]. Whether conclusions on inventory performance hold across separate test periods is not the focus of these studies [Nhận định nhóm].
 
 Limited attention has therefore been given to benchmarking probabilistic forecasting methods under a common, transparent replenishment-and-liquidation policy across different retail settings and periods, while retaining intermittent and lumpy demand and reporting inventory KPIs by demand class (`research_gap.md` §5). A further practical obstacle is that public datasets contain neither inventory positions nor unit costs, so cost-based evaluations depend on assumed cost parameters.
 
@@ -53,7 +53,7 @@ We evaluate the methods without monetary units:
 All analyses are reported by ADI–CV² demand class and repeated on three 26-week test windows. Two extensions complete the benchmark:
 
 - a pretrained foundation model (Chronos-2) as a ninth method;
-- a case study on a Vietnamese footwear retail chain, whose actual costs and prices allow liquidation to be valued in money.
+- a case study on Vietnamese footwear retail data (four anonymised brands, 221 stores), whose actual costs and prices allow liquidation to be valued in money.
 
 This study does not propose a new forecasting model. It benchmarks existing probabilistic forecasting models inside a common, transparent replenishment-and-liquidation decision layer across retail settings, and evaluates them with inventory KPIs by demand class.
 
@@ -71,7 +71,7 @@ The contributions are as follows:
 3. **Robustness evidence.** All series are retained, results are reported by demand class with per-series statistical tests, and the whole benchmark is repeated on three test windows. This separates robust findings from period-dependent ones.
 4. **Two extensions.**
    - A zero-shot foundation model (Chronos-2) in the same decision layer.
-   - A case study on a Vietnamese footwear chain with actual unit costs, which values liquidation in money and illustrates the benchmark in an emerging-market retail setting.
+   - A case study on Vietnamese footwear retail data with actual unit costs, which values liquidation in money and illustrates the benchmark in an emerging-market retail setting.
 
 The main findings are as follows:
 
@@ -103,7 +103,7 @@ These results motivate our choice of LightGBM quantile regression as the main mo
 
 **VN1.** VN1 is a weekly e-commerce dataset of 15,053 products [P08 p. 7]. Zanotti (2025) used M5 and VN1 to study the cost of ensembling ten global models with point and quantile losses. Small ensembles of two or three models were often near-optimal, and less frequent retraining cut cost with little loss of accuracy [P08 (abstract)]. That study evaluates accuracy (RMSSE, scaled quantile loss) and computational cost, not inventory outcomes [P08 p. 13–14].
 
-**Foundation models.** Pretrained time-series models are now used in demand forecasting. Yang et al. (2025) include Chronos and TEMPO among the backbones of their ensembles on M5 and three other retail datasets [P06 p. 4]. They note that the interpretability of ensemble results remains an open challenge for decision making [P06 p. 7]. Damato et al. (2026) leave the comparison with pretrained models on intermittent data to future work [P12 p. 2]. Chronos-2 is a recent pretrained model with quantile outputs and native covariate support (Ansari et al., 2025; model card) **[Chưa kiểm chứng: technical report not read]**. To our knowledge, such models have not been evaluated inside an inventory decision layer on intermittent retail data [Nhận định nhóm].
+**Foundation models.** Pretrained time-series models are now used in demand forecasting. Yang et al. (2025) include Chronos and TEMPO among the backbones of their ensembles on M5 and three other retail datasets [P06 p. 4]. They note that the interpretability of ensemble results remains an open challenge for decision making [P06 p. 7]. Damato et al. (2026) leave the comparison with pretrained models on intermittent data to future work [P12 p. 2]. Chronos-2 is a recent pretrained model with quantile outputs and native covariate support (Ansari et al., 2025; model card). To our knowledge, such models have not been evaluated inside an inventory decision layer on intermittent retail data [Nhận định nhóm].
 
 In short, the main public retail benchmarks rank methods by forecast error. The M5 organisers note that the competition did not target a specific decision problem [P03 p. 2–3], and that its conclusions are limited in how far they generalise beyond the data it represents [P01 p. 11].
 
@@ -128,7 +128,7 @@ Our main model differs from theirs: it uses LightGBM *quantile regression*, as t
 **Reviews and integrated approaches.**
 
 - *Review.* A structured review of the inventory–forecasting interface proposes four levels of integration and observes that most forecasting studies ignore the step from forecast to replenishment decision (Goltsos et al., 2022) [G22 (abstract)].
-- *Inventory-based parameter tuning.* Kourentzes et al. (2020) optimise the parameters of forecasting models with inventory metrics instead of statistical error measures [P19 (repository description)].
+- *Inventory-based parameter tuning.* Kourentzes et al. (2020) set the parameters of exponential smoothing with a cost function built from inventory metrics instead of in-sample fitting error [P19 p. 1, 13]. On 229 weekly series with lead times of 3–5 weeks, this reduced forecast bias by 25–60% at the cost of up to 9% lower accuracy [P19 p. 13, 21], and they question whether forecast accuracy is a reasonable proxy for the decisions it supports [P19 p. 6].
 - *End-to-end learning.* van der Haar et al. (2024) learn order quantities directly with a supervised, end-to-end loss, for settings including lost sales [W1 (abstract)].
 
 In contrast, we keep forecast and decision separate and use a transparent quantile-based policy. This lets one decision layer be fed by any probabilistic forecast.
@@ -143,6 +143,7 @@ In contrast, we keep forecast and decision separate and use a transparent quanti
 
 **Other domains.**
 
+- Turgay et al. (2026) compare shipment and inventory planning based on deterministic demand forecasts with Monte Carlo-based stochastic optimisation. Forecast-based planning degrades as demand becomes more variable (36% higher stockout penalties), whereas the stochastic approach cuts stockout costs by 40–55% at a moderate increase in stock [S1 (abstract)]. This supports passing demand uncertainty, not only point forecasts, to the inventory decision [Nhận định nhóm].
 - Sfiris and Koulouriotis (2025) link intermittent-demand forecasts to an (R, Q) policy for 2,050 automotive spare parts. They report lower safety stock at the same service level [P23 p. 14, 26], with a fixed lead time as a stated limitation [P23 p. 25].
 - de Sousa (2026) simulates replenishment from LightGBM/XGBoost forecasts for one fashion retailer [W2 (abstract)].
 
@@ -163,11 +164,11 @@ Excess stock is a recurring practical problem. For example, Putra and Purnomo (2
 | Results by ADI–CV² class | ✗ | ✗ | ✗ (shares only) | — | ✓ |
 | Cost-free KPIs / trade-off | cost ratios ↔ τ | costs | costs | — | ✓ (frontier, break-even salvage) |
 | Policy transparency | quantile policy | RL (low interpretability, p. 19) | quantile + GARCH | — | quantile policy |
-| Test periods | one evaluation period (28 days) | 365-day simulation | one 75/25 split | — (accuracy only) | three 26-week windows, rolling weekly origins |
+| Test periods | last 28 days of M5 | time-aware split, 5-fold CV (GA, DL), 365-day simulation | one 75:25 split (test: June 2014) | — (accuracy only) | three 26-week windows, rolling weekly origins |
 | Foundation model in the comparison | ✗ | ✗ | ✗ | ✗ | ✓ (Chronos-2, zero-shot) |
 | Actual unit costs from data | ✗ (cost ratios) | ✗ (assumed cost parameters) | ✗ (assumed cost parameters) | — | ✓ in the case study (VNF) |
 
-Sources: [P11 p. 11, 16, 17, 26], [P21 p. 5, 8, 19], [P22 p. 4, 15, 18], [P08 p. 4, 13–14]. Test periods: P11 p. 16 (evaluation on the last 28 days), P22 p. 4 (75:25 split), P21 p. 8 (365-day simulation). Cost parameters: P21 p. 5 (cost function), P22 p. 15 (holding 0.50, shortage 5.00), P11 p. 16 (c₂ ∈ {4, 9, 19}).
+Sources: [P11 p. 11, 16, 17, 26], [P21 p. 5, 8, 19], [P22 p. 4, 15, 18], [P08 p. 4, 13–14]. Test periods: P11 p. 16 (evaluation on the last 28 days), P22 p. 4, 9 (75:25 split, test month June 2014), P21 p. 8 (time-aware split, 5-fold CV, 365-day simulation). Cost parameters: P21 p. 5 (cost function), P22 p. 15 (holding 0.50, shortage 5.00), P11 p. 16 (c₂ ∈ {4, 9, 19}).
 
 Multi-period simulation alone is not new (Zabraoui et al., 2025; van der Haar et al., 2024), nor is decision-level evaluation (Wang et al., 2026). Our contribution lies in combining the following elements [Nhận định nhóm]:
 
@@ -186,7 +187,7 @@ Multi-period simulation alone is not new (Zabraoui et al., 2025; van der Haar et
 
 ### 3.1 Design of the benchmark
 
-This study does not propose a new forecasting model. It is a forecast-to-decision benchmark: eight probabilistic forecasting methods supply quantile forecasts to one common decision layer (replenishment plus liquidation), which is run in a multi-period inventory simulation. The benchmark uses two public retail datasets and is repeated on three test windows. All methods share the same weekly panel, forecast origins, retraining cut-offs, decision rules and scenarios, so differences in inventory outcomes can be attributed to the forecasts alone. Two extensions are reported separately: a time-series foundation model (Chronos-2) as a ninth method, and a case study on a Vietnamese footwear retail chain.
+This study does not propose a new forecasting model. It is a forecast-to-decision benchmark: eight probabilistic forecasting methods supply quantile forecasts to one common decision layer (replenishment plus liquidation), which is run in a multi-period inventory simulation. The benchmark uses two public retail datasets and is repeated on three test windows. All methods share the same weekly panel, forecast origins, retraining cut-offs, decision rules and scenarios, so differences in inventory outcomes can be attributed to the forecasts alone. Two extensions are reported separately: a time-series foundation model (Chronos-2) as a ninth method, and a case study on Vietnamese footwear retail data.
 
 The pipeline has six steps (Figure 1):
 
@@ -219,7 +220,7 @@ The public datasets contain no inventory positions, lead times or unit costs. We
 - A series starts at its first sale.
 - Despite its name, VN1 is **not** Vietnamese data.
 
-**Case study — Vietnamese footwear chain (VNF).** We use the retail-channel sales of a Vietnamese footwear chain released for the Vietnam Datathon 2023 (Kaggle dataset `tienanh2003/sales-and-inventory-snapshot-data`) **[Chưa kiểm chứng: exact citation and licence; the Kaggle page lists the licence as "Unknown"]**.
+**Case study — Vietnamese footwear retail data (VNF).** We use the retail-channel sales of the "Sales and Inventory Data of Vietnam Retailers" released as Dataset 2 of the Vietnam Datathon 2023 (Hoang Tien Anh, 2023; Kaggle dataset `tienanh2003/sales-and-inventory-snapshot-data`, licence listed as "Unknown"). Product codes, stores and brands are anonymised. The retail-channel sales cover four brands (one accounts for about 82% of units), 42 vendors and 221 stores; products are mainly slippers, sandals and shoes, with some accessories (`data/cache/vn_sales.parquet`, `Productmaster.xlsx`).
 
 - *Series:* style–colour (mold code × colour) over the whole chain, at weekly frequency. Returns (negative quantities) are excluded from demand.
 - *Week codes:* the data label weeks by the calendar year of the transaction plus the ISO week number. This mislabels days at the year boundary. Code 202153 contains 1–2 January 2022, a two-day remnant of ISO week 2021-W52, and is dropped. Code 202352 contains 1 January 2023, which belongs to ISO week 2022-W52, and is merged into 202252. The last week (202331) contains only 31 July 2023 and is dropped.
@@ -238,7 +239,7 @@ A series is evaluated if it starts at least 13 weeks before the test period and 
 
 | | M5 | VN1 | VNF (case study) |
 |---|---|---|---|
-| Setting | One retailer, 10 physical stores (US) | Multi-vendor e-commerce, 46 vendors, 328 warehouses | One footwear chain, physical stores (Vietnam) |
+| Setting | One retailer, 10 physical stores (US) | Multi-vendor e-commerce, 46 vendors, 328 warehouses | Footwear retail, 4 anonymised brands, 221 physical stores (Vietnam) |
 | Series level | product × store | client × warehouse × product | style–colour × chain |
 | Series in panel / evaluated | 30,490 / 30,381 | 15,053 / 13,844 | 1,001 / 909 |
 | Weeks | 277 | 196 | 82 |
@@ -319,7 +320,7 @@ It is therefore a **robustness check**, not a like-for-like comparison.
 
 M5 adds the number of events and SNAP days inside the h-week target window (known in advance) and the categorical attributes dept, cat, store and state. Level features are divided by s. VN1 client and warehouse codes are not used.
 
-*Chronos-2.* Chronos-2 is a 120-million-parameter pretrained time-series model that produces quantile forecasts (Ansari et al., 2025; model card `amazon/chronos-2`) **[Chưa kiểm chứng: technical report not read; claims limited to the model card]**. We use it zero-shot on CPU, without covariates, cross-series learning or fine-tuning (`code/f2d/models.py`, `chronos2`).
+*Chronos-2.* Chronos-2 is a 120-million-parameter pretrained time-series model that produces quantile forecasts (Ansari et al., 2025). The facts used here come from the model card and configuration of `amazon/chronos-2`; the technical report was not read. We use it zero-shot on CPU, without covariates, cross-series learning or fine-tuning (`code/f2d/models.py`, `chronos2`).
 
 - To forecast D_h directly, as all other methods do, the context of series i at origin o is the sequence of non-overlapping h-week totals ending at o, over at most 104 weeks. The model predicts one step ahead.
 - All requested quantiles (0.5–0.99) are among the model's training quantile levels (0.01–0.99, model configuration), so no interpolation or extrapolation of quantiles is involved.
@@ -438,12 +439,12 @@ Infrequent retraining follows the finding that reducing retraining frequency cut
 | Parameter | Default | Grid (one parameter varied at a time) | Run on |
 |---|---|---|---|
 | τ | 0.9 | 0.5, 0.8, 0.9, 0.95, 0.99 | M5, VN1 (all windows), VNF |
-| L (weeks) | 2 | 1, 2, 4 | VN1 main window only, 7 methods (no HGB-Q) |
-| H (weeks) | 13 | 8, 13, 26 | VN1 main window only, 7 methods |
-| q_L | 0.95 | 0.9, 0.95, 0.99 | VN1 main window, 8 methods |
-| k (weeks) | 26 | 13, 26, 52 | VN1 main window, 8 methods |
+| L (weeks) | 2 | 1, 2, 4 | M5 and VN1 main window, 7 methods (no HGB-Q) |
+| H (weeks) | 13 | 8, 13, 26 | M5 and VN1 main window, 7 methods |
+| q_L | 0.95 | 0.9, 0.95, 0.99 | M5 and VN1 main window, 8 methods |
+| k (weeks) | 26 | 13, 26, 52 | M5 and VN1 main window, 8 methods |
 
-The L and H grids were not run on M5 because LGB-Q would have to be retrained for each extra horizon (about 21 minutes for h = 3 on M5) [ES §3].
+For the L and H grids, LGB-Q and the other ML models are refitted for each extra horizon (h = 2, 5, 8, 26); on M5 this took 53 minutes in total (`code/outputs/logs/run_M5_grid.log`).
 
 ### 4.3 Robustness windows
 
@@ -453,7 +454,7 @@ To test robustness, we drop the last 26 and the last 52 weeks of each panel and 
 - Third window: 28,824 M5 and 9,383 VN1 series.
 - Both earlier VN1 windows lie in Phase 0, so the official answers are not used.
 
-The default scenario, the τ grid and the five liquidation policies were run in every window. The L/H grid and the break-even analysis were run in the main window only [R §10, §10.1].
+The default scenario, the τ grid, the five liquidation policies and the break-even analysis were run in every window; the L/H/q_L/k grid was run in the main window only [R §10, §10.1].
 
 ### 4.4 Environment and runtime
 
@@ -668,7 +669,7 @@ Whether a method ranking transfers from M5 to VN1 thus depends on the class and 
 - On VN1 intermittent series, dead13 cuts inventory more than the quantile rule in the main window (−19.4% vs. −5.9%), but raises the stockout rate in every window: by 68%, 61% and 43% [R §7.1, §10.1].
 - On M5, products that have not sold for 13 weeks usually sell again, so dead13 costs fill rate in every window (−0.66, −0.46 and −0.54 pp) [R §10.1].
 
-**Break-even salvage ratio.** For every rule and both datasets, s\* is close to or above 1. Within the 26-week window, liquidation pays off only if stock is sold at roughly unit cost or more [R §7.2]. The decomposition per liquidated unit explains why [R §7.2 T10]:
+**Break-even salvage ratio.** For every rule and both datasets, s\* is close to or above 1, in all three windows (the lowest value over all rules, windows and cost settings is 0.89; Table 8) [R §10.1].
 
 - *Fixed rule:* 0.35–0.63 (VN1) and 0.57–0.63 (M5) of each liquidated unit is ordered again later, and 0.12–0.32 becomes lost sales.
 - *Dead13 on VN1* targets truly unsold stock: 0.93–1.05 of each liquidated unit would still be on hand at the end. Yet 8–13 units of sales are lost per 100 liquidated, and within 26 weeks the holding cost saved does not cover this loss.
@@ -688,7 +689,7 @@ The case study with actual unit costs (Section 5.9) confirms this. Benefits such
 
 On VN1, raising the fill rate from 0.971 to 0.992 more than doubles inventory (4.77 → 10.37 weeks). TSB-P hardly reacts to τ on VN1 (fill rate 0.793 → 0.843 for τ from 0.5 to 0.99) [R §8].
 
-**Lead time** (VN1 only) [R §8]:
+**Lead time** (VN1; M5 below) [R §8]:
 
 - Fill-rate rankings are stable across L: the Spearman correlation between L = 2 and L = 1 is 0.96, and between L = 2 and L = 4 it is 1.00 (7 methods).
 - Inventory grows roughly in proportion to L + R; for LGB-Q it is 2.07, 3.41 and 6.01 weeks at L = 1, 2 and 4.
@@ -701,7 +702,14 @@ On VN1, raising the fill rate from 0.971 to 0.992 more than doubles inventory (4
 - The fixed rule with k = 13 / 26 / 52 liquidates 7.1 / 2.8 / 1.2% with fill rate 0.929 / 0.941 / 0.946.
 - At L = 4, the quantile rule liquidates 5.0% and loses 0.1 pp of fill rate, whereas the fixed rule liquidates 8.6% and loses 1.9 pp.
 
-Across the grid, the quantile rule is the safer liquidation rule in terms of fill rate [Nhận định nhóm].
+**M5** (same grid, main window) [R §8]:
+
+- Fill-rate rankings are again stable across L: Spearman ρ = 1.00 between L = 2 and L = 1, and 0.96 between L = 2 and L = 4 (7 methods).
+- Inventory for LGB-Q is 1.13, 1.58 and 2.43 weeks at L = 1, 2 and 4; TSB-NB and TSB-P lose the most fill rate from L = 2 to L = 4 (−1.9 pp each).
+- The quantile rule hardly triggers at any H or q_L (≤ 0.04% of demand). The fixed rule with k = 13 / 26 / 52 liquidates 1.8 / 0.8 / 0.5% with fill rate 0.948 / 0.953 / 0.954 (0.956 without liquidation).
+- At L = 4, the quantile rule liquidates 0.1% and loses 0.01 pp of fill rate, whereas the fixed rule liquidates 2.1% and loses 0.85 pp.
+
+Across both grids, the quantile rule is the safer liquidation rule in terms of fill rate [Nhận định nhóm].
 
 ## 5.7 Robustness across three test windows
 
@@ -732,6 +740,8 @@ The whole benchmark was rerun from scratch on two earlier 26-week windows (Secti
 | Quantile rule, VN1, LGB-Q: inventory / Δfill | −4.3% / −0.02 pp | −1.7% / −0.02 pp | −7.4% / −0.02 pp | ✓ |
 | dead13, VN1 intermittent: stockout rate | +68% | +61% | +43% | ✓ (always up) |
 | dead13, M5, LGB-Q: Δfill | −0.66 pp | −0.46 pp | −0.54 pp | ✓ |
+| Break-even s\*, quantile rule, VN1 (upper bound, 4 ML models) | 0.91–1.04 | 0.92–1.21 | 0.91–1.04 | ✓ (≈ unit cost) |
+| Break-even s\*, dead13, VN1 / M5 | 1.03–1.37 / 1.35–2.08 | 1.06–1.32 / 1.21–1.66 | 1.16–1.60 / 1.19–1.70 | ✓ (> 1) |
 | M5–VN1 rank consistency, intermittent (fill rate) | ρ = 0.83 | 0.93 | 0.83 | ✓ |
 | M5–VN1 rank consistency, all series (frontier) | ρ = 0.88 | 0.50 | 0.67 | ✗ |
 
@@ -759,9 +769,9 @@ To check whether a pretrained foundation model changes the picture, we added Chr
 
 Adding Chronos-2 changes the ranks of the other methods only slightly and does not change which method leads in Table 8, except that in the second VN1 window TSB-NB and LGB-C become tied (2.0) [R §10.5].
 
-## 5.9 Case study: a Vietnamese footwear retail chain
+## 5.9 Case study: Vietnamese footwear retail data
 
-We applied the same benchmark, with the nine methods, to the weekly retail sales of 1,001 style–colour series of a Vietnamese footwear chain (Section 3.2). Unlike M5 and VN1, the data contain actual unit costs and selling prices, so liquidation can be valued in money. The case study has one 26-week test window (2023-01-30 to 2023-07-24) and 909 evaluated series. Because of the data caveats in Section 3.2, we use it as an illustration, not for general rankings.
+We applied the same benchmark, with the nine methods, to the weekly retail sales of 1,001 style–colour series from Vietnamese footwear retail data (four anonymised brands, 221 stores; Section 3.2). Unlike M5 and VN1, the data contain actual unit costs and selling prices, so liquidation can be valued in money. The case study has one 26-week test window (2023-01-30 to 2023-07-24) and 909 evaluated series. Because of the data caveats in Section 3.2, we use it as an illustration, not for general rankings.
 
 **Table 10.** Case study (VNF): accuracy (h = 3), frontier rank and inventory at fill rate 0.94 (Δ vs. LGB-Q with 95% CI). Sources: [R §10.4], `comparison_VNF.md`, `equal_fill_ci_VNF.csv`.
 
@@ -845,7 +855,7 @@ The following recommendations are [Nhận định nhóm], conditional on the sce
 1. **Three test windows of 26 weeks.** VN1 aggregate inventory efficiency and the smooth- and erratic-class leaders changed between windows, and we have not identified why. Seasonal differences and the missing Phase 2 prices are untested hypotheses [R §10]. Chronos-2 was run on one M5 window only, because of its CPU cost.
 2. **Liquidation horizon.** Twenty-six weeks are too short to observe the benefits of clearing obsolete stock. The break-even analysis covers holding cost and lost margin only [R §7.2].
 3. **Equal-fill-rate uncertainty.** Confidence intervals come from a bootstrap over series of aggregate trade-off curves; there is no per-series test at equal fill rate, because per-series fill rates are discrete [R §10.2, §11].
-4. **Incomplete scenario grid.** The L and H grid and the break-even analysis were run on the main VN1 window only [ES §3], [R §10.1].
+4. **Scenario grid in one window.** The L, H, q_L and k grids were run on the main window of M5 and VN1 only; HGB-Q and Chronos-2 were run at the default horizons only [R §8].
 5. **Censored demand and no price response.** Sales are used as demand, so historical stockouts bias demand downward. Liquidation does not change demand in the simulation [`05_methodology/methodology.md` §9].
 6. **Fixed hyper-parameters.** No model was tuned. HGB-Q uses a smaller sample and a different early-stopping scheme, so it is a robustness check rather than a like-for-like competitor [`05_methodology/baseline.md` §2]. Chronos-2 was used zero-shot with one context design only.
 7. **Weighting.** Aggregate KPIs are unit-weighted and thus dominated by high-volume series. Per-series tests give an unweighted view, and price-weighted KPIs give the same conclusions [R §10.3]. Margins and costs are assumed for M5 and VN1.
@@ -872,14 +882,14 @@ This study benchmarked eight probabilistic demand forecasting methods inside one
   - The fixed weeks-of-supply and dead-stock rules lost fill rate or raised stockout weeks; the 13-week dead-stock rule raised them by 43–68% for intermittent VN1 series.
   - Within 26 weeks, liquidation paid off only at salvage prices near unit cost: s\* ≈ 0.91–1.04 for the quantile rule on VN1, and 0.90–1.01 with actual costs in the case study [R §7.2, §10.4].
 - **RQ4 (sensitivity).**
-  - On VN1, fill-rate rankings were stable across lead times (ρ ≥ 0.96), and inventory grew roughly with L + R [R §8].
+  - On both datasets, fill-rate rankings were stable across lead times (ρ ≥ 0.96), and inventory grew roughly with L + R [R §8].
   - The quantile liquidation rule stayed the safer rule across the H, q_L, k and L grids.
   - The steep end of the trade-off curve dominates inventory: on VN1, raising the fill rate from 0.971 to 0.992 more than doubled inventory.
 
 **Extensions.**
 
 - Zero-shot Chronos-2 was never the most accurate or the most inventory-efficient method, even on M5, which is part of its training data, and it was 8–42 times slower on CPU.
-- In the footwear case study, LightGBM quantile was the most inventory-efficient method although TSB with Poisson demand had the lowest mean error.
+- In the Vietnamese footwear case study, LightGBM quantile was the most inventory-efficient method although TSB with Poisson demand had the lowest mean error.
 
 **Implications.** The most accurate forecast is not always the most inventory-efficient one. On intermittent data, methods should be compared at equal service level, by demand class, with per-series statistics and over more than one period [Nhận định nhóm].
 
@@ -888,7 +898,7 @@ This study benchmarked eight probabilistic demand forecasting methods inside one
 - Use pretrained models with weekly context, covariates or fine-tuning, and add deep global models such as TiDE.
 - Simulate a class-based or period-validated selection between TSB-NB and LightGBM quantile.
 - Identify the cause of the period dependence on VN1.
-- Extend the scenario grid and the break-even analysis to M5 and to the earlier windows.
+- Extend the scenario grid to the earlier test windows.
 - Use longer horizons, product-discontinuation data and price-responsive demand to assess the economic case for liquidation.
 - Validate the case-study findings on complete company data with actual inventory.
 
@@ -922,8 +932,9 @@ Format to be adapted to the target journal. **Status 09/10/2026:** every entry b
 - [W2] de Sousa, A. G. P. (2026). *From demand forecasting to replenishment simulation: A data-driven machine learning approach for fashion retail* (Master's thesis). University of Porto.
 - [W3] Li, P. (2026). Forecasting for inventory decisions: A decision-regret benchmark for perishability-aware multi-echelon retail replenishment using the M5/Walmart data. SSRN. https://doi.org/10.2139/ssrn.7051299 *(cited by title only; not peer-reviewed)*
 - [G22] Goltsos, T. E., Syntetos, A. A., Glock, C. H., & Ioannou, G. (2022). Inventory–forecasting: Mind the gap. *European Journal of Operational Research, 299*(2), 397–419. https://doi.org/10.1016/j.ejor.2021.07.040 *(abstract only)*
-- [C2] Ansari, A. F., Shchur, O., Küken, J., Auer, A., Han, B., Mercado, P., Rangapuram, S. S., Shen, H., Stella, L., Zhang, X., Goswami, M., Kapoor, S., Maddix, D. C., Guerron, P., Hu, T., Yin, J., Erickson, N., Desai, P. M., Wang, H., Rangwala, H., Karypis, G., Wang, Y., & Bohlke-Schneider, M. (2025). Chronos-2: From univariate to universal forecasting. arXiv:2510.15821. [authors and title as given in the citation block of the `amazon/chronos-2` model card; initials and full first names **[Chưa kiểm chứng]** against arXiv]
-- [VNF] Vietnam Datathon 2023 sales and inventory snapshot data. Kaggle dataset `tienanh2003/sales-and-inventory-snapshot-data`. **[Chưa kiểm chứng]** author, year, URL; licence listed as "Unknown".
+- [S1] Turgay, S., Demir, R., & Kavacık, M. (2026). A Monte Carlo-based approach to demand forecasting and stochastic optimization in supply chains. *Supply Chain Analytics, 14*, 100210. https://doi.org/10.1016/j.sca.2026.100210 [OpenAlex metadata and abstract; full text not read]
+- [C2] Ansari, A. F., Shchur, O., Küken, J., Auer, A., Han, B., Mercado, P., Rangapuram, S. S., Shen, H., Stella, L., Zhang, X., Goswami, M., Kapoor, S., Maddix, D. C., Guerron, P., Hu, T., Yin, J., Erickson, N., Desai, P. M., Wang, H., Rangwala, H., Karypis, G., Wang, Y., & Bohlke-Schneider, M. (2025). Chronos-2: From univariate to universal forecasting. arXiv:2510.15821. [arXiv page, v1 17 Oct 2025, no journal-ref; technical report not read — cited only for the model]
+- [VNF] Hoang Tien Anh (2023). *sales_and_inventory_snapshot_data: Sales and inventory data of Vietnam retailers — Dataset 2, Vietnam Datathon 2023* (version 1) [Data set]. Kaggle. https://www.kaggle.com/datasets/tienanh2003/sales-and-inventory-snapshot-data [Kaggle API: creator "Hoang Tien Anh", last updated 2023-11-13, licence "Unknown". Author name order (family name) to confirm with the owner]
 - [VN1] Vandeput, N. (2024). *VN1 Forecasting – Accuracy Challenge*. DataSource.ai. https://www.datasource.ai/en/home/data-science-competitions-for-startups/phase-2-vn1-forecasting-accuracy-challenge/description [entry as given by Zanotti (2025), P08 p. 31]
 
 Method references (not in `02_related_work/`; cited in `methodology.md`):

@@ -392,7 +392,7 @@ Ghi chú cho Bảng 9:
 - Trên VN1, đẩy fill rate từ 0,971 lên 0,992 làm tồn kho tăng hơn gấp đôi (4,77 → 10,37 tuần).
 - TSB Poisson gần như không phản ứng với τ trên VN1 (fill 0,793 → 0,843 khi τ đi từ 0,5 đến 0,99).
 
-**Lead time L** (chỉ VN1):
+**Lead time L** (VN1; M5 ở cuối mục này):
 
 | Mô hình | fill L=1 | fill L=2 | fill L=4 | tồn kho L=1 | tồn kho L=2 | tồn kho L=4 |
 |---|---|---|---|---|---|---|
@@ -413,6 +413,13 @@ Ghi chú cho Bảng 9:
 - Quy tắc cố định với k = 13 / 26 / 52 → % thanh lý 7,1 / 2,8 / 1,2; fill rate 0,929 / 0,941 / 0,946.
 - Ở L = 4: quy tắc phân vị thanh lý 5,0% và mất 0,1 điểm % fill rate; quy tắc cố định thanh lý 8,6% và mất 1,9 điểm %.
 - [Nhận định nhóm] Quy tắc phân vị an toàn hơn trong toàn bộ lưới.
+
+**M5, lưới L, H, q_L, k** (chạy bổ sung 10/10/2026, `code/outputs/logs/run_M5_grid.log`; các dòng cũ của `kpi.csv` không đổi):
+
+- Thứ hạng fill rate ổn định theo L: Spearman ρ giữa L = 2 và L = 1 là 1,00; giữa L = 2 và L = 4 là 0,96 (7 phương pháp).
+- Tồn kho của lgb_quantile: 1,13 / 1,58 / 2,43 tuần ở L = 1 / 2 / 4. TSB-NB và TSB Poisson mất fill rate nhiều nhất khi L từ 2 lên 4 (khoảng −1,9 điểm %).
+- Quy tắc phân vị gần như không kích hoạt ở mọi H và q_L (≤ 0,04% nhu cầu). Quy tắc cố định k = 13 / 26 / 52: thanh lý 1,8 / 0,8 / 0,5%, fill rate 0,948 / 0,953 / 0,954 (không thanh lý: 0,956).
+- Ở L = 4: quy tắc phân vị thanh lý 0,1%, mất 0,01 điểm % fill rate; quy tắc cố định thanh lý 2,1%, mất 0,85 điểm %.
 
 ## 9. Kiểm tra giả thuyết (`05_methodology/evaluation_metrics.md` mục 7)
 
@@ -517,6 +524,9 @@ Nguồn: `code/outputs/comparison_w52.md`, `stat_tests_w52.md`, `equal_fill_ci_w
 | Quy tắc phân vị, VN1, lgb_q: tồn kho / Δfill | −4,3% / −0,02 | −1,7% / −0,02 | −7,4% / −0,02 | ✅ |
 | dead13, VN1 intermittent: thay đổi tỷ lệ tuần hết hàng | +68% | +61% | +43% | ✅ luôn tăng |
 | dead13, M5, lgb_q: Δfill (điểm %) | −0,66 | −0,46 | −0,54 | ✅ |
+| s\* quy tắc phân vị, VN1 (cận trên, 4 mô hình ML, lưới chi phí) | 0,91–1,04 | 0,92–1,21 | 0,91–1,04 | ✅ gần giá vốn |
+| s\* dead13, VN1 / M5 | 1,03–1,37 / 1,35–2,08 | 1,06–1,32 / 1,21–1,66 | 1,16–1,60 / 1,19–1,70 | ✅ > 1 |
+| s\* quy tắc cố định, VN1 / M5 | 1,00–1,22 / 1,06–1,32 | 0,97–1,07 / 1,01–1,18 | 1,03–1,29 / 1,03–1,23 | ✅ ≈ 1 trở lên |
 | Spearman M5–VN1, hạng đường đánh đổi: toàn bộ | 0,88 | 0,50 | 0,67 | ❌ |
 | Spearman M5–VN1, fill rate ở τ = 0,9: intermittent | 0,83 | 0,93 | 0,83 | ✅ |
 
@@ -565,9 +575,9 @@ KPI được tính lại với trọng số là giá bán của tuần đó (gi�
 - Kết luận theo giá trị **trùng** với theo đơn vị ở cả hai dataset và ba cửa sổ: M5 lgb_quantile luôn đứng đầu với P(best) = 1,00; VN1 đổi giữa các cửa sổ như theo đơn vị.
 - [Nhận định nhóm] Việc cộng gộp theo đơn vị (hạn chế 6) không làm thay đổi kết luận chính.
 
-### 10.4 Case study: chuỗi bán lẻ giày dép Việt Nam (VNF)
+### 10.4 Case study: dữ liệu bán lẻ giày dép Việt Nam (VNF)
 
-**Dữ liệu** (`f2d.data.load_vnf`): Vietnam Datathon 2023 (Kaggle `tienanh2003/sales-and-inventory-snapshot-data`), kênh bán lẻ, chuỗi mẫu–màu × toàn chuỗi cửa hàng, theo tuần.
+**Dữ liệu** (`f2d.data.load_vnf`): "Sales and Inventory Data of Vietnam Retailers", Dataset 2 của Vietnam Datathon 2023 (Kaggle `tienanh2003/sales-and-inventory-snapshot-data`, tác giả Hoang Tien Anh, cập nhật 13/11/2023, giấy phép "Unknown"). Kênh bán lẻ gồm 4 thương hiệu ẩn danh (Brand1 khoảng 82% số đơn vị), 42 nhà cung cấp, 221 điểm bán; hàng chủ yếu là dép, sandal, giày và một phần phụ kiện. Chuỗi thời gian = mẫu–màu × toàn bộ cửa hàng, theo tuần.
 
 - Mã tuần trong dữ liệu là năm + tuần ISO của năm giao dịch, nên gán sai ở ranh giới năm: 202153 chứa ngày 1–2/1/2022 (phần đuôi của tuần ISO 2021-W52) → bỏ; 202352 chứa ngày 1/1/2023 (thuộc tuần ISO 2022-W52) → gộp vào 202252. Tuần 202331 chỉ có ngày 31/7/2023 → bỏ. Không trừ hàng trả lại vào nhu cầu.
 - Panel: 1.001 chuỗi × 82 tuần (2022-01-03 → 2023-07-24); 909 chuỗi được đánh giá (smooth 187, erratic 285, intermittent 272, lumpy 165); tỷ lệ tuần bằng 0: 35,4%.
@@ -624,7 +634,7 @@ KPI được tính lại với trọng số là giá bán của tuần đó (gi�
 
 1. Kiểm định thống kê đã chạy cho SQL và KPI theo chuỗi (mục 2). KPI ở **cùng fill rate** không kiểm định được theo từng chuỗi (fill rate của từng chuỗi rời rạc); thay vào đó dùng khoảng tin cậy bootstrap theo chuỗi (mục 10.2).
 2. **Ba cửa sổ kiểm thử** (mục 10, 10.1). Kết quả VN1 về hiệu quả tồn kho tổng thể và theo nhóm smooth/erratic đổi giữa các cửa sổ.
-3. **M5 chưa chạy lưới L, H, q_L, k.**
+3. **Lưới L, H, q_L, k chỉ chạy ở cửa sổ chính** (M5 bổ sung 10/10/2026). Ngưỡng hòa vốn đã chạy cho cả ba cửa sổ (`code/outputs/<D>_w26/breakeven.csv`, `<D>_w52/breakeven.csv`).
 4. **Nhu cầu bị kiểm duyệt; siêu tham số cố định; HistGradientBoosting dùng mẫu con và early stopping khác.**
 5. **Tầm nhìn 26 tuần quá ngắn** để thấy lợi ích của thanh lý hàng lỗi thời (mục 7.2).
 6. KPI được cộng gộp theo đơn vị, nên chuỗi lớn chi phối kết quả. Kiểm định theo chuỗi (mục 2) bổ sung góc nhìn không trọng số; KPI theo giá trị (mục 10.3) cho cùng kết luận.
@@ -642,5 +652,5 @@ KPI được tính lại với trọng số là giá bán của tuần đó (gi�
 - [x] Khoảng tin cậy bootstrap ở cùng fill rate; KPI theo giá trị (mục 10.2, 10.3).
 - [x] Case study VNF (mục 10.4).
 - [x] Chronos-2 (mục 10.5).
-- [ ] (Tùy chọn) lưới L, H cho M5.
+- [x] Lưới L, H, q_L, k cho M5 (cửa sổ chính); ngưỡng hòa vốn cho cửa sổ thứ hai và thứ ba.
 - [ ] Đọc W3 và bài 20 để định vị lại phần "độ chính xác theo chuỗi ≠ hiệu quả tồn kho" trước khi đưa vào bài (`03_problem_and_gap/research_gap.md` mục 6).

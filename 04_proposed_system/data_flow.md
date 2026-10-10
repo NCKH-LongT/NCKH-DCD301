@@ -48,7 +48,7 @@ Bản nguồn sơ đồ: `diagrams/workflow.mmd`. Dataset giày dép Việt Nam 
 - Mỗi chuỗi bắt đầu từ **tuần có bán đầu tiên** (độ dài hoạt động trung vị 124 tuần [DP]).
 - Giá thiếu (70,7% số ô [DP]) được điền bằng giá gần nhất trước đó trong cùng chuỗi. **Không** dùng cờ `price_observed`: VN1 chỉ có giá ở tuần có bán, nên cờ này trùng với `lag_1 > 0` khi huấn luyện, còn Phase 2 không có giá nên cờ luôn bằng 0 ở khối test 2 (lệch train/test).
 
-**Phụ lục — giày dép Việt Nam** (chỉ dùng cho thống kê mô tả): giữ kênh "Bán lẻ"; bỏ tuần bất thường 202352 (2.583 dòng); không trừ 26.432 dòng trả hàng (số lượng âm) vào nhu cầu; gộp SKU lên mẫu–màu (`mold_code` + `color`) × toàn chuỗi → 1.006 chuỗi, 84 tuần [DP].
+**Phụ lục — giày dép Việt Nam** (chỉ dùng cho thống kê mô tả): giữ kênh "Bán lẻ"; bỏ tuần bất thường 202352 (2.583 dòng); không trừ 26.432 dòng trả hàng (số lượng âm) vào nhu cầu; gộp SKU lên mẫu–màu (`mold_code` + `color`) × toàn chuỗi → 1.006 chuỗi, 84 tuần [DP]. **Cập nhật 10/10/2026:** mã 202352 thực chất là ngày 1/1/2023 bị gán sai năm (thuộc tuần ISO 2022-W52), không phải tuần bất thường; case study (`f2d.data.load_vnf`, `06_experiment_results/results.md` mục 10.4) gộp nó vào 202252, bỏ 202153 (1–2/1/2022) và 202331 (chỉ có 31/7/2023). Dữ liệu gồm 4 thương hiệu ẩn danh (Brand1 khoảng 82% số đơn vị), 42 nhà cung cấp, 221 điểm bán ở kênh bán lẻ; "toàn chuỗi" ở đây là tổng trên mọi cửa hàng của bộ dữ liệu, không phải một chuỗi duy nhất.
 
 ## 4. Phân loại nhu cầu
 
