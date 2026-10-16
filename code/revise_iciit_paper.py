@@ -139,6 +139,17 @@ def main():
     t = t.replace(old2, "this result and the N-HiTS baseline (Section 5.8) are not part of the seven-method main benchmark.")
     set_text(p, t)
 
+    # 00. title (option 1, chosen 16/10/2026)
+    old_title = ("From Forecasts to Decisions: Benchmarking Probabilistic Demand Forecasts for Retail Replenishment and "
+                 "Liquidation Across Settings and Periods")
+    new_title = ("Beyond Forecast Accuracy: Comparing Probabilistic Demand Forecasts by the Inventory They Require across "
+                 "Retail Settings and Periods")
+    set_text(d.paragraphs[0], new_title)
+    p = find(d, "ACM Reference Format:")
+    assert old_title in p.text
+    set_text(p, p.text.replace(old_title, new_title))
+    d.core_properties.title = new_title
+
     # 0. authors (order as given by the first author)
     set_text(find(d, "[AUTHOR NAMES TO BE ADDED]"), "Bùi Anh Duy, Khổng Trần Gia Huy, Nguyễn Thị Cẩm Hương, Trương Long")
     set_text(find(d, "[Affiliation, city, country, e-mail"),
