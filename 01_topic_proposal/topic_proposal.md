@@ -13,11 +13,13 @@
 
 English title:
 
-**From Forecasts to Decisions: Benchmarking Probabilistic Demand Forecasts for Replenishment and Liquidation on Two Public Retail Datasets (M5 and VN1)**
+**Beyond Forecast Accuracy: Comparing Probabilistic Demand Forecasts by the Inventory They Require across Retail Settings and Periods**
+
+(Đổi tên ngày 16/10/2026; tên cũ: *From Forecasts to Decisions: Benchmarking Probabilistic Demand Forecasts for Replenishment and Liquidation on Two Public Retail Datasets (M5 and VN1)*. Proposal cuộc thi NCKH FA26: `NCKH_FA26_Proposal.docx`.)
 
 Vietnamese title:
 
-**Từ dự báo đến quyết định: Đánh giá các phương pháp dự báo nhu cầu xác suất cho quyết định nhập hàng và thanh lý trên hai bộ dữ liệu bán lẻ công khai (M5 và VN1)**
+**Vượt ra ngoài độ chính xác dự báo: So sánh các phương pháp dự báo nhu cầu xác suất theo lượng tồn kho cần thiết trên nhiều bối cảnh bán lẻ và giai đoạn**
 
 ## 3. Application Domain
 
