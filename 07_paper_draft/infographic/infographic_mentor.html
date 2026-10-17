@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beyond Forecast Accuracy – Infographic</title>
+<style>
+  :root {
+    --surface-0: #f4f3ef;
+    --surface-1: #fcfcfb;
+    --text-primary: #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted: #77756f;
+    --rule: #dcdad3;
+    --accent: #2a78d6;      /* categorical slot 1 (blue) */
+    --accent-2: #eb6834;    /* slot 2 (orange) */
+    --accent-3: #1baf7a;    /* slot 3 (aqua) */
+    --bar: #2a78d6;
+    --bar-hl: #1d5aa6;
+    --warn-bg: #fff4e5;
+    --warn-ink: #7a4b00;
+  }
+  @page { size: 1120px 1860px; margin: 0; }
+  @media print { body { background: #fcfcfb; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--surface-0); color: var(--text-primary);
+         font: 14px/1.45 "Segoe UI", "Helvetica Neue", Arial, sans-serif; }
+  .page { width: 1120px; margin: 0 auto; padding: 28px 32px 24px; background: var(--surface-1); }
+  header { border-bottom: 3px solid var(--accent); padding-bottom: 14px; margin-bottom: 18px; }
+  .kicker { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  h1 { font-size: 26px; line-height: 1.2; margin: 6px 0 6px; }
+  .sub { color: var(--text-secondary); font-size: 13px; }
+  .question { margin-top: 10px; font-size: 16px; }
+  .question b { color: var(--accent); }
+  h2 { font-size: 15px; margin: 0 0 8px; display: flex; align-items: center; gap: 8px; }
+  h2 .n { display: inline-flex; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff;
+          align-items: center; justify-content: center; font-size: 13px; flex: none; }
+  .grid { display: grid; gap: 16px; }
+  .g2 { grid-template-columns: 1fr 1fr; }
+  .g3 { grid-template-columns: 1fr 1fr 1fr; }
+  .card { border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; background: #fff; }
+  .muted { color: var(--text-muted); }
+  .small { font-size: 12.5px; }
+  ul { margin: 4px 0 0 18px; padding: 0; }
+  li { margin: 2px 0; }
+  section { margin-bottom: 16px; }
+  /* datasets */
+  .ds { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ds .card { padding: 12px 14px; }
+  .ds h3 { margin: 0 0 4px; font-size: 15px; }
+  .stat { display: flex; justify-content: space-between; border-top: 1px dashed var(--rule); padding: 3px 0; font-size: 13px; }
+  .stat b { font-variant-numeric: tabular-nums; }
+  /* pipeline */
+  .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; align-items: stretch; }
+  .step { position: relative; background: #eef4fc; border: 1px solid #c9dcf3; border-radius: 10px; padding: 10px 12px; margin-right: 18px; }
+  .step:last-child { margin-right: 0; }
+  .step:not(:last-child)::after { content: ""; position: absolute; right: -15px; top: 50%; transform: translateY(-50%);
+          border-left: 11px solid var(--accent); border-top: 8px solid transparent; border-bottom: 8px solid transparent; }
+  .step .t { font-weight: 700; font-size: 13.5px; margin-bottom: 4px; }
+  .step .d { font-size: 12.3px; color: var(--text-secondary); }
+  .loopnote { margin-top: 8px; font-size: 12.5px; background: #f6f5f1; border-radius: 8px; padding: 6px 10px; color: var(--text-secondary); }
+  /* methods table */
+  table { width: 100%; border-collapse: collapse; font-size: 12.8px; }
+  th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { color: var(--text-secondary); font-weight: 600; font-size: 12px; }
+  td.code { font-weight: 700; white-space: nowrap; }
+  tr.hl td { background: #eef4fc; }
+  .tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 10px; border: 1px solid var(--rule); color: var(--text-secondary); }
+  /* why equal fill */
+  .why { display: grid; grid-template-columns: 1.1fr 1fr; gap: 14px; align-items: center; }
+  .formula { font-family: "Cambria Math", Cambria, Georgia, serif; font-size: 15px; background: #f6f5f1; border-radius: 8px; padding: 8px 12px; margin: 6px 0; }
+  /* findings */
+  .find { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .find .card { padding: 12px 14px; }
+  .big { font-size: 28px; font-weight: 800; line-height: 1.05; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .find .lab { font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; }
+  /* bar chart */
+  .chart { display: grid; grid-template-columns: 70px 1fr 56px; row-gap: 7px; column-gap: 10px; align-items: center; font-size: 13px; }
+  .chart .name { text-align: right; color: var(--text-primary); }
+  .track { height: 16px; position: relative; }
+  .bar { height: 16px; background: var(--bar); border-radius: 0 4px 4px 0; }
+  .bar.hl { background: var(--bar-hl); }
+  .chart .val { font-variant-numeric: tabular-nums; color: var(--text-primary); }
+  .axis { grid-column: 2; display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--rule); padding-top: 2px; }
+  /* robustness */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { border: 1px solid var(--rule); border-radius: 8px; padding: 7px 10px; font-size: 12.5px; background: #fff; flex: 1 1 30%; }
+  .chip b { display: block; font-size: 13px; }
+  .warn { background: var(--warn-bg); border: 1px solid #f1d39b; color: var(--warn-ink); }
+  footer { margin-top: 14px; border-top: 1px solid var(--rule); padding-top: 10px; display: flex; justify-content: space-between; font-size: 12px; color: var(--text-secondary); }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <div class="kicker">Tóm tắt nghiên cứu · ICIIT 2027 &amp; NCKH FA26</div>
+  <h1>Beyond Forecast Accuracy: Comparing Probabilistic Demand Forecasts by the Inventory They Require across Retail Settings and Periods</h1>
+  <div class="sub">Bùi Anh Duy, Khổng Trần Gia Huy, Nguyễn Thị Cẩm Hương, Trương Long · FPT University HCMC · Code: github.com/anhduyBA/forecast-to-decision-benchmark</div>
+  <div class="question">Câu hỏi: <b>phương pháp dự báo nào cần ít tồn kho nhất để đạt cùng một mức phục vụ</b>, và câu trả lời có giữ nguyên khi đổi loại hình bán lẻ và giai đoạn không?</div>
+</header>
+
+<section class="grid g2">
+  <div class="card">
+    <h2><span class="n">1</span>Vấn đề</h2>
+    <div class="small">Các benchmark (M5, VN1) xếp hạng mô hình theo <b>sai số dự báo</b>, nhưng doanh nghiệp dùng dự báo để <b>quyết định nhập bao nhiêu hàng</b>. Mô hình sai số thấp nhất chưa chắc giữ ít hàng nhất.</div>
+    <ul class="small">
+      <li>Nghiên cứu trước thường chỉ dùng <b>một phần chuỗi</b> (chuỗi bán chạy, chuỗi đủ dài).</li>
+      <li>Chỉ <b>một dataset, một giai đoạn kiểm thử</b> → không biết kết luận có chuyển được không.</li>
+      <li>Dữ liệu công khai <b>không có chi phí</b> → đánh giá bằng tiền phải giả định.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2><span class="n">2</span>Dữ liệu: hai bối cảnh bán lẻ khác nhau</h2>
+    <div class="ds">
+      <div class="card">
+        <h3>M5 – cửa hàng (Walmart)</h3>
+        <div class="stat"><span>Chuỗi sản phẩm × cửa hàng</span><b>30.490</b></div>
+        <div class="stat"><span>Số tuần</span><b>277</b></div>
+        <div class="stat"><span>Tuần không bán</span><b>24,4%</b></div>
+      </div>
+      <div class="card">
+        <h3>VN1 – thương mại điện tử</h3>
+        <div class="stat"><span>Chuỗi nhà bán × kho × SP</span><b>15.053</b></div>
+        <div class="stat"><span>Số tuần</span><b>196</b></div>
+        <div class="stat"><span>Tuần không bán</span><b>49,1%</b></div>
+      </div>
+    </div>
+    <div class="small muted" style="margin-top:6px">Cùng một quy trình xử lý; giữ <b>mọi chuỗi đủ điều kiện</b>. Một bộ phân loại tách được hai dataset với AUC 0,91 → hai bối cảnh thật sự khác nhau.</div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">3</span>Quy trình: từ dự báo đến quyết định tồn kho</h2>
+  <div class="flow">
+    <div class="step"><div class="t">① Dữ liệu tuần</div><div class="d">Gộp doanh số theo tuần; chia 26 tuần cuối làm giai đoạn kiểm thử.</div></div>
+    <div class="step"><div class="t">② Dự báo phân vị</div><div class="d">Mỗi tuần, dự báo phân vị 0,5–0,99 của <b>tổng nhu cầu h tuần tới</b> (h = 3), trực tiếp, không cộng từng tuần.</div></div>
+    <div class="step"><div class="t">③ Đặt hàng</div><div class="d">Chính sách order-up-to: đặt lên mức <b>S = phân vị τ</b> của nhu cầu trong lead time + 1 tuần; hết hàng thì mất doanh số.</div></div>
+    <div class="step"><div class="t">④ Đường đánh đổi</div><div class="d">Mô phỏng với τ = 0,5 → 0,99 → mỗi mô hình có một đường <b>tồn kho ↔ fill rate</b>.</div></div>
+    <div class="step"><div class="t">⑤ So sánh công bằng</div><div class="d">Đọc <b>tồn kho cần để đạt cùng fill rate</b> (0,90–0,98), khoảng tin cậy bootstrap, regret, góc nhìn chi phí.</div></div>
+  </div>
+  <div class="loopnote">Lặp lại trên <b>3 cửa sổ kiểm thử 26 tuần</b> (huấn luyện lại mô hình mỗi 13 tuần) · lead time 1, 2, 4 tuần · 4 cấu hình siêu tham số · chạy hoàn toàn trên CPU laptop.</div>
+</section>
+
+<section class="grid" style="grid-template-columns: 1.35fr 1fr;">
+  <div class="card">
+    <h2><span class="n">4</span>Các phương pháp được so sánh</h2>
+    <table>
+      <tr><th>Mã</th><th>Thuật toán</th><th>Loại</th></tr>
+      <tr><td class="code">EMP</td><td>Phân vị thực nghiệm của tổng h tuần trong 104 tuần trước</td><td><span class="tag">thống kê</span></td></tr>
+      <tr><td class="code">ETS</td><td>San mũ đơn + phân phối chuẩn</td><td><span class="tag">thống kê</span></td></tr>
+      <tr><td class="code">TSB-NB</td><td>TSB (xác suất có bán × lượng bán) + phân phối nhị thức âm</td><td><span class="tag">thống kê</span></td></tr>
+      <tr><td class="code">LGB-T</td><td>LightGBM dự báo điểm (Tweedie) + tồn kho an toàn chuẩn</td><td><span class="tag">ML toàn cục</span></td></tr>
+      <tr><td class="code">LGB-C</td><td>Cùng mô hình điểm + phân vị conformal theo nhóm nhu cầu</td><td><span class="tag">ML toàn cục</span></td></tr>
+      <tr><td class="code">HGB-Q</td><td>Histogram gradient boosting, loss phân vị (kiểm chứng thư viện)</td><td><span class="tag">ML toàn cục</span></td></tr>
+      <tr class="hl"><td class="code">LGB-Q</td><td>LightGBM hồi quy phân vị, một mô hình cho mỗi phân vị (mô hình chính)</td><td><span class="tag">ML toàn cục</span></td></tr>
+      <tr class="hl"><td class="code">C2</td><td><b>Trung bình phân vị của LGB-Q và TSB-NB</b> (trọng số 0,5 – 0,5)</td><td><span class="tag">tổ hợp</span></td></tr>
+      <tr><td class="code">N-HiTS</td><td>Mạng nơ-ron toàn cục, loss đa phân vị (baseline bổ sung)</td><td><span class="tag">deep learning</span></td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h2><span class="n">5</span>Vì sao so sánh ở cùng fill rate?</h2>
+    <div class="small">Cùng đặt hàng ở τ = 0,90, các mô hình đạt fill rate thực tế khác nhau: <b>0,935 → 0,967</b> trên M5 (do mỗi mô hình hiệu chỉnh phân vị khác nhau). So sánh ở cùng τ sẽ thiên vị mô hình phủ thiếu.</div>
+    <div class="formula">Fill rate = lượng bán được ÷ nhu cầu</div>
+    <div class="small">→ Bài so sánh <b>lượng tồn kho (tuần nhu cầu) cần để đạt cùng fill rate thực tế</b>, nội suy trên đường đánh đổi, không cần giả định chi phí.</div>
+    <div class="formula">Regret = tồn kho dư so với phương pháp tốt nhất trong mỗi lần chạy</div>
+    <div class="small muted">Thanh lý: tỷ số hòa vốn s* = [ΔO − ΔE + h·ΔI − (1+m)·ΔS] / Q (giá thanh lý tối thiểu / giá vốn).</div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">6</span>Kết quả chính</h2>
+  <div class="find">
+    <div class="card"><div class="big">3–11%</div><div class="lab"><b>M5:</b> LGB-Q cần ít tồn kho hơn LGB-T, LGB-C, TSB-NB, ETS (fill 0,94) ở <b>cả 3 cửa sổ</b>, mọi lead time và 4 cấu hình siêu tham số.</div></div>
+    <div class="card"><div class="big">Đổi theo kỳ</div><div class="lab"><b>VN1:</b> phương pháp tốt nhất thay đổi (LGB-Q → TSB-NB → LGB-Q). TSB-NB tiết kiệm 13–16% với chuỗi ổn định; chỉ LGB-Q theo kịp chuỗi tăng mạnh.</div></div>
+    <div class="card"><div class="big">Không giúp</div><div class="lab">Chia nhóm ADI–CV² hay phân cụm không giám sát (Gaussian mixture) <b>không chọn được</b> phương pháp tốt hơn dùng một phương pháp.</div></div>
+    <div class="card"><div class="big">6–11%</div><div class="lab"><b>C2</b> cần ít tồn kho hơn LGB-Q trên VN1 (fill 0,92) ở cả 3 cửa sổ; trên M5 lệch ≤ 1,5%.</div></div>
+  </div>
+</section>
+
+<section class="grid" style="grid-template-columns: 1fr 1fr;">
+  <div class="card">
+    <h2><span class="n">7</span>Regret lớn nhất qua 6 lần chạy (2 dataset × 3 cửa sổ)</h2>
+    <div class="small muted" style="margin-bottom:8px">% tồn kho dư so với phương pháp tốt nhất · thấp hơn là an toàn hơn</div>
+    <div class="chart">
+      <div class="name"><b>C2</b></div><div class="track"><div class="bar hl" style="width:4.3%"></div></div><div class="val"><b>0,9%</b></div>
+      <div class="name">LGB-Q</div><div class="track"><div class="bar" style="width:45.4%"></div></div><div class="val">9,4%</div>
+      <div class="name">LGB-T</div><div class="track"><div class="bar" style="width:45.9%"></div></div><div class="val">9,5%</div>
+      <div class="name">HGB-Q</div><div class="track"><div class="bar" style="width:55.1%"></div></div><div class="val">11,4%</div>
+      <div class="name">TSB-NB</div><div class="track"><div class="bar" style="width:100%"></div></div><div class="val">20,7%</div>
+      <div></div><div class="axis"><span>0%</span><span>20,7%</span></div><div></div>
+    </div>
+    <div class="small" style="margin-top:8px">Mở rộng sang lead time 1, 2, 4 tuần (18 lần chạy): C2 <b>2,0%</b> so với LGB-Q 12,6%. Khi mất doanh số rất đắt (&gt; ~200 tuần chi phí giữ hàng), LGB-Q tốt hơn.</div>
+  </div>
+  <div class="card">
+    <h2><span class="n">8</span>Kiểm tra độ vững</h2>
+    <div class="chips">
+      <div class="chip"><b>3 cửa sổ kiểm thử</b>tách kết luận ổn định khỏi kết luận theo kỳ</div>
+      <div class="chip"><b>Lead time 1/2/4 tuần</b>kết luận M5 giữ ở cả 9 tổ hợp</div>
+      <div class="chip"><b>4 cấu hình LightGBM</b>M5 giữ 4/4; VN1 giữ 3/4</div>
+      <div class="chip"><b>N-HiTS (deep learning)</b>hiệu chỉnh tốt, không dẫn đầu lần nào</div>
+      <div class="chip"><b>Khác biệt dataset</b>cân lại thành phần, bỏ giá, chỉ dùng đặc trưng chung: thay đổi &lt; 1%</div>
+      <div class="chip"><b>Thanh lý</b>quy tắc phân vị mất ≤ 0,02 điểm % fill; chưa có lợi kinh tế trong 26 tuần</div>
+    </div>
+  </div>
+</section>
+
+<section class="grid g2">
+  <div class="card">
+    <h2><span class="n">9</span>Đóng góp</h2>
+    <ul class="small">
+      <li>Benchmark tái lập được, đánh giá dự báo <b>bằng quyết định tồn kho</b>, trên 2 bối cảnh bán lẻ và 3 giai đoạn, code công khai.</li>
+      <li>Cách so sánh <b>ở cùng fill rate thực tế</b>, không cần giả định chi phí; bổ sung regret và góc nhìn chi phí.</li>
+      <li>Phát hiện: trên thương mại điện tử, phương pháp tốt nhất <b>phụ thuộc biến động nhu cầu</b>, và phân nhóm theo lịch sử không lường trước được.</li>
+      <li>Một phương án đơn giản và an toàn: <b>tổ hợp C2</b>.</li>
+    </ul>
+  </div>
+  <div class="card warn">
+    <h2><span class="n" style="background:#b26b00">!</span>Giới hạn &amp; bước tiếp theo</h2>
+    <ul class="small">
+      <li><b>C2 được chọn sau khi xem kết quả</b> (post hoc) → cần kiểm chứng trên giai đoạn và dữ liệu mới.</li>
+      <li>Doanh số thay cho nhu cầu: tuần hết hàng không quan sát được (<b>censored demand</b>).</li>
+      <li>Kết quả thanh lý dựa trên <b>chi phí giả định</b>, không phải lợi nhuận thực.</li>
+      <li>Khoảng tin cậy lấy mẫu theo chuỗi, không theo thời gian; chỉ có 3 cửa sổ.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <span>Hạn: ICIIT 2027 nộp toàn văn 30/10/2026 · NCKH FA26: Proposal 20/10, toàn văn 28/11–07/12, chung kết 20/12/2026</span>
+  <span>Số liệu từ bài báo (bản rev6) và repo công khai</span>
+</footer>
+
+</div>
+</body>
+</html>
