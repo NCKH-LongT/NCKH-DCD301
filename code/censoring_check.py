@@ -20,7 +20,7 @@ Reported for every dataset × test window (main, w26, w52), for the history befo
                         test period, as a share of recorded sales (a rough size of the censoring)
 Series selection is the one of run_pipeline.py (≥ 13 weeks of history before the test period, at least one sale).
 
-Writes code/outputs/censoring_check.csv and censoring_check.md.
+Writes code/outputs/censoring/censoring_check.csv and censoring_check.md.
 
 Usage:
     python code/censoring_check.py
@@ -169,10 +169,11 @@ def main():
         for o in (int(x) for x in a.offsets.split(",")):
             rows += run(d, o)
     df = pd.DataFrame(rows)
-    os.makedirs(config.OUTPUTS, exist_ok=True)
-    df.to_csv(os.path.join(config.OUTPUTS, "censoring_check.csv"), index=False)
-    write_md(df, os.path.join(config.OUTPUTS, "censoring_check.md"))
-    print("written", os.path.join(config.OUTPUTS, "censoring_check.md"))
+    out = os.path.join(config.OUTPUTS, "censoring")
+    os.makedirs(out, exist_ok=True)
+    df.to_csv(os.path.join(out, "censoring_check.csv"), index=False)
+    write_md(df, os.path.join(out, "censoring_check.md"))
+    print("written", os.path.join(out, "censoring_check.md"))
 
 
 if __name__ == "__main__":
