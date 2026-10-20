@@ -1,0 +1,61 @@
+VN1: 15,053 series x 170 weeks; test weeks 2023-04-10 .. 2023-10-02; evaluated series 11,442
+  classes: {'all': 11442, 'smooth': 2265, 'erratic': 1629, 'intermittent': 5258, 'lumpy': 2290}
+  forecasting chronos2, h=3 ...
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 3202.58it/s]
+      origin 1/26 (182s)
+      origin 2/26 (346s)
+      origin 3/26 (485s)
+      origin 4/26 (639s)
+      origin 5/26 (744s)
+      origin 6/26 (807s)
+      origin 7/26 (869s)
+      origin 8/26 (931s)
+      origin 9/26 (993s)
+      origin 10/26 (1055s)
+      origin 11/26 (1122s)
+      origin 12/26 (1196s)
+      origin 13/26 (1249s)
+      origin 14/26 (1303s)
+      origin 15/26 (1357s)
+      origin 16/26 (1411s)
+      origin 17/26 (1465s)
+      origin 18/26 (1519s)
+      origin 19/26 (1573s)
+      origin 20/26 (1627s)
+      origin 21/26 (1690s)
+      origin 22/26 (1743s)
+      origin 23/26 (1799s)
+      origin 24/26 (1853s)
+      origin 25/26 (1908s)
+      origin 26/26 (1963s)
+    done in 2061s
+  forecasting chronos2, h=13 ...
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 7694.14it/s]
+      origin 1/26 (34s)
+      origin 2/26 (67s)
+      origin 3/26 (101s)
+      origin 4/26 (134s)
+      origin 5/26 (167s)
+      origin 6/26 (201s)
+      origin 7/26 (236s)
+      origin 8/26 (270s)
+      origin 9/26 (303s)
+      origin 10/26 (337s)
+      origin 11/26 (370s)
+      origin 12/26 (404s)
+      origin 13/26 (437s)
+      origin 14/26 (471s)
+      origin 15/26 (504s)
+      origin 16/26 (538s)
+      origin 17/26 (571s)
+      origin 18/26 (605s)
+      origin 19/26 (639s)
+      origin 20/26 (672s)
+      origin 21/26 (706s)
+      origin 22/26 (740s)
+      origin 23/26 (774s)
+      origin 24/26 (807s)
+      origin 25/26 (841s)
+      origin 26/26 (874s)
+    done in 875s
+finished in 2980s -> D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\VN1_w26_c2

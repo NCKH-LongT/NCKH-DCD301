@@ -1,0 +1,3 @@
+M5: 30,490 series x 251 weeks; test weeks 2015-05-23 .. 2015-11-14; evaluated series 29,917
+  classes: {'all': 29917, 'smooth': 15705, 'erratic': 1671, 'intermittent': 10360, 'lumpy': 2181}
+finished in 160s -> D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\M5_w26

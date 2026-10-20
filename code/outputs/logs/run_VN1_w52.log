@@ -1,0 +1,45 @@
+VN1: 15,053 series x 144 weeks; test weeks 2022-10-10 .. 2023-04-03; evaluated series 9,383
+  classes: {'all': 9383, 'smooth': 2094, 'erratic': 1202, 'intermittent': 4278, 'lumpy': 1809}
+  forecasting hgb_quantile, h=13 ...
+    block cutoff 118: train 300,000 rows, predict 121,979
+      q=0.5: 283 iterations (23s)
+      q=0.8: 300 iterations (48s)
+      q=0.9: 300 iterations (73s)
+      q=0.95: 300 iterations (99s)
+      q=0.99: 228 iterations (118s)
+    block cutoff 131: train 300,000 rows, predict 121,979
+      q=0.5: 300 iterations (30s)
+      q=0.8: 300 iterations (55s)
+      q=0.9: 300 iterations (80s)
+      q=0.95: 299 iterations (91s)
+      q=0.99: 300 iterations (100s)
+    done in 220s
+  forecasting lgb_quantile, h=3 ...
+    block cutoff 118: train 505,005 rows, valid 115,179, predict 121,979
+      q=0.5: 998 rounds (23s)
+      q=0.8: 194 rounds (29s)
+      q=0.9: 140 rounds (35s)
+      q=0.95: 145 rounds (41s)
+      q=0.99: 95 rounds (45s)
+    block cutoff 131: train 620,184 rows, valid 121,804, predict 121,979
+      q=0.5: 924 rounds (68s)
+      q=0.8: 892 rounds (134s)
+      q=0.9: 307 rounds (160s)
+      q=0.95: 174 rounds (178s)
+      q=0.99: 210 rounds (208s)
+    done in 253s
+  forecasting lgb_quantile, h=13 ...
+    block cutoff 118: train 422,807 rows, valid 107,869, predict 121,979
+      q=0.5: 699 rounds (101s)
+      q=0.8: 286 rounds (126s)
+      q=0.9: 270 rounds (146s)
+      q=0.95: 163 rounds (157s)
+      q=0.99: 85 rounds (164s)
+    block cutoff 131: train 530,676 rows, valid 117,482, predict 121,979
+      q=0.5: 588 rounds (46s)
+      q=0.8: 387 rounds (75s)
+      q=0.9: 104 rounds (88s)
+      q=0.95: 87 rounds (96s)
+      q=0.99: 141 rounds (113s)
+    done in 278s
+finished in 849s -> D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\VN1_w52

@@ -1,0 +1,19 @@
+fingerprint VN1 w0: 15053 series x 196 weeks, evaluated 13844, total sales of evaluated series 39234029
+Seed set to 2026
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+`Trainer.fit` stopped: `max_steps=1500` reached.
+VN1 w0 h3 cutoff 170: trained on 1,383,891 rows in 130s
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+    origins 170-182 predicted (161s in block)
+Seed set to 2026
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+`Trainer.fit` stopped: `max_steps=1500` reached.
+VN1 w0 h3 cutoff 183: trained on 1,563,863 rows in 134s
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+    origins 183-195 predicted (163s in block)
+done in 324s; series with missing forecasts: 0.00%
+written D:\Term 8\Research Capstone\NCKH-DCD301\data\cache\forecasts\VN1\nhits_h3.npz

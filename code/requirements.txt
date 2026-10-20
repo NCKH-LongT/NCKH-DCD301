@@ -1,0 +1,24 @@
+# Installed and used (versions pinned from the development machine, Python 3.12.10)
+pandas==2.3.3
+numpy==2.2.6
+scipy==1.17.1
+pyarrow==25.0.1
+python-calamine==0.8.2
+openpyxl==3.1.2
+tabulate==0.10.0
+matplotlib==3.10.9
+scikit-learn==1.8.0
+lightgbm==4.7.0
+
+# Chronos-2 foundation model (optional 9th method; weights: amazon/chronos-2 in data/models/chronos-2, not in git)
+chronos-forecasting==2.3.2
+torch==2.12.0
+transformers==5.12.0
+accelerate==1.15.0
+einops==0.8.2
+
+# Planned for the prototype app (pin after installation)
+duckdb
+fastapi
+uvicorn
+streamlit

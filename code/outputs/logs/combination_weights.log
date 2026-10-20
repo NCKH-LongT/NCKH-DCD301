@@ -1,0 +1,13 @@
+M5 third simulated
+M5 second simulated
+M5 main simulated
+M5 third → second learned w = 0.7
+M5 second → main learned w = 0.8
+M5 third + second → main learned w = 0.7
+VN1 third simulated
+VN1 second simulated
+VN1 main simulated
+VN1 third → second learned w = 0.6
+VN1 second → main learned w = 0.3
+VN1 third + second → main learned w = 0.6
+written code/outputs/combination_weights.md

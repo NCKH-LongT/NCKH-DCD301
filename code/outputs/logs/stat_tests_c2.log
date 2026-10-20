@@ -1,0 +1,79 @@
+D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\evaluate.py:13: RuntimeWarning: Mean of empty slice
+  return np.nanmean(np.abs(d), 1), np.nanmean(d ** 2, 1)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\evaluate.py:13: RuntimeWarning: Mean of empty slice
+  return np.nanmean(np.abs(d), 1), np.nanmean(d ** 2, 1)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+D:\Term 8\Research Capstone\NCKH-DCD301\code\stat_tests.py:44: RuntimeWarning: Mean of empty slice
+  sql = np.nanmean(pin, axis=(1, 2)) / (h * s_abs)
+M5: per-series metrics ...
+VN1: per-series metrics ...
+written code/outputs/stat_tests_c2.md

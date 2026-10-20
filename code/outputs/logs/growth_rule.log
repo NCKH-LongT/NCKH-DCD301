@@ -1,0 +1,13 @@
+M5 w52 loaded; growing share 0.21
+M5 w26 loaded; growing share 0.248
+M5 main loaded; growing share 0.206
+M5 w52 → w26 done: A = hgb_quantile B = lgb_quantile share = 0.3 AUC = 0.769
+M5 w26 → main done: A = lgb_quantile B = lgb_quantile share = 0.05 AUC = 0.81
+M5 w52 + w26 → main done: A = lgb_quantile B = lgb_quantile share = 0.05 AUC = 0.826
+VN1 w52 loaded; growing share 0.301
+VN1 w26 loaded; growing share 0.224
+VN1 main loaded; growing share 0.243
+VN1 w52 → w26 done: A = lgb_quantile B = tsb_nb share = 0.7 AUC = 0.659
+VN1 w26 → main done: A = lgb_conformal B = tsb_nb share = 0.05 AUC = 0.668
+VN1 w52 + w26 → main done: A = lgb_conformal B = tsb_nb share = 0.7 AUC = 0.702
+written code/outputs/growth_rule.md

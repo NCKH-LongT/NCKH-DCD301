@@ -1,0 +1,31 @@
+VN1: 15,053 series x 170 weeks; test weeks 2023-04-10 .. 2023-10-02; evaluated series 11,442
+  classes: {'all': 11442, 'smooth': 2265, 'erratic': 1629, 'intermittent': 5258, 'lumpy': 2290}
+  forecasting lgb_quantile, h=3 ...
+    block cutoff 144: train 708,824 rows, valid 138,352, predict 148,746
+      q=0.5: 998 rounds (25s)
+      q=0.8: 996 rounds (52s)
+      q=0.9: 801 rounds (70s)
+      q=0.95: 300 rounds (78s)
+      q=0.99: 116 rounds (82s)
+    block cutoff 157: train 794,514 rows, valid 148,445, predict 148,746
+      q=0.5: 999 rounds (62s)
+      q=0.8: 1000 rounds (90s)
+      q=0.9: 973 rounds (115s)
+      q=0.95: 250 rounds (122s)
+      q=0.99: 150 rounds (128s)
+    done in 210s
+  forecasting lgb_quantile, h=13 ...
+    block cutoff 144: train 643,462 rows, valid 127,567, predict 148,746
+      q=0.5: 1000 rounds (26s)
+      q=0.8: 989 rounds (50s)
+      q=0.9: 188 rounds (56s)
+      q=0.95: 336 rounds (65s)
+      q=0.99: 105 rounds (69s)
+    block cutoff 157: train 728,082 rows, valid 141,913, predict 148,746
+      q=0.5: 723 rounds (20s)
+      q=0.8: 392 rounds (29s)
+      q=0.9: 336 rounds (38s)
+      q=0.95: 226 rounds (44s)
+      q=0.99: 181 rounds (49s)
+    done in 119s
+finished in 370s -> D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\VN1_w26_nop

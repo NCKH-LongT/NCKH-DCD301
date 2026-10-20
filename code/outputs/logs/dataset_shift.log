@@ -1,0 +1,21 @@
+C:\Users\Anh Duy\AppData\Local\Programs\Python\Python312\Lib\site-packages\numpy\lib\_nanfunctions_impl.py:2019: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\series_features.py:63: RuntimeWarning: Mean of empty slice
+  price_cv = np.nanstd(Pm, 1) / np.nanmean(Pm, 1)
+C:\Users\Anh Duy\AppData\Local\Programs\Python\Python312\Lib\site-packages\numpy\lib\_nanfunctions_impl.py:2019: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\series_features.py:63: RuntimeWarning: Mean of empty slice
+  price_cv = np.nanstd(Pm, 1) / np.nanmean(Pm, 1)
+C:\Users\Anh Duy\AppData\Local\Programs\Python\Python312\Lib\site-packages\numpy\lib\_nanfunctions_impl.py:2019: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\series_features.py:63: RuntimeWarning: Mean of empty slice
+  price_cv = np.nanstd(Pm, 1) / np.nanmean(Pm, 1)
+C:\Users\Anh Duy\AppData\Local\Programs\Python\Python312\Lib\site-packages\numpy\lib\_nanfunctions_impl.py:2019: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\series_features.py:63: RuntimeWarning: Mean of empty slice
+  price_cv = np.nanstd(Pm, 1) / np.nanmean(Pm, 1)
+C:\Users\Anh Duy\AppData\Local\Programs\Python\Python312\Lib\site-packages\numpy\lib\_nanfunctions_impl.py:2019: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+D:\Term 8\Research Capstone\NCKH-DCD301\code\f2d\series_features.py:63: RuntimeWarning: Mean of empty slice
+  price_cv = np.nanstd(Pm, 1) / np.nanmean(Pm, 1)
+written code/outputs/dataset_shift.md

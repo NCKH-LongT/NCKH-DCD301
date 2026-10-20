@@ -1,0 +1,63 @@
+VN1: 15,053 series x 196 weeks; test weeks 2023-10-09 .. 2024-04-01; evaluated series 13,844
+  classes: {'all': 13844, 'smooth': 2596, 'erratic': 1901, 'intermittent': 6539, 'lumpy': 2808}
+  forecasting lgb_tweedie, h=2 ...
+    block cutoff 170: train 891,865 rows, valid 168,978, predict 179,972
+      tweedie: 70 rounds (5s)
+    block cutoff 183: train 988,636 rows, valid 179,864, predict 179,972
+      tweedie: 106 rounds (6s)
+    done in 11s
+  forecasting lgb_tweedie, h=3 ...
+    block cutoff 170: train 884,707 rows, valid 167,690, predict 179,972
+      tweedie: 58 rounds (4s)
+    block cutoff 183: train 980,800 rows, valid 179,682, predict 179,972
+      tweedie: 66 rounds (5s)
+    done in 10s
+  forecasting lgb_tweedie, h=5 ...
+    block cutoff 170: train 870,400 rows, valid 165,275, predict 179,972
+      tweedie: 59 rounds (4s)
+    block cutoff 183: train 965,370 rows, valid 178,948, predict 179,972
+      tweedie: 50 rounds (4s)
+    done in 9s
+  forecasting lgb_tweedie, h=8 ...
+    block cutoff 170: train 849,337 rows, valid 161,766, predict 179,972
+      tweedie: 71 rounds (4s)
+    block cutoff 183: train 942,796 rows, valid 176,957, predict 179,972
+      tweedie: 17 rounds (3s)
+    done in 8s
+  forecasting lgb_tweedie, h=13 ...
+    block cutoff 170: train 814,997 rows, valid 156,211, predict 179,972
+      tweedie: 74 rounds (4s)
+    block cutoff 183: train 906,219 rows, valid 171,602, predict 179,972
+      tweedie: 9 rounds (3s)
+    done in 7s
+  forecasting lgb_tweedie, h=26 ...
+    block cutoff 170: train 728,082 rows, valid 141,913, predict 179,972
+      tweedie: 138 rounds (5s)
+    block cutoff 183: train 814,997 rows, valid 156,211, predict 179,972
+      tweedie: 54 rounds (3s)
+    done in 9s
+  forecasting lgb_conformal, h=2 ...
+    block cutoff 170: conformal on 168,978 validation residuals (5s)
+    block cutoff 183: conformal on 179,864 validation residuals (6s)
+    done in 11s
+  forecasting lgb_conformal, h=3 ...
+    block cutoff 170: conformal on 167,690 validation residuals (4s)
+    block cutoff 183: conformal on 179,682 validation residuals (5s)
+    done in 9s
+  forecasting lgb_conformal, h=5 ...
+    block cutoff 170: conformal on 165,275 validation residuals (4s)
+    block cutoff 183: conformal on 178,948 validation residuals (4s)
+    done in 9s
+  forecasting lgb_conformal, h=8 ...
+    block cutoff 170: conformal on 161,766 validation residuals (4s)
+    block cutoff 183: conformal on 176,957 validation residuals (3s)
+    done in 8s
+  forecasting lgb_conformal, h=13 ...
+    block cutoff 170: conformal on 156,211 validation residuals (5s)
+    block cutoff 183: conformal on 171,602 validation residuals (3s)
+    done in 8s
+  forecasting lgb_conformal, h=26 ...
+    block cutoff 170: conformal on 141,913 validation residuals (5s)
+    block cutoff 183: conformal on 156,211 validation residuals (4s)
+    done in 9s
+finished in 238s -> D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\VN1

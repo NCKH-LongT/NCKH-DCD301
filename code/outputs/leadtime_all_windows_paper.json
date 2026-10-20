@@ -1,0 +1,6 @@
+{
+ "abstract": "; the advantage holds at lead times of one to four weeks",
+ "section": "Lead time. We repeated the equal-fill comparison with lead times of one and four weeks (forecast horizons 2 and 5) in all three windows, using the same methods except HGB-Q. On M5, in all nine combinations of window and lead time, LGB-Q requires significantly less inventory than LGB-T (2.5–7.4%), LGB-C (4.5–10.9%), TSB-NB (4.9–14.8%) and ETS (5.9–13.4%) at a fill rate of 0.94, and its regret never exceeds 0.2%. On VN1, C2 requires 3.2–10.9% less inventory than LGB-Q at a fill rate of 0.92 in all nine combinations, with the interval excluding zero in seven. Over the 18 runs, the maximum regret relative to the best of these six single methods is 2.0% for C2 and 12.6% for LGB-Q, the latter in the second VN1 window with a four-week lead time.",
+ "c2": "C2 also requires less inventory than LGB-Q on VN1 at a fill rate of 0.92 with lead times of one and four weeks in every window (Section 5.8).",
+ "limitation": "Lead times of one, two and four weeks were examined in every window, but without HGB-Q."
+}

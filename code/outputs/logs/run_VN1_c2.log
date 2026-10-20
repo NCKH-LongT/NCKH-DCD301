@@ -1,0 +1,61 @@
+VN1: 15,053 series x 196 weeks; test weeks 2023-10-09 .. 2024-04-01; evaluated series 13,844
+  classes: {'all': 13844, 'smooth': 2596, 'erratic': 1901, 'intermittent': 6539, 'lumpy': 2808}
+  forecasting chronos2, h=3 ...
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 2194.29it/s]
+      origin 1/26 (232s)
+      origin 2/26 (381s)
+      origin 3/26 (616s)
+      origin 4/26 (902s)
+      origin 5/26 (981s)
+      origin 6/26 (1112s)
+      origin 7/26 (1209s)
+      origin 8/26 (1284s)
+      origin 9/26 (1358s)
+      origin 10/26 (1431s)
+      origin 11/26 (1505s)
+      origin 12/26 (1579s)
+      origin 13/26 (1676s)
+      origin 14/26 (1749s)
+      origin 15/26 (1823s)
+      origin 16/26 (1896s)
+      origin 17/26 (1971s)
+      origin 18/26 (2045s)
+      origin 19/26 (2119s)
+      origin 20/26 (2195s)
+      origin 21/26 (2271s)
+      origin 22/26 (2350s)
+      origin 23/26 (2424s)
+      origin 24/26 (2498s)
+      origin 25/26 (2573s)
+      origin 26/26 (2648s)
+    done in 2692s
+  forecasting chronos2, h=13 ...
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 4125.00it/s]
+      origin 1/26 (45s)
+      origin 2/26 (90s)
+      origin 3/26 (136s)
+      origin 4/26 (182s)
+      origin 5/26 (227s)
+      origin 6/26 (272s)
+      origin 7/26 (317s)
+      origin 8/26 (363s)
+      origin 9/26 (408s)
+      origin 10/26 (454s)
+      origin 11/26 (499s)
+      origin 12/26 (544s)
+      origin 13/26 (590s)
+      origin 14/26 (635s)
+      origin 15/26 (681s)
+      origin 16/26 (726s)
+      origin 17/26 (772s)
+      origin 18/26 (818s)
+      origin 19/26 (864s)
+      origin 20/26 (913s)
+      origin 21/26 (1754s)
+      origin 22/26 (1912s)
+      origin 23/26 (2063s)
+      origin 24/26 (2187s)
+      origin 25/26 (2312s)
+      origin 26/26 (2359s)
+    done in 2360s
+finished in 5135s -> D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\VN1_c2

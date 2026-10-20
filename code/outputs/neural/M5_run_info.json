@@ -1,0 +1,24 @@
+{
+  "machine": {
+    "platform": "Windows-11-10.0.22631-SP0",
+    "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "cpu_count": 20,
+    "python": "3.13.7",
+    "ram_gb": 15.7,
+    "torch": "2.12.0+cpu"
+  },
+  "runs": {
+    "w0": {
+      "seconds": 447,
+      "finished": "2026-10-14 14:47"
+    },
+    "w26": {
+      "seconds": 432,
+      "finished": "2026-10-14 14:54"
+    },
+    "w52": {
+      "seconds": 424,
+      "finished": "2026-10-14 15:01"
+    }
+  }
+}

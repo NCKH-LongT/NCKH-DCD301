@@ -1,0 +1,40 @@
+1. Checks
+   branch FA26_BDT301_SE1926_G01, neuralforecast 3.3.0, VN1 data files OK
+2. Smoke test
+    fingerprint VN1 w0: 15053 series x 196 weeks, evaluated 13844, total sales of evaluated series 39234029
+    VN1 w0 h3 cutoff 170: trained on 28,361 rows in 4s
+        origins 170-182 predicted (5s in block)
+    VN1 w0 h3 cutoff 183: trained on 32,261 rows in 4s
+        origins 183-195 predicted (5s in block)
+    done in 10s; series with missing forecasts: 0.00%
+   smoke test OK in 25s
+3. Full run VN1 window offset 0 (started 13:29)
+    fingerprint VN1 w0: 15053 series x 196 weeks, evaluated 13844, total sales of evaluated series 39234029
+    VN1 w0 h3 cutoff 170: trained on 1,383,891 rows in 130s
+        origins 170-182 predicted (161s in block)
+    VN1 w0 h3 cutoff 183: trained on 1,563,863 rows in 134s
+        origins 183-195 predicted (163s in block)
+    done in 324s; series with missing forecasts: 0.00%
+    written D:\Term 8\Research Capstone\NCKH-DCD301\data\cache\forecasts\VN1\nhits_h3.npz
+4. Window offset 0 done in 5.7 min; committing
+3. Full run VN1 window offset 26 (started 13:35)
+    fingerprint VN1 w26: 15053 series x 170 weeks, evaluated 11442, total sales of evaluated series 31620787
+    VN1 w26 h3 cutoff 144: trained on 1,032,058 rows in 134s
+        origins 144-156 predicted (158s in block)
+    VN1 w26 h3 cutoff 157: trained on 1,180,804 rows in 125s
+        origins 157-169 predicted (148s in block)
+    done in 307s; series with missing forecasts: 0.00%
+    written D:\Term 8\Research Capstone\NCKH-DCD301\data\cache\forecasts\VN1_w26\nhits_h3.npz
+4. Window offset 26 done in 5.4 min; committing
+3. Full run VN1 window offset 52 (started 13:40)
+    fingerprint VN1 w52: 15053 series x 144 weeks, evaluated 9383, total sales of evaluated series 24659310
+    VN1 w52 h3 cutoff 118: trained on 741,988 rows in 121s
+        origins 118-130 predicted (142s in block)
+    VN1 w52 h3 cutoff 131: trained on 863,967 rows in 131s
+        origins 131-143 predicted (151s in block)
+    done in 293s; series with missing forecasts: 0.00%
+    written D:\Term 8\Research Capstone\NCKH-DCD301\data\cache\forecasts\VN1_w52\nhits_h3.npz
+4. Window offset 52 done in 5.1 min; committing
+
+Finished. Results are in code/outputs/neural/.
+exit_0

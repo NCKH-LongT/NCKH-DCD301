@@ -1,0 +1,195 @@
+"""B3 — unsupervised segmentation of the series of M5 and VN1 (one model for both datasets).
+
+Features: the shared pre-test features of f2d/series_features.py (zero_share is dropped: it is a function of ADI).
+Protocol (fixed before looking at any inventory result):
+    * fit on the EARLIEST test window (w52), on a balanced sample of M5 and VN1 series;
+    * apply the fitted preprocessing + model unchanged to the later windows (w26, main);
+    * candidates: K-means and Gaussian mixtures with k = 3…8, and HDBSCAN (structure check only);
+    * selection: bootstrap stability (mean adjusted Rand index between refits ≥ 0.70), every cluster ≥ 3% of
+      the series of both datasets, then the highest silhouette.
+Writes
+    data/cache/segments_<DATASET>_<window>.parquet   series_id, demand_class, segment
+    code/outputs/segmentation.md / .csv              selection table, profiles, comparison with ADI–CV²
+
+Usage:
+    python code/segment_series.py
+"""
+import os
+import sys
+import warnings
+
+import numpy as np
+import pandas as pd
+from sklearn.cluster import HDBSCAN, KMeans
+from sklearn.metrics import adjusted_rand_score, silhouette_score
+from sklearn.mixture import GaussianMixture
+
+warnings.filterwarnings("ignore")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from f2d import config  # noqa: E402
+
+FEATS = ["log_mean", "log_size", "adi", "cv2", "since_sale", "trend_26", "recent_ratio_13", "peak_ratio_52"]
+LOG = {"adi": np.log, "cv2": np.log1p, "since_sale": np.log1p}        # skewed features
+WINDOWS = ["w52", "w26", "main"]                                        # earliest first
+FIT_WINDOW = "w52"
+N_BAL = 9000
+KS = range(3, 9)
+N_BOOT = 10
+MIN_SHARE = 0.03
+MIN_ARI = 0.70
+SEED = config.SEED
+
+
+def load(d, w):
+    return pd.read_parquet(os.path.join(config.CACHE, f"series_features_{d}_{w}.parquet"))
+
+
+class Prep:
+    """log transforms, median imputation, robust scaling (median / IQR), clipping at ±4."""
+
+    def fit(self, f):
+        Z = self._raw(f)
+        self.med = np.nanmedian(Z, 0)
+        Z = np.where(np.isfinite(Z), Z, self.med)
+        q75, q25 = np.percentile(Z, [75, 25], 0)
+        self.iqr = np.where(q75 - q25 > 0, q75 - q25, 1.0)
+        return self
+
+    def _raw(self, f):
+        Z = f[FEATS].to_numpy(float).copy()
+        for c, fn in LOG.items():
+            j = FEATS.index(c)
+            with np.errstate(all="ignore"):
+                Z[:, j] = fn(Z[:, j])
+        return Z
+
+    def transform(self, f):
+        Z = self._raw(f)
+        Z = np.where(np.isfinite(Z), Z, self.med)
+        return np.clip((Z - self.med) / self.iqr, -4, 4)
+
+
+def make(kind, k, seed):
+    if kind == "kmeans":
+        return KMeans(k, n_init=10, random_state=seed)
+    return GaussianMixture(k, covariance_type="full", n_init=3, random_state=seed)
+
+
+def stability(kind, k, Z, rng):
+    """Mean ARI between models refitted on bootstrap samples, compared on the full fitting sample."""
+    labs = []
+    for b in range(N_BOOT):
+        idx = rng.choice(len(Z), len(Z), replace=True)
+        labs.append(make(kind, k, SEED + b).fit(Z[idx]).predict(Z))
+    return float(np.mean([adjusted_rand_score(labs[i], labs[j]) for i in range(N_BOOT) for j in range(i + 1, N_BOOT)]))
+
+
+def main():
+    rng = np.random.default_rng(SEED)
+    F = {(d, w): load(d, w) for d in ("M5", "VN1") for w in WINDOWS}
+    a, b = F["M5", FIT_WINDOW], F["VN1", FIT_WINDOW]
+    fit_df = pd.concat([a.iloc[rng.choice(len(a), min(N_BAL, len(a)), replace=False)],
+                        b.iloc[rng.choice(len(b), min(N_BAL, len(b)), replace=False)]], ignore_index=True)
+    prep = Prep().fit(fit_df)
+    Z = prep.transform(fit_df)
+    Zfull = {key: prep.transform(f) for key, f in F.items()}
+    sil_idx = rng.choice(len(Z), 6000, replace=False)
+
+    # ---- candidates
+    cand = []
+    for kind in ("kmeans", "gmm"):
+        for k in KS:
+            m = make(kind, k, SEED).fit(Z)
+            lab = m.predict(Z)
+            shares = {d: np.bincount(m.predict(Zfull[d, FIT_WINDOW]), minlength=k) / len(F[d, FIT_WINDOW]) for d in ("M5", "VN1")}
+            cand.append(dict(model=kind, k=k, silhouette=silhouette_score(Z[sil_idx], lab[sil_idx]),
+                             bic=m.bic(Z) if kind == "gmm" else np.nan, stability_ari=stability(kind, k, Z, rng),
+                             min_share_M5=shares["M5"].min(), min_share_VN1=shares["VN1"].min()))
+            print(cand[-1], flush=True)
+    cand = pd.DataFrame(cand)
+    cand["eligible"] = (cand.stability_ari >= MIN_ARI) & (cand.min_share_M5 >= MIN_SHARE) & (cand.min_share_VN1 >= MIN_SHARE)
+
+    # ---- HDBSCAN: structure check on the fitting sample
+    hd = HDBSCAN(min_cluster_size=int(0.03 * len(Z)), min_samples=20).fit(Z)
+    hd_k = int(hd.labels_.max() + 1)
+    hd_noise = float((hd.labels_ == -1).mean())
+
+    el = cand[cand.eligible]
+    lines = ["# B3 — Unsupervised segmentation of M5 and VN1 series (generated by code/segment_series.py)", "",
+             f"Features ({len(FEATS)}): " + ", ".join(FEATS) + ". Fitted on window " + FIT_WINDOW +
+             f" (balanced sample, {len(Z):,} series), applied unchanged to w26 and main.", "",
+             "## 1. Candidates", "",
+             f"Eligible = bootstrap stability (ARI) ≥ {MIN_ARI} and every cluster ≥ {int(100 * MIN_SHARE)}% of the series of both datasets.", "",
+             cand.round(3).to_markdown(index=False), "",
+             f"HDBSCAN (min cluster size 3% of the sample): {hd_k} clusters, {100 * hd_noise:.1f}% of the series labelled as noise.", ""]
+    if el.empty:
+        lines += ["**No candidate meets the criteria. The segmentation step stops here (negative result).**", ""]
+        with open(os.path.join(config.OUTPUTS, "segmentation.md"), "w", encoding="utf-8") as fh:
+            fh.write("\n".join(lines))
+        cand.to_csv(os.path.join(config.OUTPUTS, "segmentation.csv"), index=False)
+        print("no eligible candidate")
+        return
+    best = el.sort_values("silhouette", ascending=False).iloc[0]
+    kind, k = best.model, int(best.k)
+    model = make(kind, k, SEED).fit(Z)
+    # order segments by median ADI so that labels are readable (S1 = most regular demand)
+    lab_fit = model.predict(Z)
+    order = np.argsort([np.nanmedian(fit_df.adi.to_numpy()[lab_fit == c]) for c in range(k)])
+    remap = {int(c): i + 1 for i, c in enumerate(order)}
+    lines += [f"**Selected: {kind}, k = {k}** (highest silhouette among the eligible candidates).", ""]
+
+    seg = {}
+    for (d, w), f in F.items():
+        s = np.array([remap[int(c)] for c in model.predict(Zfull[d, w])])
+        seg[d, w] = s
+        f[["series_id", "demand_class"]].assign(segment=s).to_parquet(
+            os.path.join(config.CACHE, f"segments_{d}_{w}.parquet"), index=False)
+
+    # ---- profiles (pooled, fitting window) and shares
+    prof = []
+    for c in range(1, k + 1):
+        r = dict(segment=f"S{c}")
+        for d in ("M5", "VN1"):
+            for w in WINDOWS:
+                r[f"{d} {w} %"] = 100 * np.mean(seg[d, w] == c)
+        pool = pd.concat([F[d, FIT_WINDOW][seg[d, FIT_WINDOW] == c] for d in ("M5", "VN1")])
+        for c2 in FEATS:
+            r[c2] = np.nanmedian(pool[c2])
+        prof.append(r)
+    prof = pd.DataFrame(prof)
+    share_cols = [c for c in prof.columns if c.endswith("%")]
+    lines += ["## 2. Segment shares (% of evaluated series)", "", prof[["segment"] + share_cols].round(1).to_markdown(index=False), "",
+              "## 3. Segment profiles (median of the raw features, window " + FIT_WINDOW + ", both datasets pooled)", "",
+              prof[["segment"] + FEATS].round(2).to_markdown(index=False), "",
+              "log_mean / log_size = log(1 + mean weekly sales / mean positive sale); since_sale in weeks; trend_26 and "
+              "recent_ratio_13 are log ratios (0 = no change); peak_ratio_52 = log(largest week / mean positive sale, last 52 weeks).", ""]
+
+    # ---- comparison with ADI–CV²
+    lines += ["## 4. Relation to the ADI–CV² classes", ""]
+    rows = []
+    for d in ("M5", "VN1"):
+        for w in WINDOWS:
+            rows.append(dict(dataset=d, window=w, ARI_vs_ADI_CV2=adjusted_rand_score(F[d, w].demand_class, seg[d, w])))
+    lines += [pd.DataFrame(rows).round(3).to_markdown(index=False), ""]
+    for d in ("M5", "VN1"):
+        ct = pd.crosstab(F[d, "main"].demand_class, pd.Series([f"S{c}" for c in seg[d, "main"]], name="segment"), normalize="index")
+        lines += [f"{d}, main window: share of each ADI–CV² class falling in each segment (%)", "", (100 * ct).round(1).to_markdown(), ""]
+
+    # ---- persistence between consecutive windows (same series)
+    lines += ["## 5. Persistence: share of series that keep their label 26 weeks later", "",
+              "| dataset | from → to | series in both | same segment | same ADI–CV² class |", "|---|---|---|---|---|"]
+    for d in ("M5", "VN1"):
+        for w0, w1 in (("w52", "w26"), ("w26", "main")):
+            x = F[d, w0][["series_id", "demand_class"]].assign(seg=seg[d, w0]).merge(
+                F[d, w1][["series_id", "demand_class"]].assign(seg=seg[d, w1]), on="series_id", suffixes=("_0", "_1"))
+            lines.append(f"| {d} | {w0} → {w1} | {len(x):,} | {100 * np.mean(x.seg_0 == x.seg_1):.1f}% | "
+                         f"{100 * np.mean(x.demand_class_0 == x.demand_class_1):.1f}% |")
+    lines.append("")
+    with open(os.path.join(config.OUTPUTS, "segmentation.md"), "w", encoding="utf-8") as fh:
+        fh.write("\n".join(lines))
+    cand.to_csv(os.path.join(config.OUTPUTS, "segmentation.csv"), index=False)
+    print("written code/outputs/segmentation.md")
+
+
+if __name__ == "__main__":
+    main()

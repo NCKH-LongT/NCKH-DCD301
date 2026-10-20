@@ -1,0 +1,131 @@
+M5: 30,490 series x 277 weeks; test weeks 2015-11-21 .. 2016-05-14; evaluated series 30,381
+  classes: {'all': 30381, 'smooth': 16102, 'erratic': 1777, 'intermittent': 10285, 'lumpy': 2217}
+  forecasting empirical, h=2 ...
+    done in 30s
+  forecasting empirical, h=5 ...
+    done in 34s
+  forecasting empirical, h=8 ...
+    done in 34s
+  forecasting empirical, h=26 ...
+    done in 31s
+  forecasting tsb, h=2 ...
+    done in 21s
+  forecasting tsb, h=5 ...
+    done in 20s
+  forecasting tsb, h=8 ...
+    done in 19s
+  forecasting tsb, h=26 ...
+    done in 19s
+  forecasting tsb_nb, h=2 ...
+    done in 44s
+  forecasting tsb_nb, h=5 ...
+    done in 40s
+  forecasting tsb_nb, h=8 ...
+    done in 37s
+  forecasting tsb_nb, h=26 ...
+    done in 31s
+  forecasting ets, h=2 ...
+    done in 4s
+  forecasting ets, h=5 ...
+    done in 4s
+  forecasting ets, h=8 ...
+    done in 4s
+  forecasting ets, h=26 ...
+    done in 4s
+  forecasting lgb_tweedie, h=2 ...
+    block cutoff 251: train 2,865,023 rows, valid 394,115, predict 394,953
+      tweedie: 97 rounds (22s)
+    block cutoff 264: train 2,940,751 rows, valid 394,945, predict 394,953
+      tweedie: 235 rounds (32s)
+    done in 54s
+  forecasting lgb_tweedie, h=5 ...
+    block cutoff 251: train 2,846,407 rows, valid 393,275, predict 394,953
+      tweedie: 78 rounds (17s)
+    block cutoff 264: train 2,924,317 rows, valid 394,903, predict 394,953
+      tweedie: 253 rounds (31s)
+    done in 49s
+  forecasting lgb_tweedie, h=8 ...
+    block cutoff 251: train 2,826,819 rows, valid 392,400, predict 394,953
+      tweedie: 41 rounds (13s)
+    block cutoff 264: train 2,907,199 rows, valid 394,802, predict 394,953
+      tweedie: 234 rounds (31s)
+    done in 45s
+  forecasting lgb_tweedie, h=26 ...
+    block cutoff 251: train 2,694,465 rows, valid 385,957, predict 394,953
+      tweedie: 45 rounds (13s)
+    block cutoff 264: train 2,792,695 rows, valid 390,555, predict 394,953
+      tweedie: 58 rounds (15s)
+    done in 28s
+  forecasting lgb_conformal, h=2 ...
+    block cutoff 251: conformal on 394,115 validation residuals (19s)
+    block cutoff 264: conformal on 394,945 validation residuals (31s)
+    done in 51s
+  forecasting lgb_conformal, h=5 ...
+    block cutoff 251: conformal on 393,275 validation residuals (15s)
+    block cutoff 264: conformal on 394,903 validation residuals (29s)
+    done in 45s
+  forecasting lgb_conformal, h=8 ...
+    block cutoff 251: conformal on 392,400 validation residuals (13s)
+    block cutoff 264: conformal on 394,802 validation residuals (27s)
+    done in 41s
+  forecasting lgb_conformal, h=26 ...
+    block cutoff 251: conformal on 385,957 validation residuals (12s)
+    block cutoff 264: conformal on 390,555 validation residuals (13s)
+    done in 25s
+  forecasting lgb_quantile, h=2 ...
+    block cutoff 251: train 2,865,023 rows, valid 394,115, predict 394,953
+      q=0.5: 293 rounds (40s)
+      q=0.8: 980 rounds (133s)
+      q=0.9: 991 rounds (227s)
+      q=0.95: 376 rounds (271s)
+      q=0.99: 177 rounds (296s)
+    block cutoff 264: train 2,940,751 rows, valid 394,945, predict 394,953
+      q=0.5: 211 rounds (31s)
+      q=0.8: 1000 rounds (132s)
+      q=0.9: 987 rounds (228s)
+      q=0.95: 621 rounds (293s)
+      q=0.99: 310 rounds (329s)
+    done in 625s
+  forecasting lgb_quantile, h=5 ...
+    block cutoff 251: train 2,846,407 rows, valid 393,275, predict 394,953
+      q=0.5: 1000 rounds (101s)
+      q=0.8: 1000 rounds (196s)
+      q=0.9: 360 rounds (239s)
+      q=0.95: 406 rounds (287s)
+      q=0.99: 260 rounds (319s)
+    block cutoff 264: train 2,924,317 rows, valid 394,903, predict 394,953
+      q=0.5: 995 rounds (97s)
+      q=0.8: 996 rounds (191s)
+      q=0.9: 523 rounds (246s)
+      q=0.95: 290 rounds (283s)
+      q=0.99: 327 rounds (322s)
+    done in 642s
+  forecasting lgb_quantile, h=8 ...
+    block cutoff 251: train 2,826,819 rows, valid 392,400, predict 394,953
+      q=0.5: 1000 rounds (100s)
+      q=0.8: 991 rounds (198s)
+      q=0.9: 340 rounds (239s)
+      q=0.95: 176 rounds (265s)
+      q=0.99: 223 rounds (293s)
+    block cutoff 264: train 2,907,199 rows, valid 394,802, predict 394,953
+      q=0.5: 1000 rounds (97s)
+      q=0.8: 890 rounds (185s)
+      q=0.9: 231 rounds (215s)
+      q=0.95: 282 rounds (250s)
+      q=0.99: 342 rounds (288s)
+    done in 582s
+  forecasting lgb_quantile, h=26 ...
+    block cutoff 251: train 2,694,465 rows, valid 385,957, predict 394,953
+      q=0.5: 1000 rounds (93s)
+      q=0.8: 297 rounds (129s)
+      q=0.9: 137 rounds (151s)
+      q=0.95: 112 rounds (168s)
+      q=0.99: 114 rounds (184s)
+    block cutoff 264: train 2,792,695 rows, valid 390,555, predict 394,953
+      q=0.5: 1000 rounds (94s)
+      q=0.8: 681 rounds (160s)
+      q=0.9: 185 rounds (185s)
+      q=0.95: 99 rounds (201s)
+      q=0.99: 69 rounds (212s)
+    done in 396s
+finished in 3176s -> D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\M5

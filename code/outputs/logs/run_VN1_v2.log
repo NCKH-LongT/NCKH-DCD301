@@ -1,0 +1,67 @@
+VN1: 15,053 series x 196 weeks; test weeks 2023-10-09 .. 2024-04-01; evaluated series 13,844
+  classes: {'all': 13844, 'smooth': 2596, 'erratic': 1901, 'intermittent': 6539, 'lumpy': 2808}
+  forecasting tsb_nb, h=2 ...
+    done in 31s
+  forecasting tsb_nb, h=3 ...
+    done in 30s
+  forecasting tsb_nb, h=5 ...
+    done in 28s
+  forecasting tsb_nb, h=8 ...
+    done in 28s
+  forecasting tsb_nb, h=13 ...
+    done in 27s
+  forecasting tsb_nb, h=26 ...
+    done in 27s
+  forecasting lgb_conformal, h=2 ...
+    block cutoff 170: conformal on 168,978 validation residuals (15s)
+    block cutoff 183: conformal on 179,864 validation residuals (16s)
+    done in 32s
+  forecasting lgb_conformal, h=3 ...
+    block cutoff 170: conformal on 167,690 validation residuals (17s)
+    block cutoff 183: conformal on 179,682 validation residuals (21s)
+    done in 39s
+  forecasting lgb_conformal, h=5 ...
+    block cutoff 170: conformal on 165,275 validation residuals (15s)
+    block cutoff 183: conformal on 178,948 validation residuals (27s)
+    done in 43s
+  forecasting lgb_conformal, h=8 ...
+    block cutoff 170: conformal on 161,766 validation residuals (19s)
+    block cutoff 183: conformal on 176,957 validation residuals (19s)
+    done in 38s
+  forecasting lgb_conformal, h=13 ...
+    block cutoff 170: conformal on 156,211 validation residuals (11s)
+    block cutoff 183: conformal on 171,602 validation residuals (27s)
+    done in 38s
+  forecasting lgb_conformal, h=26 ...
+    block cutoff 170: conformal on 141,913 validation residuals (10s)
+    block cutoff 183: conformal on 156,211 validation residuals (15s)
+    done in 25s
+  forecasting hgb_quantile, h=3 ...
+    block cutoff 170: train 300,000 rows, predict 179,972
+      q=0.5: 194 iterations (11s)
+      q=0.8: 300 iterations (22s)
+      q=0.9: 125 iterations (27s)
+      q=0.95: 248 iterations (37s)
+      q=0.99: 162 iterations (43s)
+    block cutoff 183: train 300,000 rows, predict 179,972
+      q=0.5: 229 iterations (10s)
+      q=0.8: 233 iterations (19s)
+      q=0.9: 300 iterations (29s)
+      q=0.95: 158 iterations (36s)
+      q=0.99: 126 iterations (41s)
+    done in 85s
+  forecasting hgb_quantile, h=13 ...
+    block cutoff 170: train 300,000 rows, predict 179,972
+      q=0.5: 262 iterations (11s)
+      q=0.8: 300 iterations (22s)
+      q=0.9: 211 iterations (30s)
+      q=0.95: 300 iterations (41s)
+      q=0.99: 141 iterations (46s)
+    block cutoff 183: train 300,000 rows, predict 179,972
+      q=0.5: 205 iterations (9s)
+      q=0.8: 300 iterations (20s)
+      q=0.9: 300 iterations (31s)
+      q=0.95: 300 iterations (42s)
+      q=0.99: 286 iterations (52s)
+    done in 99s
+finished in 667s -> D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\VN1

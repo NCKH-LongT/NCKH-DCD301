@@ -1,23 +1,80 @@
-# Research Questions (RQs) - Theme 5: Registers and Counters
+# Research Questions
 
-## RQ-05: Design of a Synchronous Mod-10 Counter Using D Flip-Flops and Invalid State Handling
+> Gap và đóng góp: `research_gap.md` (mục 2 và 4). `[DP]` = `code/outputs/data_profile.md`.
 
-- **Explanation:** This task requires designing a logic circuit that cyclically counts from 0 to 9, where all Flip-Flops share the same Clock signal (synchronous operation). Since 4 Flip-Flops are used (capable of representing up to 16 states from 0–15), the circuit must include a logic mechanism to handle the invalid states from 10 to 15. If the circuit accidentally enters one of these states due to noise or disturbances, it should not become stuck; instead, it must automatically return to a valid counting state.
+## 1. Main Research Question
+
+**How do probabilistic demand forecasting methods compare when their forecasts drive a common, transparent replenishment-and-liquidation policy in two public retail benchmarks with different settings (M5: a brick-and-mortar retailer; VN1: multi-vendor e-commerce), and how do the results differ across demand classes?**
+
+(Các phương pháp dự báo nhu cầu xác suất so với nhau thế nào khi dự báo của chúng điều khiển cùng một chính sách nhập hàng + thanh lý minh bạch, trên hai dataset bán lẻ công khai thuộc hai loại hình khác nhau, và kết quả khác nhau ra sao giữa các nhóm nhu cầu?)
+
+## 2. Sub Research Questions
+
+### RQ1 — Benchmark trên hai dataset
+
+**Under a common multi-period quantile-based replenishment policy, how do LightGBM quantile regression, the M5-winning LightGBM-Tweedie point approach with normal safety stock or with conformal calibration, a second gradient-boosting implementation (HistGradientBoosting quantile), TSB (Poisson and negative binomial), ETS and an empirical baseline compare in forecast accuracy and in cost-free inventory KPIs on M5 and VN1, and do their rankings hold across the two datasets?**
+
+Mục tiêu:
+
+- Đưa cả hai dataset về tần suất tuần: M5 có 30.490 chuỗi item × cửa hàng; VN1 có 15.053 chuỗi client × kho × sản phẩm [DP].
+- Dự báo phân vị tổng nhu cầu trong L + R tuần, đưa vào chính sách order-up-to giống nhau cho mọi phương pháp.
+- Đo:
+  - (a) dự báo: RMSSE, scaled quantile loss, độ phủ khoảng. **Không dùng MAPE** vì không xác định khi nhu cầu bằng 0 (bài 24, tr. 4).
+  - (b) tồn kho, không có đơn vị tiền: fill rate, mức phục vụ đạt được so với mục tiêu, tỷ lệ tuần hết hàng, tồn kho trung bình tính bằng số tuần nhu cầu.
+- Vẽ **đường đánh đổi tồn kho – fill rate** khi τ thay đổi; so sánh xếp hạng giữa hai dataset (tương quan hạng).
+
+Căn cứ: LightGBM được cả top 50 M5 Accuracy dùng (bài 02, tr. 1); lời giải hạng nhất M5 Uncertainty là LightGBM theo phân vị (bài 03, tr. 14). Ngược lại, bài 12 thấy LightGBM dạng distributional kém trên dữ liệu rời rạc (tr. 13, 19); vì vậy có thêm hai đối chứng ML (conformal, HistGradientBoosting). Mô hình sâu (TiDE, DeepAR) nằm ngoài phạm vi vì lý do chi phí tính toán (`04_proposed_system/ai_model_integration.md` mục 4). Gap 1, 5.
+
+### RQ2 — Theo nhóm nhu cầu
+
+**How does the relative forecasting and inventory performance of these methods vary across ADI–CV² demand classes (smooth, erratic, intermittent, lumpy), and are the class-level patterns consistent between M5 and VN1?**
+
+Mục tiêu:
+
+- Phân loại theo ADI–CV² với ngưỡng **ADI = 4/3, CV² = 0,5** (bài 01, tr. 7–8).
+- Phân bố nhóm hai dataset khác nhau rõ. Trên các chuỗi được đánh giá (tính trên giai đoạn huấn luyện, từ tuần bắt đầu của chuỗi): M5 có 53,0% smooth, 33,9% intermittent, 7,3% lumpy, 5,8% erratic; VN1 có 18,8% smooth, 47,2% intermittent, **20,3% lumpy**, 13,7% erratic (`code/outputs/<D>/summary.md`). Điều này cho phép kiểm tra kết luận theo nhóm có lặp lại không. (Tỷ lệ trong [DP] khác vì [DP] tính trên toàn lưới thời gian, kể cả các tuần trước khi sản phẩm bắt đầu bán.)
+- Xác định nhóm nào dự báo xác suất bằng ML có lợi rõ nhất, nhóm nào baseline thống kê (TSB) vẫn đủ tốt.
+
+Căn cứ: gap 2, 4.
+
+### RQ3 — Thanh lý
+
+**How much excess inventory does a quantile-based liquidation rule remove compared with no liquidation and with a fixed weeks-of-supply rule, at what cost in additional stockouts, and above which salvage-value ratio does liquidation become worthwhile for each demand class?**
+
+Mục tiêu:
+
+- Quy tắc: thanh lý phần tồn vượt Q_q của tổng nhu cầu trong H tuần tới.
+- Baseline: không thanh lý; thanh lý theo ngưỡng cố định (tồn > k tuần bán trung bình); thanh lý hàng tồn chết (không bán trong 13 hoặc 26 tuần).
+- Đo: số đơn vị và số tuần tồn kho được giảm; số tuần hết hàng tăng thêm.
+- **Ngưỡng giá thu hồi hòa vốn** s*: tỷ lệ giá thu hồi / giá vốn tối thiểu để thanh lý có lợi hơn việc giữ lại. Không chọn một con số cố định: s* được tính trên lưới chi phí lưu kho {10, 25, 40}%/năm × biên lợi nhuận gộp {30, 50, 100}%, kèm cận trên và cận dưới (`05_methodology/evaluation_metrics.md` mục 4).
+
+Căn cứ: gap 3. Giả định: không mô hình hóa phản ứng của nhu cầu khi giảm giá (`problem_statement.md`, mục 6).
+
+### RQ4 — Độ nhạy theo kịch bản
+
+**How sensitive are method rankings and replenishment/liquidation recommendations to the target service level, the lead time and the liquidation horizon?**
+
+Mục tiêu:
+
+- Lưới kịch bản: τ ∈ {0,5; 0,8; 0,9; 0,95; 0,99}, trong đó 0,8 / 0,9 / 0,95 (tương đương c_o = 1, c_u ∈ {4, 9, 19} như bài 11, tr. 16); L ∈ {1, 2, 4} tuần; H ∈ {8, 13, 26} tuần.
+- Kiểm tra độ ổn định qua nhiều mốc dự báo (rolling origin) và giữa hai dataset.
+- **Phạm vi đã chạy:** lưới τ cho cả hai dataset và cả 8 phương pháp; lưới L, H, q_L, k đầy đủ **chỉ cho VN1** (7 phương pháp; HistGradientBoosting chỉ ở horizon mặc định). M5 chưa chạy lưới L, H vì chi phí tính toán (`06_experiment_results/experimental_setup.md`).
+
+Căn cứ: cả hai dataset không có lead time hay chi phí thực, nên chúng được trình bày là **kịch bản**, không phải giả định về thực tế (`problem_statement.md`, mục 5).
+
+## 3. Liên kết RQ – gap – đóng góp
+
+| RQ | Gap (`research_gap.md`, mục 2) | Đóng góp (`research_gap.md`, mục 4) |
+|---|---|---|
+| RQ1 | 1, 5, 6 | 1, 2, 4 |
+| RQ2 | 2, 4, 5 | 3 |
+| RQ3 | 3 | 2, 4 |
+| RQ4 | 1, 7 | 4 |
+| (phụ lục: dataset Việt Nam) | — | 5 |
 
 ---
 
-## RQ5.1: Construct the State Transition Table for the Synchronous Mod-10 Counter
+**Ghi chú:**
 
-- **Explanation:** Describe the steps for listing the Present State (`Q3Q2Q1Q0`) and the Next State (`Q3+Q2+Q1+Q0+`) for decimal values 0 through 9. For the invalid states from 10–15, define their next states as well (commonly forced back to `0000`) in order to support the design of a self-correcting circuit.
-
----
-
-## RQ5.2: Use Karnaugh Maps (K-maps) to Derive the Excitation Equations for Each D Flip-Flop
-
-- **Explanation:** Explain how to use 4-variable Karnaugh Maps for each input `D3`, `D2`, `D1`, `D0`. Since, for a D Flip-Flop, the input equation is identical to the next-state equation (`D = Q+`), the K-map method helps simplify these logic expressions into the most optimized combination of AND, OR, and NOT gates.
-
----
-
-## RQ5.3: Self-starting Mechanism for Recovery from Invalid States
-
-- **Explanation:** Explain the principle of the “self-starting” mechanism. When the circuit is affected by electrical noise and jumps into invalid binary states from `1010` (10) to `1111` (15), the logic equations designed in RQ5.2 ensure that the next clock pulse forces the circuit back into a valid state (for example, `0000`). This allows the system to continue operating normally without requiring a manual Reset button.
+- **Không** đặt RQ dạng "độ chính xác dự báo có tương quan với hiệu quả tồn kho trên M5 không", vì có thể trùng bài 20 và W3, hai bài nhóm chưa đọc được.
+- Dataset giày dép Việt Nam chỉ được mô tả ở phụ lục, **không** dùng để trả lời RQ1–RQ4.

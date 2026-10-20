@@ -1,0 +1,841 @@
+dataset,window,group,target_set,model,frontier_rank,excess,n_reached,n_targets
+M5,main,all,"paper (0.90–0.98, step 0.02)",empirical,6.8,0.36343049408465683,5,5
+M5,main,all,"paper (0.90–0.98, step 0.02)",ets,5.0,0.1261129705020087,5,5
+M5,main,all,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.0,0.022778166360132746,5,5
+M5,main,all,"paper (0.90–0.98, step 0.02)",lgb_conformal,4.4,0.10878351205465484,5,5
+M5,main,all,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.0,0.0,5,5
+M5,main,all,"paper (0.90–0.98, step 0.02)",lgb_tweedie,4.0,0.05976107197612379,4,5
+M5,main,all,"paper (0.90–0.98, step 0.02)",tsb_nb,4.8,0.11501750705859201,5,5
+M5,main,all,moderate (0.90–0.94),empirical,7.0,0.39659209491933733,3,3
+M5,main,all,moderate (0.90–0.94),ets,6.0,0.15086208325658337,3,3
+M5,main,all,moderate (0.90–0.94),hgb_quantile,2.0,0.013205188707457719,3,3
+M5,main,all,moderate (0.90–0.94),lgb_conformal,4.333333333333333,0.09290151765328052,3,3
+M5,main,all,moderate (0.90–0.94),lgb_quantile,1.0,0.0,3,3
+M5,main,all,moderate (0.90–0.94),lgb_tweedie,3.3333333333333335,0.05155948195184842,3,3
+M5,main,all,moderate (0.90–0.94),tsb_nb,4.333333333333333,0.08893778569610829,3,3
+M5,main,all,high (0.94–0.98),empirical,6.666666666666667,0.33148348939418454,3,3
+M5,main,all,high (0.94–0.98),ets,4.333333333333333,0.094591698901704,3,3
+M5,main,all,high (0.94–0.98),hgb_quantile,2.0,0.028901278194922646,3,3
+M5,main,all,high (0.94–0.98),lgb_conformal,4.0,0.10345855336004961,3,3
+M5,main,all,high (0.94–0.98),lgb_quantile,1.0,0.0,3,3
+M5,main,all,high (0.94–0.98),lgb_tweedie,4.666666666666667,0.06782759760982204,2,3
+M5,main,all,high (0.94–0.98),tsb_nb,5.333333333333333,0.13607999711752986,3,3
+M5,main,all,"fine (0.88–0.98, step 0.01)",empirical,6.909090909090909,0.37226209580429254,11,11
+M5,main,all,"fine (0.88–0.98, step 0.01)",ets,5.2727272727272725,0.13508910625103343,11,11
+M5,main,all,"fine (0.88–0.98, step 0.01)",hgb_quantile,2.0,0.015663246165948518,11,11
+M5,main,all,"fine (0.88–0.98, step 0.01)",lgb_conformal,4.636363636363637,0.10829735482301904,11,11
+M5,main,all,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.0,0.0,11,11
+M5,main,all,"fine (0.88–0.98, step 0.01)",lgb_tweedie,3.5454545454545454,0.060966460376143616,10,11
+M5,main,all,"fine (0.88–0.98, step 0.01)",tsb_nb,4.636363636363637,0.10323091277692681,11,11
+M5,main,smooth,"paper (0.90–0.98, step 0.02)",empirical,7.0,0.32759988307162324,5,5
+M5,main,smooth,"paper (0.90–0.98, step 0.02)",ets,5.4,0.13085044148518973,5,5
+M5,main,smooth,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.0,0.02433642364756694,5,5
+M5,main,smooth,"paper (0.90–0.98, step 0.02)",lgb_conformal,4.8,0.10997607333122272,5,5
+M5,main,smooth,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.0,0.0,5,5
+M5,main,smooth,"paper (0.90–0.98, step 0.02)",lgb_tweedie,3.2,0.06936329632621044,5,5
+M5,main,smooth,"paper (0.90–0.98, step 0.02)",tsb_nb,4.6,0.09658844264805473,5,5
+M5,main,smooth,moderate (0.90–0.94),empirical,7.0,0.32668420541930754,3,3
+M5,main,smooth,moderate (0.90–0.94),ets,6.0,0.14324844915542356,3,3
+M5,main,smooth,moderate (0.90–0.94),hgb_quantile,2.0,0.008954592461970797,3,3
+M5,main,smooth,moderate (0.90–0.94),lgb_conformal,4.666666666666667,0.09366829949455983,3,3
+M5,main,smooth,moderate (0.90–0.94),lgb_quantile,1.0,0.0,3,3
+M5,main,smooth,moderate (0.90–0.94),lgb_tweedie,3.0,0.047579662626389276,3,3
+M5,main,smooth,moderate (0.90–0.94),tsb_nb,4.333333333333333,0.07800651547498501,3,3
+M5,main,smooth,high (0.94–0.98),empirical,7.0,0.3336404281703467,3,3
+M5,main,smooth,high (0.94–0.98),ets,5.0,0.10802421276989509,3,3
+M5,main,smooth,high (0.94–0.98),hgb_quantile,2.0,0.03730142235510899,3,3
+M5,main,smooth,high (0.94–0.98),lgb_conformal,4.666666666666667,0.1117540315212493,3,3
+M5,main,smooth,high (0.94–0.98),lgb_quantile,1.0,0.0,3,3
+M5,main,smooth,high (0.94–0.98),lgb_tweedie,3.3333333333333335,0.08480325899705295,3,3
+M5,main,smooth,high (0.94–0.98),tsb_nb,5.0,0.11423741230548952,3,3
+M5,main,smooth,"fine (0.88–0.98, step 0.01)",empirical,7.0,0.32915245660258113,11,11
+M5,main,smooth,"fine (0.88–0.98, step 0.01)",ets,5.545454545454546,0.13811887068016096,11,11
+M5,main,smooth,"fine (0.88–0.98, step 0.01)",hgb_quantile,2.0,0.017208663027423965,11,11
+M5,main,smooth,"fine (0.88–0.98, step 0.01)",lgb_conformal,4.636363636363637,0.09947463091756915,11,11
+M5,main,smooth,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.0,0.0,11,11
+M5,main,smooth,"fine (0.88–0.98, step 0.01)",lgb_tweedie,3.1818181818181817,0.060327293565251135,11,11
+M5,main,smooth,"fine (0.88–0.98, step 0.01)",tsb_nb,4.636363636363637,0.09299274141932003,11,11
+M5,main,erratic,"paper (0.90–0.98, step 0.02)",empirical,6.8,0.4831965968040134,5,5
+M5,main,erratic,"paper (0.90–0.98, step 0.02)",ets,4.6,0.1384681817161469,5,5
+M5,main,erratic,"paper (0.90–0.98, step 0.02)",hgb_quantile,3.2,0.05408530855935294,5,5
+M5,main,erratic,"paper (0.90–0.98, step 0.02)",lgb_conformal,1.6,0.011037467897566433,5,5
+M5,main,erratic,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.8,0.029674256531307997,5,5
+M5,main,erratic,"paper (0.90–0.98, step 0.02)",lgb_tweedie,4.4,0.0647499999674861,4,5
+M5,main,erratic,"paper (0.90–0.98, step 0.02)",tsb_nb,5.6,0.1720206242034938,5,5
+M5,main,erratic,moderate (0.90–0.94),empirical,7.0,0.4864698123894271,3,3
+M5,main,erratic,moderate (0.90–0.94),ets,5.333333333333333,0.17384412545010894,3,3
+M5,main,erratic,moderate (0.90–0.94),hgb_quantile,3.0,0.043061743047224654,3,3
+M5,main,erratic,moderate (0.90–0.94),lgb_conformal,2.0,0.018395779829277387,3,3
+M5,main,erratic,moderate (0.90–0.94),lgb_quantile,1.6666666666666667,0.01912947754434846,3,3
+M5,main,erratic,moderate (0.90–0.94),lgb_tweedie,3.3333333333333335,0.04411068865467538,3,3
+M5,main,erratic,moderate (0.90–0.94),tsb_nb,5.666666666666667,0.14149573913573862,3,3
+M5,main,erratic,high (0.94–0.98),empirical,6.666666666666667,0.4625771762585949,3,3
+M5,main,erratic,high (0.94–0.98),ets,4.0,0.08432820820489233,3,3
+M5,main,erratic,high (0.94–0.98),hgb_quantile,3.3333333333333335,0.05197254393662617,3,3
+M5,main,erratic,high (0.94–0.98),lgb_conformal,1.0,0.0,3,3
+M5,main,erratic,high (0.94–0.98),lgb_quantile,2.0,0.030996329545233865,3,3
+M5,main,erratic,high (0.94–0.98),lgb_tweedie,5.333333333333333,0.07359676244221591,2,3
+M5,main,erratic,high (0.94–0.98),tsb_nb,5.666666666666667,0.19064109419551242,3,3
+M5,main,erratic,"fine (0.88–0.98, step 0.01)",empirical,6.909090909090909,0.47024835017403616,11,11
+M5,main,erratic,"fine (0.88–0.98, step 0.01)",ets,4.909090909090909,0.14984913516650955,11,11
+M5,main,erratic,"fine (0.88–0.98, step 0.01)",hgb_quantile,3.0,0.04546266330125168,11,11
+M5,main,erratic,"fine (0.88–0.98, step 0.01)",lgb_conformal,1.8181818181818181,0.01588465264345218,11,11
+M5,main,erratic,"fine (0.88–0.98, step 0.01)",lgb_quantile,2.0,0.02409001616161042,11,11
+M5,main,erratic,"fine (0.88–0.98, step 0.01)",lgb_tweedie,3.8181818181818183,0.05384016024725924,10,11
+M5,main,erratic,"fine (0.88–0.98, step 0.01)",tsb_nb,5.545454545454546,0.15043307940809184,11,11
+M5,main,intermittent,"paper (0.90–0.98, step 0.02)",empirical,6.5,0.3501673676508993,4,5
+M5,main,intermittent,"paper (0.90–0.98, step 0.02)",ets,4.7,0.12427676180950042,4,5
+M5,main,intermittent,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.0,0.02349873835774279,5,5
+M5,main,intermittent,"paper (0.90–0.98, step 0.02)",lgb_conformal,5.4,0.3406573361260946,5,5
+M5,main,intermittent,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.0,0.0,5,5
+M5,main,intermittent,"paper (0.90–0.98, step 0.02)",lgb_tweedie,3.7,0.08979906051269376,4,5
+M5,main,intermittent,"paper (0.90–0.98, step 0.02)",tsb_nb,4.7,0.1317435865346922,4,5
+M5,main,intermittent,moderate (0.90–0.94),empirical,7.0,0.37460459357050363,3,3
+M5,main,intermittent,moderate (0.90–0.94),ets,5.0,0.12402050099064714,3,3
+M5,main,intermittent,moderate (0.90–0.94),hgb_quantile,2.0,0.022888127194723513,3,3
+M5,main,intermittent,moderate (0.90–0.94),lgb_conformal,5.666666666666667,0.16558098167385316,3,3
+M5,main,intermittent,moderate (0.90–0.94),lgb_quantile,1.0,0.0,3,3
+M5,main,intermittent,moderate (0.90–0.94),lgb_tweedie,3.0,0.07079782574904032,3,3
+M5,main,intermittent,moderate (0.90–0.94),tsb_nb,4.333333333333333,0.10578895730526534,3,3
+M5,main,intermittent,high (0.94–0.98),empirical,6.166666666666667,0.31430792494813364,2,3
+M5,main,intermittent,high (0.94–0.98),ets,4.166666666666667,0.11963502124900316,2,3
+M5,main,intermittent,high (0.94–0.98),hgb_quantile,2.0,0.02452953755329168,3,3
+M5,main,intermittent,high (0.94–0.98),lgb_conformal,5.333333333333333,0.4783674526946151,3,3
+M5,main,intermittent,high (0.94–0.98),lgb_quantile,1.0,0.0,3,3
+M5,main,intermittent,high (0.94–0.98),lgb_tweedie,4.166666666666667,0.11807889220319023,2,3
+M5,main,intermittent,high (0.94–0.98),tsb_nb,5.166666666666667,0.16786766301470757,2,3
+M5,main,intermittent,"fine (0.88–0.98, step 0.01)",empirical,6.7272727272727275,0.3588774520367678,9,11
+M5,main,intermittent,"fine (0.88–0.98, step 0.01)",ets,4.681818181818182,0.12417796911422666,10,11
+M5,main,intermittent,"fine (0.88–0.98, step 0.01)",hgb_quantile,2.0,0.024859975053594253,11,11
+M5,main,intermittent,"fine (0.88–0.98, step 0.01)",lgb_conformal,5.454545454545454,0.2607270293642338,11,11
+M5,main,intermittent,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.0,0.0,11,11
+M5,main,intermittent,"fine (0.88–0.98, step 0.01)",lgb_tweedie,3.727272727272727,0.0755122994170468,9,11
+M5,main,intermittent,"fine (0.88–0.98, step 0.01)",tsb_nb,4.409090909090909,0.11898893808167821,10,11
+M5,main,lumpy,"paper (0.90–0.98, step 0.02)",empirical,6.75,0.41913665711395043,4,5
+M5,main,lumpy,"paper (0.90–0.98, step 0.02)",ets,3.25,0.04978907424295098,4,5
+M5,main,lumpy,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.0,0.01797176431785008,4,5
+M5,main,lumpy,"paper (0.90–0.98, step 0.02)",lgb_conformal,5.0,0.11732935361195711,5,5
+M5,main,lumpy,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.25,0.0002807201160664463,4,5
+M5,main,lumpy,"paper (0.90–0.98, step 0.02)",lgb_tweedie,4.25,0.06870757320483138,3,5
+M5,main,lumpy,"paper (0.90–0.98, step 0.02)",tsb_nb,5.5,0.17783082346810702,4,5
+M5,main,lumpy,moderate (0.90–0.94),empirical,7.0,0.46006902962736596,3,3
+M5,main,lumpy,moderate (0.90–0.94),ets,3.6666666666666665,0.06030844270635716,3,3
+M5,main,lumpy,moderate (0.90–0.94),hgb_quantile,1.6666666666666667,0.008373632535206843,3,3
+M5,main,lumpy,moderate (0.90–0.94),lgb_conformal,5.333333333333333,0.11705666989186721,3,3
+M5,main,lumpy,moderate (0.90–0.94),lgb_quantile,1.3333333333333333,0.0003742934880885951,3,3
+M5,main,lumpy,moderate (0.90–0.94),lgb_tweedie,3.3333333333333335,0.06870757320483138,3,3
+M5,main,lumpy,moderate (0.90–0.94),tsb_nb,5.666666666666667,0.13992228123154513,3,3
+M5,main,lumpy,high (0.94–0.98),empirical,6.5,0.3816307435972216,2,3
+M5,main,lumpy,high (0.94–0.98),ets,2.5,0.03499990439547884,2,3
+M5,main,lumpy,high (0.94–0.98),hgb_quantile,2.5,0.029856478181262802,2,3
+M5,main,lumpy,high (0.94–0.98),lgb_conformal,4.5,0.12198216709937215,3,3
+M5,main,lumpy,high (0.94–0.98),lgb_quantile,1.0,0.0,2,3
+M5,main,lumpy,high (0.94–0.98),lgb_tweedie,5.5,0.1037846176095607,1,3
+M5,main,lumpy,high (0.94–0.98),tsb_nb,5.5,0.23673543072870296,2,3
+M5,main,lumpy,"fine (0.88–0.98, step 0.01)",empirical,6.85,0.4468360036070972,9,11
+M5,main,lumpy,"fine (0.88–0.98, step 0.01)",ets,3.5,0.06363637622462262,10,11
+M5,main,lumpy,"fine (0.88–0.98, step 0.01)",hgb_quantile,2.1,0.02297152469846093,10,11
+M5,main,lumpy,"fine (0.88–0.98, step 0.01)",lgb_conformal,4.8,0.18952839450636913,11,11
+M5,main,lumpy,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.2,0.003844152912718379,10,11
+M5,main,lumpy,"fine (0.88–0.98, step 0.01)",lgb_tweedie,4.15,0.07246461687675013,8,11
+M5,main,lumpy,"fine (0.88–0.98, step 0.01)",tsb_nb,5.4,0.1833206910637606,10,11
+M5,w26,all,"paper (0.90–0.98, step 0.02)",empirical,6.8,0.40851867908051764,5,5
+M5,w26,all,"paper (0.90–0.98, step 0.02)",ets,4.8,0.11141084128016505,5,5
+M5,w26,all,"paper (0.90–0.98, step 0.02)",hgb_quantile,1.8,0.020289710224498724,5,5
+M5,w26,all,"paper (0.90–0.98, step 0.02)",lgb_conformal,5.4,0.12300080006812228,5,5
+M5,w26,all,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.2,0.00024018467686555135,5,5
+M5,w26,all,"paper (0.90–0.98, step 0.02)",lgb_tweedie,4.2,0.07065221093878465,4,5
+M5,w26,all,"paper (0.90–0.98, step 0.02)",tsb_nb,3.8,0.08372168362367911,5,5
+M5,w26,all,moderate (0.90–0.94),empirical,7.0,0.4224761507330211,3,3
+M5,w26,all,moderate (0.90–0.94),ets,5.666666666666667,0.12503095375140436,3,3
+M5,w26,all,moderate (0.90–0.94),hgb_quantile,1.6666666666666667,0.006927414519347789,3,3
+M5,w26,all,moderate (0.90–0.94),lgb_conformal,5.333333333333333,0.10224588401919162,3,3
+M5,w26,all,moderate (0.90–0.94),lgb_quantile,1.3333333333333333,0.0004003077947759189,3,3
+M5,w26,all,moderate (0.90–0.94),lgb_tweedie,3.6666666666666665,0.06090303614323914,3,3
+M5,w26,all,moderate (0.90–0.94),tsb_nb,3.3333333333333335,0.05839386020523415,3,3
+M5,w26,all,high (0.94–0.98),empirical,6.666666666666667,0.3984139459443136,3,3
+M5,w26,all,high (0.94–0.98),ets,4.0,0.08717953342496083,3,3
+M5,w26,all,high (0.94–0.98),hgb_quantile,2.0,0.031538171581269925,3,3
+M5,w26,all,high (0.94–0.98),lgb_conformal,5.666666666666667,0.12998431586129625,3,3
+M5,w26,all,high (0.94–0.98),lgb_quantile,1.0,0.0,3,3
+M5,w26,all,high (0.94–0.98),lgb_tweedie,4.333333333333333,0.08417568807252884,2,3
+M5,w26,all,high (0.94–0.98),tsb_nb,4.333333333333333,0.10619373657764086,3,3
+M5,w26,all,"fine (0.88–0.98, step 0.01)",empirical,6.909090909090909,0.40882466617881374,11,11
+M5,w26,all,"fine (0.88–0.98, step 0.01)",ets,5.181818181818182,0.1176673284471878,11,11
+M5,w26,all,"fine (0.88–0.98, step 0.01)",hgb_quantile,1.6363636363636365,0.013781916850488058,11,11
+M5,w26,all,"fine (0.88–0.98, step 0.01)",lgb_conformal,5.2727272727272725,0.12005768642685982,11,11
+M5,w26,all,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.3636363636363635,0.0003990818030730607,11,11
+M5,w26,all,"fine (0.88–0.98, step 0.01)",lgb_tweedie,3.909090909090909,0.072597860081036,10,11
+M5,w26,all,"fine (0.88–0.98, step 0.01)",tsb_nb,3.727272727272727,0.0752292010199403,11,11
+M5,w26,smooth,"paper (0.90–0.98, step 0.02)",empirical,7.0,0.36295836568442075,5,5
+M5,w26,smooth,"paper (0.90–0.98, step 0.02)",ets,5.2,0.11212452313358426,5,5
+M5,w26,smooth,"paper (0.90–0.98, step 0.02)",hgb_quantile,1.6,0.022045806937767188,5,5
+M5,w26,smooth,"paper (0.90–0.98, step 0.02)",lgb_conformal,5.0,0.11138546011884584,5,5
+M5,w26,smooth,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.4,0.0005071358040014573,5,5
+M5,w26,smooth,"paper (0.90–0.98, step 0.02)",lgb_tweedie,4.2,0.07882498697242632,5,5
+M5,w26,smooth,"paper (0.90–0.98, step 0.02)",tsb_nb,3.6,0.06564211321065719,5,5
+M5,w26,smooth,moderate (0.90–0.94),empirical,7.0,0.3520962341723364,3,3
+M5,w26,smooth,moderate (0.90–0.94),ets,6.0,0.1204176176050719,3,3
+M5,w26,smooth,moderate (0.90–0.94),hgb_quantile,1.3333333333333333,0.0053623689655297735,3,3
+M5,w26,smooth,moderate (0.90–0.94),lgb_conformal,4.333333333333333,0.08787624596048389,3,3
+M5,w26,smooth,moderate (0.90–0.94),lgb_quantile,1.6666666666666667,0.0008452263400024288,3,3
+M5,w26,smooth,moderate (0.90–0.94),lgb_tweedie,4.0,0.05621113040245632,3,3
+M5,w26,smooth,moderate (0.90–0.94),tsb_nb,3.6666666666666665,0.05167005452085993,3,3
+M5,w26,smooth,high (0.94–0.98),empirical,7.0,0.3744923642100231,3,3
+M5,w26,smooth,high (0.94–0.98),ets,4.666666666666667,0.09596293835764695,3,3
+M5,w26,smooth,high (0.94–0.98),hgb_quantile,2.0,0.036743011562945314,3,3
+M5,w26,smooth,high (0.94–0.98),lgb_conformal,5.0,0.11591354519080051,3,3
+M5,w26,smooth,high (0.94–0.98),lgb_quantile,1.0,0.0,3,3
+M5,w26,smooth,high (0.94–0.98),lgb_tweedie,4.666666666666667,0.09637183254424368,3,3
+M5,w26,smooth,high (0.94–0.98),tsb_nb,3.6666666666666665,0.07709469256388386,3,3
+M5,w26,smooth,"fine (0.88–0.98, step 0.01)",empirical,7.0,0.3592814122184486,11,11
+M5,w26,smooth,"fine (0.88–0.98, step 0.01)",ets,5.363636363636363,0.11329325160032763,11,11
+M5,w26,smooth,"fine (0.88–0.98, step 0.01)",hgb_quantile,1.5454545454545454,0.01532306130204267,11,11
+M5,w26,smooth,"fine (0.88–0.98, step 0.01)",lgb_conformal,5.181818181818182,0.1040266546448703,11,11
+M5,w26,smooth,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.4545454545454546,0.00046781945870496855,11,11
+M5,w26,smooth,"fine (0.88–0.98, step 0.01)",lgb_tweedie,4.0,0.06887417989135446,11,11
+M5,w26,smooth,"fine (0.88–0.98, step 0.01)",tsb_nb,3.4545454545454546,0.06236117308731534,11,11
+M5,w26,erratic,"paper (0.90–0.98, step 0.02)",empirical,6.8,0.7877177683007771,5,5
+M5,w26,erratic,"paper (0.90–0.98, step 0.02)",ets,4.2,0.15603793634036234,5,5
+M5,w26,erratic,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.0,0.038156327865971694,5,5
+M5,w26,erratic,"paper (0.90–0.98, step 0.02)",lgb_conformal,3.8,0.15822786210409134,5,5
+M5,w26,erratic,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.0,0.0,5,5
+M5,w26,erratic,"paper (0.90–0.98, step 0.02)",lgb_tweedie,5.2,0.1626148520553528,4,5
+M5,w26,erratic,"paper (0.90–0.98, step 0.02)",tsb_nb,5.0,0.19286792079508644,5,5
+M5,w26,erratic,moderate (0.90–0.94),empirical,7.0,0.8163832095973941,3,3
+M5,w26,erratic,moderate (0.90–0.94),ets,5.0,0.177899042271877,3,3
+M5,w26,erratic,moderate (0.90–0.94),hgb_quantile,2.0,0.01557931878108095,3,3
+M5,w26,erratic,moderate (0.90–0.94),lgb_conformal,3.3333333333333335,0.10273729479512395,3,3
+M5,w26,erratic,moderate (0.90–0.94),lgb_quantile,1.0,0.0,3,3
+M5,w26,erratic,moderate (0.90–0.94),lgb_tweedie,4.333333333333333,0.13433671150223106,3,3
+M5,w26,erratic,moderate (0.90–0.94),tsb_nb,5.333333333333333,0.16093943145512082,3,3
+M5,w26,erratic,high (0.94–0.98),empirical,6.666666666666667,0.7766175111272325,3,3
+M5,w26,erratic,high (0.94–0.98),ets,3.0,0.12427820895502835,3,3
+M5,w26,erratic,high (0.94–0.98),hgb_quantile,2.0,0.05893830115203739,3,3
+M5,w26,erratic,high (0.94–0.98),lgb_conformal,4.333333333333333,0.20605702593794128,3,3
+M5,w26,erratic,high (0.94–0.98),lgb_quantile,1.0,0.0,3,3
+M5,w26,erratic,high (0.94–0.98),lgb_tweedie,6.0,0.20730914936142952,2,3
+M5,w26,erratic,high (0.94–0.98),tsb_nb,5.0,0.2272291969585869,3,3
+M5,w26,erratic,"fine (0.88–0.98, step 0.01)",empirical,6.818181818181818,0.786996788891596,11,11
+M5,w26,erratic,"fine (0.88–0.98, step 0.01)",ets,4.545454545454546,0.16565475802460353,11,11
+M5,w26,erratic,"fine (0.88–0.98, step 0.01)",hgb_quantile,1.8181818181818181,0.02808117981068509,11,11
+M5,w26,erratic,"fine (0.88–0.98, step 0.01)",lgb_conformal,3.4545454545454546,0.1258147992566633,11,11
+M5,w26,erratic,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.1818181818181819,0.0018711240472935042,11,11
+M5,w26,erratic,"fine (0.88–0.98, step 0.01)",lgb_tweedie,5.181818181818182,0.14691509831990657,9,11
+M5,w26,erratic,"fine (0.88–0.98, step 0.01)",tsb_nb,5.0,0.17384003301004125,11,11
+M5,w26,intermittent,"paper (0.90–0.98, step 0.02)",empirical,6.7,0.37178450576964894,4,5
+M5,w26,intermittent,"paper (0.90–0.98, step 0.02)",ets,4.7,0.08996105630839024,4,5
+M5,w26,intermittent,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.0,0.014015187858292944,5,5
+M5,w26,intermittent,"paper (0.90–0.98, step 0.02)",lgb_conformal,5.4,0.33892786601972175,5,5
+M5,w26,intermittent,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.0,0.0,5,5
+M5,w26,intermittent,"paper (0.90–0.98, step 0.02)",lgb_tweedie,3.9,0.06693053181211789,4,5
+M5,w26,intermittent,"paper (0.90–0.98, step 0.02)",tsb_nb,4.3,0.08918607110087978,4,5
+M5,w26,intermittent,moderate (0.90–0.94),empirical,7.0,0.3885754091572398,3,3
+M5,w26,intermittent,moderate (0.90–0.94),ets,5.0,0.09122469299358138,3,3
+M5,w26,intermittent,moderate (0.90–0.94),hgb_quantile,2.0,0.007889806509108421,3,3
+M5,w26,intermittent,moderate (0.90–0.94),lgb_conformal,6.0,0.14436569169961544,3,3
+M5,w26,intermittent,moderate (0.90–0.94),lgb_quantile,1.0,0.0,3,3
+M5,w26,intermittent,moderate (0.90–0.94),lgb_tweedie,3.3333333333333335,0.04658533487875897,3,3
+M5,w26,intermittent,moderate (0.90–0.94),tsb_nb,3.6666666666666665,0.061700698821045785,3,3
+M5,w26,intermittent,high (0.94–0.98),empirical,6.5,0.3554822946965631,2,3
+M5,w26,intermittent,high (0.94–0.98),ets,4.5,0.08670155425839099,2,3
+M5,w26,intermittent,high (0.94–0.98),hgb_quantile,2.0,0.018077977513856352,3,3
+M5,w26,intermittent,high (0.94–0.98),lgb_conformal,5.0,0.4898630923939813,3,3
+M5,w26,intermittent,high (0.94–0.98),lgb_quantile,1.0,0.0,3,3
+M5,w26,intermittent,high (0.94–0.98),lgb_tweedie,4.166666666666667,0.09541455546937017,2,3
+M5,w26,intermittent,high (0.94–0.98),tsb_nb,4.833333333333333,0.12781822890528172,2,3
+M5,w26,intermittent,"fine (0.88–0.98, step 0.01)",empirical,6.818181818181818,0.37310617541050606,9,11
+M5,w26,intermittent,"fine (0.88–0.98, step 0.01)",ets,4.590909090909091,0.09474701570442445,10,11
+M5,w26,intermittent,"fine (0.88–0.98, step 0.01)",hgb_quantile,2.090909090909091,0.017411385416477868,11,11
+M5,w26,intermittent,"fine (0.88–0.98, step 0.01)",lgb_conformal,5.636363636363637,0.25719276051993895,11,11
+M5,w26,intermittent,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.0909090909090908,0.0006181436041086522,11,11
+M5,w26,intermittent,"fine (0.88–0.98, step 0.01)",lgb_tweedie,3.909090909090909,0.05535448646681204,9,11
+M5,w26,intermittent,"fine (0.88–0.98, step 0.01)",tsb_nb,3.8636363636363638,0.07704859351019215,10,11
+M5,w26,lumpy,"paper (0.90–0.98, step 0.02)",empirical,6.5,0.6676881315947684,4,5
+M5,w26,lumpy,"paper (0.90–0.98, step 0.02)",ets,4.7,0.15198349540760758,4,5
+M5,w26,lumpy,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.0,0.04402487521978151,5,5
+M5,w26,lumpy,"paper (0.90–0.98, step 0.02)",lgb_conformal,3.8,0.28183568223540056,5,5
+M5,w26,lumpy,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.0,0.0,5,5
+M5,w26,lumpy,"paper (0.90–0.98, step 0.02)",lgb_tweedie,5.1,0.11294706840314277,3,5
+M5,w26,lumpy,"paper (0.90–0.98, step 0.02)",tsb_nb,4.9,0.17395098824137895,4,5
+M5,w26,lumpy,moderate (0.90–0.94),empirical,7.0,0.6683247648635612,3,3
+M5,w26,lumpy,moderate (0.90–0.94),ets,5.0,0.127722255418947,3,3
+M5,w26,lumpy,moderate (0.90–0.94),hgb_quantile,2.0,0.019265501558603477,3,3
+M5,w26,lumpy,moderate (0.90–0.94),lgb_conformal,4.0,0.11233673767306558,3,3
+M5,w26,lumpy,moderate (0.90–0.94),lgb_quantile,1.0,0.0,3,3
+M5,w26,lumpy,moderate (0.90–0.94),lgb_tweedie,4.333333333333333,0.11294706840314277,3,3
+M5,w26,lumpy,moderate (0.90–0.94),tsb_nb,4.666666666666667,0.12019729582125376,3,3
+M5,w26,lumpy,high (0.94–0.98),empirical,6.166666666666667,0.6908729249674674,2,3
+M5,w26,lumpy,high (0.94–0.98),ets,4.166666666666667,0.18678682747026254,2,3
+M5,w26,lumpy,high (0.94–0.98),hgb_quantile,2.0,0.0670464524768027,3,3
+M5,w26,lumpy,high (0.94–0.98),lgb_conformal,3.3333333333333335,0.40634427124605393,3,3
+M5,w26,lumpy,high (0.94–0.98),lgb_quantile,1.0,0.0,3,3
+M5,w26,lumpy,high (0.94–0.98),lgb_tweedie,5.833333333333333,0.1505342918734489,1,3
+M5,w26,lumpy,high (0.94–0.98),tsb_nb,5.5,0.25349515396653177,2,3
+M5,w26,lumpy,"fine (0.88–0.98, step 0.01)",empirical,6.7272727272727275,0.6736186155678996,9,11
+M5,w26,lumpy,"fine (0.88–0.98, step 0.01)",ets,4.7727272727272725,0.14919790964096563,10,11
+M5,w26,lumpy,"fine (0.88–0.98, step 0.01)",hgb_quantile,1.9090909090909092,0.03509953550410572,11,11
+M5,w26,lumpy,"fine (0.88–0.98, step 0.01)",lgb_conformal,4.181818181818182,0.1977442598677429,11,11
+M5,w26,lumpy,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.0909090909090908,0.00033004364360154285,11,11
+M5,w26,lumpy,"fine (0.88–0.98, step 0.01)",lgb_tweedie,4.7272727272727275,0.11326882250228493,8,11
+M5,w26,lumpy,"fine (0.88–0.98, step 0.01)",tsb_nb,4.590909090909091,0.15723493950423556,10,11
+M5,w52,all,"paper (0.90–0.98, step 0.02)",empirical,6.8,0.3411130512149188,5,5
+M5,w52,all,"paper (0.90–0.98, step 0.02)",ets,4.6,0.07571637947873175,5,5
+M5,w52,all,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.0,0.008971112274110914,5,5
+M5,w52,all,"paper (0.90–0.98, step 0.02)",lgb_conformal,5.0,0.08028745660128873,5,5
+M5,w52,all,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.0,0.0,5,5
+M5,w52,all,"paper (0.90–0.98, step 0.02)",lgb_tweedie,4.2,0.03779689891077115,4,5
+M5,w52,all,"paper (0.90–0.98, step 0.02)",tsb_nb,4.4,0.06516599971755066,5,5
+M5,w52,all,moderate (0.90–0.94),empirical,7.0,0.35216248996838057,3,3
+M5,w52,all,moderate (0.90–0.94),ets,5.666666666666667,0.10173990894901068,3,3
+M5,w52,all,moderate (0.90–0.94),hgb_quantile,2.0,0.005143716481872025,3,3
+M5,w52,all,moderate (0.90–0.94),lgb_conformal,5.0,0.0657418580985496,3,3
+M5,w52,all,moderate (0.90–0.94),lgb_quantile,1.0,0.0,3,3
+M5,w52,all,moderate (0.90–0.94),lgb_tweedie,3.3333333333333335,0.031536802891661976,3,3
+M5,w52,all,moderate (0.90–0.94),tsb_nb,4.0,0.04181634675647472,3,3
+M5,w52,all,high (0.94–0.98),empirical,6.666666666666667,0.33257586196752725,3,3
+M5,w52,all,high (0.94–0.98),ets,3.6666666666666665,0.044240951995247434,3,3
+M5,w52,all,high (0.94–0.98),hgb_quantile,2.0,0.01033263384746097,3,3
+M5,w52,all,high (0.94–0.98),lgb_conformal,5.333333333333333,0.09291806172180246,3,3
+M5,w52,all,high (0.94–0.98),lgb_quantile,1.0,0.0,3,3
+M5,w52,all,high (0.94–0.98),lgb_tweedie,4.666666666666667,0.044892864361789964,2,3
+M5,w52,all,high (0.94–0.98),tsb_nb,4.666666666666667,0.08329043034893775,3,3
+M5,w52,all,"fine (0.88–0.98, step 0.01)",empirical,6.909090909090909,0.34409749992892347,11,11
+M5,w52,all,"fine (0.88–0.98, step 0.01)",ets,5.0,0.08681467003329751,11,11
+M5,w52,all,"fine (0.88–0.98, step 0.01)",hgb_quantile,1.9090909090909092,0.006031388544890442,11,11
+M5,w52,all,"fine (0.88–0.98, step 0.01)",lgb_conformal,5.090909090909091,0.08228941668652995,11,11
+M5,w52,all,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.0909090909090908,0.0001027711929933097,11,11
+M5,w52,all,"fine (0.88–0.98, step 0.01)",lgb_tweedie,3.8181818181818183,0.042086772619659873,10,11
+M5,w52,all,"fine (0.88–0.98, step 0.01)",tsb_nb,4.181818181818182,0.055766852052461194,11,11
+M5,w52,smooth,"paper (0.90–0.98, step 0.02)",empirical,7.0,0.31080975044420156,5,5
+M5,w52,smooth,"paper (0.90–0.98, step 0.02)",ets,5.2,0.08612475128098702,5,5
+M5,w52,smooth,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.0,0.012833323421639254,5,5
+M5,w52,smooth,"paper (0.90–0.98, step 0.02)",lgb_conformal,5.2,0.0864872202769142,5,5
+M5,w52,smooth,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.0,0.0,5,5
+M5,w52,smooth,"paper (0.90–0.98, step 0.02)",lgb_tweedie,3.8,0.053476462782613865,5,5
+M5,w52,smooth,"paper (0.90–0.98, step 0.02)",tsb_nb,3.8,0.05456598417872462,5,5
+M5,w52,smooth,moderate (0.90–0.94),empirical,7.0,0.30472876792637194,3,3
+M5,w52,smooth,moderate (0.90–0.94),ets,6.0,0.0981640973270758,3,3
+M5,w52,smooth,moderate (0.90–0.94),hgb_quantile,2.0,0.005777166386065513,3,3
+M5,w52,smooth,moderate (0.90–0.94),lgb_conformal,4.666666666666667,0.060916079287179827,3,3
+M5,w52,smooth,moderate (0.90–0.94),lgb_quantile,1.0,0.0,3,3
+M5,w52,smooth,moderate (0.90–0.94),lgb_tweedie,3.3333333333333335,0.030467831249037697,3,3
+M5,w52,smooth,moderate (0.90–0.94),tsb_nb,4.0,0.03669468739855305,3,3
+M5,w52,smooth,high (0.94–0.98),empirical,7.0,0.30552824267174783,3,3
+M5,w52,smooth,high (0.94–0.98),ets,4.666666666666667,0.06299054743738404,3,3
+M5,w52,smooth,high (0.94–0.98),hgb_quantile,2.0,0.017622309434292143,3,3
+M5,w52,smooth,high (0.94–0.98),lgb_conformal,5.333333333333333,0.09332697409631852,3,3
+M5,w52,smooth,high (0.94–0.98),lgb_quantile,1.0,0.0,3,3
+M5,w52,smooth,high (0.94–0.98),lgb_tweedie,4.0,0.06807009242375812,3,3
+M5,w52,smooth,high (0.94–0.98),tsb_nb,4.0,0.0702517011351061,3,3
+M5,w52,smooth,"fine (0.88–0.98, step 0.01)",empirical,7.0,0.3087142379252872,11,11
+M5,w52,smooth,"fine (0.88–0.98, step 0.01)",ets,5.2727272727272725,0.09161662416861117,11,11
+M5,w52,smooth,"fine (0.88–0.98, step 0.01)",hgb_quantile,2.0,0.009018579354467744,11,11
+M5,w52,smooth,"fine (0.88–0.98, step 0.01)",lgb_conformal,5.2727272727272725,0.07972062136986628,11,11
+M5,w52,smooth,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.0,0.0,11,11
+M5,w52,smooth,"fine (0.88–0.98, step 0.01)",lgb_tweedie,3.5454545454545454,0.042272255338445225,11,11
+M5,w52,smooth,"fine (0.88–0.98, step 0.01)",tsb_nb,3.909090909090909,0.05107197617589185,11,11
+M5,w52,erratic,"paper (0.90–0.98, step 0.02)",empirical,6.4,0.3879520309425386,5,5
+M5,w52,erratic,"paper (0.90–0.98, step 0.02)",ets,3.4,0.046621806129122145,5,5
+M5,w52,erratic,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.8,0.02762878755531384,4,5
+M5,w52,erratic,"paper (0.90–0.98, step 0.02)",lgb_conformal,3.2,0.09119588465478068,5,5
+M5,w52,erratic,"paper (0.90–0.98, step 0.02)",lgb_quantile,3.0,0.017681356250186075,4,5
+M5,w52,erratic,"paper (0.90–0.98, step 0.02)",lgb_tweedie,4.2,0.04667061420820018,4,5
+M5,w52,erratic,"paper (0.90–0.98, step 0.02)",tsb_nb,5.0,0.13871221375432524,5,5
+M5,w52,erratic,moderate (0.90–0.94),empirical,7.0,0.4091161320347048,3,3
+M5,w52,erratic,moderate (0.90–0.94),ets,5.0,0.07770301021520358,3,3
+M5,w52,erratic,moderate (0.90–0.94),hgb_quantile,1.0,0.0,3,3
+M5,w52,erratic,moderate (0.90–0.94),lgb_conformal,3.6666666666666665,0.03000591696004662,3,3
+M5,w52,erratic,moderate (0.90–0.94),lgb_quantile,2.0,0.007548736154146122,3,3
+M5,w52,erratic,moderate (0.90–0.94),lgb_tweedie,3.6666666666666665,0.03768800823441717,3,3
+M5,w52,erratic,moderate (0.90–0.94),tsb_nb,5.666666666666667,0.0983958244408883,3,3
+M5,w52,erratic,high (0.94–0.98),empirical,6.0,0.36435936746564584,3,3
+M5,w52,erratic,high (0.94–0.98),ets,2.0,0.012633994831619125,3,3
+M5,w52,erratic,high (0.94–0.98),hgb_quantile,4.0,0.05525757511062768,2,3
+M5,w52,erratic,high (0.94–0.98),lgb_conformal,2.6666666666666665,0.12653323459800814,3,3
+M5,w52,erratic,high (0.94–0.98),lgb_quantile,3.6666666666666665,0.025768960456273637,2,3
+M5,w52,erratic,high (0.94–0.98),lgb_tweedie,5.0,0.058320122230651306,2,3
+M5,w52,erratic,high (0.94–0.98),tsb_nb,4.666666666666667,0.1593051129074173,3,3
+M5,w52,erratic,"fine (0.88–0.98, step 0.01)",empirical,6.636363636363637,0.3919625624153376,11,11
+M5,w52,erratic,"fine (0.88–0.98, step 0.01)",ets,3.909090909090909,0.07431341661400391,11,11
+M5,w52,erratic,"fine (0.88–0.98, step 0.01)",hgb_quantile,2.5454545454545454,0.028319179529823123,10,11
+M5,w52,erratic,"fine (0.88–0.98, step 0.01)",lgb_conformal,3.0,0.06833784152477569,11,11
+M5,w52,erratic,"fine (0.88–0.98, step 0.01)",lgb_quantile,2.272727272727273,0.018916056591663778,10,11
+M5,w52,erratic,"fine (0.88–0.98, step 0.01)",lgb_tweedie,4.363636363636363,0.050101331602945866,9,11
+M5,w52,erratic,"fine (0.88–0.98, step 0.01)",tsb_nb,5.2727272727272725,0.12811738856279697,11,11
+M5,w52,intermittent,"paper (0.90–0.98, step 0.02)",empirical,6.7,0.3215121390571879,4,5
+M5,w52,intermittent,"paper (0.90–0.98, step 0.02)",ets,4.7,0.07481271496348402,4,5
+M5,w52,intermittent,"paper (0.90–0.98, step 0.02)",hgb_quantile,1.8,0.002938599496725791,5,5
+M5,w52,intermittent,"paper (0.90–0.98, step 0.02)",lgb_conformal,5.2,0.29309919490419567,5,5
+M5,w52,intermittent,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.2,0.0010372580062774084,5,5
+M5,w52,intermittent,"paper (0.90–0.98, step 0.02)",lgb_tweedie,3.7,0.06353978670257426,4,5
+M5,w52,intermittent,"paper (0.90–0.98, step 0.02)",tsb_nb,4.7,0.08505504032067157,4,5
+M5,w52,intermittent,moderate (0.90–0.94),empirical,7.0,0.3347618430326535,3,3
+M5,w52,intermittent,moderate (0.90–0.94),ets,5.0,0.07022459877424203,3,3
+M5,w52,intermittent,moderate (0.90–0.94),hgb_quantile,2.0,0.0029463850793519284,3,3
+M5,w52,intermittent,moderate (0.90–0.94),lgb_conformal,5.666666666666667,0.11838176093643675,3,3
+M5,w52,intermittent,moderate (0.90–0.94),lgb_quantile,1.0,0.0,3,3
+M5,w52,intermittent,moderate (0.90–0.94),lgb_tweedie,3.0,0.043863237807171274,3,3
+M5,w52,intermittent,moderate (0.90–0.94),tsb_nb,4.333333333333333,0.05627484780583658,3,3
+M5,w52,intermittent,high (0.94–0.98),empirical,6.5,0.2971831815045345,2,3
+M5,w52,intermittent,high (0.94–0.98),ets,4.166666666666667,0.08056459633804902,2,3
+M5,w52,intermittent,high (0.94–0.98),hgb_quantile,1.6666666666666667,0.0030106006226452062,3,3
+M5,w52,intermittent,high (0.94–0.98),lgb_conformal,5.0,0.42613517616762736,3,3
+M5,w52,intermittent,high (0.94–0.98),lgb_quantile,1.3333333333333333,0.0017287633437956806,3,3
+M5,w52,intermittent,high (0.94–0.98),lgb_tweedie,4.166666666666667,0.09397671635449056,2,3
+M5,w52,intermittent,high (0.94–0.98),tsb_nb,5.166666666666667,0.12364233824071813,2,3
+M5,w52,intermittent,"fine (0.88–0.98, step 0.01)",empirical,6.7727272727272725,0.33414747081147356,9,11
+M5,w52,intermittent,"fine (0.88–0.98, step 0.01)",ets,4.681818181818182,0.07117824011879188,10,11
+M5,w52,intermittent,"fine (0.88–0.98, step 0.01)",hgb_quantile,1.7272727272727273,0.003096271195321763,11,11
+M5,w52,intermittent,"fine (0.88–0.98, step 0.01)",lgb_conformal,5.2727272727272725,0.2057877868598059,11,11
+M5,w52,intermittent,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.2727272727272727,0.0007955664625618677,11,11
+M5,w52,intermittent,"fine (0.88–0.98, step 0.01)",lgb_tweedie,3.8636363636363638,0.051019263390166124,9,11
+M5,w52,intermittent,"fine (0.88–0.98, step 0.01)",tsb_nb,4.409090909090909,0.06878981989821277,9,11
+M5,w52,lumpy,"paper (0.90–0.98, step 0.02)",empirical,6.75,0.4115826521718251,4,5
+M5,w52,lumpy,"paper (0.90–0.98, step 0.02)",ets,2.75,0.022419328257562432,4,5
+M5,w52,lumpy,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.0,0.021490640811720918,4,5
+M5,w52,lumpy,"paper (0.90–0.98, step 0.02)",lgb_conformal,5.25,0.11256982784839047,5,5
+M5,w52,lumpy,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.5,0.013659557463291727,4,5
+M5,w52,lumpy,"paper (0.90–0.98, step 0.02)",lgb_tweedie,4.5,0.06973913467847763,3,5
+M5,w52,lumpy,"paper (0.90–0.98, step 0.02)",tsb_nb,5.25,0.14837376929455254,4,5
+M5,w52,lumpy,moderate (0.90–0.94),empirical,7.0,0.43960919730550674,3,3
+M5,w52,lumpy,moderate (0.90–0.94),ets,3.3333333333333335,0.02989243767674991,3,3
+M5,w52,lumpy,moderate (0.90–0.94),hgb_quantile,1.6666666666666667,0.006229426389653995,3,3
+M5,w52,lumpy,moderate (0.90–0.94),lgb_conformal,5.666666666666667,0.11899014845501377,3,3
+M5,w52,lumpy,moderate (0.90–0.94),lgb_quantile,1.3333333333333333,0.0018032930947985044,3,3
+M5,w52,lumpy,moderate (0.90–0.94),lgb_tweedie,3.6666666666666665,0.06973913467847763,3,3
+M5,w52,lumpy,moderate (0.90–0.94),tsb_nb,5.333333333333333,0.11323596660895545,3,3
+M5,w52,lumpy,high (0.94–0.98),empirical,6.5,0.3884873500395508,2,3
+M5,w52,lumpy,high (0.94–0.98),ets,2.0,0.010439363274959534,2,3
+M5,w52,lumpy,high (0.94–0.98),hgb_quantile,2.0,0.03363714203896084,2,3
+M5,w52,lumpy,high (0.94–0.98),lgb_conformal,4.5,0.11791220139567742,3,3
+M5,w52,lumpy,high (0.94–0.98),lgb_quantile,2.0,0.027319114926583454,2,3
+M5,w52,lumpy,high (0.94–0.98),lgb_tweedie,5.5,0.12271118503089906,1,3
+M5,w52,lumpy,high (0.94–0.98),tsb_nb,5.5,0.20734419533758086,2,3
+M5,w52,lumpy,"fine (0.88–0.98, step 0.01)",empirical,6.65,0.42742707871690805,9,11
+M5,w52,lumpy,"fine (0.88–0.98, step 0.01)",ets,3.35,0.026977456671220965,9,11
+M5,w52,lumpy,"fine (0.88–0.98, step 0.01)",hgb_quantile,2.1,0.01590840445565509,10,11
+M5,w52,lumpy,"fine (0.88–0.98, step 0.01)",lgb_conformal,4.8,0.15213567851104473,11,11
+M5,w52,lumpy,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.3,0.00705443701839108,10,11
+M5,w52,lumpy,"fine (0.88–0.98, step 0.01)",lgb_tweedie,4.35,0.054094333844056965,7,11
+M5,w52,lumpy,"fine (0.88–0.98, step 0.01)",tsb_nb,5.45,0.1298683768923096,9,11
+VN1,main,all,"paper (0.90–0.98, step 0.02)",empirical,6.5,0.5056943460508392,3,5
+VN1,main,all,"paper (0.90–0.98, step 0.02)",ets,5.9,0.13966778986261388,3,5
+VN1,main,all,"paper (0.90–0.98, step 0.02)",hgb_quantile,3.4,0.05879888548328118,5,5
+VN1,main,all,"paper (0.90–0.98, step 0.02)",lgb_conformal,3.0,0.08900545644785729,5,5
+VN1,main,all,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.4,0.007427441123685696,5,5
+VN1,main,all,"paper (0.90–0.98, step 0.02)",lgb_tweedie,3.1,0.002896102524637678,3,5
+VN1,main,all,"paper (0.90–0.98, step 0.02)",tsb_nb,4.7,0.1040266366183622,4,5
+VN1,main,all,moderate (0.90–0.94),empirical,7.0,0.5056943460508392,3,3
+VN1,main,all,moderate (0.90–0.94),ets,6.0,0.13966778986261388,3,3
+VN1,main,all,moderate (0.90–0.94),hgb_quantile,4.333333333333333,0.062236256852431504,3,3
+VN1,main,all,moderate (0.90–0.94),lgb_conformal,3.0,0.02269323735236221,3,3
+VN1,main,all,moderate (0.90–0.94),lgb_quantile,1.6666666666666667,0.01237906853947616,3,3
+VN1,main,all,moderate (0.90–0.94),lgb_tweedie,1.3333333333333333,0.002896102524637678,3,3
+VN1,main,all,moderate (0.90–0.94),tsb_nb,4.666666666666667,0.08574578846515409,3,3
+VN1,main,all,high (0.94–0.98),empirical,6.166666666666667,0.4762661447364194,1,3
+VN1,main,all,high (0.94–0.98),ets,5.833333333333333,0.11972845050985348,1,3
+VN1,main,all,high (0.94–0.98),hgb_quantile,2.6666666666666665,0.050898453379213095,3,3
+VN1,main,all,high (0.94–0.98),lgb_conformal,3.0,0.13137972356356897,3,3
+VN1,main,all,high (0.94–0.98),lgb_quantile,1.0,0.0,3,3
+VN1,main,all,high (0.94–0.98),lgb_tweedie,4.5,0.008688307573913034,1,3
+VN1,main,all,high (0.94–0.98),tsb_nb,4.833333333333333,0.1318480420441881,2,3
+VN1,main,all,"fine (0.88–0.98, step 0.01)",empirical,6.636363636363637,0.5079314526241401,8,11
+VN1,main,all,"fine (0.88–0.98, step 0.01)",ets,5.818181818181818,0.14802650577038412,8,11
+VN1,main,all,"fine (0.88–0.98, step 0.01)",hgb_quantile,3.727272727272727,0.0696246992096473,11,11
+VN1,main,all,"fine (0.88–0.98, step 0.01)",lgb_conformal,2.5454545454545454,0.09254195158148679,11,11
+VN1,main,all,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.7272727272727273,0.015391376877033715,11,11
+VN1,main,all,"fine (0.88–0.98, step 0.01)",lgb_tweedie,2.8181818181818183,0.02072220616386508,8,11
+VN1,main,all,"fine (0.88–0.98, step 0.01)",tsb_nb,4.7272727272727275,0.09596453979024705,9,11
+VN1,main,smooth,"paper (0.90–0.98, step 0.02)",empirical,6.7,0.4422438537792936,4,5
+VN1,main,smooth,"paper (0.90–0.98, step 0.02)",ets,3.9,0.05419015855982501,4,5
+VN1,main,smooth,"paper (0.90–0.98, step 0.02)",hgb_quantile,5.4,0.11213843973641184,5,5
+VN1,main,smooth,"paper (0.90–0.98, step 0.02)",lgb_conformal,3.0,0.05251489103729923,5,5
+VN1,main,smooth,"paper (0.90–0.98, step 0.02)",lgb_quantile,3.4,0.058848839119830035,5,5
+VN1,main,smooth,"paper (0.90–0.98, step 0.02)",lgb_tweedie,3.3,0.04975245054849542,4,5
+VN1,main,smooth,"paper (0.90–0.98, step 0.02)",tsb_nb,2.3,0.011201871590582557,4,5
+VN1,main,smooth,moderate (0.90–0.94),empirical,7.0,0.4546092316770856,3,3
+VN1,main,smooth,moderate (0.90–0.94),ets,3.0,0.05389767526942002,3,3
+VN1,main,smooth,moderate (0.90–0.94),hgb_quantile,6.0,0.12935074468963945,3,3
+VN1,main,smooth,moderate (0.90–0.94),lgb_conformal,4.0,0.06421094406294674,3,3
+VN1,main,smooth,moderate (0.90–0.94),lgb_quantile,4.0,0.07985389781477219,3,3
+VN1,main,smooth,moderate (0.90–0.94),lgb_tweedie,3.0,0.05619714864104538,3,3
+VN1,main,smooth,moderate (0.90–0.94),tsb_nb,1.0,0.0,3,3
+VN1,main,smooth,high (0.94–0.98),empirical,6.5,0.428947292947804,2,3
+VN1,main,smooth,high (0.94–0.98),ets,4.5,0.04847332191394638,2,3
+VN1,main,smooth,high (0.94–0.98),hgb_quantile,5.0,0.10773789017804813,3,3
+VN1,main,smooth,high (0.94–0.98),lgb_conformal,2.3333333333333335,0.040291421287351525,3,3
+VN1,main,smooth,high (0.94–0.98),lgb_quantile,3.3333333333333335,0.053105060939051686,3,3
+VN1,main,smooth,high (0.94–0.98),lgb_tweedie,3.1666666666666665,0.031749914081816266,2,3
+VN1,main,smooth,high (0.94–0.98),tsb_nb,3.1666666666666665,0.022403743181165114,2,3
+VN1,main,smooth,"fine (0.88–0.98, step 0.01)",empirical,6.818181818181818,0.4256006476285953,9,11
+VN1,main,smooth,"fine (0.88–0.98, step 0.01)",ets,4.0,0.05574862739674242,9,11
+VN1,main,smooth,"fine (0.88–0.98, step 0.01)",hgb_quantile,5.545454545454546,0.10968968514287253,11,11
+VN1,main,smooth,"fine (0.88–0.98, step 0.01)",lgb_conformal,3.4545454545454546,0.054707680703988286,11,11
+VN1,main,smooth,"fine (0.88–0.98, step 0.01)",lgb_quantile,3.3636363636363638,0.058328798447657544,11,11
+VN1,main,smooth,"fine (0.88–0.98, step 0.01)",lgb_tweedie,2.9545454545454546,0.04323928089349538,10,11
+VN1,main,smooth,"fine (0.88–0.98, step 0.01)",tsb_nb,1.8636363636363635,0.008022046416322027,10,11
+VN1,main,erratic,"paper (0.90–0.98, step 0.02)",empirical,5.9,0.40205217828449685,3,5
+VN1,main,erratic,"paper (0.90–0.98, step 0.02)",ets,5.6,0.21887575945864546,2,5
+VN1,main,erratic,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.6,0.061145259070446746,5,5
+VN1,main,erratic,"paper (0.90–0.98, step 0.02)",lgb_conformal,3.6,0.17168725379222605,4,5
+VN1,main,erratic,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.2,0.0006043892603025292,5,5
+VN1,main,erratic,"paper (0.90–0.98, step 0.02)",lgb_tweedie,4.0,0.028899612828158894,2,5
+VN1,main,erratic,"paper (0.90–0.98, step 0.02)",tsb_nb,5.1,0.23958632616140915,3,5
+VN1,main,erratic,moderate (0.90–0.94),empirical,6.333333333333333,0.40205217828449685,3,3
+VN1,main,erratic,moderate (0.90–0.94),ets,5.833333333333333,0.21887575945864546,2,3
+VN1,main,erratic,moderate (0.90–0.94),hgb_quantile,3.0,0.07457598785087738,3,3
+VN1,main,erratic,moderate (0.90–0.94),lgb_conformal,3.3333333333333335,0.1408966920033307,3,3
+VN1,main,erratic,moderate (0.90–0.94),lgb_quantile,1.3333333333333333,0.0010073154338375485,3,3
+VN1,main,erratic,moderate (0.90–0.94),lgb_tweedie,3.1666666666666665,0.028899612828158894,2,3
+VN1,main,erratic,moderate (0.90–0.94),tsb_nb,5.0,0.23958632616140915,3,3
+VN1,main,erratic,high (0.94–0.98),empirical,5.166666666666667,0.38039623202748163,1,3
+VN1,main,erratic,high (0.94–0.98),ets,5.666666666666667,,0,3
+VN1,main,erratic,high (0.94–0.98),hgb_quantile,2.0,0.047483876300644066,3,3
+VN1,main,erratic,high (0.94–0.98),lgb_conformal,3.6666666666666665,0.26182260928653867,2,3
+VN1,main,erratic,high (0.94–0.98),lgb_quantile,1.0,0.0,3,3
+VN1,main,erratic,high (0.94–0.98),lgb_tweedie,5.666666666666667,,0,3
+VN1,main,erratic,high (0.94–0.98),tsb_nb,4.833333333333333,0.26878326486823667,1,3
+VN1,main,erratic,"fine (0.88–0.98, step 0.01)",empirical,6.0,0.41264504031132154,8,11
+VN1,main,erratic,"fine (0.88–0.98, step 0.01)",ets,5.5,0.22784552552960588,6,11
+VN1,main,erratic,"fine (0.88–0.98, step 0.01)",hgb_quantile,2.727272727272727,0.06464206209003119,11,11
+VN1,main,erratic,"fine (0.88–0.98, step 0.01)",lgb_conformal,3.3636363636363638,0.14383948045772788,10,11
+VN1,main,erratic,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.1818181818181819,0.0004975984818932053,11,11
+VN1,main,erratic,"fine (0.88–0.98, step 0.01)",lgb_tweedie,3.9545454545454546,0.02024178099568754,5,11
+VN1,main,erratic,"fine (0.88–0.98, step 0.01)",tsb_nb,5.2727272727272725,0.23652062806465543,7,11
+VN1,main,intermittent,"paper (0.90–0.98, step 0.02)",empirical,6.4,1.0365648388945496,2,5
+VN1,main,intermittent,"paper (0.90–0.98, step 0.02)",ets,5.0,0.1687724069873596,3,5
+VN1,main,intermittent,"paper (0.90–0.98, step 0.02)",hgb_quantile,3.2,0.11775588635546938,5,5
+VN1,main,intermittent,"paper (0.90–0.98, step 0.02)",lgb_conformal,4.8,0.4594250146383002,5,5
+VN1,main,intermittent,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.4,0.05320196201176306,5,5
+VN1,main,intermittent,"paper (0.90–0.98, step 0.02)",lgb_tweedie,4.2,0.10914325478228444,3,5
+VN1,main,intermittent,"paper (0.90–0.98, step 0.02)",tsb_nb,3.0,0.003948610307361526,3,5
+VN1,main,intermittent,moderate (0.90–0.94),empirical,7.0,1.0365648388945496,2,3
+VN1,main,intermittent,moderate (0.90–0.94),ets,4.666666666666667,0.1687724069873596,3,3
+VN1,main,intermittent,moderate (0.90–0.94),hgb_quantile,4.0,0.13290729010296673,3,3
+VN1,main,intermittent,moderate (0.90–0.94),lgb_conformal,6.0,0.3737934966996986,3,3
+VN1,main,intermittent,moderate (0.90–0.94),lgb_quantile,1.6666666666666667,0.08866993668627177,3,3
+VN1,main,intermittent,moderate (0.90–0.94),lgb_tweedie,3.3333333333333335,0.10914325478228444,3,3
+VN1,main,intermittent,moderate (0.90–0.94),tsb_nb,1.3333333333333333,0.003948610307361526,3,3
+VN1,main,intermittent,high (0.94–0.98),empirical,6.0,,0,3
+VN1,main,intermittent,high (0.94–0.98),ets,5.333333333333333,0.10053822947400892,1,3
+VN1,main,intermittent,high (0.94–0.98),hgb_quantile,2.3333333333333335,0.06856403283195589,3,3
+VN1,main,intermittent,high (0.94–0.98),lgb_conformal,4.0,0.4336677107136844,3,3
+VN1,main,intermittent,high (0.94–0.98),lgb_quantile,1.0,0.0,3,3
+VN1,main,intermittent,high (0.94–0.98),lgb_tweedie,5.0,0.020820675771157093,1,3
+VN1,main,intermittent,high (0.94–0.98),tsb_nb,4.333333333333333,0.011845830922084577,1,3
+VN1,main,intermittent,"fine (0.88–0.98, step 0.01)",empirical,6.545454545454546,1.0815381101352823,6,11
+VN1,main,intermittent,"fine (0.88–0.98, step 0.01)",ets,4.636363636363637,0.19682572021839806,7,11
+VN1,main,intermittent,"fine (0.88–0.98, step 0.01)",hgb_quantile,3.4545454545454546,0.14775247586258924,11,11
+VN1,main,intermittent,"fine (0.88–0.98, step 0.01)",lgb_conformal,5.090909090909091,0.467091905122467,11,11
+VN1,main,intermittent,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.7272727272727273,0.08821950165107638,11,11
+VN1,main,intermittent,"fine (0.88–0.98, step 0.01)",lgb_tweedie,3.9545454545454546,0.1524893098733799,8,11
+VN1,main,intermittent,"fine (0.88–0.98, step 0.01)",tsb_nb,2.590909090909091,0.014949532479240302,8,11
+VN1,main,lumpy,"paper (0.90–0.98, step 0.02)",empirical,5.5,1.1122655595064463,1,5
+VN1,main,lumpy,"paper (0.90–0.98, step 0.02)",ets,5.8,,0,5
+VN1,main,lumpy,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.2,0.06508027615068653,5,5
+VN1,main,lumpy,"paper (0.90–0.98, step 0.02)",lgb_conformal,2.8,0.31587341922151624,5,5
+VN1,main,lumpy,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.0,0.0,5,5
+VN1,main,lumpy,"paper (0.90–0.98, step 0.02)",lgb_tweedie,5.8,,0,5
+VN1,main,lumpy,"paper (0.90–0.98, step 0.02)",tsb_nb,4.9,0.498507472952777,2,5
+VN1,main,lumpy,moderate (0.90–0.94),empirical,5.5,1.1122655595064463,1,3
+VN1,main,lumpy,moderate (0.90–0.94),ets,6.0,,0,3
+VN1,main,lumpy,moderate (0.90–0.94),hgb_quantile,2.3333333333333335,0.05172316008281356,3,3
+VN1,main,lumpy,moderate (0.90–0.94),lgb_conformal,2.6666666666666665,0.10417931665054263,3,3
+VN1,main,lumpy,moderate (0.90–0.94),lgb_quantile,1.0,0.0,3,3
+VN1,main,lumpy,moderate (0.90–0.94),lgb_tweedie,6.0,,0,3
+VN1,main,lumpy,moderate (0.90–0.94),tsb_nb,4.5,0.498507472952777,2,3
+VN1,main,lumpy,high (0.94–0.98),empirical,5.5,,0,3
+VN1,main,lumpy,high (0.94–0.98),ets,5.5,,0,3
+VN1,main,lumpy,high (0.94–0.98),hgb_quantile,2.0,0.07975698668808244,3,3
+VN1,main,lumpy,high (0.94–0.98),lgb_conformal,3.0,0.47704207374739066,3,3
+VN1,main,lumpy,high (0.94–0.98),lgb_quantile,1.0,0.0,3,3
+VN1,main,lumpy,high (0.94–0.98),lgb_tweedie,5.5,,0,3
+VN1,main,lumpy,high (0.94–0.98),tsb_nb,5.5,,0,3
+VN1,main,lumpy,"fine (0.88–0.98, step 0.01)",empirical,5.636363636363637,1.164040413574714,4,11
+VN1,main,lumpy,"fine (0.88–0.98, step 0.01)",ets,5.7272727272727275,0.541562692803348,2,11
+VN1,main,lumpy,"fine (0.88–0.98, step 0.01)",hgb_quantile,2.090909090909091,0.0563102005677473,11,11
+VN1,main,lumpy,"fine (0.88–0.98, step 0.01)",lgb_conformal,2.909090909090909,0.2805102006252561,11,11
+VN1,main,lumpy,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.0,0.0,11,11
+VN1,main,lumpy,"fine (0.88–0.98, step 0.01)",lgb_tweedie,5.7272727272727275,0.3671716188931706,1,11
+VN1,main,lumpy,"fine (0.88–0.98, step 0.01)",tsb_nb,4.909090909090909,0.4810851334674549,5,11
+VN1,w26,all,"paper (0.90–0.98, step 0.02)",empirical,6.8,0.9210858967498028,4,5
+VN1,w26,all,"paper (0.90–0.98, step 0.02)",ets,5.8,0.15088231055057705,4,5
+VN1,w26,all,"paper (0.90–0.98, step 0.02)",hgb_quantile,4.4,0.11394521854252448,5,5
+VN1,w26,all,"paper (0.90–0.98, step 0.02)",lgb_conformal,2.0,0.04955896725051297,5,5
+VN1,w26,all,"paper (0.90–0.98, step 0.02)",lgb_quantile,3.8,0.09435032742908364,5,5
+VN1,w26,all,"paper (0.90–0.98, step 0.02)",lgb_tweedie,3.4,0.057628878024520214,4,5
+VN1,w26,all,"paper (0.90–0.98, step 0.02)",tsb_nb,1.8,0.03650047896934168,5,5
+VN1,w26,all,moderate (0.90–0.94),empirical,7.0,0.928093292352821,3,3
+VN1,w26,all,moderate (0.90–0.94),ets,5.666666666666667,0.1584926414200758,3,3
+VN1,w26,all,moderate (0.90–0.94),hgb_quantile,4.333333333333333,0.10489037980956402,3,3
+VN1,w26,all,moderate (0.90–0.94),lgb_conformal,2.3333333333333335,0.06719575727785283,3,3
+VN1,w26,all,moderate (0.90–0.94),lgb_quantile,4.333333333333333,0.10688055053686352,3,3
+VN1,w26,all,moderate (0.90–0.94),lgb_tweedie,3.3333333333333335,0.07683850403269361,3,3
+VN1,w26,all,moderate (0.90–0.94),tsb_nb,1.0,0.0,3,3
+VN1,w26,all,high (0.94–0.98),empirical,6.666666666666667,0.878438547517797,2,3
+VN1,w26,all,high (0.94–0.98),ets,5.666666666666667,0.10994012749382909,2,3
+VN1,w26,all,high (0.94–0.98),hgb_quantile,4.333333333333333,0.11283064009868582,3,3
+VN1,w26,all,high (0.94–0.98),lgb_conformal,2.0,0.03255521424142723,3,3
+VN1,w26,all,high (0.94–0.98),lgb_quantile,4.0,0.08256397472685428,3,3
+VN1,w26,all,high (0.94–0.98),lgb_tweedie,3.0,0.0058589924869641985,2,3
+VN1,w26,all,high (0.94–0.98),tsb_nb,2.3333333333333335,0.06083413161556946,3,3
+VN1,w26,all,"fine (0.88–0.98, step 0.01)",empirical,6.909090909090909,0.8966733757892641,10,11
+VN1,w26,all,"fine (0.88–0.98, step 0.01)",ets,5.7272727272727275,0.1408765972872616,10,11
+VN1,w26,all,"fine (0.88–0.98, step 0.01)",hgb_quantile,4.181818181818182,0.10707670250046175,11,11
+VN1,w26,all,"fine (0.88–0.98, step 0.01)",lgb_conformal,3.0,0.06363761664243107,11,11
+VN1,w26,all,"fine (0.88–0.98, step 0.01)",lgb_quantile,3.6363636363636362,0.08904529527508581,11,11
+VN1,w26,all,"fine (0.88–0.98, step 0.01)",lgb_tweedie,2.909090909090909,0.05185498930583987,10,11
+VN1,w26,all,"fine (0.88–0.98, step 0.01)",tsb_nb,1.6363636363636365,0.030176995478197088,11,11
+VN1,w26,smooth,"paper (0.90–0.98, step 0.02)",empirical,7.0,0.7151022234080279,5,5
+VN1,w26,smooth,"paper (0.90–0.98, step 0.02)",ets,2.4,0.055209655972086935,5,5
+VN1,w26,smooth,"paper (0.90–0.98, step 0.02)",hgb_quantile,4.6,0.12047518265895785,5,5
+VN1,w26,smooth,"paper (0.90–0.98, step 0.02)",lgb_conformal,3.8,0.07961998574478804,5,5
+VN1,w26,smooth,"paper (0.90–0.98, step 0.02)",lgb_quantile,5.0,0.09998625963528962,5,5
+VN1,w26,smooth,"paper (0.90–0.98, step 0.02)",lgb_tweedie,3.4,0.0715767191289729,5,5
+VN1,w26,smooth,"paper (0.90–0.98, step 0.02)",tsb_nb,1.8,0.009362831416566441,5,5
+VN1,w26,smooth,moderate (0.90–0.94),empirical,7.0,0.7567943879352533,3,3
+VN1,w26,smooth,moderate (0.90–0.94),ets,2.3333333333333335,0.07017021759432167,3,3
+VN1,w26,smooth,moderate (0.90–0.94),hgb_quantile,3.6666666666666665,0.10473104238861186,3,3
+VN1,w26,smooth,moderate (0.90–0.94),lgb_conformal,5.0,0.11053121053817098,3,3
+VN1,w26,smooth,moderate (0.90–0.94),lgb_quantile,5.333333333333333,0.11921500535973266,3,3
+VN1,w26,smooth,moderate (0.90–0.94),lgb_tweedie,3.6666666666666665,0.08668989891625323,3,3
+VN1,w26,smooth,moderate (0.90–0.94),tsb_nb,1.0,0.0,3,3
+VN1,w26,smooth,high (0.94–0.98),empirical,7.0,0.6953706440985954,3,3
+VN1,w26,smooth,high (0.94–0.98),ets,2.3333333333333335,0.040382831185574876,3,3
+VN1,w26,smooth,high (0.94–0.98),hgb_quantile,5.666666666666667,0.1429883627436012,3,3
+VN1,w26,smooth,high (0.94–0.98),lgb_conformal,2.3333333333333335,0.043183448017527194,3,3
+VN1,w26,smooth,high (0.94–0.98),lgb_quantile,5.0,0.09940803231229967,3,3
+VN1,w26,smooth,high (0.94–0.98),lgb_tweedie,3.3333333333333335,0.05963842510781688,3,3
+VN1,w26,smooth,high (0.94–0.98),tsb_nb,2.3333333333333335,0.015604719027610736,3,3
+VN1,w26,smooth,"fine (0.88–0.98, step 0.01)",empirical,7.0,0.7399613199696176,11,11
+VN1,w26,smooth,"fine (0.88–0.98, step 0.01)",ets,2.272727272727273,0.05172247009649236,11,11
+VN1,w26,smooth,"fine (0.88–0.98, step 0.01)",hgb_quantile,4.454545454545454,0.10677393473114621,11,11
+VN1,w26,smooth,"fine (0.88–0.98, step 0.01)",lgb_conformal,4.363636363636363,0.09115276551625313,11,11
+VN1,w26,smooth,"fine (0.88–0.98, step 0.01)",lgb_quantile,5.181818181818182,0.10276551756557226,11,11
+VN1,w26,smooth,"fine (0.88–0.98, step 0.01)",lgb_tweedie,3.3636363636363638,0.0723341846469137,11,11
+VN1,w26,smooth,"fine (0.88–0.98, step 0.01)",tsb_nb,1.3636363636363635,0.004255832462075656,11,11
+VN1,w26,erratic,"paper (0.90–0.98, step 0.02)",empirical,6.8,0.9266900237260765,4,5
+VN1,w26,erratic,"paper (0.90–0.98, step 0.02)",ets,5.6,0.2417389642854435,4,5
+VN1,w26,erratic,"paper (0.90–0.98, step 0.02)",hgb_quantile,4.2,0.16746501095077707,5,5
+VN1,w26,erratic,"paper (0.90–0.98, step 0.02)",lgb_conformal,2.2,0.08274109905498292,5,5
+VN1,w26,erratic,"paper (0.90–0.98, step 0.02)",lgb_quantile,4.0,0.1446027525762595,5,5
+VN1,w26,erratic,"paper (0.90–0.98, step 0.02)",lgb_tweedie,2.4,0.011576936921725123,4,5
+VN1,w26,erratic,"paper (0.90–0.98, step 0.02)",tsb_nb,2.8,0.09668955317066774,5,5
+VN1,w26,erratic,moderate (0.90–0.94),empirical,7.0,0.9114615547106207,3,3
+VN1,w26,erratic,moderate (0.90–0.94),ets,6.0,0.22402236435768338,3,3
+VN1,w26,erratic,moderate (0.90–0.94),hgb_quantile,4.333333333333333,0.12181220689653512,3,3
+VN1,w26,erratic,moderate (0.90–0.94),lgb_conformal,2.0,0.04049638829628736,3,3
+VN1,w26,erratic,moderate (0.90–0.94),lgb_quantile,4.666666666666667,0.13232773313024992,3,3
+VN1,w26,erratic,moderate (0.90–0.94),lgb_tweedie,1.6666666666666667,0.015435915895633498,3,3
+VN1,w26,erratic,moderate (0.90–0.94),tsb_nb,2.3333333333333335,0.05949832661238119,3,3
+VN1,w26,erratic,high (0.94–0.98),empirical,6.666666666666667,0.9646260772981721,2,3
+VN1,w26,erratic,high (0.94–0.98),ets,5.333333333333333,0.2589093485800764,2,3
+VN1,w26,erratic,high (0.94–0.98),hgb_quantile,4.0,0.21446806674437804,3,3
+VN1,w26,erratic,high (0.94–0.98),lgb_conformal,2.6666666666666665,0.1299985424881586,3,3
+VN1,w26,erratic,high (0.94–0.98),lgb_quantile,3.6666666666666665,0.17150486185152328,3,3
+VN1,w26,erratic,high (0.94–0.98),lgb_tweedie,2.6666666666666665,0.0,2,3
+VN1,w26,erratic,high (0.94–0.98),tsb_nb,3.0,0.13139876400869524,3,3
+VN1,w26,erratic,"fine (0.88–0.98, step 0.01)",empirical,6.909090909090909,0.9280545092830479,10,11
+VN1,w26,erratic,"fine (0.88–0.98, step 0.01)",ets,5.363636363636363,0.23157959444293405,10,11
+VN1,w26,erratic,"fine (0.88–0.98, step 0.01)",hgb_quantile,4.7272727272727275,0.17525605262266422,11,11
+VN1,w26,erratic,"fine (0.88–0.98, step 0.01)",lgb_conformal,2.090909090909091,0.0747090425559179,11,11
+VN1,w26,erratic,"fine (0.88–0.98, step 0.01)",lgb_quantile,3.909090909090909,0.1555690806917191,11,11
+VN1,w26,erratic,"fine (0.88–0.98, step 0.01)",lgb_tweedie,2.0,0.014095199402127001,10,11
+VN1,w26,erratic,"fine (0.88–0.98, step 0.01)",tsb_nb,3.0,0.11230088727428084,11,11
+VN1,w26,intermittent,"paper (0.90–0.98, step 0.02)",empirical,6.4,1.0672867225795009,3,5
+VN1,w26,intermittent,"paper (0.90–0.98, step 0.02)",ets,5.0,0.09281889000416162,3,5
+VN1,w26,intermittent,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.2,0.040052349795307404,5,5
+VN1,w26,intermittent,"paper (0.90–0.98, step 0.02)",lgb_conformal,4.8,0.4645317439421319,5,5
+VN1,w26,intermittent,"paper (0.90–0.98, step 0.02)",lgb_quantile,2.0,0.004922772301267519,5,5
+VN1,w26,intermittent,"paper (0.90–0.98, step 0.02)",lgb_tweedie,3.4,0.010337802462571766,3,5
+VN1,w26,intermittent,"paper (0.90–0.98, step 0.02)",tsb_nb,4.2,0.10772468877359076,3,5
+VN1,w26,intermittent,moderate (0.90–0.94),empirical,7.0,1.0672867225795009,3,3
+VN1,w26,intermittent,moderate (0.90–0.94),ets,4.666666666666667,0.09281889000416162,3,3
+VN1,w26,intermittent,moderate (0.90–0.94),hgb_quantile,2.3333333333333335,0.008603546445130913,3,3
+VN1,w26,intermittent,moderate (0.90–0.94),lgb_conformal,6.0,0.3144073226838291,3,3
+VN1,w26,intermittent,moderate (0.90–0.94),lgb_quantile,2.6666666666666665,0.008204620502112533,3,3
+VN1,w26,intermittent,moderate (0.90–0.94),lgb_tweedie,2.0,0.010337802462571766,3,3
+VN1,w26,intermittent,moderate (0.90–0.94),tsb_nb,3.3333333333333335,0.10772468877359076,3,3
+VN1,w26,intermittent,high (0.94–0.98),empirical,6.0,0.91543871852733,1,3
+VN1,w26,intermittent,high (0.94–0.98),ets,5.0,0.1447448531698352,1,3
+VN1,w26,intermittent,high (0.94–0.98),hgb_quantile,2.3333333333333335,0.06272507582814184,3,3
+VN1,w26,intermittent,high (0.94–0.98),lgb_conformal,4.0,0.5442432390185549,3,3
+VN1,w26,intermittent,high (0.94–0.98),lgb_quantile,1.3333333333333333,0.00307407592423344,3,3
+VN1,w26,intermittent,high (0.94–0.98),lgb_tweedie,4.0,0.0,1,3
+VN1,w26,intermittent,high (0.94–0.98),tsb_nb,5.333333333333333,0.24210781065973697,1,3
+VN1,w26,intermittent,"fine (0.88–0.98, step 0.01)",empirical,6.590909090909091,1.1867543407379395,7,11
+VN1,w26,intermittent,"fine (0.88–0.98, step 0.01)",ets,4.863636363636363,0.11643560258779581,8,11
+VN1,w26,intermittent,"fine (0.88–0.98, step 0.01)",hgb_quantile,2.3636363636363638,0.058150659938949516,11,11
+VN1,w26,intermittent,"fine (0.88–0.98, step 0.01)",lgb_conformal,5.0,0.3805894808332068,11,11
+VN1,w26,intermittent,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.8181818181818181,0.026070243871752365,11,11
+VN1,w26,intermittent,"fine (0.88–0.98, step 0.01)",lgb_tweedie,3.409090909090909,0.04434522686616624,8,11
+VN1,w26,intermittent,"fine (0.88–0.98, step 0.01)",tsb_nb,3.9545454545454546,0.09835901714729481,8,11
+VN1,w26,lumpy,"paper (0.90–0.98, step 0.02)",empirical,6.8,1.7386714108601984,4,5
+VN1,w26,lumpy,"paper (0.90–0.98, step 0.02)",ets,6.0,0.38412433042807964,4,5
+VN1,w26,lumpy,"paper (0.90–0.98, step 0.02)",hgb_quantile,3.2,0.13317743614118255,5,5
+VN1,w26,lumpy,"paper (0.90–0.98, step 0.02)",lgb_conformal,4.4,0.21399635468510345,5,5
+VN1,w26,lumpy,"paper (0.90–0.98, step 0.02)",lgb_quantile,2.0,0.08154888132116667,5,5
+VN1,w26,lumpy,"paper (0.90–0.98, step 0.02)",lgb_tweedie,3.2,0.097882463795183,4,5
+VN1,w26,lumpy,"paper (0.90–0.98, step 0.02)",tsb_nb,2.4,0.07817526124421104,5,5
+VN1,w26,lumpy,moderate (0.90–0.94),empirical,7.0,1.7753135621952658,3,3
+VN1,w26,lumpy,moderate (0.90–0.94),ets,6.0,0.3582701508287512,3,3
+VN1,w26,lumpy,moderate (0.90–0.94),hgb_quantile,3.6666666666666665,0.16930025769374377,3,3
+VN1,w26,lumpy,moderate (0.90–0.94),lgb_conformal,5.0,0.2601058155048679,3,3
+VN1,w26,lumpy,moderate (0.90–0.94),lgb_quantile,2.3333333333333335,0.12898355301433076,3,3
+VN1,w26,lumpy,moderate (0.90–0.94),lgb_tweedie,3.0,0.13050995172691068,3,3
+VN1,w26,lumpy,moderate (0.90–0.94),tsb_nb,1.0,0.0,3,3
+VN1,w26,lumpy,high (0.94–0.98),empirical,6.666666666666667,1.6843923694823415,2,3
+VN1,w26,lumpy,high (0.94–0.98),ets,6.0,0.40581533068997666,2,3
+VN1,w26,lumpy,high (0.94–0.98),hgb_quantile,3.0,0.08543213740381761,3,3
+VN1,w26,lumpy,high (0.94–0.98),lgb_conformal,4.0,0.17139551025352592,3,3
+VN1,w26,lumpy,high (0.94–0.98),lgb_quantile,2.0,0.031747166428770145,3,3
+VN1,w26,lumpy,high (0.94–0.98),lgb_tweedie,3.0,0.01727495442199789,2,3
+VN1,w26,lumpy,high (0.94–0.98),tsb_nb,3.3333333333333335,0.13029210207368505,3,3
+VN1,w26,lumpy,"fine (0.88–0.98, step 0.01)",empirical,6.863636363636363,1.7209014344027238,9,11
+VN1,w26,lumpy,"fine (0.88–0.98, step 0.01)",ets,6.045454545454546,0.37211168471352235,9,11
+VN1,w26,lumpy,"fine (0.88–0.98, step 0.01)",hgb_quantile,3.5454545454545454,0.14251242352817198,11,11
+VN1,w26,lumpy,"fine (0.88–0.98, step 0.01)",lgb_conformal,4.090909090909091,0.2077837481077622,11,11
+VN1,w26,lumpy,"fine (0.88–0.98, step 0.01)",lgb_quantile,2.1818181818181817,0.09748751906841052,11,11
+VN1,w26,lumpy,"fine (0.88–0.98, step 0.01)",lgb_tweedie,3.0,0.11578782151044768,10,11
+VN1,w26,lumpy,"fine (0.88–0.98, step 0.01)",tsb_nb,2.272727272727273,0.06820692940654437,11,11
+VN1,w52,all,"paper (0.90–0.98, step 0.02)",empirical,6.0,0.7271937143469246,2,5
+VN1,w52,all,"paper (0.90–0.98, step 0.02)",ets,6.0,0.24380807302626684,1,5
+VN1,w52,all,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.5,0.024444783916850454,4,5
+VN1,w52,all,"paper (0.90–0.98, step 0.02)",lgb_conformal,2.25,0.46371834426166214,4,5
+VN1,w52,all,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.25,0.0024936431844208573,4,5
+VN1,w52,all,"paper (0.90–0.98, step 0.02)",lgb_tweedie,4.75,0.09510160444829785,2,5
+VN1,w52,all,"paper (0.90–0.98, step 0.02)",tsb_nb,5.25,0.20650652884014098,2,5
+VN1,w52,all,moderate (0.90–0.94),empirical,6.166666666666667,0.7271937143469246,2,3
+VN1,w52,all,moderate (0.90–0.94),ets,6.166666666666667,0.24380807302626684,1,3
+VN1,w52,all,moderate (0.90–0.94),hgb_quantile,2.6666666666666665,0.015177446618938198,3,3
+VN1,w52,all,moderate (0.90–0.94),lgb_conformal,2.0,0.040044576396960796,3,3
+VN1,w52,all,moderate (0.90–0.94),lgb_quantile,1.3333333333333333,0.00332485757922781,3,3
+VN1,w52,all,moderate (0.90–0.94),lgb_tweedie,4.5,0.09510160444829785,2,3
+VN1,w52,all,moderate (0.90–0.94),tsb_nb,5.166666666666667,0.20650652884014098,2,3
+VN1,w52,all,high (0.94–0.98),empirical,5.5,,0,3
+VN1,w52,all,high (0.94–0.98),ets,5.5,,0,3
+VN1,w52,all,high (0.94–0.98),hgb_quantile,2.0,0.032745934070974037,2,3
+VN1,w52,all,high (0.94–0.98),lgb_conformal,3.0,0.9250694545773299,2,3
+VN1,w52,all,high (0.94–0.98),lgb_quantile,1.0,0.0,2,3
+VN1,w52,all,high (0.94–0.98),lgb_tweedie,5.5,,0,3
+VN1,w52,all,high (0.94–0.98),tsb_nb,5.5,,0,3
+VN1,w52,all,"fine (0.88–0.98, step 0.01)",empirical,5.95,0.7438902181264869,6,11
+VN1,w52,all,"fine (0.88–0.98, step 0.01)",ets,5.85,0.263959266654217,4,11
+VN1,w52,all,"fine (0.88–0.98, step 0.01)",hgb_quantile,2.5,0.02639202772483553,10,11
+VN1,w52,all,"fine (0.88–0.98, step 0.01)",lgb_conformal,2.5,0.34976474904446603,9,11
+VN1,w52,all,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.4,0.007961664684207248,10,11
+VN1,w52,all,"fine (0.88–0.98, step 0.01)",lgb_tweedie,4.55,0.06817047629620805,5,11
+VN1,w52,all,"fine (0.88–0.98, step 0.01)",tsb_nb,5.25,0.19738318871762828,5,11
+VN1,w52,smooth,"paper (0.90–0.98, step 0.02)",empirical,6.7,0.8238849377874758,3,5
+VN1,w52,smooth,"paper (0.90–0.98, step 0.02)",ets,4.1,0.08107372219999853,4,5
+VN1,w52,smooth,"paper (0.90–0.98, step 0.02)",hgb_quantile,4.8,0.09952642200216229,5,5
+VN1,w52,smooth,"paper (0.90–0.98, step 0.02)",lgb_conformal,1.8,0.05932485511925871,5,5
+VN1,w52,smooth,"paper (0.90–0.98, step 0.02)",lgb_quantile,3.6,0.07925512485385414,5,5
+VN1,w52,smooth,"paper (0.90–0.98, step 0.02)",lgb_tweedie,4.5,0.09974664687712315,4,5
+VN1,w52,smooth,"paper (0.90–0.98, step 0.02)",tsb_nb,2.5,0.011887435125962964,4,5
+VN1,w52,smooth,moderate (0.90–0.94),empirical,7.0,0.8238849377874758,3,3
+VN1,w52,smooth,moderate (0.90–0.94),ets,3.3333333333333335,0.08670775922202327,3,3
+VN1,w52,smooth,moderate (0.90–0.94),hgb_quantile,6.0,0.12841340847465524,3,3
+VN1,w52,smooth,moderate (0.90–0.94),lgb_conformal,1.6666666666666667,0.032951106907880945,3,3
+VN1,w52,smooth,moderate (0.90–0.94),lgb_quantile,5.0,0.12394564830737147,3,3
+VN1,w52,smooth,moderate (0.90–0.94),lgb_tweedie,3.6666666666666665,0.09146699177725097,3,3
+VN1,w52,smooth,moderate (0.90–0.94),tsb_nb,1.3333333333333333,0.00046166443790266837,3,3
+VN1,w52,smooth,high (0.94–0.98),empirical,6.5,0.7404335521177468,1,3
+VN1,w52,smooth,high (0.94–0.98),ets,4.5,0.05943274431321577,2,3
+VN1,w52,smooth,high (0.94–0.98),hgb_quantile,4.0,0.07132149137738208,3,3
+VN1,w52,smooth,high (0.94–0.98),lgb_conformal,1.6666666666666667,0.06592365162421691,3,3
+VN1,w52,smooth,high (0.94–0.98),lgb_quantile,2.6666666666666665,0.03956503367547626,3,3
+VN1,w52,smooth,high (0.94–0.98),lgb_tweedie,5.166666666666667,0.09155783383105442,2,3
+VN1,w52,smooth,high (0.94–0.98),tsb_nb,3.5,0.023774870251925928,2,3
+VN1,w52,smooth,"fine (0.88–0.98, step 0.01)",empirical,6.7272727272727275,0.8227845037085876,8,11
+VN1,w52,smooth,"fine (0.88–0.98, step 0.01)",ets,4.0,0.09266395784094358,9,11
+VN1,w52,smooth,"fine (0.88–0.98, step 0.01)",hgb_quantile,4.909090909090909,0.10950204473446977,11,11
+VN1,w52,smooth,"fine (0.88–0.98, step 0.01)",lgb_conformal,2.0,0.05539617745630309,11,11
+VN1,w52,smooth,"fine (0.88–0.98, step 0.01)",lgb_quantile,3.8181818181818183,0.09616422123707626,11,11
+VN1,w52,smooth,"fine (0.88–0.98, step 0.01)",lgb_tweedie,4.363636363636363,0.10484559938697921,9,11
+VN1,w52,smooth,"fine (0.88–0.98, step 0.01)",tsb_nb,2.1818181818181817,0.015115805648809112,9,11
+VN1,w52,erratic,"paper (0.90–0.98, step 0.02)",empirical,4.875,0.343699663076954,3,5
+VN1,w52,erratic,"paper (0.90–0.98, step 0.02)",ets,5.5,0.14209456378185026,1,5
+VN1,w52,erratic,"paper (0.90–0.98, step 0.02)",hgb_quantile,2.25,0.03716971781149586,4,5
+VN1,w52,erratic,"paper (0.90–0.98, step 0.02)",lgb_conformal,3.0,0.14313428341613565,4,5
+VN1,w52,erratic,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.0,0.0,4,5
+VN1,w52,erratic,"paper (0.90–0.98, step 0.02)",lgb_tweedie,6.25,,0,5
+VN1,w52,erratic,"paper (0.90–0.98, step 0.02)",tsb_nb,5.125,0.20131591687855066,2,5
+VN1,w52,erratic,moderate (0.90–0.94),empirical,4.666666666666667,0.343699663076954,3,3
+VN1,w52,erratic,moderate (0.90–0.94),ets,5.5,0.14209456378185026,1,3
+VN1,w52,erratic,moderate (0.90–0.94),hgb_quantile,2.3333333333333335,0.0342766889905303,3,3
+VN1,w52,erratic,moderate (0.90–0.94),lgb_conformal,3.0,0.10817141373700578,3,3
+VN1,w52,erratic,moderate (0.90–0.94),lgb_quantile,1.0,0.0,3,3
+VN1,w52,erratic,moderate (0.90–0.94),lgb_tweedie,6.5,,0,3
+VN1,w52,erratic,moderate (0.90–0.94),tsb_nb,5.0,0.20131591687855066,2,3
+VN1,w52,erratic,high (0.94–0.98),empirical,4.25,0.24785063972773713,1,3
+VN1,w52,erratic,high (0.94–0.98),ets,5.75,,0,3
+VN1,w52,erratic,high (0.94–0.98),hgb_quantile,2.0,0.058637682403016256,2,3
+VN1,w52,erratic,high (0.94–0.98),lgb_conformal,3.5,0.2669819996615558,2,3
+VN1,w52,erratic,high (0.94–0.98),lgb_quantile,1.0,0.0,2,3
+VN1,w52,erratic,high (0.94–0.98),lgb_tweedie,5.75,,0,3
+VN1,w52,erratic,high (0.94–0.98),tsb_nb,5.75,,0,3
+VN1,w52,erratic,"fine (0.88–0.98, step 0.01)",empirical,5.444444444444445,0.3648383419544122,7,11
+VN1,w52,erratic,"fine (0.88–0.98, step 0.01)",ets,5.277777777777778,0.14932863314637063,4,11
+VN1,w52,erratic,"fine (0.88–0.98, step 0.01)",hgb_quantile,2.3333333333333335,0.0325715971404557,9,11
+VN1,w52,erratic,"fine (0.88–0.98, step 0.01)",lgb_conformal,2.5555555555555554,0.11888391222627491,9,11
+VN1,w52,erratic,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.2222222222222223,0.0038951300128511335,10,11
+VN1,w52,erratic,"fine (0.88–0.98, step 0.01)",lgb_tweedie,5.722222222222222,0.13041003487946357,2,11
+VN1,w52,erratic,"fine (0.88–0.98, step 0.01)",tsb_nb,5.444444444444445,0.20359666172617458,5,11
+VN1,w52,intermittent,"paper (0.90–0.98, step 0.02)",empirical,,,0,5
+VN1,w52,intermittent,"paper (0.90–0.98, step 0.02)",ets,,,0,5
+VN1,w52,intermittent,"paper (0.90–0.98, step 0.02)",hgb_quantile,,,0,5
+VN1,w52,intermittent,"paper (0.90–0.98, step 0.02)",lgb_conformal,,,0,5
+VN1,w52,intermittent,"paper (0.90–0.98, step 0.02)",lgb_quantile,,,0,5
+VN1,w52,intermittent,"paper (0.90–0.98, step 0.02)",lgb_tweedie,,,0,5
+VN1,w52,intermittent,"paper (0.90–0.98, step 0.02)",tsb_nb,,,0,5
+VN1,w52,intermittent,moderate (0.90–0.94),empirical,,,0,3
+VN1,w52,intermittent,moderate (0.90–0.94),ets,,,0,3
+VN1,w52,intermittent,moderate (0.90–0.94),hgb_quantile,,,0,3
+VN1,w52,intermittent,moderate (0.90–0.94),lgb_conformal,,,0,3
+VN1,w52,intermittent,moderate (0.90–0.94),lgb_quantile,,,0,3
+VN1,w52,intermittent,moderate (0.90–0.94),lgb_tweedie,,,0,3
+VN1,w52,intermittent,moderate (0.90–0.94),tsb_nb,,,0,3
+VN1,w52,intermittent,high (0.94–0.98),empirical,,,0,3
+VN1,w52,intermittent,high (0.94–0.98),ets,,,0,3
+VN1,w52,intermittent,high (0.94–0.98),hgb_quantile,,,0,3
+VN1,w52,intermittent,high (0.94–0.98),lgb_conformal,,,0,3
+VN1,w52,intermittent,high (0.94–0.98),lgb_quantile,,,0,3
+VN1,w52,intermittent,high (0.94–0.98),lgb_tweedie,,,0,3
+VN1,w52,intermittent,high (0.94–0.98),tsb_nb,,,0,3
+VN1,w52,intermittent,"fine (0.88–0.98, step 0.01)",empirical,5.0,,0,11
+VN1,w52,intermittent,"fine (0.88–0.98, step 0.01)",ets,5.0,,0,11
+VN1,w52,intermittent,"fine (0.88–0.98, step 0.01)",hgb_quantile,1.0,0.0,1,11
+VN1,w52,intermittent,"fine (0.88–0.98, step 0.01)",lgb_conformal,5.0,,0,11
+VN1,w52,intermittent,"fine (0.88–0.98, step 0.01)",lgb_quantile,2.0,0.013257124046427649,1,11
+VN1,w52,intermittent,"fine (0.88–0.98, step 0.01)",lgb_tweedie,5.0,,0,11
+VN1,w52,intermittent,"fine (0.88–0.98, step 0.01)",tsb_nb,5.0,,0,11
+VN1,w52,lumpy,"paper (0.90–0.98, step 0.02)",empirical,5.5,,0,5
+VN1,w52,lumpy,"paper (0.90–0.98, step 0.02)",ets,5.5,,0,5
+VN1,w52,lumpy,"paper (0.90–0.98, step 0.02)",hgb_quantile,1.6666666666666667,0.006547183838444918,3,5
+VN1,w52,lumpy,"paper (0.90–0.98, step 0.02)",lgb_conformal,3.0,2.3412241405513505,4,5
+VN1,w52,lumpy,"paper (0.90–0.98, step 0.02)",lgb_quantile,1.3333333333333333,0.00017981165064232899,3,5
+VN1,w52,lumpy,"paper (0.90–0.98, step 0.02)",lgb_tweedie,5.5,,0,5
+VN1,w52,lumpy,"paper (0.90–0.98, step 0.02)",tsb_nb,5.5,,0,5
+VN1,w52,lumpy,moderate (0.90–0.94),empirical,5.5,,0,3
+VN1,w52,lumpy,moderate (0.90–0.94),ets,5.5,,0,3
+VN1,w52,lumpy,moderate (0.90–0.94),hgb_quantile,1.6666666666666667,0.006547183838444918,3,3
+VN1,w52,lumpy,moderate (0.90–0.94),lgb_conformal,3.0,3.1216321874018007,3,3
+VN1,w52,lumpy,moderate (0.90–0.94),lgb_quantile,1.3333333333333333,0.00017981165064232899,3,3
+VN1,w52,lumpy,moderate (0.90–0.94),lgb_tweedie,5.5,,0,3
+VN1,w52,lumpy,moderate (0.90–0.94),tsb_nb,5.5,,0,3
+VN1,w52,lumpy,high (0.94–0.98),empirical,5.5,,0,3
+VN1,w52,lumpy,high (0.94–0.98),ets,5.5,,0,3
+VN1,w52,lumpy,high (0.94–0.98),hgb_quantile,2.0,0.004166303300409124,1,3
+VN1,w52,lumpy,high (0.94–0.98),lgb_conformal,3.0,2.6688373523649167,2,3
+VN1,w52,lumpy,high (0.94–0.98),lgb_quantile,1.0,0.0,1,3
+VN1,w52,lumpy,high (0.94–0.98),lgb_tweedie,5.5,,0,3
+VN1,w52,lumpy,high (0.94–0.98),tsb_nb,5.5,,0,3
+VN1,w52,lumpy,"fine (0.88–0.98, step 0.01)",empirical,5.5,0.836723720114801,1,11
+VN1,w52,lumpy,"fine (0.88–0.98, step 0.01)",ets,5.6875,,0,11
+VN1,w52,lumpy,"fine (0.88–0.98, step 0.01)",hgb_quantile,1.625,0.0038113260440906516,8,11
+VN1,w52,lumpy,"fine (0.88–0.98, step 0.01)",lgb_conformal,3.0,2.4610658524175966,9,11
+VN1,w52,lumpy,"fine (0.88–0.98, step 0.01)",lgb_quantile,1.375,0.0010744312823968982,8,11
+VN1,w52,lumpy,"fine (0.88–0.98, step 0.01)",lgb_tweedie,5.6875,,0,11
+VN1,w52,lumpy,"fine (0.88–0.98, step 0.01)",tsb_nb,5.125,0.2871260722651773,2,11

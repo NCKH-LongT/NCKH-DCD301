@@ -1,0 +1,19 @@
+fingerprint M5 w0: 30490 series x 277 weeks, evaluated 30381, total sales of evaluated series 66793704
+Seed set to 2026
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+`Trainer.fit` stopped: `max_steps=50` reached.
+M5 w0 h3 cutoff 251: trained on 57,787 rows in 4s
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+    origins 251-263 predicted (5s in block)
+Seed set to 2026
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+`Trainer.fit` stopped: `max_steps=50` reached.
+M5 w0 h3 cutoff 264: trained on 61,687 rows in 4s
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+    origins 264-276 predicted (5s in block)
+done in 9s; series with missing forecasts: 0.00%
+quick check, empirical coverage per quantile: {0.5: np.float64(0.442), 0.8: np.float64(0.731), 0.9: np.float64(0.833), 0.95: np.float64(0.88), 0.99: np.float64(0.915)}

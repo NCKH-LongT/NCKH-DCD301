@@ -1,0 +1,19 @@
+M5 main L = 1 done
+M5 main L = 2 done
+M5 main L = 4 done
+M5 second L = 1 done
+M5 second L = 2 done
+M5 second L = 4 done
+M5 third L = 1 done
+M5 third L = 2 done
+M5 third L = 4 done
+VN1 main L = 1 done
+VN1 main L = 2 done
+VN1 main L = 4 done
+VN1 second L = 1 done
+VN1 second L = 2 done
+VN1 second L = 4 done
+VN1 third L = 1 done
+VN1 third L = 2 done
+VN1 third L = 4 done
+written code/outputs/leadtime_equal_fill_all_windows.md

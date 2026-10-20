@@ -1,0 +1,19 @@
+fingerprint M5 w26: 30490 series x 251 weeks, evaluated 29917, total sales of evaluated series 59390858
+Seed set to 2026
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+`Trainer.fit` stopped: `max_steps=1500` reached.
+M5 w26 h3 cutoff 225: trained on 5,044,690 rows in 131s
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+    origins 225-237 predicted (209s in block)
+Seed set to 2026
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+`Trainer.fit` stopped: `max_steps=1500` reached.
+M5 w26 h3 cutoff 238: trained on 5,433,611 rows in 134s
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+    origins 238-250 predicted (213s in block)
+done in 423s; series with missing forecasts: 0.00%
+written C:\Users\ADMIN\Desktop\Code\NCKH-DCD301\data\cache\forecasts\M5_w26\nhits_h3.npz
