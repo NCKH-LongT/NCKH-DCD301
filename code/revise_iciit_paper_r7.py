@@ -105,6 +105,8 @@ def main():
     replace_in(d, "Neural baseline. We evaluated", "Including N-HiTS leaves C2's maximum regret at 0.9%.",
                "Including N-HiTS leaves the post hoc C2's maximum regret at 0.9%.")
     replace_in(d, "C2 has the smallest maximum regret", "C2 has the smallest maximum regret", "The post hoc C2 has the smallest maximum regret")
+    replace_in(d, "An additional combination, C2, averages", "An additional combination, C2, averages",
+               "An additional combination, C2, specified post hoc after inspecting the results, averages")
 
     # R2 – censoring
     set_text(find(d, "Censored demand. Both datasets record sales"), CENSOR)
