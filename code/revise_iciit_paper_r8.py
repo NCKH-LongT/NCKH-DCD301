@@ -33,8 +33,9 @@ CENSOR_TRAIN = (" Censoring could also be handled in training rather than only i
                 "uncertain, such models would need on-hand records or a sensitivity analysis over the flagging threshold; "
                 "we leave them to future work.")
 
-REF28 = "[28]  S. Nahmias. 1994. Demand estimation in lost sales inventory systems. Naval Research Logistics 41, 6, 739–757."
-REF29 = "[29]  J. L. Powell. 1986. Censored regression quantiles. Journal of Econometrics 32, 1, 143–155."
+REF28 = ("[28]  S. Nahmias. 1994. Demand estimation in lost sales inventory systems. Naval Research Logistics 41, 6, 739–757. "
+         "https://doi.org/10.1002/1520-6750(199410)41:6<739::AID-NAV3220410605>3.0.CO;2-A")
+REF29 = "[29]  J. L. Powell. 1986. Censored regression quantiles. Journal of Econometrics 32, 1, 143–155. https://doi.org/10.1016/0304-4076(86)90016-3"
 
 CLUSTER_PREP = (" ADI, CV² and time since sale are log-transformed; all eight features are then centred on their medians, "
                 "divided by their interquartile ranges and clipped at ±4, with these statistics taken from the fitting "
