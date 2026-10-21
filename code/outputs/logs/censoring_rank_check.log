@@ -1,0 +1,13 @@
+M5 main alpha 0.01 clean series 22,683/30,381; flagged test weeks 0.085
+M5 main alpha 0.05 clean series 20,182/30,381; flagged test weeks 0.102
+M5 second alpha 0.01 clean series 22,888/29,917; flagged test weeks 0.074
+M5 second alpha 0.05 clean series 20,502/29,917; flagged test weeks 0.090
+M5 third alpha 0.01 clean series 20,701/28,824; flagged test weeks 0.090
+M5 third alpha 0.05 clean series 18,331/28,824; flagged test weeks 0.108
+VN1 main alpha 0.01 clean series 11,411/13,844; flagged test weeks 0.061
+VN1 main alpha 0.05 clean series 10,263/13,844; flagged test weeks 0.089
+VN1 second alpha 0.01 clean series 9,315/11,442; flagged test weeks 0.069
+VN1 second alpha 0.05 clean series 8,387/11,442; flagged test weeks 0.098
+VN1 third alpha 0.01 clean series 7,566/9,383; flagged test weeks 0.068
+VN1 third alpha 0.05 clean series 6,767/9,383; flagged test weeks 0.096
+written code/outputs/censoring/censoring_rank_check.md

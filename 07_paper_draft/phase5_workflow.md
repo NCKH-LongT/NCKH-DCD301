@@ -125,3 +125,34 @@ Lưu thành file mới, không ghi đè bản của nhóm.
 | 30/10 | **Nộp ICIIT** | Duy |
 | 31/10–01/11 | Vòng loại NCKH | Nhóm |
 | Sau 30/10 | Mục 5 (LGB hai giai đoạn) cho bản tạp chí | Nhóm |
+
+---
+
+## Kết quả bước 2 (21/10/2026) — censoring có làm đổi thứ hạng không
+
+Nguồn: `code/censoring_rank_check.py` → `code/outputs/censoring/censoring_rank_check.md`. Script dùng `flag_weeks()` của thành viên A; tỷ lệ tuần bị đánh dấu khớp đúng số của A.
+
+**(a) Chỉ chuỗi không có tuần nghi hết hàng** (72–82% số chuỗi):
+
+- phương pháp dẫn đầu ở **cả 6 cửa sổ không đổi**;
+- C2 vẫn có regret lớn nhất thấp nhất (−0,2% ở α = 0,01; −0,1% ở α = 0,05).
+
+→ **Thứ hạng giữ nguyên** theo tiêu chí đặt trước.
+
+**(b) Bù nhu cầu** bằng mức bán trung bình trước kỳ kiểm thử, ở mọi tuần bị đánh dấu. Đây là kịch bản khắt khe nhất: coi mọi chuỗi tuần bán bằng 0 bị đánh dấu là hết hàng.
+
+- **TSB-NB:** cần thêm 17,0–26,5% tồn kho so với LGB-Q trên M5 ở fill rate 0,92, và 28,2–40,3% ở 0,94.
+  - [Nhận định nhóm] Lý do hợp lý: TSB giảm xác suất có bán trong các chuỗi tuần bán bằng 0, nên dự báo thấp đi đúng lúc nhu cầu được bù.
+- **LGB-Q:** regret trên M5 ≤ 4,2%.
+- **C2:**
+  - trên VN1 vẫn cần ít hơn LGB-Q 6,9–10,7% ở fill rate 0,92;
+  - regret lớn nhất tăng lên 9,8% (M5, cửa sổ chính), cao hơn LGB-T (8,3%).
+- **Phương pháp dẫn đầu** đổi ở 3/6 cửa sổ:
+
+  | Cửa sổ | Dẫn đầu khi bù nhu cầu | Thay cho |
+  |---|---|---|
+  | M5 chính | HGB-Q (hạng 2,0) | LGB-Q (hạng 2,2) |
+  | M5 thứ ba | ETS | LGB-Q |
+  | VN1 thứ hai | LGB-T | TSB-NB |
+
+→ **Kết luận:** thứ hạng vững khi bỏ các chuỗi nghi hết hàng, nhưng **nhạy với giả định về nhu cầu bị ẩn**. TSB-NB chịu ảnh hưởng nhiều nhất, nên lợi thế của C2 trên M5 phụ thuộc vào tỷ lệ chuỗi tuần bán bằng 0 thực sự là hết hàng. Trên VN1, C2 vẫn hơn LGB-Q trong mọi kịch bản. Trong bài phải nói đúng như vậy.
