@@ -304,7 +304,7 @@ slide("04", "4.1 Bảy phương pháp, cùng một chính sách kho", """
   <p><b style="color:var(--ink)">LGB-T / LGB-C</b> · dự báo điểm Tweedie + tồn kho an toàn chuẩn / conformal</p></div>
 </div>
 <div class="box why"><p><b>Đối chứng thêm.</b> N-HiTS (deep learning, đơn biến) và Chronos-2 (foundation model, zero-shot).
-<b>Kết hợp</b> C2 = trung bình phân vị LGB-Q và TSB-NB — được chọn <b>sau khi xem kết quả</b> (post hoc).</p></div>""",
+<b>Kết hợp</b> C2 = trung bình phân vị LGB-Q và TSB-NB (post hoc); E7 / E7-med = trung bình / trung vị cả 7 phương pháp (chốt trước khi chạy).</p></div>""",
       "NGUỒN · code/f2d/models.py · bài báo mục 3.2",
       ["Hai nhóm phương pháp. Mô hình chính LGB-Q học trực tiếp các phân vị. LGB-T là cách dự báo điểm rồi cộng tồn kho an toàn.",
        "Mọi phương pháp dùng đúng cùng một chính sách đặt hàng, nên khác biệt chỉ đến từ dự báo."])
@@ -388,7 +388,27 @@ slide("04", "4.7 C2 = trung bình phân vị LGB-Q và TSB-NB <span class=\"flag
       ["Không biết trước phương pháp nào thắng, nhóm thử phòng hộ bằng trung bình hai phương pháp.",
        "C2 có regret lớn nhất chỉ 0,9%. Nhưng phải nói rõ, như reviewer yêu cầu: C2 được chọn sau khi xem kết quả, nên đây là giả thuyết cần kiểm chứng, chưa phải khuyến nghị triển khai."])
 
-slide("04", "4.8 Độ vững: lead time, chi phí mất khách, deep learning", """
+slide("04", "4.8 Kết hợp cả 7 phương pháp và ablation <span class=\"flag\">CHỐT THIẾT KẾ TRƯỚC KHI CHẠY</span>", table(
+    ["Kết hợp", "VN1 · tồn kho vs LGB-Q (fill 0,92)", "M5 · tồn kho vs LGB-Q (fill 0,92)", "Regret lớn nhất", "Đạt tiêu chí?"],
+    [["E7 · trung bình 7 phương pháp", "−4,6 đến −6,1% (3/3 có ý nghĩa)", '<span class="b">+0,8 đến +3,1%</span>', "3,4%", "Không (M5 kém &gt; 1%)"],
+     ["E7-med · trung vị 7 phương pháp", "−7,1 đến −8,2% (3/3 có ý nghĩa)", "−0,9 đến +1,6%", '<span class="b">0,3%</span>', "Gần đạt (M5 +1,6%)"],
+     ["C2 · LGB-Q + TSB-NB (post hoc)", "−5,9 đến −10,5%", "−1,5 đến +0,4%", "0,9%", "—"],
+     ["Chọn tổ hợp ở cửa sổ trước → áp dụng cửa sổ sau", "−7,8 đến −8,2% (2/2 có ý nghĩa)", "−0,6 / +0,9%", "—", "Không (M5 kém 0,9% một lần)"]],
+    hl=(1,)) + """
+<div class="grid2" style="grid-template-columns:1fr 1fr;gap:36px;margin-top:30px">
+ <div class="box"><span class="tag">ABLATION · BỎ TỪNG PHƯƠNG PHÁP KHỎI E7</span>
+  <p>Bỏ <b style="color:var(--ink)">LGB-Q hoặc HGB-Q</b> → cần thêm 1,0–4,5% hàng (đóng góp nhiều nhất).
+  Bỏ <b style="color:var(--ink)">ETS</b> → cần ít hàng hơn ở cả 6 lần chạy (kéo tổ hợp xuống).
+  Tổ hợp tốt nhất của cả 6 lần chạy (trong 127 tập con) đều chứa <b style="color:var(--ink)">LGB-Q + TSB-NB</b>.</p></div>
+ <div class="box why" style="margin-top:0"><p><b>Đọc kết quả.</b> Kết hợp giảm tồn kho rõ rệt trên VN1 nhưng không hơn LGB-Q trên M5.
+  Mọi tổ hợp đều có <b>wQL cao hơn</b> LGB-Q (E7-med VN1: 0,110 so với 0,103) mà vẫn cần <b>ít hàng hơn</b> — thêm bằng chứng cho luận điểm chính.</p></div>
+</div>""", "NGUỒN · code/ensemble_ablation.py → code/outputs/ensemble/ensemble_ablation.md · thiết kế: 07_paper_draft/phase5_workflow.md mục 7",
+      ["Theo góp ý của thầy, nhóm kết hợp cả 7 phương pháp. Thiết kế và tiêu chí được ghi lại trước khi chạy, để không lặp lại vấn đề post hoc của C2.",
+       "E7 trung bình không đạt tiêu chí vì kém LGB-Q khoảng 3% trên M5. Trung vị E7-med ổn định nhất: regret lớn nhất chỉ 0,3%, trên VN1 giảm 7–8% tồn kho.",
+       "Ablation cho thấy nên kết hợp các phương pháp phân vị trực tiếp với TSB-NB; thêm các phương pháp yếu như ETS làm tổ hợp kém đi.",
+       "Cặp LGB-Q + TSB-NB xuất hiện trong tổ hợp tốt nhất ở cả 6 lần chạy, nên cấu trúc của C2 không phải ngẫu nhiên."])
+
+slide("04", "4.9 Độ vững: lead time, chi phí mất khách, deep learning", """
 <div class="grid2" style="gap:40px 60px">
  <div class="box"><span class="tag">LEAD TIME 1, 2, 4 TUẦN · 18 LẦN CHẠY</span><h3>C2 2,0% · LGB-Q 12,6%</h3>
   <p>Regret lớn nhất so với phương pháp đơn tốt nhất trong sáu phương pháp (không có HGB-Q).</p></div>
@@ -403,7 +423,7 @@ slide("04", "4.8 Độ vững: lead time, chi phí mất khách, deep learning",
        "Quy ra chi phí: nếu mất khách cực kỳ đắt, phương pháp chính xác nhất LGB-Q mới là lựa chọn tốt nhất.",
        "N-HiTS chạy dạng tiêu chuẩn, không tinh chỉnh, cần nhiều hàng hơn LGB-Q trên M5."])
 
-slide("04", "4.9 Chi phí tính toán so với hiệu quả tồn kho <span class=\"flag\">REVIEWER · MỤC 3</span>", table(
+slide("04", "4.10 Chi phí tính toán so với hiệu quả tồn kho <span class=\"flag\">REVIEWER · MỤC 3</span>", table(
     ["Phương pháp", "Loại", "Thời gian · M5", "Thời gian · VN1", "Tồn kho vs LGB-Q (fill 0,92)"],
     [["TSB-NB", "thống kê", "1,1–2,3 phút", "≈ 0,5 phút", "M5 +5,5 đến +10,4% · VN1 −11,3 đến +25,1%"],
      ["LGB-Q", "ML toàn cục, 5 mô hình", "10–21 phút", "2,4–4,4 phút", "mốc so sánh"],
@@ -418,7 +438,7 @@ thời gian đo trên hai máy (N-HiTS M5 trên máy thành viên B), chỉ đú
       ["Reviewer hỏi về đánh đổi giữa chi phí tính toán và hiệu quả của mô hình zero-shot so với N-HiTS.",
        "Chronos-2 không cần huấn luyện nhưng suy luận trên CPU mất 5,4 giờ mỗi cửa sổ M5 và cần nhiều hàng nhất. Đây là kết quả cho bản tiêu chuẩn, không phải giới hạn trên của foundation model."])
 
-slide("04", "4.10 Hết hàng có làm đổi thứ hạng? <span class=\"flag\">REVIEWER · MỤC 2</span>", """
+slide("04", "4.11 Hết hàng có làm đổi thứ hạng? <span class=\"flag\">REVIEWER · MỤC 2</span>", """
 <div class="row" style="gap:50px">
  <div style="width:600px">
   <div class="box"><span class="tag">PHÁT HIỆN TỪ DOANH SỐ</span>
@@ -439,7 +459,7 @@ slide("04", "4.10 Hết hàng có làm đổi thứ hạng? <span class=\"flag\"
        "Thành viên A phát hiện tuần nghi hết hàng từ doanh số. Nhóm kiểm tra hai kịch bản.",
        "Trên chuỗi sạch, không đổi gì. Khi bù nhu cầu, TSB-NB bị ảnh hưởng nặng nhất vì xác suất có bán giảm trong các khoảng 0. Nhóm báo cáo trung thực trong bài."])
 
-slide("04", "4.11 Thanh lý và quy tắc dùng giá thu hồi hòa vốn s*", """
+slide("04", "4.12 Thanh lý và quy tắc dùng giá thu hồi hòa vốn s*", """
 <div class="row" style="gap:60px">
  <div style="flex:1">
   <div class="row" style="gap:70px;margin-bottom:30px">
@@ -468,7 +488,7 @@ slide("05", "5. Insight vận hành và khuyến nghị theo tình huống", """
  <div class="box"><span class="tag">CỬA HÀNG TRUYỀN THỐNG · KIỂU M5</span><h3>Dùng LGB-Q</h3>
   <p>Vừa chính xác nhất vừa cần ít hàng nhất ở cả ba cửa sổ: ít hơn 3,3–10,6% so với dự báo điểm + tồn kho an toàn, TSB-NB, ETS (fill 0,94).</p></div>
  <div class="box"><span class="tag">NHIỀU NHÀ BÁN · KIỂU VN1</span><h3>Không có người thắng cố định</h3>
-  <p>Người dẫn đầu đổi theo giai đoạn; phân loại nhu cầu và phân cụm không chọn trước được. C2 là ứng viên cần kiểm chứng prospective.</p></div>
+  <p>Người dẫn đầu đổi theo giai đoạn; phân loại nhu cầu không chọn trước được. Kết hợp (trung vị 7 phương pháp, hoặc C2) giảm 6–8% tồn kho; cần kiểm chứng prospective.</p></div>
  <div class="box"><span class="tag">KHI MẤT KHÁCH RẤT ĐẮT</span><h3>Ưu tiên LGB-Q</h3>
   <p>Khi phạt mất khách trên khoảng 200 tuần chi phí giữ hàng; theo dõi độ phủ phân vị trên, nơi TSB-NB phủ thiếu.</p></div>
  <div class="box b"><span class="tag">THANH LÝ</span><h3>Chỉ khi r ≥ s*</h3>
@@ -482,7 +502,7 @@ slide("05", "5. Insight vận hành và khuyến nghị theo tình huống", """
 slide("05", "Những điều bài chưa trả lời được", table(
     ["Hạn chế", "Mức độ và hướng xử lý"],
     [["Doanh số ≠ nhu cầu", "Hết hàng chỉ được suy ra; thứ hạng giữ trên chuỗi sạch nhưng nhạy khi bù nhu cầu. Cần dữ liệu tồn kho thật."],
-     ["C2 chọn sau kết quả", "Cố định cấu hình, kiểm chứng prospective trên giai đoạn sau và bộ dữ liệu khác."],
+     ["C2 chọn sau kết quả", "E7-med được chốt trước nhưng mới có 3 giai đoạn mỗi bộ; cần kiểm chứng trên giai đoạn sau và bộ dữ liệu khác."],
      ["Chi phí giả định", "Không có chi phí thật; kết luận thanh lý phụ thuộc h, m và tỷ lệ thu hồi."],
      ["Không tinh chỉnh siêu tham số", "M5 giữ ở 4 cấu hình; VN1 nhạy với kích thước cây."],
      ["Nhóm chuỗi định nghĩa hồi cứu", "Bộ phân loại chuỗi tăng trưởng chỉ thu được một phần lợi ích và không ổn định."],
@@ -496,7 +516,7 @@ slide("05", "Tổng kết", """
 <ol class="steps" style="max-width:1560px">
  <li><b>Chính xác nhất chưa chắc giữ ít hàng nhất</b>Trên M5 thì trùng (LGB-Q); trên VN1 thì không: cửa sổ thứ hai TSB-NB cần ít hơn LGB-Q 8,8% dù sai số cao hơn.</li>
  <li><b>Không chọn trước được theo nhóm</b>ADI–CV², phân cụm hay cửa sổ trước đều không ổn định; khác biệt M5–VN1 vẫn còn sau khi cân lại thành phần chuỗi.</li>
- <li><b>Phòng hộ đơn giản có triển vọng, cần kiểm chứng</b>C2 có regret lớn nhất 0,9% (post hoc); nhạy với giả định về hết hàng.</li>
+ <li><b>Kết hợp giúp bán lẻ biến động</b>Trung vị 7 phương pháp (chốt trước) giảm 7–8% tồn kho trên VN1, regret lớn nhất 0,3%; không hơn LGB-Q trên M5.</li>
  <li><b>Thanh lý theo quy tắc r ≥ s*</b>Trên VN1 cần thu hồi khoảng 0,91–1,21 giá vốn mới có lợi trong 26 tuần.</li>
 </ol>
 <p class="lead" style="margin-top:10px">Cảm ơn thầy cô và các bạn đã lắng nghe.</p>""",
