@@ -401,7 +401,7 @@ slide("04", "4.8 Kết hợp cả 7 phương pháp và ablation <span class=\"fl
   Bỏ <b style="color:var(--ink)">ETS</b> → cần ít hàng hơn ở cả 6 lần chạy (kéo tổ hợp xuống).
   Tổ hợp tốt nhất của cả 6 lần chạy (trong 127 tập con) đều chứa <b style="color:var(--ink)">LGB-Q + TSB-NB</b>.</p></div>
  <div class="box why" style="margin-top:0"><p><b>Đọc kết quả.</b> Kết hợp giảm tồn kho rõ rệt trên VN1 nhưng không hơn LGB-Q trên M5.
-  Mọi tổ hợp đều có <b>wQL cao hơn</b> LGB-Q (E7-med VN1: 0,110 so với 0,103) mà vẫn cần <b>ít hàng hơn</b> — thêm bằng chứng cho luận điểm chính.</p></div>
+  Mọi tổ hợp đều có <b>wQL cao hơn</b> LGB-Q (E7-med VN1: 0,110 so với 0,103) mà vẫn cần <b>ít hàng hơn</b>. E7-med vẫn vững khi tính đến hết hàng (tờ 4.11).</p></div>
 </div>""", "NGUỒN · code/ensemble_ablation.py → code/outputs/ensemble/ensemble_ablation.md · thiết kế: 07_paper_draft/phase5_workflow.md mục 7",
       ["Theo góp ý của thầy, nhóm kết hợp cả 7 phương pháp. Thiết kế và tiêu chí được ghi lại trước khi chạy, để không lặp lại vấn đề post hoc của C2.",
        "E7 trung bình không đạt tiêu chí vì kém LGB-Q khoảng 3% trên M5. Trung vị E7-med ổn định nhất: regret lớn nhất chỉ 0,3%, trên VN1 giảm 7–8% tồn kho.",
@@ -450,14 +450,16 @@ slide("04", "4.11 Hết hàng có làm đổi thứ hạng? <span class=\"flag\"
  <div style="flex:1">""" + table(["Kịch bản", "Người dẫn đầu", "Kết quả chính"],
     [["(a) Chỉ chuỗi sạch (72–82% chuỗi)", "không đổi ở 6/6 cửa sổ", "C2 vẫn có regret lớn nhất thấp nhất"],
      ["(b) Bù nhu cầu ở tuần bị gắn cờ (mức bán TB)", "đổi ở 3/6, sang phương pháp sát hạng", "TSB-NB cần +17 đến +27% so với LGB-Q trên M5 (fill 0,92)"],
-     ["(b) — C2", "", "regret lớn nhất lên 9,8%; VN1 vẫn ít hơn LGB-Q 6,9–10,7%"]]) + """
-  <div class="box why" style="margin-top:28px"><p><b>Kết luận.</b> Hết hàng ảnh hưởng nhiều nhất tới TSB-NB và tới lập luận ủng hộ C2 trên M5.
-  Cần dữ liệu tồn kho thật để kết luận chắc chắn.</p></div>
+     ["(b) — C2", "", "regret lớn nhất lên 9,8%; VN1 vẫn ít hơn LGB-Q 6,9–10,7%"],
+     ["(a) / (b) — E7-med", "", '<span class="b">regret lớn nhất 0,1% (a) và −2,2% (b)</span>; (b): ít hơn LGB-Q 2,9–5,6% (M5), 9,5–14,7% (VN1)']], hl=(3,)) + """
+  <div class="box why" style="margin-top:28px"><p><b>Kết luận.</b> Hết hàng ảnh hưởng nhiều nhất tới TSB-NB và C2. E7-med (chốt trước) thì vững:
+  lợi thế còn rõ hơn khi bù nhu cầu. Cần dữ liệu tồn kho thật để kết luận chắc chắn.</p></div>
  </div>
-</div>""", "NGUỒN · code/censoring_check.py (thành viên A) · code/censoring_rank_check.py → code/outputs/censoring/censoring_rank_check.md",
+</div>""", "NGUỒN · code/censoring_check.py (thành viên A) · code/censoring_rank_check.py, censoring_rank_check_e7.py → code/outputs/censoring/",
       ["Reviewer hỏi: dữ liệu chỉ có doanh số, tuần hết hàng ghi nhận bằng 0, vậy thứ hạng có đổi không.",
        "Thành viên A phát hiện tuần nghi hết hàng từ doanh số. Nhóm kiểm tra hai kịch bản.",
-       "Trên chuỗi sạch, không đổi gì. Khi bù nhu cầu, TSB-NB bị ảnh hưởng nặng nhất vì xác suất có bán giảm trong các khoảng 0. Nhóm báo cáo trung thực trong bài."])
+       "Trên chuỗi sạch, không đổi gì. Khi bù nhu cầu, TSB-NB bị ảnh hưởng nặng nhất vì xác suất có bán giảm trong các khoảng 0, và regret của C2 tăng lên 9,8%.",
+       "Ngược lại, trung vị 7 phương pháp E7-med vẫn vững: regret lớn nhất 0,1% trên chuỗi sạch và −2,2% khi bù nhu cầu, tức tốt hơn phương pháp đơn tốt nhất ở mọi lần chạy."])
 
 slide("04", "4.12 Thanh lý và quy tắc dùng giá thu hồi hòa vốn s*", """
 <div class="row" style="gap:60px">
