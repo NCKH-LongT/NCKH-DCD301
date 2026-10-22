@@ -1,0 +1,9 @@
+M5 third n=28,824 done in 398s
+M5 second n=29,917 done in 471s
+M5 main n=30,381 done in 16516s
+D:\Term 8\Research Capstone\NCKH-DCD301\code\ensemble_ablation.py:111: RuntimeWarning: All-NaN slice encountered
+  best = np.nanmin(np.vstack(list(single.values())), 0)
+VN1 third n=9,383 done in 89s
+VN1 second n=11,442 done in 130s
+VN1 main n=13,844 done in 89s
+written D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\ensemble\ensemble_ablation.md
