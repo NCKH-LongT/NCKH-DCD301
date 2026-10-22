@@ -156,3 +156,22 @@ Nguồn: `code/censoring_rank_check.py` → `code/outputs/censoring/censoring_ra
   | VN1 thứ hai | LGB-T | TSB-NB |
 
 → **Kết luận:** thứ hạng vững khi bỏ các chuỗi nghi hết hàng, nhưng **nhạy với giả định về nhu cầu bị ẩn**. TSB-NB chịu ảnh hưởng nhiều nhất, nên lợi thế của C2 trên M5 phụ thuộc vào tỷ lệ chuỗi tuần bán bằng 0 thực sự là hết hàng. Trên VN1, C2 vẫn hơn LGB-Q trong mọi kịch bản. Trong bài phải nói đúng như vậy.
+
+## 7. Kết hợp cả 7 phương pháp và ablation (theo góp ý của thầy, ghi trước khi chạy — 22/10/2026)
+
+Mục đích: xem kết hợp nhiều phương pháp có cải thiện so với LGB-Q và C2 không, và phương pháp nào thật sự đóng góp.
+Dùng dự báo đã lưu (h = 3, chính sách mặc định L = 2, không thanh lý), cả M5 và VN1, ba cửa sổ. Không huấn luyện lại.
+
+**Các kết hợp** (trung bình phân vị, mỗi phân vị là trung bình hoặc trung vị của các thành viên):
+- E7 = trung bình 7 phương pháp (chính, theo góp ý của thầy); E7-med = trung vị 7 phương pháp (biến thể chống ngoại lai).
+- Ablation loại từng phương pháp: E7 − m, cho 7 phương pháp m.
+- Theo họ phương pháp: STAT3 (EMP, ETS, TSB-NB), GBM4 (LGB-T, LGB-C, HGB-Q, LGB-Q), DQ2 (LGB-Q, HGB-Q); C2 để đối chiếu.
+- Toàn bộ 127 tập con: tập con tốt nhất trong từng lần chạy = cận trên hồi cứu (không dùng được để triển khai).
+- Chọn tập con prospective: chọn tập con có regret thấp nhất trên cửa sổ trước, áp dụng nguyên cho cửa sổ sau (thứ ba → thứ hai, thứ hai → chính).
+
+**Thước đo:** wQL; tồn kho so với LGB-Q ở fill 0,92 và 0,94 (khoảng tin cậy bootstrap 95%, 200 lần); regret so với phương pháp đơn tốt nhất (trung bình fill 0,90–0,98), lấy giá trị lớn nhất qua 6 lần chạy.
+
+**Tiêu chí kết luận, chốt trước:**
+- E7 được coi là cải thiện nếu: regret lớn nhất qua 6 lần chạy thấp hơn của LGB-Q (9,4%), VÀ trên VN1 cần ít hàng hơn LGB-Q với khoảng tin cậy không chứa 0 ở ít nhất 2/3 cửa sổ, VÀ trên M5 không kém LGB-Q quá 1% ở cửa sổ nào.
+- Chọn tập con prospective được coi là hiệu quả nếu ở cả 4 lần chuyển (2 bộ × 2 lần chuyển) không kém LGB-Q, và ít nhất ở 2 lần chuyển tốt hơn với khoảng tin cậy không chứa 0.
+- Báo cáo mọi kết quả, kể cả khi không đạt.
