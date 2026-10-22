@@ -1,0 +1,13 @@
+M5 main alpha 0.01 clean 22,683/30,381
+M5 main alpha 0.05 clean 20,182/30,381
+M5 second alpha 0.01 clean 22,888/29,917
+M5 second alpha 0.05 clean 20,502/29,917
+M5 third alpha 0.01 clean 20,701/28,824
+M5 third alpha 0.05 clean 18,331/28,824
+VN1 main alpha 0.01 clean 11,411/13,844
+VN1 main alpha 0.05 clean 10,263/13,844
+VN1 second alpha 0.01 clean 9,315/11,442
+VN1 second alpha 0.05 clean 8,387/11,442
+VN1 third alpha 0.01 clean 7,566/9,383
+VN1 third alpha 0.05 clean 6,767/9,383
+written code/outputs/censoring/censoring_rank_check_e7.md
