@@ -175,3 +175,15 @@ Dùng dự báo đã lưu (h = 3, chính sách mặc định L = 2, không thanh
 - E7 được coi là cải thiện nếu: regret lớn nhất qua 6 lần chạy thấp hơn của LGB-Q (9,4%), VÀ trên VN1 cần ít hàng hơn LGB-Q với khoảng tin cậy không chứa 0 ở ít nhất 2/3 cửa sổ, VÀ trên M5 không kém LGB-Q quá 1% ở cửa sổ nào.
 - Chọn tập con prospective được coi là hiệu quả nếu ở cả 4 lần chuyển (2 bộ × 2 lần chuyển) không kém LGB-Q, và ít nhất ở 2 lần chuyển tốt hơn với khoảng tin cậy không chứa 0.
 - Báo cáo mọi kết quả, kể cả khi không đạt.
+
+## 8. Các điểm hoàn thiện P0–P1 (ghi trước khi chạy — 23/10/2026)
+
+Dùng dự báo h = 3 đã lưu, chính sách mặc định (L = 2, không thanh lý). Phương pháp: 7 phương pháp đơn, C2, E7-med.
+
+**P0-1 · τ chọn trước (prospective), thay cho so sánh ex-post.** Mức order-up-to cho τ liên tục được nội suy tuyến tính giữa các phân vị đã lưu. Với mỗi phương pháp, tìm τ* (chia đôi trên [0,5; 0,99]) sao cho fill thực tế ở **cửa sổ trước** bằng mục tiêu 0,92 hoặc 0,94; áp dụng nguyên τ* cho **cửa sổ sau** (thứ ba → thứ hai, thứ hai → chính). Báo cáo fill đạt được, sai lệch so với mục tiêu và tồn kho ở cửa sổ sau. Tiêu chí: kết luận ex-post "giữ" nếu ở cửa sổ sau, phương pháp dẫn đầu ex-post có fill đạt được không thấp hơn đối thủ quá 0,005 và cần ít tồn kho hơn (thống trị hoặc gần thống trị).
+
+**P0-2 · Bootstrap.** 1.000 lần lặp cho mỗi kiểu: (a) theo chuỗi (như bài, đối chứng); (b) cluster: M5 theo sản phẩm (3.049) và theo cửa hàng (10 cụm, ít nên chỉ để tham khảo); VN1 theo kho (328) và theo nhà bán (46); (c) block bootstrap theo tuần (khối 4 tuần, vòng tròn, trên 22 tuần đánh giá). Các so sánh kiểm tra: các khẳng định "khoảng tin cậy không chứa 0" trong bài (M5: LGB-Q so với LGB-T, LGB-C, TSB-NB, ETS ở fill 0,94; VN1 cửa sổ thứ hai: TSB-NB so với LGB-Q; VN1: E7-med và C2 so với LGB-Q ở fill 0,92). Tiêu chí: một khẳng định "giữ" nếu khoảng tin cậy vẫn không chứa 0 dưới mọi kiểu bootstrap (trừ cụm cửa hàng M5, chỉ báo cáo).
+
+**P1-4 · Hết hàng.** α ∈ {0,001; 0,01; 0,05; 0,1} × ba cách bù cho tuần bị gắn cờ: mean (mức bán TB trước kiểm thử, như bài), half (một nửa mức đó), pos (TB các tuần có bán, kịch bản mạnh). Báo cáo: người dẫn đầu, LGB-Q so với TSB-NB trên M5, E7-med so với LGB-Q, regret lớn nhất của E7-med, C2, LGB-Q.
+
+**P1-3 · Kiểm chứng độc lập:** không làm được với M5/VN1 (đã dùng hết dữ liệu); để cho bản tạp chí với bộ VNF. Ghi là giới hạn.
