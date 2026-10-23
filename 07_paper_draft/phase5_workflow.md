@@ -187,3 +187,17 @@ Dùng dự báo h = 3 đã lưu, chính sách mặc định (L = 2, không thanh
 **P1-4 · Hết hàng.** α ∈ {0,001; 0,01; 0,05; 0,1} × ba cách bù cho tuần bị gắn cờ: mean (mức bán TB trước kiểm thử, như bài), half (một nửa mức đó), pos (TB các tuần có bán, kịch bản mạnh). Báo cáo: người dẫn đầu, LGB-Q so với TSB-NB trên M5, E7-med so với LGB-Q, regret lớn nhất của E7-med, C2, LGB-Q.
 
 **P1-3 · Kiểm chứng độc lập:** không làm được với M5/VN1 (đã dùng hết dữ liệu); để cho bản tạp chí với bộ VNF. Ghi là giới hạn.
+
+## 9. Hiệu chỉnh τ theo quá khứ (P0) và kiểm chứng độc lập trên VNF (P1) — ghi trước khi chạy, 23/10/2026
+
+**P0 · Rolling calibration.** Trong cửa sổ đích, τ được cập nhật mỗi tuần chỉ bằng dữ liệu đã quan sát:
+τ_{k+1} = clip(τ_k + η·(mục tiêu − F_k), 0,5, 0,99), với F_k = fill của toàn danh mục từ đầu cửa sổ đến hết tuần k.
+- τ_0 = τ* chọn ở cửa sổ trước (M5, VN1: thứ ba → thứ hai, thứ hai → chính); η = 0,5 là cấu hình chính; η = 0,25 và 1,0 chỉ để kiểm tra độ nhạy.
+- Mục tiêu fill 0,92 và 0,94. Phương pháp: 7 đơn, C2, E7-med.
+- Báo cáo cùng lúc: fill đạt được trên 22 tuần đánh giá; |fill − mục tiêu|; vi phạm mục tiêu (fill cả cửa sổ < mục tiêu − 0,005; tỷ lệ tuần có fill 4 tuần gần nhất < mục tiêu); tồn kho; Δ tồn kho so với LGB-Q, kèm khoảng tin cậy bootstrap theo kho (VN1) / theo sản phẩm (M5), giữ nguyên đường đi của τ.
+- Tiêu chí: hiệu chỉnh được coi là "khắc phục" nếu với LGB-Q, HGB-Q, C2 và E7-med, |fill − mục tiêu| ≤ 1 điểm ở cả hai lần chuyển của VN1. E7-med được coi là "tốt hơn prospective" trên một lần chuyển nếu fill ≥ fill của LGB-Q − 0,5 điểm và tồn kho thấp hơn với khoảng tin cậy theo kho không chứa 0.
+
+**P1 · Kiểm chứng độc lập trên VNF** (giày dép Việt Nam, 909 chuỗi mẫu × màu, một cửa sổ 26 tuần; chưa từng dùng để thiết kế E7-med hay C2). Cấu hình giữ nguyên (trung vị/trung bình phân vị, cùng chính sách, cùng thước đo).
+- (a) Tồn kho ở cùng fill thực tế 0,92 và 0,94 so với LGB-Q, bootstrap theo chuỗi và theo mẫu giày (1.000 lần).
+- (b) Rolling calibration như P0, với τ_0 = mục tiêu (không có cửa sổ trước).
+- Tiêu chí: E7-med được coi là "kiểm chứng được" nếu ở fill 0,92 cần ít hàng hơn LGB-Q với khoảng tin cậy không chứa 0 dưới cả hai kiểu bootstrap. Nếu không đạt: giảm mức khẳng định về kết hợp trong Abstract và Conclusion.
