@@ -37,6 +37,26 @@ def table(head, rows, cls="spec small", num=(), hl=()):
     return f'<table class="{cls}"><tr>{h}</tr>{body}</table>'
 
 
+
+def table7_rows():
+    import pandas as pd
+    r = pd.read_csv(os.path.join(ROOT, "code", "outputs", "robustness", "rolling_calibration.csv"))
+    r = r[(r.eta == 0.5) & (r.target == 0.92)]
+    cols = [("M5", "third → second"), ("M5", "second → main"), ("VN1", "third → second"), ("VN1", "second → main"),
+            ("VNF", "main (τ0 = target)")]
+    sg = lambda v: f"{100 * v:+.1f}".replace(".", ",").replace("-", "−")
+    out = []
+    for m in ["LGB-Q", "HGB-Q", "TSB-NB", "C2", "E7-med"]:
+        row = [m]
+        for ds, tr in cols:
+            x = r[(r.dataset == ds) & (r.transition == tr) & (r.method == m)].iloc[0]
+            cell = f"{x.fill:.3f}".replace(".", ",") + " · "
+            cell += (f"{x.inv:.2f} tuần".replace(".", ",") if m == "LGB-Q"
+                     else f"{sg(x.d_inv)}% [{sg(x.lo)}; {sg(x.hi)}]")
+            row.append(cell)
+        out.append(row)
+    return out
+
 SLIDES = []
 
 
@@ -424,7 +444,22 @@ khi bootstrap theo kho, và trên dữ liệu độc lập. Kết luận trên M
        "Trên VN1, lợi thế của E7-med không giữ khi hiệu chỉnh τ chỉ bằng quá khứ, khi bootstrap theo kho, và không được xác nhận trên bộ giày dép độc lập VNF.",
        "Nhóm báo cáo trung thực: kết hợp là kết quả thăm dò, LGB-Q là lựa chọn mặc định."])
 
-slide("04", "4.10 Độ vững: lead time, chi phí mất khách, deep learning", """
+slide("04", "4.10 Kết quả prospective: fill đạt được và tồn kho cùng lúc <span class=\"flag\">BẢNG 7</span>", table(
+    ["Phương pháp", "M5 3→2", "M5 2→chính", "VN1 3→2", "VN1 2→chính", "Giày dép (VNF)"], table7_rows(), hl=(0,)) + """
+<div class="grid2" style="grid-template-columns:1.15fr 1fr;gap:36px;margin-top:26px">
+ <div class="box"><span class="tag">CÁCH ĐỌC</span>
+  <p>Mỗi ô: <b style="color:var(--ink)">fill đạt được · tồn kho so với LGB-Q</b> [khoảng tin cậy 95% theo cụm: M5 sản phẩm, VN1 kho, VNF mẫu giày].
+  Mục tiêu fill 0,92; τ cập nhật hằng tuần chỉ bằng fill đã quan sát. <b style="color:var(--ink)">Chỉ coi là tiết kiệm khi fill lệch nhau dưới 0,5 điểm.</b></p></div>
+ <div class="box"><span class="tag">BỘ ĐỘC LẬP · GIÀY DÉP VIỆT NAM</span>
+  <p>Kaggle (tienanh2003/sales-and-inventory-snapshot-data), kênh bán lẻ; 909 chuỗi mẫu × màu, 82 tuần (01/2022–07/2023), một cửa sổ 26 tuần từ 30/01/2023;
+  cùng pipeline, 21 đặc trưng; không dùng để thiết kế tổ hợp.</p></div>
+</div>""", "NGUỒN · code/rolling_calibration.py → code/outputs/robustness/rolling_calibration.csv · bài báo Bảng 7, mục 3.1 và 5.8",
+      ["Đây là Bảng 7 của bài: đánh giá theo cách triển khai thật, nên báo cáo fill đạt được cạnh tồn kho, không chỉ tồn kho.",
+       "Trên VN1 và bộ giày dép, E7-med không lần nào cần ít hàng hơn LGB-Q một cách có ý nghĩa ở fill tương đương; C2 làm được một lần ở VN1.",
+       "TSB-NB, phương pháp thắng ex-post ở cửa sổ thứ hai VN1, khi triển khai lại cần thêm 28–33% hàng.",
+       "Bộ giày dép là dữ liệu độc lập: LGB-Q cần ít hàng nhất ở cùng fill."])
+
+slide("04", "4.11 Độ vững: lead time, chi phí mất khách, deep learning", """
 <div class="grid2" style="gap:40px 60px">
  <div class="box"><span class="tag">LEAD TIME 1, 2, 4 TUẦN · 18 LẦN CHẠY</span><h3>C2 2,0% · LGB-Q 12,6%</h3>
   <p>Regret lớn nhất so với phương pháp đơn tốt nhất trong sáu phương pháp (không có HGB-Q).</p></div>
@@ -439,7 +474,7 @@ slide("04", "4.10 Độ vững: lead time, chi phí mất khách, deep learning"
        "Quy ra chi phí: nếu mất khách cực kỳ đắt, phương pháp chính xác nhất LGB-Q mới là lựa chọn tốt nhất.",
        "N-HiTS chạy dạng tiêu chuẩn, không tinh chỉnh, cần nhiều hàng hơn LGB-Q trên M5."])
 
-slide("04", "4.11 Chi phí tính toán so với hiệu quả tồn kho <span class=\"flag\">REVIEWER · MỤC 3</span>", table(
+slide("04", "4.12 Chi phí tính toán so với hiệu quả tồn kho <span class=\"flag\">REVIEWER · MỤC 3</span>", table(
     ["Phương pháp", "Loại", "Thời gian · M5", "Thời gian · VN1", "Tồn kho vs LGB-Q (fill 0,92)"],
     [["TSB-NB", "thống kê", "1,1–2,3 phút", "≈ 0,5 phút", "M5 +5,5 đến +10,4% · VN1 −11,3 đến +25,1%"],
      ["LGB-Q", "ML toàn cục, 5 mô hình", "10–21 phút", "2,4–4,4 phút", "mốc so sánh"],
@@ -454,7 +489,7 @@ thời gian đo trên hai máy (N-HiTS M5 trên máy thành viên B), chỉ đú
       ["Reviewer hỏi về đánh đổi giữa chi phí tính toán và hiệu quả của mô hình zero-shot so với N-HiTS.",
        "Chronos-2 không cần huấn luyện nhưng suy luận trên CPU mất 5,4 giờ mỗi cửa sổ M5 và cần nhiều hàng nhất. Đây là kết quả cho bản tiêu chuẩn, không phải giới hạn trên của foundation model."])
 
-slide("04", "4.12 Hết hàng có làm đổi thứ hạng? <span class=\"flag\">REVIEWER · MỤC 2</span>", """
+slide("04", "4.13 Hết hàng có làm đổi thứ hạng? <span class=\"flag\">REVIEWER · MỤC 2</span>", """
 <div class="row" style="gap:50px">
  <div style="width:600px">
   <div class="box"><span class="tag">PHÁT HIỆN TỪ DOANH SỐ</span>
@@ -477,7 +512,7 @@ slide("04", "4.12 Hết hàng có làm đổi thứ hạng? <span class=\"flag\"
        "Trên chuỗi sạch, không đổi gì. Khi bù nhu cầu, TSB-NB bị ảnh hưởng nặng nhất vì xác suất có bán giảm trong các khoảng 0, và regret của C2 tăng lên 9,8%.",
        "Ngược lại, trung vị 7 phương pháp E7-med vẫn vững: regret lớn nhất 0,1% trên chuỗi sạch và −2,2% khi bù nhu cầu, tức tốt hơn phương pháp đơn tốt nhất ở mọi lần chạy."])
 
-slide("04", "4.13 Thanh lý và quy tắc dùng giá thu hồi hòa vốn s*", """
+slide("04", "4.14 Thanh lý và quy tắc dùng giá thu hồi hòa vốn s*", """
 <div class="row" style="gap:60px">
  <div style="flex:1">
   <div class="row" style="gap:70px;margin-bottom:30px">
@@ -532,7 +567,7 @@ slide("05", "Những điều bài chưa trả lời được", table(
 
 slide("05", "Tổng kết", """
 <ol class="steps" style="max-width:1560px">
- <li><b>Chính xác nhất chưa chắc giữ ít hàng nhất</b>Trên M5 thì trùng (LGB-Q); trên VN1 thì không: cửa sổ thứ hai TSB-NB cần ít hơn LGB-Q 8,8% dù sai số cao hơn.</li>
+ <li><b>Thứ hạng bất ổn giữa bối cảnh và giai đoạn</b>Trên M5, chính xác nhất cũng là ít hàng nhất (LGB-Q); trên VN1 thì không: cửa sổ thứ hai TSB-NB cần ít hơn LGB-Q 8,8% dù sai số cao hơn.</li>
  <li><b>Không chọn trước được theo nhóm</b>ADI–CV², phân cụm hay cửa sổ trước đều không ổn định; khác biệt M5–VN1 vẫn còn sau khi cân lại thành phần chuỗi.</li>
  <li><b>Lợi thế ex-post chưa chắc giữ khi triển khai</b>Trung vị 7 phương pháp giảm 7–8% tồn kho trên VN1 ex-post, nhưng không giữ khi chọn τ bằng quá khứ, bootstrap theo kho và trên dữ liệu độc lập; LGB-Q là mặc định đáng tin.</li>
  <li><b>Thanh lý theo quy tắc r ≥ s*</b>Trên VN1 cần thu hồi khoảng 0,91–1,21 giá vốn mới có lợi trong 26 tuần.</li>
