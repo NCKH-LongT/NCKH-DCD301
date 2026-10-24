@@ -8,7 +8,7 @@ so both runs start from the same state), all quantities in units valued at unit 
     s* = [ΔOrders − ΔEndPosition + h·ΔInventoryUnitWeeks − (1 + m)·ΔSales] / LiquidatedUnits
 
 s* is the minimum salvage value (as a fraction of unit cost) at which liquidating is at least as profitable as
-holding. h = weekly holding cost rate (annual rate / 52), m = gross margin (price = (1 + m)·cost). End position
+holding. h = weekly holding cost rate (annual rate / 52), m = markup on cost (price = (1 + m)·cost). End position
 (on-hand + on order) is valued either (a) at cost — favourable to holding, gives an upper bound of s* — or
 (b) at the same salvage ratio s, i.e. leftover stock is eventually cleared too — gives a lower bound:
     s*_b = [ΔOrders + h·ΔInventoryUnitWeeks − (1 + m)·ΔSales] / (LiquidatedUnits + ΔEndPosition).

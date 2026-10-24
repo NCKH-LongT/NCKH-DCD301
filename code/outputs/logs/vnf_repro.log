@@ -1,0 +1,91 @@
+VNF: 1,001 series x 82 weeks; test weeks 2023-01-30 .. 2023-07-24; evaluated series 909
+  classes: {'all': 909, 'smooth': 187, 'erratic': 285, 'intermittent': 272, 'lumpy': 165}
+  forecasting empirical, h=3 ...
+    done in 1s
+  forecasting empirical, h=13 ...
+    done in 1s
+  forecasting tsb_nb, h=3 ...
+    done in 1s
+  forecasting tsb_nb, h=13 ...
+    done in 1s
+  forecasting ets, h=3 ...
+    done in 0s
+  forecasting ets, h=13 ...
+    done in 0s
+  forecasting lgb_tweedie, h=3 ...
+    block cutoff 56: train 21,465 rows, valid 11,407, predict 11,817
+      tweedie: 65 rounds (1s)
+    block cutoff 69: train 32,872 rows, valid 11,803, predict 11,817
+      tweedie: 165 rounds (1s)
+    done in 2s
+  forecasting lgb_tweedie, h=13 ...
+    block cutoff 56: train 13,286 rows, valid 10,730, predict 11,817
+      tweedie: 162 rounds (0s)
+    block cutoff 69: train 24,016 rows, valid 11,569, predict 11,817
+      tweedie: 193 rounds (1s)
+    done in 1s
+  forecasting lgb_conformal, h=3 ...
+    block cutoff 56: conformal on 11,407 validation residuals (0s)
+    block cutoff 69: conformal on 11,803 validation residuals (1s)
+    done in 1s
+  forecasting lgb_conformal, h=13 ...
+    block cutoff 56: conformal on 10,730 validation residuals (0s)
+    block cutoff 69: conformal on 11,569 validation residuals (1s)
+    done in 1s
+  forecasting hgb_quantile, h=3 ...
+    block cutoff 56: train 21,465 rows, predict 11,817
+      q=0.5: 300 iterations (5s)
+      q=0.8: 300 iterations (7s)
+      q=0.9: 180 iterations (12s)
+      q=0.95: 119 iterations (16s)
+      q=0.99: 79 iterations (18s)
+    block cutoff 69: train 32,872 rows, predict 11,817
+      q=0.5: 300 iterations (11s)
+      q=0.8: 300 iterations (21s)
+      q=0.9: 241 iterations (29s)
+      q=0.95: 147 iterations (35s)
+      q=0.99: 78 iterations (38s)
+    done in 57s
+  forecasting hgb_quantile, h=13 ...
+    block cutoff 56: train 13,286 rows, predict 11,817
+      q=0.5: 300 iterations (7s)
+      q=0.8: 300 iterations (14s)
+      q=0.9: 300 iterations (22s)
+      q=0.95: 300 iterations (29s)
+      q=0.99: 109 iterations (30s)
+    block cutoff 69: train 24,016 rows, predict 11,817
+      q=0.5: 300 iterations (10s)
+      q=0.8: 300 iterations (20s)
+      q=0.9: 300 iterations (27s)
+      q=0.95: 280 iterations (30s)
+      q=0.99: 89 iterations (30s)
+    done in 61s
+  forecasting lgb_quantile, h=3 ...
+    block cutoff 56: train 21,465 rows, valid 11,407, predict 11,817
+      q=0.5: 289 rounds (1s)
+      q=0.8: 109 rounds (1s)
+      q=0.9: 61 rounds (1s)
+      q=0.95: 46 rounds (2s)
+      q=0.99: 56 rounds (2s)
+    block cutoff 69: train 32,872 rows, valid 11,803, predict 11,817
+      q=0.5: 47 rounds (1s)
+      q=0.8: 185 rounds (1s)
+      q=0.9: 846 rounds (3s)
+      q=0.95: 740 rounds (5s)
+      q=0.99: 247 rounds (6s)
+    done in 8s
+  forecasting lgb_quantile, h=13 ...
+    block cutoff 56: train 13,286 rows, valid 10,730, predict 11,817
+      q=0.5: 66 rounds (0s)
+      q=0.8: 38 rounds (0s)
+      q=0.9: 18 rounds (0s)
+      q=0.95: 4 rounds (1s)
+      q=0.99: 86 rounds (1s)
+    block cutoff 69: train 24,016 rows, valid 11,569, predict 11,817
+      q=0.5: 70 rounds (0s)
+      q=0.8: 199 rounds (1s)
+      q=0.9: 61 rounds (1s)
+      q=0.95: 58 rounds (1s)
+      q=0.99: 362 rounds (2s)
+    done in 3s
+finished in 142s -> D:\Term 8\Research Capstone\NCKH-DCD301\code\outputs\VNF_repro

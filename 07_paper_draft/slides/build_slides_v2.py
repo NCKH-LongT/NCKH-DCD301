@@ -521,7 +521,7 @@ slide("04", "4.14 Thanh lý và quy tắc dùng giá thu hồi hòa vốn s*", "
   </div>
   <div class="box"><span class="tag">GIÁ THU HỒI HÒA VỐN</span>
    <p class="formula">s* = [ΔO − ΔE + h·ΔI − (1+m)·ΔS] / Q</p>
-   <p>ΔO hàng đặt, ΔE vị thế cuối kỳ (tính theo giá vốn), ΔI tồn kho, ΔS doanh số, Q lượng thanh lý; h chi phí giữ tuần, m biên lợi nhuận.
+   <p>ΔO hàng đặt, ΔE vị thế cuối kỳ (tính theo giá vốn), ΔI tồn kho, ΔS doanh số, Q lượng thanh lý; h chi phí giữ tuần, m tỷ lệ markup trên giá vốn.
    s* là cận trên.</p></div>
  </div>
  <div style="width:640px">
