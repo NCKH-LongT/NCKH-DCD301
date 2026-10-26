@@ -51,8 +51,9 @@ def table7_rows():
         for ds, tr in cols:
             x = r[(r.dataset == ds) & (r.transition == tr) & (r.method == m)].iloc[0]
             cell = f"{x.fill:.3f}".replace(".", ",") + " · "
+            dag = "†" if m != "LGB-Q" and abs(x.d_fill) >= 0.005 else ""
             cell += (f"{x.inv:.2f} tuần".replace(".", ",") if m == "LGB-Q"
-                     else f"{sg(x.d_inv)}% [{sg(x.lo)}; {sg(x.hi)}]")
+                     else f"{sg(x.d_inv)}%{dag} [{sg(x.lo)}; {sg(x.hi)}]")
             row.append(cell)
         out.append(row)
     return out
@@ -449,7 +450,8 @@ slide("04", "4.10 Kết quả prospective: fill đạt được và tồn kho c�
 <div class="grid2" style="grid-template-columns:1.15fr 1fr;gap:36px;margin-top:26px">
  <div class="box"><span class="tag">CÁCH ĐỌC</span>
   <p>Mỗi ô: <b style="color:var(--ink)">fill đạt được · tồn kho so với LGB-Q</b> [khoảng tin cậy 95% theo cụm: M5 sản phẩm, VN1 kho, VNF mẫu giày].
-  Mục tiêu fill 0,92; τ cập nhật hằng tuần chỉ bằng fill đã quan sát. <b style="color:var(--ink)">Chỉ coi là tiết kiệm khi fill lệch nhau dưới 0,5 điểm.</b></p></div>
+  Mục tiêu fill 0,92 ở mọi cột; τ cập nhật hằng tuần chỉ bằng fill đã quan sát. <b style="color:var(--ink)">† = fill lệch LGB-Q từ 0,5 điểm trở lên, không so sánh ngang hàng.</b>
+  Còn <b style="color:var(--ink)">13/20</b> phép so sánh được (không phép nào ở bộ giày dép): 2 tiết kiệm có ý nghĩa, 8 cần nhiều hàng hơn LGB-Q, 3 không kết luận.</p></div>
  <div class="box"><span class="tag">BỘ ĐỘC LẬP · GIÀY DÉP VIỆT NAM</span>
   <p>Kaggle (tienanh2003/sales-and-inventory-snapshot-data), kênh bán lẻ; 909 chuỗi mẫu × màu, 82 tuần (01/2022–07/2023), một cửa sổ 26 tuần từ 30/01/2023;
   cùng pipeline, 21 đặc trưng; không dùng để thiết kế tổ hợp.</p></div>
