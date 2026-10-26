@@ -15,7 +15,7 @@ import copy
 import docx
 
 AUTHORS = [("Duy Anh Bui", "1"), ("Huy Gia Tran Khong", "1"), ("Huong Cam Thi Nguyen", "1"), ("Long Truong", "1*")]
-AFFILIATIONS = [("1", "FPT University, Ho Chi Minh City, Vietnam")]
+AFFILIATIONS = [("1", "Faculty of Software Engineering, FPT University, Ho Chi Minh City, Vietnam")]
 CORRESPONDING_EMAIL = "longt5@fpt.edu.vn"
 OLD_REF_NAMES = "Bùi Anh Duy, Khổng Trần Gia Huy, Nguyễn Thị Cẩm Hương, and Trương Long."
 NEW_REF_NAMES = "Duy Anh Bui, Huy Gia Tran Khong, Huong Cam Thi Nguyen, and Long Truong."
