@@ -121,8 +121,85 @@ def main():
         "policy.",
         "Quantile liquidation reduces VN1 inventory at a fill-rate cost of at most 0.02 points, but its economic value is "
         "not established under the assumed costs; stock-availability records and longer horizons are the next tests.")
+    # second set of cuts: the tables kept whole and moved below their first mention leave less room
+    cut("Censored demand. Both datasets record sales",
+        "Censoring could also be handled in training, treating flagged weeks as missing or right-censored with an "
+        "expectation–maximisation step or a censored likelihood [28], censored quantile regression [29] or a survival "
+        "model of the time between sales; we leave this to future work.",
+        "Censoring could also be handled in training, with a censored likelihood [28] or censored quantile regression "
+        "[29]; we leave this to future work.")
+    cut("Adaptive updating.",
+        "More frequent or warm-started refits, recency weighting or re-tuning could reduce that lag but were not tested.",
+        "More frequent refits or recency weighting could reduce that lag but were not tested.")
+    cut("Limitations. Recorded sales stand in for demand",
+        "Nabil et al. [27] forecast spare-part demand with a two-stage LightGBM/XGBoost model (an occurrence classifier "
+        "times a size regressor) and set stock with a normal safety factor; a quantile version of this design is not "
+        "tested here.",
+        "A quantile version of the two-stage occurrence-times-size LightGBM/XGBoost model of Nabil et al. [27] is not "
+        "tested here.")
+    keep_tables_together(d)
+    move_figure_after(d, "The stable-demand VN1 group favours")
+    move_table_after(d, "Table 1:", "Independent panel.")
+    move_table_after(d, "Table 4:", "The stable-demand VN1 group favours")
+    move_table_after(d, "Table 7:", "On VN1, the retrospective demand split")
     d.save(a.out)
     print("written", a.out, "|", names.text, "|", aff.text, "|", mail.text)
+
+
+def move_figure_after(d, anchor_start):
+    """Float Figure 1 (image paragraph + caption) to the end of Section 5.2 so that it does not leave half a page empty
+    once tables are kept together."""
+    from docx.oxml.ns import qn
+    cap = [p for p in d.paragraphs if p.style.name == "FigureCaption"]
+    assert len(cap) == 1
+    img = cap[0]._p.getprevious()
+    assert list(img.iter(qn("w:drawing"))), "no image paragraph before the figure caption"
+    anchor = [p for p in d.paragraphs if p.text.startswith(anchor_start)]
+    assert len(anchor) == 1
+    anchor[0]._p.addnext(img)
+    img.addnext(cap[0]._p)
+
+
+def move_table_after(d, caption_start, anchor_start):
+    """Move a table (caption, table and the empty paragraph after it) to follow another paragraph of the same section."""
+    from docx.oxml.ns import qn
+    cap = [p for p in d.paragraphs if p.text.startswith(caption_start)]
+    anchor = [p for p in d.paragraphs if p.text.startswith(anchor_start)]
+    assert len(cap) == 1 and len(anchor) == 1
+    tbl = cap[0]._p.getnext()
+    assert tbl.tag == qn("w:tbl")
+    block = [cap[0]._p, tbl]
+    nxt = tbl.getnext()
+    if nxt is not None and nxt.tag == qn("w:p") and not "".join(x.text or "" for x in nxt.iter(qn("w:t"))).strip():
+        block.append(nxt)
+    prev = anchor[0]._p
+    for el in block:
+        prev.addnext(el)
+        prev = el
+
+
+def keep_tables_together(d):
+    """Short tables never split across pages: rows cannot break, every row is kept with the next, the caption above
+    each table is kept with it. Long tables (> 15 rows) may break between rows; their first row is a header row that
+    Word repeats on the next page, and the caption stays with the header."""
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
+    for t in d.tables:
+        rows = t.rows
+        long_table = len(rows) > 15          # may break across pages, with its header row repeated
+        for k, row in enumerate(rows):
+            trPr = row._tr.get_or_add_trPr()
+            for tag in ("w:cantSplit",) + (("w:tblHeader",) if k == 0 else ()):
+                if trPr.find(qn(tag)) is None:
+                    trPr.append(OxmlElement(tag))
+            if k < len(rows) - 1 and (not long_table or k == 0):
+                for p_el in row._tr.iter(qn("w:p")):          # every paragraph, merged cells included
+                    docx.text.paragraph.Paragraph(p_el, None).paragraph_format.keep_with_next = True
+        prev = t._tbl.getprevious()
+        while prev is not None and prev.tag == qn("w:p") and not "".join(x.text or "" for x in prev.iter(qn("w:t"))).strip():
+            prev = prev.getprevious()
+        if prev is not None and prev.tag == qn("w:p"):
+            docx.text.paragraph.Paragraph(prev, None).paragraph_format.keep_with_next = True
 
 
 if __name__ == "__main__":
