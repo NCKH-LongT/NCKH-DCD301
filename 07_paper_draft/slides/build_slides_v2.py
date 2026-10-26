@@ -40,8 +40,8 @@ def table(head, rows, cls="spec small", num=(), hl=()):
 
 def table7_rows():
     import pandas as pd
-    r = pd.read_csv(os.path.join(ROOT, "code", "outputs", "robustness", "rolling_calibration.csv"))
-    r = r[(r.eta == 0.5) & (r.target == 0.92)]
+    r = pd.read_csv(os.path.join(ROOT, "code", "outputs", "robustness", "full_policy_bootstrap.csv"))
+    r = r.rename(columns={"dinv_lo": "lo", "dinv_hi": "hi"})
     cols = [("M5", "third → second"), ("M5", "second → main"), ("VN1", "third → second"), ("VN1", "second → main"),
             ("VNF", "main (τ0 = target)")]
     sg = lambda v: f"{100 * v:+.1f}".replace(".", ",").replace("-", "−")
@@ -449,13 +449,13 @@ slide("04", "4.10 Kết quả prospective: fill đạt được và tồn kho c�
     ["Phương pháp", "M5 3→2", "M5 2→chính", "VN1 3→2", "VN1 2→chính", "Giày dép (VNF)"], table7_rows(), hl=(0,)) + """
 <div class="grid2" style="grid-template-columns:1.15fr 1fr;gap:36px;margin-top:26px">
  <div class="box"><span class="tag">CÁCH ĐỌC</span>
-  <p>Mỗi ô: <b style="color:var(--ink)">fill đạt được · tồn kho so với LGB-Q</b> [khoảng tin cậy 95% theo cụm: M5 sản phẩm, VN1 kho, VNF mẫu giày].
+  <p>Mỗi ô: <b style="color:var(--ink)">fill đạt được · tồn kho so với LGB-Q</b> [khoảng tin cậy 95% full-policy: lấy mẫu lại theo cụm và tính lại đường đi τ trong từng lần lặp; M5 sản phẩm, VN1 kho, VNF mẫu giày].
   Mục tiêu fill 0,92 ở mọi cột; τ cập nhật hằng tuần chỉ bằng fill đã quan sát. <b style="color:var(--ink)">† = fill lệch LGB-Q từ 0,5 điểm trở lên, không so sánh ngang hàng.</b>
-  Còn <b style="color:var(--ink)">13/20</b> phép so sánh được (không phép nào ở bộ giày dép): 2 tiết kiệm có ý nghĩa, 8 cần nhiều hàng hơn LGB-Q, 3 không kết luận.</p></div>
+  Còn <b style="color:var(--ink)">13/20</b> phép so sánh được (không phép nào ở bộ giày dép): 1 tiết kiệm có ý nghĩa (C2 trên VN1), 5 cần nhiều hàng hơn LGB-Q, 7 không kết luận.</p></div>
  <div class="box"><span class="tag">BỘ ĐỘC LẬP · GIÀY DÉP VIỆT NAM</span>
   <p>Kaggle (tienanh2003/sales-and-inventory-snapshot-data), kênh bán lẻ; 909 chuỗi mẫu × màu, 82 tuần (01/2022–07/2023), một cửa sổ 26 tuần từ 30/01/2023;
   cùng pipeline, 21 đặc trưng; không dùng để thiết kế tổ hợp.</p></div>
-</div>""", "NGUỒN · code/rolling_calibration.py → code/outputs/robustness/rolling_calibration.csv · bài báo Bảng 7, mục 3.1 và 5.8",
+</div>""", "NGUỒN · code/rolling_calibration.py, full_policy_bootstrap.py → code/outputs/robustness/ · bài báo Bảng 7, mục 3.1 và 5.8",
       ["Đây là Bảng 7 của bài: đánh giá theo cách triển khai thật, nên báo cáo fill đạt được cạnh tồn kho, không chỉ tồn kho.",
        "Trên VN1 và bộ giày dép, E7-med không lần nào cần ít hàng hơn LGB-Q một cách có ý nghĩa ở fill tương đương; C2 làm được một lần ở VN1.",
        "TSB-NB, phương pháp thắng ex-post ở cửa sổ thứ hai VN1, khi triển khai lại cần thêm 28–33% hàng.",
