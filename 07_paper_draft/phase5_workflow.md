@@ -201,3 +201,23 @@ Dùng dự báo h = 3 đã lưu, chính sách mặc định (L = 2, không thanh
 - (a) Tồn kho ở cùng fill thực tế 0,92 và 0,94 so với LGB-Q, bootstrap theo chuỗi và theo mẫu giày (1.000 lần).
 - (b) Rolling calibration như P0, với τ_0 = mục tiêu (không có cửa sổ trước).
 - Tiêu chí: E7-med được coi là "kiểm chứng được" nếu ở fill 0,92 cần ít hàng hơn LGB-Q với khoảng tin cậy không chứa 0 dưới cả hai kiểu bootstrap. Nếu không đạt: giảm mức khẳng định về kết hợp trong Abstract và Conclusion.
+
+## 10. Kế hoạch hoàn thiện cuối (26/10/2026) — ghi trước khi chạy
+
+Baseline đã khoá: tag `rev18-baseline` (repo nhóm 525b1dc; repo công khai 859451a). Bảng 7 của rev18 khớp 25/25 ô với rolling_calibration.csv.
+
+**Hạng mục 2 · Full-policy cluster bootstrap (P0).** Giữ nguyên dự báo, chính sách, lead time, warm-up và quy tắc
+τ_{t+1} = clip(τ_t + 0,5·(0,92 − F_t), 0,5, 0,99), τ_0 như rev18. Mỗi lần lặp lấy mẫu lại cụm (M5 sản phẩm, VN1 kho, giày dép mẫu giày)
+→ trọng số chuỗi = số lần cụm được chọn; F_t tính lại trên danh mục có trọng số; **đường đi τ được cập nhật lại** và tồn kho mô phỏng lại
+trong từng lần lặp. Mọi phương pháp dùng cùng một mẫu (so sánh cặp). 1.000 lần lặp chính; 2.000 lần cho LGB-Q và E7-med để kiểm tra độ ổn định.
+Báo cáo: fill đạt được, tồn kho, vi phạm mục tiêu, ΔI và Δfill so với LGB-Q, khoảng 95% percentile. Số liệu điểm (mẫu gốc) phải trùng rev18.
+Nếu khoảng tin cậy chứa 0: ghi "không đủ bằng chứng", không ghi "không có hiệu ứng".
+
+**Hạng mục 4 · Đánh đổi tồn kho – dịch vụ (P0).** Phân loại mỗi phép so sánh: đạt mục tiêu (|fill − 0,92| < 0,005) hay không;
+so sánh được (|Δfill| < ngưỡng) hay không, với ngưỡng 0,25 / 0,5 / 1,0 điểm. Đếm số tiết kiệm có ý nghĩa / cần nhiều hàng hơn / không kết luận
+theo từng ngưỡng, dùng khoảng tin cậy từ hạng mục 2. Không gọi là tiết kiệm khi fill không tương đương.
+
+**Hạng mục 3 · Ranking reversal (P1, sau P0).** Đơn vị: kho của VN1. Kết quả: log tỷ số tồn kho TSB-NB / LGB-Q ở fill 0,92 trong từng kho
+(chỉ kho đủ chuỗi và đạt mục tiêu). Biến giải thích, chỉ từ dữ liệu trước cửa sổ: tăng trưởng 13 tuần gần nhất so với 13 tuần trước đó,
+ADI, CV², tỷ lệ tuần = 0, độ dài lịch sử, quy mô. Ước lượng trên cửa sổ thứ ba, kiểm tra dự báo trên cửa sổ thứ hai và chính (tương quan hạng
+giữa dự báo và kết quả). Báo cáo cả khi không tìm thấy yếu tố dự báo đáng tin.
