@@ -152,6 +152,16 @@ def main():
         "which can leave global models behind level shifts")
     cut("Limitations. Recorded sales stand in for demand", "two-stage occurrence-times-size LightGBM/XGBoost model",
         "two-stage LightGBM/XGBoost model")
+    # reviewer wording points: negative regret explained, retrospective vs prospective made explicit, two phrasing fixes
+    cut("Censored demand. Both datasets record sales", "and −2.2% under imputation,",
+        "and −2.2% under imputation (negative: less stock than the best single method in every run),")
+    cut("Prospective τ, resampling and a third dataset.", "whereas for the matched-fill comparisons",
+        "whereas for the retrospective matched-fill comparisons")
+    cut("Independent panel.", "existed before, but were not used for, specifying the combinations.",
+        "existed before but were not used to specify the combinations.")
+    cut("Hyperparameters. Refitting LGB-Q and LGB-T", "Hyperparameters. Refitting LGB-Q and LGB-T for h = 3",
+        "Hyperparameters. When LGB-Q and LGB-T are refitted for h = 3")
+    cut("Hyperparameters. When LGB-Q", "L2 penalty 10) trees leaves LGB-Q", "L2 penalty 10) trees, LGB-Q stays")
     # three keywords; generative-AI disclosure required by the ACM authorship policy, as a run-in paragraph before the
     # references (same style as "Limitations." and "Toward deployment.")
     cut("Additional Keywords and Phrases:",
