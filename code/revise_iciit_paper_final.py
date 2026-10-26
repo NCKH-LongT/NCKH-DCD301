@@ -19,6 +19,8 @@ AUTHORS = [("Duy Anh Bui", "1"), ("Huy Gia Tran Khong", "1"), ("Huong Cam Thi Ng
 AFFILIATIONS = [("1", "Faculty of Software Engineering, FPT University, Ho Chi Minh City, Vietnam")]
 CORRESPONDING_EMAIL = "longt5@fpt.edu.vn"
 OLD_REF_NAMES = "Bùi Anh Duy, Khổng Trần Gia Huy, Nguyễn Thị Cẩm Hương, and Trương Long."
+AI_DISCLOSURE = ("Acknowledgments. The authors used an AI assistant for language editing and code support; all analyses, results and "
+                 "conclusions were checked by the authors, who take full responsibility for the content.")
 NEW_REF_NAMES = "Duy Anh Bui, Huy Gia Tran Khong, Huong Cam Thi Nguyen, and Long Truong."
 
 
@@ -137,6 +139,32 @@ def main():
         "tested here.",
         "A quantile version of the two-stage occurrence-times-size LightGBM/XGBoost model of Nabil et al. [27] is not "
         "tested here.")
+    cut("Censored demand. Both datasets record sales", " Stock-availability records would be needed to settle these effects.", "")
+    cut("Toward deployment.", "LGB-Q is the safer default, and retrospective savings alone do not justify a switch.",
+        "LGB-Q is the safer default.")
+    cut("How the quantiles are constructed also matters", "the disagreement with [7] and [23].", "the disagreement with [7, 23].")
+    cut("Adaptive updating.", "More frequent refits or recency weighting could reduce that lag but were not tested.",
+        "More frequent refits or recency weighting were not tested.")
+    cut("Limitations. Recorded sales stand in for demand", "of Nabil et al. [27] is not tested here.",
+        "of Nabil et al. [27] is untested.")
+    cut("How the quantiles are constructed also matters", "Different quantile construction may explain", "This may explain")
+    cut("Adaptive updating.", "which can leave the global models a block behind level shifts",
+        "which can leave global models behind level shifts")
+    cut("Limitations. Recorded sales stand in for demand", "two-stage occurrence-times-size LightGBM/XGBoost model",
+        "two-stage LightGBM/XGBoost model")
+    # three keywords; generative-AI disclosure required by the ACM authorship policy, as a run-in paragraph before the
+    # references (same style as "Limitations." and "Toward deployment.")
+    cut("Additional Keywords and Phrases:",
+        "; quantile regression; demand segmentation; liquidation; M5; VN1", "")
+    refs_head = [p for p in d.paragraphs if p.text.strip() == "REFERENCES"]
+    assert len(refs_head) == 1
+    body = refs_head[0]._p.getprevious()
+    text_el = copy.deepcopy(body)
+    body.addnext(text_el)
+    t = docx.text.paragraph.Paragraph(text_el, None)
+    for r in t.runs[1:]:
+        r._r.getparent().remove(r._r)
+    t.runs[0].text = AI_DISCLOSURE
     keep_tables_together(d)
     move_figure_after(d, "The stable-demand VN1 group favours")
     move_table_after(d, "Table 1:", "Independent panel.")
