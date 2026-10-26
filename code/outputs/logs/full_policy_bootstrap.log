@@ -1,0 +1,6 @@
+M5 third → second clusters 3048, 2000 replicates in 399s
+M5 second → main clusters 3049, 2000 replicates in 330s
+VN1 third → second clusters 292, 2000 replicates in 138s
+VN1 second → main clusters 320, 2000 replicates in 161s
+VNF None → main clusters 146, 2000 replicates in 6s
+written full_policy_bootstrap.md; max fill deviation from rev18 0.0
