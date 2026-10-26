@@ -11,6 +11,7 @@ Usage:
 """
 import argparse
 import copy
+import re
 
 import docx
 
@@ -78,6 +79,48 @@ def main():
             break
     else:
         raise SystemExit("reference names are split across runs; not changed")
+
+    # ACM conventions (acmart template): reference line with venue, dates and length; "Table 1:" / "Figure 1:" captions
+    old_venue = "(ICIIT 2027). ACM, New York, NY, USA."
+    new_venue = "(ICIIT 2027), March 4–7, 2027, Ho Chi Minh City, Vietnam. ACM, New York, NY, USA, 10 pages."
+    r = [r for r in ref[0].runs if old_venue in r.text]
+    assert len(r) == 1
+    r[0].text = r[0].text.replace(old_venue, new_venue)
+    n_cap = 0
+    for p in d.paragraphs:
+        m = re.match(r"^(Table|Figure) (\d+)\.", p.text)
+        if m and p.style.name in ("TableCaption", "FigureCaption"):
+            first = p.runs[0]
+            assert first.text.startswith(m.group(0))
+            first.text = first.text.replace(m.group(0), f"{m.group(1)} {m.group(2)}:", 1)
+            n_cap += 1
+    assert n_cap == 8, n_cap
+
+    # compensating cuts for the longer reference line (10 pages)
+    def cut(start, old, new):
+        p = [p for p in d.paragraphs if p.text.startswith(start)]
+        assert len(p) == 1 and len(p[0].runs) == 1 and old in p[0].text, start
+        p[0].runs[0].text = p[0].text.replace(old, new)
+    cut("On VN1, the retrospective demand split",
+        " Theodorou et al. [7] similarly find cases in which forecast accuracy and inventory cost favour different methods, "
+        "though under different service and cost settings.", "")
+    cut("Neural baseline. We evaluated",
+        "It predicts quantiles of cumulative h-week demand with a multi-quantile loss, is refitted every 13 weeks and uses "
+        "fixed hyperparameters.",
+        "It predicts h-week demand quantiles and is refitted every 13 weeks with fixed hyperparameters.")
+    cut("Toward deployment.",
+        "A candidate should be frozen and run in shadow mode beside it for several review cycles, with achieved fill and "
+        "upper-quantile coverage monitored, where TSB-NB under-covers.",
+        "A frozen candidate should first run in shadow mode beside it, with achieved fill and upper-quantile coverage "
+        "monitored.")
+    cut("Limitations. Recorded sales stand in for demand", " Chronos-2 [22] ran zero-shot only.", "")
+    cut("Quantile liquidation reduces inventory on VN1",
+        "Quantile liquidation reduces inventory on VN1 while changing fill rate by at most 0.02 percentage points. Its "
+        "economic value is not established under the assumed costs over 26 weeks. Useful next tests would use "
+        "stock-availability records, longer liquidation horizons and more forecasting architectures under the same stock "
+        "policy.",
+        "Quantile liquidation reduces VN1 inventory at a fill-rate cost of at most 0.02 points, but its economic value is "
+        "not established under the assumed costs; stock-availability records and longer horizons are the next tests.")
     d.save(a.out)
     print("written", a.out, "|", names.text, "|", aff.text, "|", mail.text)
 
